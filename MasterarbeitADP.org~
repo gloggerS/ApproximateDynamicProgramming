@@ -1,0 +1,33 @@
+#+TAGS: github pdf book
+
+* Overall
+** https://vhbonline.org/vhb4you/jourqual/vhb-jourqual-archiv/jq1/teilranking-logistik-operations-research-produktion/
+** Goals
+*** Get insights into research in OR
+*** Explore chair of Prof. Klein (do I want to do a PhD there)
+*** Implement a problem in Python
+*** Aim for a paper (ultimate goal)
+
+
+* Literature
+** https://github.com/tristanguigue/dynamic-programming		     :github:
+** https://github.com/edouardberthe/ADPPortfolioSelection	     :github:
+** https://arxiv.org/pdf/1810.08124.pdf					:pdf:
+** https://arxiv.org/pdf/1810.03847.pdf					:pdf:
+** Dynamic programming and optimal control			       :book:
+*** 0002/MAT 917f 2005 A 10033-2(3)
+*** 0005/MAT 917f 2005 A 10033-2
+*** 0102/MAT 917f 2001 A 9434 
+** Approximate dynamic programming: solving the curses of dimensionality :book:
+*** 0002/MAT 917f 2009 A 36(2) 
+
+* Structure of work
+** Literature research
+** Methods research
+** Find idea
+** Work on idea
+** Implement idea
+** Write down idea
+** Execute implementation
+** Write down results
+** 

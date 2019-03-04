@@ -1,0 +1,53 @@
+#+TAGS: github pdf book
+
+* Overall
+** https://vhbonline.org/vhb4you/jourqual/vhb-jourqual-archiv/jq1/teilranking-logistik-operations-research-produktion/
+** Goals
+*** Get insights into research in OR
+*** Explore chair of Prof. Klein (do I want to do a PhD there)
+*** Implement a problem in Python
+*** Aim for a paper (ultimate goal)
+
+
+* Literature
+** https://github.com/tristanguigue/dynamic-programming		     :github:
+** https://github.com/edouardberthe/ADPPortfolioSelection	     :github:
+** https://arxiv.org/pdf/1810.08124.pdf					:pdf:
+** https://arxiv.org/pdf/1810.03847.pdf					:pdf:
+** Dynamic programming and optimal control			       :book:
+*** 0002/MAT 917f 2005 A 10033-2(3)
+*** 0005/MAT 917f 2005 A 10033-2
+*** 0102/MAT 917f 2001 A 9434 
+** Approximate dynamic programming: solving the curses of dimensionality :book:
+*** 0002/MAT 917f 2009 A 36(2) 
+
+* Structure of work
+** Literature research
+** Methods research
+** Find idea
+** Work on idea
+** Implement idea
+** Write down idea
+** Execute implementation
+** Write down results
+** 
+
+* 05.03.  Treffen mit Prof. Klein
+** Zeitplan besprechen
+Excel Dokument durchgehen
+Was finden Sie überraschend?
+Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
+** Vorgehen bzgl der Kommunikation mit Prof Klein
+Statusupdates wie für Prof Zagst in Forschungsphase am Ende des Monats?
+** Thema eingrenzen
+Schnittstellen zu Share-a-Ride (Lukas Janinhoff)
+** Erwartungen abstecken
+bisher noch sehr freies Thema
+tue mir schwer zu unterscheiden zwischen Paper und Masterarbeit (IR-Phase bei Okhrin: sind gerade in Veröffentlichugnsprozess)
+möchte den Lehrstuhl kennenlernen (dafür war Mittagessen schon gute Gelegenheit; Tutorien wsl. schon alle vergeben (aber könnte mir gut vorstellen, am Lehrstuhl zu unterstützen)
+Projekt in Python implementieren (Zusammenspiel Python und Gurobi, Simulationsstudie)
+** Arbeitsweise 
+Ansprechpartner am Lehrstuhl (Betreuer): 
+Sprache der Abschlussarbeit: englisch (vor Hintergrund Paper)
+Anmeldung bei FIM: übernehme ich
+Zwischenpräsentation und Abschlusspräsentation während  Masterandenseminar: mit Betreuer abstimmen
