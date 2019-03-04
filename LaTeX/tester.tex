@@ -1,0 +1,53 @@
+% based on scrbook
+\documentclass[
+fontsize=11pt, %font size
+%paper=a4, %paper format
+headsepline, %separating line for header
+chapterprefix, % produce "Chapter ..."
+numbers=noenddot, % no full-stop after last number
+listof=totoc, %Entry in table of contents for list of figures/tables
+index=totoc, %Entry in table of contents for index
+bibliography=totoc, %Entry in table of contents for bibliography
+%BCOR=5mm,%Binding correction, ensures sufficient space for binding
+%todo change this to final to switch off for expamle the showlabels
+%todo manually put 'disable' in front of usepackage{todonotes}
+%final,%
+]%
+{scrbook}%
+
+\usepackage{graphicx}
+\usepackage{tabularx}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+
+\begin{document}
+	
+\begin{tabularx}{\textwidth}{LYR}
+	\includegraphics[height=2cm, keepaspectratio,]{logo_uniAugsburg.png} &
+		\includegraphics[height=1.8cm, keepaspectratio,]{logo_AnalyticsAndOptimization.jpg} &
+	\includegraphics[height=2cm, keepaspectratio,]{logo_fim_de_rot.png}
+\end{tabularx}
+
+%
+%\begin{figure}
+%\begin{subfigure}[b]{0.32\textwidth}
+%	\includegraphics[height=2cm, keepaspectratio,]{logo_uniAugsburg.png}
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.32\textwidth}
+%	\includegraphics[height=2cm, keepaspectratio,]{logo_fim_de_rot.png}
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.32\textwidth}
+%	\includegraphics[height=1.8cm, keepaspectratio,]{logo_AnalyticsAndOptimization.jpg}
+%\end{subfigure}
+
+%	\parbox{4cm}{\includegraphics[height=2cm, keepaspectratio,]{logo_uniAugsburg.png}}&
+%	\parbox{4cm}{\includegraphics[height=2cm, keepaspectratio,]{logo_fim_de_rot.png}}&
+%	\parbox{4cm}{\includegraphics[height=1.8cm, keepaspectratio,]{logo_AnalyticsAndOptimization.jpg}}\\
+%\end{figure}
+
+
+\end{document}

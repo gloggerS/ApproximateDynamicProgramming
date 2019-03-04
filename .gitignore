@@ -1,0 +1,12 @@
+# zu ignorierende Ordner
+########################
+Literatur/
+0-OrganisatorischesVorab/
+
+# LaTeX Ordner bis auf Tex-Files
+/LaTeX/*
+!/LaTeX/*.tex
+
+# Excel Sheets
+########################
+*.xlsx

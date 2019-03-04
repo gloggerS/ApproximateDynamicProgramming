@@ -1,0 +1,161 @@
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+%\textwidth =170mm
+%\textheight=205mm
+%\oddsidemargin=-8mm
+%\evensidemargin=-8mm
+
+\usepackage{geometry}
+\geometry{
+a4paper,
+total={150mm,205mm},
+left=15mm,
+right=50mm,
+}
+
+% 
+
+% --------- Packages ----------
+%\NeedsTeXFormat{LaTeX2e}
+%\usepackage[dvips]{epsfig}
+%\usepackage[latin1]{inputenc}
+\usepackage[ngerman]{babel} 
+\usepackage{a4wide}
+%\usepackage{psfig}
+\usepackage{fancyhdr}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage{paralist}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage{caption}
+\usepackage{floatflt}
+\usepackage{afterpage}
+\usepackage{graphicx}
+\usepackage{moreverb}     
+%\usepackage[]{mcode}
+\usepackage{bbm}
+
+
+
+
+% \usepackage{tabulary} % to set dith to side width and use left/right alignment
+%\usepackage{showframe} % show margin of page
+
+
+
+\usepackage{mathtools}
+\usepackage[intoc]{nomencl}
+\makenomenclature
+
+% math
+\usepackage{mathtools} % successor of \usepackage{amsmath}
+\usepackage{amssymb,amsfonts}
+\setcounter{MaxMatrixCols}{10} % leftover from Marcos
+
+
+
+%% bibliography
+%%\usepackage[style=authoryear, backend=biber]{biblatex}
+%%%\usepackage{biblatex}
+%%\bibliography{bib}
+%\usepackage[round, sort, comma]{natbib}
+%\bibliographystyle{apalike}
+
+
+% fraction for floats
+\renewcommand{\floatpagefraction}{0.8}
+%\renewcommand{\textfraction}{0.15}
+
+
+% prevent floats from floating too much around (stay in one section)
+%\usepackage[section]{placeins}
+
+% adjust font of abbreviations
+\usepackage{helvet}
+\renewcommand{\nomlabel}[1]{{\fontfamily{phv}\selectfont \textbf{#1}}} %bold Helvetica
+
+% nice table
+\usepackage{booktabs}
+
+
+% ---------------------------------------------------------------------------------------------
+% OWN PACKAGES 
+% ---------------------------------------------------------------------------------------------
+
+% tables
+\usepackage{longtable}
+\usepackage{tabularx} % especially for the title page
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\usepackage{multicol}
+
+% language
+\usepackage[utf8]{inputenc} % to type ä,ö,ü,...
+
+
+% fast text
+\usepackage{lipsum}
+
+% bibliography
+\usepackage[round, sort, comma]{natbib}
+\bibliographystyle{apalike}
+
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+
+
+% quotes
+\usepackage{csquotes}
+\usepackage[%
+%	allbordercolors=black,
+urlcolor=blue,
+linkcolor=blue,
+citecolor=.
+]{hyperref}
+\usepackage{cleveref}
+
+
+% to show the assigned labels
+% has to be included after the packages amsmath and hyperref
+\usepackage{showlabels}
+
+% todo
+\usepackage%
+[textwidth=40mm,
+%disable%
+]%
+{todonotes}
+
+
+\usepackage{float}
+
+%bold math symbols
+\usepackage{bm}
+
+% multiple figures
+\usepackage{subcaption}
+

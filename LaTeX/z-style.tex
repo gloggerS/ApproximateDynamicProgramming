@@ -1,0 +1,38 @@
+% switched to .tex as then commands are directly included in AutoFill
+
+% own package
+% https://www.sharelatex.com/learn/Writing_your_own_package#Options
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{z-style}
+
+
+% colours
+\RequirePackage[dvipsnames]{xcolor}
+\definecolor{colStefan}{HTML}{e68a00}
+\definecolor{colIdea}{HTML}{00cc00}
+
+\RequirePackage{xstring} % for if statements
+
+
+
+
+
+%todoNotes
+\newcommand{\todoBib}[1]{\todo[color=green!40]{#1}}
+\newcommand{\todoRed}[2][noinline]{\todo[color=red!40, #1]{#2}}
+\newcommand{\todoCurrentWork}[1]{\todo[inline, color=red!60]{CURRENTLY WORKING HERE: #1}\vspace*{5cm}}
+\newcommand{\todoRequirememnt}[1]{\todo[color=cyan!10]{#1}}
+
+
+
+
+
+% nicer coloured box
+% https://tex.stackexchange.com/questions/66154/how-to-construct-a-coloured-box-with-rounded-corners
+\usepackage[most]{tcolorbox}
+\RequirePackage{tcolorbox}
+\newtcolorbox{boxStefan}{colback=colStefan!5!white,colframe=colStefan!90}
+\newtcolorbox{boxIdea}{colback=colIdea!5!white,colframe=colIdea!90}
+
+
