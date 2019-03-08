@@ -1,4 +1,5 @@
-#+TAGS: github pdf book
+#+TAGS: github pdf book Treffen
+#+STARTUP: entitiespretty
 
 * Overall
 ** https://vhbonline.org/vhb4you/jourqual/vhb-jourqual-archiv/jq1/teilranking-logistik-operations-research-produktion/
@@ -9,11 +10,15 @@
 *** Aim for a paper (ultimate goal)
 
 
+* Persönliches
+Bin ein fleißiger Arbeiter, aber es werden wohl Phasen kommen, in denen es schleppender vorangeht. Ich glaube, ich ertappe mich dann wieder dabei, zu denken, dass Bichler und Auktionen auch ein schönes Thema gewesen wäre. Aber das ist vergangen! Ich bin jetzt hier bei Klein!
+Werte, die mir wichtig sind:  Pflichtbewusstsein, Disziplin, Bescheidenheit, 
+
+
 * Literature
 ** https://github.com/tristanguigue/dynamic-programming		     :github:
 ** https://github.com/edouardberthe/ADPPortfolioSelection	     :github:
-** https://arxiv.org/pdf/1810.08124.pdf					:pdf:
-** https://arxiv.org/pdf/1810.03847.pdf					:pdf:
+** https://prezi.com/vy11aa1lt8cp/an-approximate-dynamic-programming-algorithm-for-large-scale-fleet-management-a-case-application/ 
 ** Dynamic programming and optimal control			       :book:
 *** 0002/MAT 917f 2005 A 10033-2(3)
 *** 0005/MAT 917f 2005 A 10033-2
@@ -30,23 +35,216 @@
 ** Write down idea
 ** Execute implementation
 ** Write down results
-** 
 
-* 05.03.  Treffen mit Prof. Klein
+* 05.03.  Treffen mit Prof. Klein				    :Treffen:
+  SCHEDULED: <2019-03-05 Di>
+** Erwartungen abstecken
+bisher noch sehr freies Thema
+tue mir schwer zu unterscheiden zwischen Paper und Masterarbeit (IR-Phase bei Okhrin: sind gerade in Veröffentlichugnsprozess)
+möchte den Lehrstuhl kennenlernen (dafür war Mittagessen schon gute Gelegenheit; Tutorien wsl. schon alle geplant (aber könnte mir gut vorstellen, am Lehrstuhl zu unterstützen)
+*** Was ich lernen möchte
+Literaturarbeit
+(Themenfindung)
+Persönliches Projektmanagement
+Projekt in Python implementieren (Zusammenspiel Python und Gurobi (?), Simulationsstudie)
+Lehrstuhl und dessen Aufgaben kennenlernen 
 ** Zeitplan besprechen
 Excel Dokument durchgehen
 Was finden Sie überraschend?
 Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
-** Vorgehen bzgl der Kommunikation mit Prof Klein
-Statusupdates wie für Prof Zagst in Forschungsphase am Ende des Monats?
 ** Thema eingrenzen
-** Erwartungen abstecken
-bisher noch sehr freies Thema
-tue mir schwer zu unterscheiden zwischen Paper und Masterarbeit (IR-Phase bei Okhrin: sind gerade in Veröffentlichugnsprozess)
-möchte den Lehrstuhl kennenlernen (dafür war Mittagessen schon gute Gelegenheit; Tutorien wsl. schon alle vergeben (aber könnte mir gut vorstellen, am Lehrstuhl zu unterstützen)
-Projekt in Python implementieren (Zusammenspiel Python und Gurobi)
+Themenbereiche, die mich interessieren: *Optimierung*, Statistik, Finanzen
+Themen/Problemstellungen, die im Paper "Approximate Dynamic Programming for Planning a Ride-Sharing System using Autonomous Fleets of Electric Vehicles" angesprochen sind: *dispatch problem*, surge pricing problem, fleet size problem, *simulator*
+Schnittstellen zu Share-a-Ride (Lukas Janinhoff)
 ** Arbeitsweise 
-Ansprechpartner am Lehrstuhl (Betreuer): 
+*** abzusprechen 
+Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
 Sprache der Abschlussarbeit: englisch (vor Hintergrund Paper)
+Arbeit in LaTeX: würde ich gerne machen, habe ich schon angefangen
+Seitenumfang: gibt es Vorgaben?
 Anmeldung bei FIM: übernehme ich
 Zwischenpräsentation und Abschlusspräsentation während  Masterandenseminar: mit Betreuer abstimmen
+Statusupdates (wie für Prof Zagst in Forschungsphase) am Ende des Monats?
+*** persönlich
+Tagebuch: Mittels Github Erfolge loggen und Commit Messages hernehmen, um Arbeit nachzuvollziehen
+Bin auch eingeschrieben zu Informatik-Studium, primär aus Interesse; Fokus auf Masterarbeit
+** Gedanken
+Powell scheint mir gerade den Bereich zu dominieren (was ich bisschen bedenklich finde, da einseitig)
+gibt es Benchmark-Modelle, die man schlagen kann (wobei das schlichte Optimierung wäre; etwas neues zu finden wäre noch spannender; aber ist das noch im Rahmen einer Masterarbeit?)
+arxiv Sachen sind ja noch nicht wirklich veröffentlicht. Wie wird das im Bereich OR gesehen, kann man sich darauf berufen/zitieren?
+** Notizen
+Erst gemeinsam zum Essen beim Griechen  gefahren (Klein fährt weißen M3 BMW). Und auch so breit gesprochen über Lehre an Uni (Ordinarius vs Professor, Lehre an Uni, Suche / Angebot nach Tutorenjob erwähnt, evtl. Erstellung Übungsaufgaben, für Promotion dann auch eigene Vorlesung gestalten, möglicherweise zu Künstlicher Intelligenz). Lehrstuhl ist geldtechnisch gut ausgestattet, sodass er auch mal mit Graphikkarten rechnen würde.
+David Fleckenstein hat die Arbeit schonmal geschrieben, bzw ein Seminar dazu. Drei Paper anschauen und implementieren. 
+Ggf. Projekt mit Flixbus machbar.
+Ziel: Methoden und Modelle kennenlernen
+
+
+* 07.03. Treffen mit Sebastian Koch				    :Treffen:
+  SCHEDULED: <2019-03-07 Do>
+** Erwartungen abstecken
+*** Meinerseits
+Ich möchte die Methoden und Modelle zur Lösung von Customer Choice Problemen verstehen und anwenden
+Ich möchte den Lehrstuhl kennenlernen
+Ich möchte eine gute Masterarbeit schreiben
+tue mir schwer zu unterscheiden zwischen Paper und Masterarbeit (IR-Phase bei Okhrin: sind gerade in Veröffentlichugnsprozess)
+*** Was ich lernen möchte
+(Themenfindung)
+Literaturarbeit
+Persönliches Projektmanagement
+Projekt in Python implementieren (Zusammenspiel Python und Gurobi (?), Simulationsstudie), IDE dafür?
+*** Sebastian Koch
+
+** Thema 
+*** Erstellung von mehreren Beispieldatensätzen gemäß Koch (2017)
+Customer Stream gemäß den Spezifikationen meint, erstelle pro Customer Stream eine Sample Pfad über den Zeitraum T, in welcher in jeder Zeiteinheit max. ein Kunde von einem bestimmten Segment erscheint und dieser auch schon ein bestimmtes Produkt mit einer bestimmten Wkeit nachfrägt. Sollte dann in diesem Zeitraum unsere Politik (Welche Elemente wir im Offer-Set anbieten) das gewünschte Produkt anbieten, so erhält der Kunde das Produkt, bezahlt dafür und die Kapazität verringert sich.
+| Parameter              | Single-leg flight     | PF | HS1 | HS2 | HS3 | HS4 |
+|------------------------+-----------------------+----+-----+-----+-----+-----|
+| *same*                 |                       |    |     |     |     |     |
+|------------------------+-----------------------+----+-----+-----+-----+-----|
+| num products           | 4                     |    |     |     |     |     |
+| revenue r              | (1000, 800, 600, 400) |    |     |     |     |     |
+| periods T              | 400                   |    |     |     |     |     |
+| num customer seg       | 1                     |    |     |     |     |     |
+| arrival prob \lambda         | 0.5                   |    |     |     |     |     |
+| preference weights u   | (0.4, 0.8, 1.2, 1.6)  |    |     |     |     |     |
+|------------------------+-----------------------+----+-----+-----+-----+-----|
+| *differing*            |                       |    |     |     |     |     |
+|------------------------+-----------------------+----+-----+-----+-----+-----|
+| no-purchase preference | {1,2,3}               |    |     |     |     |     |
+| capacitiy              | {40, 60, ..., 120}    |    |     |     |     |     |
+*** Implementierung von ausgewählten Modellen in den Papern Talluri and van Ryzin, Liu and van Ryzin, Bront and Mendez-Diaz
+**** Verwendete Modelle
+| Paper                      | Methode                                      | Kommentar                            |
+|----------------------------+----------------------------------------------+--------------------------------------|
+| Talluri, van Ryzin         | ESMR-b with Buy-up                           |                                      |
+|                            | choice based DP with Efficient Sets          |                                      |
+|----------------------------+----------------------------------------------+--------------------------------------|
+| Liu, van Ryzin             | Column Generation                            |                                      |
+|                            | Decomposition Approximation                  | nur für network                      |
+|                            | DP decomposition based on independent demand |                                      |
+|                            | static CDLP solution                         |                                      |
+|                            | choice-based decomposition heuristic         |                                      |
+|----------------------------+----------------------------------------------+--------------------------------------|
+| Miranda Bront, Mendez-Diaz | offline: Assessing Value of Capacity         | Erweiterung für overlapping segments |
+|                            | online: Compute Offer Sets Dynamically       |                                      |
+|                            | DCOMP                                        |                                      |
+|                            | DCOMP-0.5                                    |                                      |
+|                            | CDLP                                         |                                      |
+|                            | RCDLP                                        |                                      |
+|                            | ROPT-freq                                    |                                      |
+**** Underlying Models for Customer Behavior: 
+***** Independent Demand Model
+***** Multinomial Logit Choice Model
+***** Lowest Open Fare Model
+*** Zusammenschreiben der Ergebnisse
+** Zeitplan besprechen
+*** allgemein
+Excel Dokument durchgehen
+Was finden Sie überraschend?
+Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
+
+Termine allgemein: nicht am Freitag?
+in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
+*** bis zum näcshten Treffen
+**** TODO Simulationsstudie erstellen (Fokus auf Implementierung)
+**** TODO Dynamisches Programm dazu
+**** TODO Bellmannsche Funktionalgleichung anfügen
+**** DONE Paper Talluri und van Ryzin lesen
+    SCHEDULED: <2019-03-06 Mi>
+    
+**** TODO Paper Liu und van Ryzin lesen
+    SCHEDULED: <2019-03-07 Do>
+**** TODO Paper Miranda Bront lesen
+    SCHEDULED: <2019-03-07 Do>
+**** TODO Paper Talluri und van Ryzin zusammenfassen [0/5]
+***** TODO Identifiziertes Problem
+***** TODO Schwierigkeiten
+***** TODO Vorgehen zur Lösung
+***** TODO Resultate
+***** TODO Fragen meinerseits
+**** TODO Paper Liu und van Ryzin zusammenfassen [0/5]
+***** TODO Identifiziertes Problem
+***** TODO Schwierigkeiten
+***** TODO Vorgehen zur Lösung
+***** TODO Resultate
+***** TODO Fragen meinerseits
+**** TODO Paper Miranda Bront zusammenfassen [0/5]
+***** TODO Identifiziertes Problem
+***** TODO Schwierigkeiten
+***** TODO Vorgehen zur Lösung
+***** TODO Resultate
+***** TODO Fragen meinerseits
+**** TODO Python Skills auffrischen
+**** TODO Probedatensatz mit Customer History implementieren (Single-leg flight)
+**** TODO Paper Talluri und van Ryzin nachimplementieren [0/5]
+***** TODO Effiziente Sets bestimmen graphisch
+***** TODO Effiziente Sets bestimmen über Optimierung
+***** TODO RM mit effizienten Sets?
+***** TODO RM mit EMSR-b with Buy-Up
+***** TODO Numerische Vergleiche auf dem Beispieldatensatz (automatisiert)
+** Arbeitsweise 
+*** abzusprechen 
+Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
+Sprache der Abschlussarbeit: deutsch (Ticken besseres Sprachgefühl)
+Arbeit in LaTeX: sieht für mich am schönsten aus, habe  schon angefangen
+Seitenumfang: gibt es Vorgaben? 60
+Anmeldung bei FIM: übernehme ich
+Zwischenpräsentation und Abschlusspräsentation während Masterandenseminar: mit Prof. Klein abstimmen
+Programmiersprache: Python
+*** Sebastian Koch
+Was ist Ihnen wichtig in der Zusammenarbeit?
+*** persönlich
+Tagebuch: Mittels Github Erfolge loggen und Commit Messages hernehmen, um Arbeit nachzuvollziehen
+Bin auch eingeschrieben zu Informatik-Studium, primär aus Interesse; Fokus auf Masterarbeit
+
+** Gedanken
+Haben Sie noch Tipps für "schlaues Arbeiten" an der Masterarbeit?
+kleine Ziele setzen und erreichen motiviert
+** Notizen
+wird in nächster Zeit auch einiges an Overhead geben
+erstmal ist Ziel zu lernen, wie es geht (Programmieren, etc)
+dann gehts auch weiter in Richtung Künstlicher Intelligenz
+* Notizen zur Arbeit
+** Simulationsstudie
+Single Leg Beispiel
+* Arbeit strukturieren                                              :ARCHIVE:
+** unmittelbar nächste Zeit                                        :ARCHIVE:
+*** DONE Mail an Sebastian
+    CLOSED: [2019-03-06 Mi 10:16]
+
+*** DONE Zeiplan überarbeiten
+    SCHEDULED: <2019-03-06 Mi>
+*** DONE Arbeitsweise mit Sebastian Koch abstimmen
+SCHEDULED: <2019-03-07 Do>
+
+* Tagebuch
+
+** Persönliche Vorbereitung<2019-03-04 Mo>
+Projekt strukturiert
+Paper zu Fleet-Management im automobilen E-Auto-Kontext erneut überflogen
+LaTeX aufgesetzt
+Github aufgesetzt
+Citavi aufgesetzt
+
+** Treffen mit Prof. Klein <2019-03-05 Di>
+Ausgedehntes Mittagessen beim Griechen mit Auto von Klein hingefahren
+Gespräch zur Masterarbeit mit Methoden und Modellen verstehen
+Allgemeines Gespräch zu wie Uni funktioniert oder zu Klausuren
+Angesprochen, dass ich als Tutor unterstützen würde
+Klein schickte mir Paper zu
+
+** Paper lesen und Orga <2019-03-06 Mi>
+Talluri gelesen
+Termin mit Sebastian vereinbart
+Org-Dokument weiter verbessert
+
+** Termin mit Sebastian<2019-03-07 Do>
+In Miranda, Bront und Liu reingelesen
+Zeitplan überarbeitet
+Mit Sebastian Per-Du -erneut? :D
+Vorgehen erneut angepasst
+Python Tutorials gelistet
+Memoisation gelernt
+Spyder geupdated
+eigenen Zeitplan erstellen
+Tagebuch begonnen (wobei das mit Org-Mode vermutlich noch effizienter gestaltet werden kann)
