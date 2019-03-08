@@ -320,3 +320,4 @@ Verschiedene Python IDEs ausprobieren (Spyder, Pycharm, Rodeo)
 RStudio gewohnt und ziemlich gut (Autocompletion, Plots, Documentation, Refactoring)
 Simulationsstudie implementiert
 Python Tutorials weiter gelesen
+Etwas code refactoring (nach PEP-8 Konventionen)
