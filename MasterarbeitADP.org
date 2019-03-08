@@ -1,6 +1,12 @@
 #+TAGS: github pdf book Treffen
 #+STARTUP: entitiespretty
 
+* 26.03. Treffen mit Sebastian
+** Implementierung
+*** vektorisierte Implementierung nicht möglich wegen variablem Offerset
+Idee: Am schnellsten ist vektorisierte Implementierung. Weiß über alle Perioden, welche Kunden kommen und welche Präferenzen diese haben. Dann mit Zufallszahl über alle Perioden die verkauften Produkte erfassen mit ihrem Revenue. Und zum Schluss Kapazitäten anpassen, ob noch was vorhanden (Daten kappen). 
+Klappt nicht: Offerset ändert sich je nach verfügbarer Kapazität.
+
 * Overall
 ** https://vhbonline.org/vhb4you/jourqual/vhb-jourqual-archiv/jq1/teilranking-logistik-operations-research-produktion/
 ** Goals
@@ -147,6 +153,13 @@ Termine allgemein: nicht am Freitag?
 in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 *** bis zum näcshten Treffen
 **** TODO Simulationsstudie erstellen (Fokus auf Implementierung)
+***** DONE Probedatensatz mit Customer History implementieren (Single-leg flight)
+CLOSED: [2019-03-08 Fr 09:47]
+***** DONE Vektorisierte Simulationsstudie
+CLOSED: [2019-03-08 Fr 09:53]
+CLOCK: [2019-03-08 Fr 09:47]--[2019-03-08 Fr 09:48] =>  0:01
+***** TODO Sequentielle Simulationsstudie mit teilweiser Vektorisierung
+***** TODO Darstellung des Verkaufs über die 
 **** TODO Dynamisches Programm dazu
 **** TODO Bellmannsche Funktionalgleichung anfügen
 **** DONE Paper Talluri und van Ryzin lesen
@@ -157,6 +170,7 @@ in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 **** TODO Paper Miranda Bront lesen
     SCHEDULED: <2019-03-07 Do>
 **** TODO Paper Talluri und van Ryzin zusammenfassen [0/5]
+SCHEDULED: <2019-03-08 Fr>
 ***** TODO Identifiziertes Problem
 ***** TODO Schwierigkeiten
 ***** TODO Vorgehen zur Lösung
@@ -174,8 +188,60 @@ in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 ***** TODO Vorgehen zur Lösung
 ***** TODO Resultate
 ***** TODO Fragen meinerseits
-**** TODO Python Skills auffrischen
-**** TODO Probedatensatz mit Customer History implementieren (Single-leg flight)
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [10/38]
+CLOCK: [2019-03-08 Fr 08:45]--[2019-03-08 Fr 09:11] =>  0:26
+***** DONE Geschichte von Python
+CLOSED: [2019-03-08 Fr 08:32]
+***** DONE Interaktiver Modus
+CLOSED: [2019-03-08 Fr 08:33]
+***** DONE Code ausführen
+CLOSED: [2019-03-08 Fr 08:33]
+***** DONE Blöcke
+CLOSED: [2019-03-08 Fr 08:33]
+***** DONE Datentypen und Variablen
+CLOSED: [2019-03-08 Fr 08:45]
+CLOCK: [2019-03-08 Fr 08:40]--[2019-03-08 Fr 08:45] =>  0:05
+:PROPERTIES:
+:ORDERED:  t
+:END:
+***** DONE Operatoren
+CLOSED: [2019-03-08 Fr 08:48]
+***** DONE Flaches und tiefes Kopieren
+CLOSED: [2019-03-08 Fr 08:53]
+***** DONE Bedingte Anweisungen
+CLOSED: [2019-03-08 Fr 08:56]
+***** DONE Eingabe mit input und raw_input
+CLOSED: [2019-03-08 Fr 08:59]
+***** TODO while-Schleife
+***** TODO for-Schleife
+***** TODO Ausgabe mit print
+***** TODO Formatierte Ausgabe
+***** TODO Sequentielle Datentypen
+***** TODO Listen manipulieren
+***** TODO Mengen
+***** TODO Dictionaries
+***** TODO Funktionen
+***** TODO Parameter-Übergabe
+***** TODO Globale und lokale Variablen
+***** TODO Rekursion und Rekursive Funktionen
+***** DONE Memoisation und Python-Dekorateure
+CLOSED: [2019-03-08 Fr 09:07]
+***** TODO Namensräume
+***** TODO Dateien
+***** TODO Module und Pakete
+***** TODO Tests
+***** TODO Reguläre Ausdrücke
+***** TODO Reguläre Ausdrücke, Fortgeschrittene
+***** TODO Lambda-Operator, map- filter- und reduce-Funktion
+***** TODO Listen-Abstraktion (List Comprehension)
+***** TODO Generatoren
+***** TODO Ausnahme-Behandlung
+***** TODO Klassen
+***** TODO Slots
+***** TODO Class und type
+***** TODO Hin zu Metaklassen
+***** TODO Metaklassen
+***** TODO Beispiel für Metaklassen
 **** TODO Paper Talluri und van Ryzin nachimplementieren [0/5]
 ***** TODO Effiziente Sets bestimmen graphisch
 ***** TODO Effiziente Sets bestimmen über Optimierung
@@ -248,3 +314,9 @@ Memoisation gelernt
 Spyder geupdated
 eigenen Zeitplan erstellen
 Tagebuch begonnen (wobei das mit Org-Mode vermutlich noch effizienter gestaltet werden kann)
+
+** Experimentieren mit Python<2019-03-08 Fr>
+Verschiedene Python IDEs ausprobieren (Spyder, Pycharm, Rodeo)
+RStudio gewohnt und ziemlich gut (Autocompletion, Plots, Documentation, Refactoring)
+Simulationsstudie implementiert
+Python Tutorials weiter gelesen
