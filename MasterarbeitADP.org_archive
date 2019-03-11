@@ -19,3 +19,31 @@ Archived entries from file c:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/Mas
   :ARCHIVE_OLPATH: Literature
   :ARCHIVE_CATEGORY: MasterarbeitADP
   :END:
+
+* DONE Effizienzvergleich Sample vs Simulationsstudie wie von Sebastian
+:PROPERTIES:
+:ARCHIVE_TIME: 2019-03-11 Mo 15:07
+:ARCHIVE_FILE: c:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/MasterarbeitADP.org
+:ARCHIVE_OLPATH: 07.03. Treffen mit Sebastian Koch/Zeitplan besprechen/bis zum näcshten Treffen
+:ARCHIVE_CATEGORY: MasterarbeitADP
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: Treffen
+:END:
+
+* DONE Simulationsstudie erstellen (Fokus auf Implementierung)
+CLOCK: [2019-03-11 Mo 10:24]--[2019-03-11 Mo 12:54] =>  2:30
+:PROPERTIES:
+:ARCHIVE_TIME: 2019-03-11 Mo 15:07
+:ARCHIVE_FILE: c:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/MasterarbeitADP.org
+:ARCHIVE_OLPATH: 07.03. Treffen mit Sebastian Koch/Zeitplan besprechen/bis zum näcshten Treffen
+:ARCHIVE_CATEGORY: MasterarbeitADP
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: Treffen
+:END:
+** DONE Probedatensatz mit Customer History implementieren (Single-leg flight)
+CLOSED: [2019-03-08 Fr 09:47]
+** DONE Vektorisierte Simulationsstudie
+CLOSED: [2019-03-08 Fr 09:53]
+CLOCK: [2019-03-08 Fr 09:47]--[2019-03-08 Fr 09:48] =>  0:01
+** DONE Sequentielle Simulationsstudie mit teilweiser Vektorisierung
+** DONE Darstellung des Verkaufs über die 

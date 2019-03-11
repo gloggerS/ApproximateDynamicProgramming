@@ -152,17 +152,8 @@ Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
 Termine allgemein: nicht am Freitag?
 in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 *** bis zum näcshten Treffen
-**** TODO Effizienzvergleich Sample vs Simulationsstudie wie von Sebastian
-**** TODO Simulationsstudie erstellen (Fokus auf Implementierung)
-CLOCK: [2019-03-11 Mo 10:24]--[2019-03-11 Mo 12:54] =>  2:30
-***** DONE Probedatensatz mit Customer History implementieren (Single-leg flight)
-CLOSED: [2019-03-08 Fr 09:47]
-***** DONE Vektorisierte Simulationsstudie
-CLOSED: [2019-03-08 Fr 09:53]
-CLOCK: [2019-03-08 Fr 09:47]--[2019-03-08 Fr 09:48] =>  0:01
-***** TODO Sequentielle Simulationsstudie mit teilweiser Vektorisierung
-***** TODO Darstellung des Verkaufs über die 
-**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [15/38]
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [17/53]
+CLOCK: [2019-03-11 Mo 13:53]--[2019-03-11 Mo 14:39] =>  0:46
 CLOCK: [2019-03-11 Mo 09:10]--[2019-03-11 Mo 10:24] =>  1:14
 CLOCK: [2019-03-08 Fr 08:45]--[2019-03-08 Fr 09:11] =>  0:26
 ***** DONE Geschichte von Python
@@ -186,7 +177,7 @@ CLOSED: [2019-03-08 Fr 08:48]
 ***** DONE Mengen
 ***** DONE Flaches und tiefes Kopieren
 CLOSED: [2019-03-08 Fr 08:53]
-***** TODO Dictionaries
+***** DONE Dictionaries
 ***** DONE Eingabe mit input und raw_input
 CLOSED: [2019-03-08 Fr 08:59]
 ***** DONE Bedingte Anweisungen
@@ -194,31 +185,40 @@ CLOSED: [2019-03-08 Fr 08:56]
 ***** DONE while-Schleife
 CLOCK: [2019-03-11 Mo 09:33]--[2019-03-11 Mo 09:33] =>  0:00
 ***** DONE for-Schleife
-***** TODO Ausgabe mit print
+***** DONE Ausgabe mit print
 ***** TODO Formatierte Ausgabe
 ***** TODO Funktionen
 ***** TODO Parameter-Übergabe
 ***** TODO Globale und lokale Variablen
 ***** TODO Rekursion und Rekursive Funktionen
+***** TODO Einführung in Dekorateure
 ***** DONE Memoisation und Python-Dekorateure
 CLOSED: [2019-03-08 Fr 09:07]
-***** TODO Namensräume
-***** TODO Dateien
-***** TODO Module und Pakete
-***** TODO Tests
+***** TODO Daten lesen und schreiben
+***** TODO Modularisierung: Module
+***** TODO Tests, Doctest und UnitTest
 ***** TODO Reguläre Ausdrücke
 ***** TODO Reguläre Ausdrücke, Fortgeschrittene
+***** TODO Modularisierung: Pakete
 ***** TODO Lambda-Operator, map- filter- und reduce-Funktion
 ***** TODO Listen-Abstraktion (List Comprehension)
-***** TODO Generatoren
+***** TODO Generatoren und Iteratoren
 ***** TODO Ausnahme-Behandlung
-***** TODO Klassen
+***** TODO Einführung in die Objektorientierte Programmierung (OOP))
+***** TODO Klassen- und Instanzattribute
+***** TODO Properties
+***** TODO Vererbung
+***** TODO Mehrfachvererbung
+***** TODO Magische Methoden und Operator-Überladung
 ***** TODO Slots
 ***** TODO Class und type
 ***** TODO Hin zu Metaklassen
 ***** TODO Metaklassen
 ***** TODO Beispiel für Metaklassen
-**** TODO Dynamisches Programm dazu
+**** TODO Dynamisches Programm dazu mit Zeitvergleich mit und ohne Memoisation 
+CLOCK: [2019-03-11 Mo 14:46]--[2019-03-11 Mo 17:29] =>  2:43
+
+
 **** TODO Bellmannsche Funktionalgleichung anfügen
 **** DONE Paper Talluri und van Ryzin lesen
 SCHEDULED: <2019-03-06 Mi>
@@ -333,3 +333,4 @@ Zeitlicher Vergleich von Implementierung zeigt gar nicht so viel Unterschied zwi
 Jupyter Notebook mit "python -m notebook" starten
 Workflow noch holprig (in Pycharm coden und Ergebnisse in Jupyter Notebooks ausgeben; doppelter Code, Versionskontrolle)
 Python Guide [[https://gist.github.com/sloria/7001839][The Best of the Best Practices (BOBP) Guide for Python]]
+Produkte enthalten nicht das "Kein-Produkt" (gab laufend Probleme mit unterschiedlichen Dimensionen von Sachen)
