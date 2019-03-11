@@ -26,6 +26,9 @@ import matplotlib.pyplot as plt
 
 plt.style.use('seaborn-whitegrid')
 
+# Timing
+import time
+
 # %% OVERALL PARAMETERS
 numProducts = 4
 products = np.arange(numProducts) + 1  # only real products (starting from 1)
@@ -76,7 +79,15 @@ def customer_choice_individual(preference_weights, preference_no_purchase, offer
     return ret
 
 
-def customer_choice_segments(customer_segments_num, preference_no_purchase, offer_set, preference_weights, products):
+def customer_choice_segments(x):
+    """
+    Generiert die Wahrscheinlichkeitsverteilung gemäß der Präferenzen der einzelnen Kundensegmente. x als Tupel, um Memoisierung zu nutzen
+
+    :param x: customer_segments_num, preference_no_purchase, offer_set, preference_weights, products
+    :return:
+    """
+    (customer_segments_num, preference_no_purchase, offer_set, preference_weights, products) = x
+
     products_with_no_purchase = np.insert(products, 0, 0)
     df_customer = pd.DataFrame(index=[customer_segments_num], columns=products_with_no_purchase)
     df_customer = df_customer.fillna(0)
@@ -132,8 +143,8 @@ def history(numPeriods, arrivalProbability, preferenceWeights, noPurchasePrefere
 
     revenues_with_no_purchase = np.insert(revenues, 0, 0)
 
-    df_customer = customer_choice_segments(customer_segments_num, noPurchasePreference, offerSet, preferenceWeights,
-                                           products)
+    df_customer = customer_choice_segments((customer_segments_num, noPurchasePreference, offerSet, preferenceWeights,
+                                           products))
 
     for i in np.delete(index, 0):  # start in second row (without actually deleting row)
         if df_history.loc[i, 'customerArrived'] == 1:
@@ -159,18 +170,6 @@ def history(numPeriods, arrivalProbability, preferenceWeights, noPurchasePrefere
 
     return df_history
 
-
-# %%
-dfResult = history(numPeriods, arrivalProbability, preference_weights, preference_no_purchase, capacity, offer_set,
-                   products, revenues, customer_segments_num)
-
-x = -dfResult.index
-y = np.cumsum(dfResult['revenue'])
-plt.plot(x, y)
-plt.show()
-
-
-# %% working here
 def value_expected(capacity, products, revenues, preference_weights, preference_no_purchase, time):
     """
     Recursive implementation of the value function, i.e. dynamic program (DP)
@@ -196,31 +195,34 @@ def value_expected(capacity, products, revenues, preference_weights, preference_
 
     for offer_set_index in range(len(offer_sets_to_test)):
         offer_set = offer_sets_to_test[offer_set_index]
-        probs = customer_choice_segments([1], preference_no_purchase, offer_set, preference_weights, products)
+        probs = customer_choice_segments(([1], preference_no_purchase, offer_set, preference_weights, products))
 
         val = value_expected(capacity, products, revenues, preference_weights, preference_no_purchase, time - 1)
         for j in products:
             p = float(probs.loc[1, j])
             if p > 0.0:
-                value_delta = 0
-                # value_delta = value_expected(capacity, products, revenues, preference_weights,
-                #                              preference_no_purchase, time - 1) - \
-                #               value_expected(capacity - 1, products, revenues, preference_weights,
-                #                              preference_no_purchase, time - 1)
+                value_delta = value_expected(capacity, products, revenues, preference_weights,
+                                             preference_no_purchase, time - 1) - \
+                              value_expected(capacity - 1, products, revenues, preference_weights,
+                                             preference_no_purchase, time - 1)
                 val += p * (revenues[j - 1] - value_delta)  # j-1 shifts to right product
 
-        print("current max: \t", offer_sets_to_test[offer_sets_max])
-        print("current val: \t", offer_sets_max_val)
-        print("current eval: \t", offer_set)
-        print()
-
         if val > offer_sets_max_val:
-            print("yea")
-            print("probs: \t", probs)
             offer_sets_max_val = val
             offer_sets_max = offer_set_index
 
     return offer_sets_max_val
 
 
-value_expected(1, products, revenues, preference_weights, preference_no_purchase, 1)
+# %% working here
+
+customer_choice_segments = memoize(customer_choice_segments)
+
+# %%
+x = ([1], preference_no_purchase, offer_set, preference_weights, products)
+
+probs = customer_choice_segments(x)
+
+# %%
+start_time = time.time()
+value_expected(2, products, revenues, preference_weights, preference_no_purchase, 2)

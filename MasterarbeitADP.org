@@ -151,8 +151,10 @@ Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
 
 Termine allgemein: nicht am Freitag?
 in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
-*** bis zum näcshten Treffen
-**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [17/53]
+*** bis zum nächsten Treffen
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [18/44]
+CLOCK: [2019-03-11 Mo 20:02]--[2019-03-11 Mo 20:46] =>  0:44
+CLOCK: [2019-03-11 Mo 18:44]--[2019-03-11 Mo 18:53] =>  0:09
 CLOCK: [2019-03-11 Mo 13:53]--[2019-03-11 Mo 14:39] =>  0:46
 CLOCK: [2019-03-11 Mo 09:10]--[2019-03-11 Mo 10:24] =>  1:14
 CLOCK: [2019-03-08 Fr 08:45]--[2019-03-08 Fr 09:11] =>  0:26
@@ -186,7 +188,7 @@ CLOSED: [2019-03-08 Fr 08:56]
 CLOCK: [2019-03-11 Mo 09:33]--[2019-03-11 Mo 09:33] =>  0:00
 ***** DONE for-Schleife
 ***** DONE Ausgabe mit print
-***** TODO Formatierte Ausgabe
+***** DONE Formatierte Ausgabe
 ***** TODO Funktionen
 ***** TODO Parameter-Übergabe
 ***** TODO Globale und lokale Variablen
@@ -216,7 +218,8 @@ CLOSED: [2019-03-08 Fr 09:07]
 ***** TODO Metaklassen
 ***** TODO Beispiel für Metaklassen
 **** TODO Dynamisches Programm dazu mit Zeitvergleich mit und ohne Memoisation 
-CLOCK: [2019-03-11 Mo 14:46]
+CLOCK: [2019-03-11 Mo 18:08]--[2019-03-11 Mo 18:44] =>  0:36
+CLOCK: [2019-03-11 Mo 14:46]--[2019-03-11 Mo 17:29] =>  2:43
 
 
 **** TODO Bellmannsche Funktionalgleichung anfügen
@@ -278,15 +281,25 @@ dann gehts auch weiter in Richtung Künstlicher Intelligenz
 * Notizen zur Arbeit
 ** Simulationsstudie
 Single Leg Beispiel
-* Arbeit strukturieren                                              :ARCHIVE:
-** unmittelbar nächste Zeit                                        :ARCHIVE:
-*** DONE Mail an Sebastian
-    CLOSED: [2019-03-06 Mi 10:16]
 
-*** DONE Zeiplan überarbeiten
-    SCHEDULED: <2019-03-06 Mi>
-*** DONE Arbeitsweise mit Sebastian Koch abstimmen
-SCHEDULED: <2019-03-07 Do>
+* Python-Homepages
+Hier ein paar gute Links zu Python.
+
+** Tutorials
+[[https://www.python-kurs.eu/python3_kurs.php][Python Kurs - Python 3 Tutorial]]
+[[https://docs.scipy.org/doc/numpy/user/quickstart.html][Quickstart tutorial von SciPy.org]]
+[[https://www.geeksforgeeks.org/python-programming-language/][Übersicht von GeeksForGeeks - geht sehr ins Detail]]
+[[https://www.ilsb.tuwien.ac.at/~pahr/317.530/01.html][Tutorial der TU Wien]]
+[[https://geo-python.github.io/2017/course-info/course-info.html][Geo-Python - Vorlesungsunterlagen einer finnischen Uni (Helsinki)]]
+[[https://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/index.html][Hands-on Python Tutorial von Loyola University in Chicago]]
+
+** weitere Tipps
+[[https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/][28 Jupyter Notebook tips, tricks, and shortcuts]]
+
+* Erweiterungen
+** Mehrere Customer-Segmente
+
+** Produkte verbrauchen verschiedene Kapazitäten (Kapazitätsvektor)
 
 * Tagebuch
 
@@ -334,3 +347,4 @@ Jupyter Notebook mit "python -m notebook" starten
 Workflow noch holprig (in Pycharm coden und Ergebnisse in Jupyter Notebooks ausgeben; doppelter Code, Versionskontrolle)
 Python Guide [[https://gist.github.com/sloria/7001839][The Best of the Best Practices (BOBP) Guide for Python]]
 Produkte enthalten nicht das "Kein-Produkt" (gab laufend Probleme mit unterschiedlichen Dimensionen von Sachen)
+DataFrame mit loc adressieren gibt Objekt vom Typ series zurück, welches zu Problemen führt beim Vergleich auf einen fixen Wert
