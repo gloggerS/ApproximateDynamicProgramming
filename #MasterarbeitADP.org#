@@ -154,7 +154,7 @@ in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 *** bis zum näcshten Treffen
 **** TODO Effizienzvergleich Sample vs Simulationsstudie wie von Sebastian
 **** TODO Simulationsstudie erstellen (Fokus auf Implementierung)
-CLOCK: [2019-03-11 Mo 10:24]
+CLOCK: [2019-03-11 Mo 10:24]--[2019-03-11 Mo 12:54] =>  2:30
 ***** DONE Probedatensatz mit Customer History implementieren (Single-leg flight)
 CLOSED: [2019-03-08 Fr 09:47]
 ***** DONE Vektorisierte Simulationsstudie
@@ -326,5 +326,10 @@ RStudio gewohnt und ziemlich gut (Autocompletion, Plots, Documentation, Refactor
 Simulationsstudie implementiert
 Python Tutorials weiter gelesen
 Etwas code refactoring (nach PEP-8 Konventionen)
-** Python geht weiter<2019-03-11 Mo>
+** Python geht weiter, aber holprig<2019-03-11 Mo>
 For Schleife mit xrange oder array kopieren
+Es gibt eine Python Version 3 und ein Tutorial zu Python2
+Zeitlicher Vergleich von Implementierung zeigt gar nicht so viel Unterschied zwischen Random Vector und direktem Choice
+Jupyter Notebook mit "python -m notebook" starten
+Workflow noch holprig (in Pycharm coden und Ergebnisse in Jupyter Notebooks ausgeben; doppelter Code, Versionskontrolle)
+Python Guide [[https://gist.github.com/sloria/7001839][The Best of the Best Practices (BOBP) Guide for Python]]

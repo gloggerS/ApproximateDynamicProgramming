@@ -100,8 +100,11 @@ def history(numPeriods, arrivalProbability, preferenceWeights, noPurchasePrefere
             dfHistory.loc[i, 'productSold'] = max(prodPurchasable*products)
             
             dfHistory.loc[i,'revenue'] = revenues[dfHistory.loc[i, 'productSold']]
-            
-            dfHistory.loc[i,'capacityEnd'] = dfHistory.loc[i,'capacityStart']-1
+
+            if df_history.loc[i, 'productSold'] != 0:
+                df_history.loc[i, 'capacityEnd'] = df_history.loc[i, 'capacityStart'] - 1
+            else:
+                df_history.loc[i, 'capacityEnd'] = df_history.loc[i, 'capacityStart']
         else:
             # no customer arrived
             dfHistory.loc[i,'capacityEnd'] = dfHistory.loc[i,'capacityStart'] = dfHistory.loc[i+1, 'capacityEnd']

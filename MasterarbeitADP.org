@@ -152,7 +152,9 @@ Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
 Termine allgemein: nicht am Freitag?
 in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 *** bis zum näcshten Treffen
+**** TODO Effizienzvergleich Sample vs Simulationsstudie wie von Sebastian
 **** TODO Simulationsstudie erstellen (Fokus auf Implementierung)
+CLOCK: [2019-03-11 Mo 10:24]
 ***** DONE Probedatensatz mit Customer History implementieren (Single-leg flight)
 CLOSED: [2019-03-08 Fr 09:47]
 ***** DONE Vektorisierte Simulationsstudie
@@ -160,10 +162,66 @@ CLOSED: [2019-03-08 Fr 09:53]
 CLOCK: [2019-03-08 Fr 09:47]--[2019-03-08 Fr 09:48] =>  0:01
 ***** TODO Sequentielle Simulationsstudie mit teilweiser Vektorisierung
 ***** TODO Darstellung des Verkaufs über die 
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [15/38]
+CLOCK: [2019-03-11 Mo 09:10]--[2019-03-11 Mo 10:24] =>  1:14
+CLOCK: [2019-03-08 Fr 08:45]--[2019-03-08 Fr 09:11] =>  0:26
+***** DONE Geschichte von Python
+CLOSED: [2019-03-08 Fr 08:32]
+***** DONE Interaktiver Modus
+CLOSED: [2019-03-08 Fr 08:33]
+***** DONE Code ausführen
+CLOSED: [2019-03-08 Fr 08:33]
+***** DONE Blöcke
+CLOSED: [2019-03-08 Fr 08:33]
+***** DONE Datentypen und Variablen
+CLOSED: [2019-03-08 Fr 08:45]
+CLOCK: [2019-03-08 Fr 08:40]--[2019-03-08 Fr 08:45] =>  0:05
+:PROPERTIES:
+:ORDERED:  t
+:END:
+***** DONE Operatoren
+CLOSED: [2019-03-08 Fr 08:48]
+***** DONE Sequentielle Datentypen
+***** DONE Listen manipulieren
+***** DONE Mengen
+***** DONE Flaches und tiefes Kopieren
+CLOSED: [2019-03-08 Fr 08:53]
+***** TODO Dictionaries
+***** DONE Eingabe mit input und raw_input
+CLOSED: [2019-03-08 Fr 08:59]
+***** DONE Bedingte Anweisungen
+CLOSED: [2019-03-08 Fr 08:56]
+***** DONE while-Schleife
+CLOCK: [2019-03-11 Mo 09:33]--[2019-03-11 Mo 09:33] =>  0:00
+***** DONE for-Schleife
+***** TODO Ausgabe mit print
+***** TODO Formatierte Ausgabe
+***** TODO Funktionen
+***** TODO Parameter-Übergabe
+***** TODO Globale und lokale Variablen
+***** TODO Rekursion und Rekursive Funktionen
+***** DONE Memoisation und Python-Dekorateure
+CLOSED: [2019-03-08 Fr 09:07]
+***** TODO Namensräume
+***** TODO Dateien
+***** TODO Module und Pakete
+***** TODO Tests
+***** TODO Reguläre Ausdrücke
+***** TODO Reguläre Ausdrücke, Fortgeschrittene
+***** TODO Lambda-Operator, map- filter- und reduce-Funktion
+***** TODO Listen-Abstraktion (List Comprehension)
+***** TODO Generatoren
+***** TODO Ausnahme-Behandlung
+***** TODO Klassen
+***** TODO Slots
+***** TODO Class und type
+***** TODO Hin zu Metaklassen
+***** TODO Metaklassen
+***** TODO Beispiel für Metaklassen
 **** TODO Dynamisches Programm dazu
 **** TODO Bellmannsche Funktionalgleichung anfügen
 **** DONE Paper Talluri und van Ryzin lesen
-    SCHEDULED: <2019-03-06 Mi>
+SCHEDULED: <2019-03-06 Mi>
     
 **** TODO Paper Liu und van Ryzin lesen
     SCHEDULED: <2019-03-07 Do>
@@ -188,60 +246,6 @@ SCHEDULED: <2019-03-08 Fr>
 ***** TODO Vorgehen zur Lösung
 ***** TODO Resultate
 ***** TODO Fragen meinerseits
-**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [10/38]
-CLOCK: [2019-03-08 Fr 08:45]--[2019-03-08 Fr 09:11] =>  0:26
-***** DONE Geschichte von Python
-CLOSED: [2019-03-08 Fr 08:32]
-***** DONE Interaktiver Modus
-CLOSED: [2019-03-08 Fr 08:33]
-***** DONE Code ausführen
-CLOSED: [2019-03-08 Fr 08:33]
-***** DONE Blöcke
-CLOSED: [2019-03-08 Fr 08:33]
-***** DONE Datentypen und Variablen
-CLOSED: [2019-03-08 Fr 08:45]
-CLOCK: [2019-03-08 Fr 08:40]--[2019-03-08 Fr 08:45] =>  0:05
-:PROPERTIES:
-:ORDERED:  t
-:END:
-***** DONE Operatoren
-CLOSED: [2019-03-08 Fr 08:48]
-***** DONE Flaches und tiefes Kopieren
-CLOSED: [2019-03-08 Fr 08:53]
-***** DONE Bedingte Anweisungen
-CLOSED: [2019-03-08 Fr 08:56]
-***** DONE Eingabe mit input und raw_input
-CLOSED: [2019-03-08 Fr 08:59]
-***** TODO while-Schleife
-***** TODO for-Schleife
-***** TODO Ausgabe mit print
-***** TODO Formatierte Ausgabe
-***** TODO Sequentielle Datentypen
-***** TODO Listen manipulieren
-***** TODO Mengen
-***** TODO Dictionaries
-***** TODO Funktionen
-***** TODO Parameter-Übergabe
-***** TODO Globale und lokale Variablen
-***** TODO Rekursion und Rekursive Funktionen
-***** DONE Memoisation und Python-Dekorateure
-CLOSED: [2019-03-08 Fr 09:07]
-***** TODO Namensräume
-***** TODO Dateien
-***** TODO Module und Pakete
-***** TODO Tests
-***** TODO Reguläre Ausdrücke
-***** TODO Reguläre Ausdrücke, Fortgeschrittene
-***** TODO Lambda-Operator, map- filter- und reduce-Funktion
-***** TODO Listen-Abstraktion (List Comprehension)
-***** TODO Generatoren
-***** TODO Ausnahme-Behandlung
-***** TODO Klassen
-***** TODO Slots
-***** TODO Class und type
-***** TODO Hin zu Metaklassen
-***** TODO Metaklassen
-***** TODO Beispiel für Metaklassen
 **** TODO Paper Talluri und van Ryzin nachimplementieren [0/5]
 ***** TODO Effiziente Sets bestimmen graphisch
 ***** TODO Effiziente Sets bestimmen über Optimierung
@@ -270,7 +274,7 @@ kleine Ziele setzen und erreichen motiviert
 wird in nächster Zeit auch einiges an Overhead geben
 erstmal ist Ziel zu lernen, wie es geht (Programmieren, etc)
 dann gehts auch weiter in Richtung Künstlicher Intelligenz
-**** TODO Effizienzvergleich Sample vs Simulationsstudie wie von Sebastian
+
 * Notizen zur Arbeit
 ** Simulationsstudie
 Single Leg Beispiel
@@ -322,3 +326,10 @@ RStudio gewohnt und ziemlich gut (Autocompletion, Plots, Documentation, Refactor
 Simulationsstudie implementiert
 Python Tutorials weiter gelesen
 Etwas code refactoring (nach PEP-8 Konventionen)
+** Python geht weiter, aber holprig<2019-03-11 Mo>
+For Schleife mit xrange oder array kopieren
+Es gibt eine Python Version 3 und ein Tutorial zu Python2
+Zeitlicher Vergleich von Implementierung zeigt gar nicht so viel Unterschied zwischen Random Vector und direktem Choice
+Jupyter Notebook mit "python -m notebook" starten
+Workflow noch holprig (in Pycharm coden und Ergebnisse in Jupyter Notebooks ausgeben; doppelter Code, Versionskontrolle)
+Python Guide [[https://gist.github.com/sloria/7001839][The Best of the Best Practices (BOBP) Guide for Python]]
