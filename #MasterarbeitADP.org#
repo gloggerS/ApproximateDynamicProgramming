@@ -3,9 +3,9 @@
 
 * 26.03. Treffen mit Sebastian
 ** Implementierung
-*** vektorisierte Implementierung nicht möglich wegen variablem Offerset
-Idee: Am schnellsten ist vektorisierte Implementierung. Weiß über alle Perioden, welche Kunden kommen und welche Präferenzen diese haben. Dann mit Zufallszahl über alle Perioden die verkauften Produkte erfassen mit ihrem Revenue. Und zum Schluss Kapazitäten anpassen, ob noch was vorhanden (Daten kappen). 
-Klappt nicht: Offerset ändert sich je nach verfügbarer Kapazität.
+*** vektorisierte Implementierung nicht mÃ¶glich wegen variablem Offerset
+Idee: Am schnellsten ist vektorisierte Implementierung. WeiÃŸ Ã¼ber alle Perioden, welche Kunden kommen und welche PrÃ¤ferenzen diese haben. Dann mit Zufallszahl Ã¼ber alle Perioden die verkauften Produkte erfassen mit ihrem Revenue. Und zum Schluss KapazitÃ¤ten anpassen, ob noch was vorhanden (Daten kappen). 
+Klappt nicht: Offerset Ã¤ndert sich je nach verfÃ¼gbarer KapazitÃ¤t.
 
 * Overall
 ** https://vhbonline.org/vhb4you/jourqual/vhb-jourqual-archiv/jq1/teilranking-logistik-operations-research-produktion/
@@ -16,8 +16,8 @@ Klappt nicht: Offerset ändert sich je nach verfügbarer Kapazität.
 *** Aim for a paper (ultimate goal)
 
 
-* Persönliches
-Bin ein fleißiger Arbeiter, aber es werden wohl Phasen kommen, in denen es schleppender vorangeht. Ich glaube, ich ertappe mich dann wieder dabei, zu denken, dass Bichler und Auktionen auch ein schönes Thema gewesen wäre. Aber das ist vergangen! Ich bin jetzt hier bei Klein!
+* PersÃ¶nliches
+Bin ein fleiÃŸiger Arbeiter, aber es werden wohl Phasen kommen, in denen es schleppender vorangeht. Ich glaube, ich ertappe mich dann wieder dabei, zu denken, dass Bichler und Auktionen auch ein schÃ¶nes Thema gewesen wÃ¤re. Aber das ist vergangen! Ich bin jetzt hier bei Klein!
 Werte, die mir wichtig sind:  Pflichtbewusstsein, Disziplin, Bescheidenheit, 
 
 
@@ -46,18 +46,18 @@ Werte, die mir wichtig sind:  Pflichtbewusstsein, Disziplin, Bescheidenheit,
   SCHEDULED: <2019-03-05 Di>
 ** Erwartungen abstecken
 bisher noch sehr freies Thema
-tue mir schwer zu unterscheiden zwischen Paper und Masterarbeit (IR-Phase bei Okhrin: sind gerade in Veröffentlichugnsprozess)
-möchte den Lehrstuhl kennenlernen (dafür war Mittagessen schon gute Gelegenheit; Tutorien wsl. schon alle geplant (aber könnte mir gut vorstellen, am Lehrstuhl zu unterstützen)
-*** Was ich lernen möchte
+tue mir schwer zu unterscheiden zwischen Paper und Masterarbeit (IR-Phase bei Okhrin: sind gerade in VerÃ¶ffentlichugnsprozess)
+mÃ¶chte den Lehrstuhl kennenlernen (dafÃ¼r war Mittagessen schon gute Gelegenheit; Tutorien wsl. schon alle geplant (aber kÃ¶nnte mir gut vorstellen, am Lehrstuhl zu unterstÃ¼tzen)
+*** Was ich lernen mÃ¶chte
 Literaturarbeit
 (Themenfindung)
-Persönliches Projektmanagement
+PersÃ¶nliches Projektmanagement
 Projekt in Python implementieren (Zusammenspiel Python und Gurobi (?), Simulationsstudie)
 Lehrstuhl und dessen Aufgaben kennenlernen 
 ** Zeitplan besprechen
 Excel Dokument durchgehen
-Was finden Sie überraschend?
-Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
+Was finden Sie Ã¼berraschend?
+Wo gibts Engstellen / wo sollte mehr Zeit fÃ¼r eingeplant werden?
 ** Thema eingrenzen
 Themenbereiche, die mich interessieren: *Optimierung*, Statistik, Finanzen
 Themen/Problemstellungen, die im Paper "Approximate Dynamic Programming for Planning a Ride-Sharing System using Autonomous Fleets of Electric Vehicles" angesprochen sind: *dispatch problem*, surge pricing problem, fleet size problem, *simulator*
@@ -66,20 +66,20 @@ Schnittstellen zu Share-a-Ride (Lukas Janinhoff)
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
 Sprache der Abschlussarbeit: englisch (vor Hintergrund Paper)
-Arbeit in LaTeX: würde ich gerne machen, habe ich schon angefangen
+Arbeit in LaTeX: wÃ¼rde ich gerne machen, habe ich schon angefangen
 Seitenumfang: gibt es Vorgaben?
-Anmeldung bei FIM: übernehme ich
-Zwischenpräsentation und Abschlusspräsentation während  Masterandenseminar: mit Betreuer abstimmen
-Statusupdates (wie für Prof Zagst in Forschungsphase) am Ende des Monats?
-*** persönlich
+Anmeldung bei FIM: Ã¼bernehme ich
+ZwischenprÃ¤sentation und AbschlussprÃ¤sentation wÃ¤hrend  Masterandenseminar: mit Betreuer abstimmen
+Statusupdates (wie fÃ¼r Prof Zagst in Forschungsphase) am Ende des Monats?
+*** persÃ¶nlich
 Tagebuch: Mittels Github Erfolge loggen und Commit Messages hernehmen, um Arbeit nachzuvollziehen
-Bin auch eingeschrieben zu Informatik-Studium, primär aus Interesse; Fokus auf Masterarbeit
+Bin auch eingeschrieben zu Informatik-Studium, primÃ¤r aus Interesse; Fokus auf Masterarbeit
 ** Gedanken
 Powell scheint mir gerade den Bereich zu dominieren (was ich bisschen bedenklich finde, da einseitig)
-gibt es Benchmark-Modelle, die man schlagen kann (wobei das schlichte Optimierung wäre; etwas neues zu finden wäre noch spannender; aber ist das noch im Rahmen einer Masterarbeit?)
-arxiv Sachen sind ja noch nicht wirklich veröffentlicht. Wie wird das im Bereich OR gesehen, kann man sich darauf berufen/zitieren?
+gibt es Benchmark-Modelle, die man schlagen kann (wobei das schlichte Optimierung wÃ¤re; etwas neues zu finden wÃ¤re noch spannender; aber ist das noch im Rahmen einer Masterarbeit?)
+arxiv Sachen sind ja noch nicht wirklich verÃ¶ffentlicht. Wie wird das im Bereich OR gesehen, kann man sich darauf berufen/zitieren?
 ** Notizen
-Erst gemeinsam zum Essen beim Griechen  gefahren (Klein fährt weißen M3 BMW). Und auch so breit gesprochen über Lehre an Uni (Ordinarius vs Professor, Lehre an Uni, Suche / Angebot nach Tutorenjob erwähnt, evtl. Erstellung Übungsaufgaben, für Promotion dann auch eigene Vorlesung gestalten, möglicherweise zu Künstlicher Intelligenz). Lehrstuhl ist geldtechnisch gut ausgestattet, sodass er auch mal mit Graphikkarten rechnen würde.
+Erst gemeinsam zum Essen beim Griechen  gefahren (Klein fÃ¤hrt weiÃŸen M3 BMW). Und auch so breit gesprochen Ã¼ber Lehre an Uni (Ordinarius vs Professor, Lehre an Uni, Suche / Angebot nach Tutorenjob erwÃ¤hnt, evtl. Erstellung Ãœbungsaufgaben, fÃ¼r Promotion dann auch eigene Vorlesung gestalten, mÃ¶glicherweise zu KÃ¼nstlicher Intelligenz). Lehrstuhl ist geldtechnisch gut ausgestattet, sodass er auch mal mit Graphikkarten rechnen wÃ¼rde.
 David Fleckenstein hat die Arbeit schonmal geschrieben, bzw ein Seminar dazu. Drei Paper anschauen und implementieren. 
 Ggf. Projekt mit Flixbus machbar.
 Ziel: Methoden und Modelle kennenlernen
@@ -89,20 +89,20 @@ Ziel: Methoden und Modelle kennenlernen
   SCHEDULED: <2019-03-07 Do>
 ** Erwartungen abstecken
 *** Meinerseits
-Ich möchte die Methoden und Modelle zur Lösung von Customer Choice Problemen verstehen und anwenden
-Ich möchte den Lehrstuhl kennenlernen
-Ich möchte eine gute Masterarbeit schreiben
-tue mir schwer zu unterscheiden zwischen Paper und Masterarbeit (IR-Phase bei Okhrin: sind gerade in Veröffentlichugnsprozess)
-*** Was ich lernen möchte
+Ich mÃ¶chte die Methoden und Modelle zur LÃ¶sung von Customer Choice Problemen verstehen und anwenden
+Ich mÃ¶chte den Lehrstuhl kennenlernen
+Ich mÃ¶chte eine gute Masterarbeit schreiben
+tue mir schwer zu unterscheiden zwischen Paper und Masterarbeit (IR-Phase bei Okhrin: sind gerade in VerÃ¶ffentlichugnsprozess)
+*** Was ich lernen mÃ¶chte
 (Themenfindung)
 Literaturarbeit
-Persönliches Projektmanagement
-Projekt in Python implementieren (Zusammenspiel Python und Gurobi (?), Simulationsstudie), IDE dafür?
+PersÃ¶nliches Projektmanagement
+Projekt in Python implementieren (Zusammenspiel Python und Gurobi (?), Simulationsstudie), IDE dafÃ¼r?
 *** Sebastian Koch
 
 ** Thema 
-*** Erstellung von mehreren Beispieldatensätzen gemäß Koch (2017)
-Customer Stream gemäß den Spezifikationen meint, erstelle pro Customer Stream eine Sample Pfad über den Zeitraum T, in welcher in jeder Zeiteinheit max. ein Kunde von einem bestimmten Segment erscheint und dieser auch schon ein bestimmtes Produkt mit einer bestimmten Wkeit nachfrägt. Sollte dann in diesem Zeitraum unsere Politik (Welche Elemente wir im Offer-Set anbieten) das gewünschte Produkt anbieten, so erhält der Kunde das Produkt, bezahlt dafür und die Kapazität verringert sich.
+*** Erstellung von mehreren BeispieldatensÃ¤tzen gemÃ¤ÃŸ Koch (2017)
+Customer Stream gemÃ¤ÃŸ den Spezifikationen meint, erstelle pro Customer Stream eine Sample Pfad Ã¼ber den Zeitraum T, in welcher in jeder Zeiteinheit max. ein Kunde von einem bestimmten Segment erscheint und dieser auch schon ein bestimmtes Produkt mit einer bestimmten Wkeit nachfrÃ¤gt. Sollte dann in diesem Zeitraum unsere Politik (Welche Elemente wir im Offer-Set anbieten) das gewÃ¼nschte Produkt anbieten, so erhÃ¤lt der Kunde das Produkt, bezahlt dafÃ¼r und die KapazitÃ¤t verringert sich.
 | Parameter              | Single-leg flight     | PF | HS1 | HS2 | HS3 | HS4 |
 |------------------------+-----------------------+----+-----+-----+-----+-----|
 | *same*                 |                       |    |     |     |     |     |
@@ -118,7 +118,7 @@ Customer Stream gemäß den Spezifikationen meint, erstelle pro Customer Stream ei
 |------------------------+-----------------------+----+-----+-----+-----+-----|
 | no-purchase preference | {1,2,3}               |    |     |     |     |     |
 | capacitiy              | {40, 60, ..., 120}    |    |     |     |     |     |
-*** Implementierung von ausgewählten Modellen in den Papern Talluri and van Ryzin, Liu and van Ryzin, Bront and Mendez-Diaz
+*** Implementierung von ausgewÃ¤hlten Modellen in den Papern Talluri and van Ryzin, Liu and van Ryzin, Bront and Mendez-Diaz
 **** Verwendete Modelle
 | Paper                      | Methode                                      | Kommentar                            |
 |----------------------------+----------------------------------------------+--------------------------------------|
@@ -126,12 +126,12 @@ Customer Stream gemäß den Spezifikationen meint, erstelle pro Customer Stream ei
 |                            | choice based DP with Efficient Sets          |                                      |
 |----------------------------+----------------------------------------------+--------------------------------------|
 | Liu, van Ryzin             | Column Generation                            |                                      |
-|                            | Decomposition Approximation                  | nur für network                      |
+|                            | Decomposition Approximation                  | nur fÃ¼r network                      |
 |                            | DP decomposition based on independent demand |                                      |
 |                            | static CDLP solution                         |                                      |
 |                            | choice-based decomposition heuristic         |                                      |
 |----------------------------+----------------------------------------------+--------------------------------------|
-| Miranda Bront, Mendez-Diaz | offline: Assessing Value of Capacity         | Erweiterung für overlapping segments |
+| Miranda Bront, Mendez-Diaz | offline: Assessing Value of Capacity         | Erweiterung fÃ¼r overlapping segments |
 |                            | online: Compute Offer Sets Dynamically       |                                      |
 |                            | DCOMP                                        |                                      |
 |                            | DCOMP-0.5                                    |                                      |
@@ -146,57 +146,32 @@ Customer Stream gemäß den Spezifikationen meint, erstelle pro Customer Stream ei
 ** Zeitplan besprechen
 *** allgemein
 Excel Dokument durchgehen
-Was finden Sie überraschend?
-Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
+Was finden Sie Ã¼berraschend?
+Wo gibts Engstellen / wo sollte mehr Zeit fÃ¼r eingeplant werden?
 
 Termine allgemein: nicht am Freitag?
-in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
-*** bis zum näcshten Treffen
+in nÃ¤chster Zeit: grob alle 2 Wochen: nÃ¤chster optimalerweise am Fr, 22.3.
+*** bis zum nÃ¤cshten Treffen
+**** TODO Effizienzvergleich Sample vs Simulationsstudie wie von Sebastian
 **** TODO Simulationsstudie erstellen (Fokus auf Implementierung)
+CLOCK: [2019-03-11 Mo 10:24]
 ***** DONE Probedatensatz mit Customer History implementieren (Single-leg flight)
 CLOSED: [2019-03-08 Fr 09:47]
 ***** DONE Vektorisierte Simulationsstudie
 CLOSED: [2019-03-08 Fr 09:53]
 CLOCK: [2019-03-08 Fr 09:47]--[2019-03-08 Fr 09:48] =>  0:01
 ***** TODO Sequentielle Simulationsstudie mit teilweiser Vektorisierung
-***** TODO Darstellung des Verkaufs über die 
-**** TODO Dynamisches Programm dazu
-**** TODO Bellmannsche Funktionalgleichung anfügen
-**** DONE Paper Talluri und van Ryzin lesen
-    SCHEDULED: <2019-03-06 Mi>
-    
-**** TODO Paper Liu und van Ryzin lesen
-    SCHEDULED: <2019-03-07 Do>
-**** TODO Paper Miranda Bront lesen
-    SCHEDULED: <2019-03-07 Do>
-**** TODO Paper Talluri und van Ryzin zusammenfassen [0/5]
-SCHEDULED: <2019-03-08 Fr>
-***** TODO Identifiziertes Problem
-***** TODO Schwierigkeiten
-***** TODO Vorgehen zur Lösung
-***** TODO Resultate
-***** TODO Fragen meinerseits
-**** TODO Paper Liu und van Ryzin zusammenfassen [0/5]
-***** TODO Identifiziertes Problem
-***** TODO Schwierigkeiten
-***** TODO Vorgehen zur Lösung
-***** TODO Resultate
-***** TODO Fragen meinerseits
-**** TODO Paper Miranda Bront zusammenfassen [0/5]
-***** TODO Identifiziertes Problem
-***** TODO Schwierigkeiten
-***** TODO Vorgehen zur Lösung
-***** TODO Resultate
-***** TODO Fragen meinerseits
-**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [10/38]
+***** TODO Darstellung des Verkaufs Ã¼ber die 
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [15/38]
+CLOCK: [2019-03-11 Mo 09:10]--[2019-03-11 Mo 10:24] =>  1:14
 CLOCK: [2019-03-08 Fr 08:45]--[2019-03-08 Fr 09:11] =>  0:26
 ***** DONE Geschichte von Python
 CLOSED: [2019-03-08 Fr 08:32]
 ***** DONE Interaktiver Modus
 CLOSED: [2019-03-08 Fr 08:33]
-***** DONE Code ausführen
+***** DONE Code ausfÃ¼hren
 CLOSED: [2019-03-08 Fr 08:33]
-***** DONE Blöcke
+***** DONE BlÃ¶cke
 CLOSED: [2019-03-08 Fr 08:33]
 ***** DONE Datentypen und Variablen
 CLOSED: [2019-03-08 Fr 08:45]
@@ -206,32 +181,33 @@ CLOCK: [2019-03-08 Fr 08:40]--[2019-03-08 Fr 08:45] =>  0:05
 :END:
 ***** DONE Operatoren
 CLOSED: [2019-03-08 Fr 08:48]
+***** DONE Sequentielle Datentypen
+***** DONE Listen manipulieren
+***** DONE Mengen
 ***** DONE Flaches und tiefes Kopieren
 CLOSED: [2019-03-08 Fr 08:53]
-***** DONE Bedingte Anweisungen
-CLOSED: [2019-03-08 Fr 08:56]
+***** TODO Dictionaries
 ***** DONE Eingabe mit input und raw_input
 CLOSED: [2019-03-08 Fr 08:59]
-***** TODO while-Schleife
-***** TODO for-Schleife
+***** DONE Bedingte Anweisungen
+CLOSED: [2019-03-08 Fr 08:56]
+***** DONE while-Schleife
+CLOCK: [2019-03-11 Mo 09:33]--[2019-03-11 Mo 09:33] =>  0:00
+***** DONE for-Schleife
 ***** TODO Ausgabe mit print
 ***** TODO Formatierte Ausgabe
-***** TODO Sequentielle Datentypen
-***** TODO Listen manipulieren
-***** TODO Mengen
-***** TODO Dictionaries
 ***** TODO Funktionen
-***** TODO Parameter-Übergabe
+***** TODO Parameter-Ãœbergabe
 ***** TODO Globale und lokale Variablen
 ***** TODO Rekursion und Rekursive Funktionen
 ***** DONE Memoisation und Python-Dekorateure
 CLOSED: [2019-03-08 Fr 09:07]
-***** TODO Namensräume
+***** TODO NamensrÃ¤ume
 ***** TODO Dateien
 ***** TODO Module und Pakete
 ***** TODO Tests
-***** TODO Reguläre Ausdrücke
-***** TODO Reguläre Ausdrücke, Fortgeschrittene
+***** TODO RegulÃ¤re AusdrÃ¼cke
+***** TODO RegulÃ¤re AusdrÃ¼cke, Fortgeschrittene
 ***** TODO Lambda-Operator, map- filter- und reduce-Funktion
 ***** TODO Listen-Abstraktion (List Comprehension)
 ***** TODO Generatoren
@@ -241,63 +217,91 @@ CLOSED: [2019-03-08 Fr 09:07]
 ***** TODO Class und type
 ***** TODO Hin zu Metaklassen
 ***** TODO Metaklassen
-***** TODO Beispiel für Metaklassen
+***** TODO Beispiel fÃ¼r Metaklassen
+**** TODO Dynamisches Programm dazu
+**** TODO Bellmannsche Funktionalgleichung anfÃ¼gen
+**** DONE Paper Talluri und van Ryzin lesen
+SCHEDULED: <2019-03-06 Mi>
+    
+**** TODO Paper Liu und van Ryzin lesen
+    SCHEDULED: <2019-03-07 Do>
+**** TODO Paper Miranda Bront lesen
+    SCHEDULED: <2019-03-07 Do>
+**** TODO Paper Talluri und van Ryzin zusammenfassen [0/5]
+SCHEDULED: <2019-03-08 Fr>
+***** TODO Identifiziertes Problem
+***** TODO Schwierigkeiten
+***** TODO Vorgehen zur LÃ¶sung
+***** TODO Resultate
+***** TODO Fragen meinerseits
+**** TODO Paper Liu und van Ryzin zusammenfassen [0/5]
+***** TODO Identifiziertes Problem
+***** TODO Schwierigkeiten
+***** TODO Vorgehen zur LÃ¶sung
+***** TODO Resultate
+***** TODO Fragen meinerseits
+**** TODO Paper Miranda Bront zusammenfassen [0/5]
+***** TODO Identifiziertes Problem
+***** TODO Schwierigkeiten
+***** TODO Vorgehen zur LÃ¶sung
+***** TODO Resultate
+***** TODO Fragen meinerseits
 **** TODO Paper Talluri und van Ryzin nachimplementieren [0/5]
 ***** TODO Effiziente Sets bestimmen graphisch
-***** TODO Effiziente Sets bestimmen über Optimierung
+***** TODO Effiziente Sets bestimmen Ã¼ber Optimierung
 ***** TODO RM mit effizienten Sets?
 ***** TODO RM mit EMSR-b with Buy-Up
 ***** TODO Numerische Vergleiche auf dem Beispieldatensatz (automatisiert)
 ** Arbeitsweise 
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
-Sprache der Abschlussarbeit: deutsch (Ticken besseres Sprachgefühl)
-Arbeit in LaTeX: sieht für mich am schönsten aus, habe  schon angefangen
+Sprache der Abschlussarbeit: deutsch (Ticken besseres SprachgefÃ¼hl)
+Arbeit in LaTeX: sieht fÃ¼r mich am schÃ¶nsten aus, habe  schon angefangen
 Seitenumfang: gibt es Vorgaben? 60
-Anmeldung bei FIM: übernehme ich
-Zwischenpräsentation und Abschlusspräsentation während Masterandenseminar: mit Prof. Klein abstimmen
+Anmeldung bei FIM: Ã¼bernehme ich
+ZwischenprÃ¤sentation und AbschlussprÃ¤sentation wÃ¤hrend Masterandenseminar: mit Prof. Klein abstimmen
 Programmiersprache: Python
 *** Sebastian Koch
 Was ist Ihnen wichtig in der Zusammenarbeit?
-*** persönlich
+*** persÃ¶nlich
 Tagebuch: Mittels Github Erfolge loggen und Commit Messages hernehmen, um Arbeit nachzuvollziehen
-Bin auch eingeschrieben zu Informatik-Studium, primär aus Interesse; Fokus auf Masterarbeit
+Bin auch eingeschrieben zu Informatik-Studium, primÃ¤r aus Interesse; Fokus auf Masterarbeit
 
 ** Gedanken
-Haben Sie noch Tipps für "schlaues Arbeiten" an der Masterarbeit?
+Haben Sie noch Tipps fÃ¼r "schlaues Arbeiten" an der Masterarbeit?
 kleine Ziele setzen und erreichen motiviert
 ** Notizen
-wird in nächster Zeit auch einiges an Overhead geben
+wird in nÃ¤chster Zeit auch einiges an Overhead geben
 erstmal ist Ziel zu lernen, wie es geht (Programmieren, etc)
-dann gehts auch weiter in Richtung Künstlicher Intelligenz
-**** TODO Effizienzvergleich Sample vs Simulationsstudie wie von Sebastian
+dann gehts auch weiter in Richtung KÃ¼nstlicher Intelligenz
+
 * Notizen zur Arbeit
 ** Simulationsstudie
 Single Leg Beispiel
 * Arbeit strukturieren                                              :ARCHIVE:
-** unmittelbar nächste Zeit                                        :ARCHIVE:
+** unmittelbar nÃ¤chste Zeit                                        :ARCHIVE:
 *** DONE Mail an Sebastian
     CLOSED: [2019-03-06 Mi 10:16]
 
-*** DONE Zeiplan überarbeiten
+*** DONE Zeiplan Ã¼berarbeiten
     SCHEDULED: <2019-03-06 Mi>
 *** DONE Arbeitsweise mit Sebastian Koch abstimmen
 SCHEDULED: <2019-03-07 Do>
 
 * Tagebuch
 
-** Persönliche Vorbereitung<2019-03-04 Mo>
+** PersÃ¶nliche Vorbereitung<2019-03-04 Mo>
 Projekt strukturiert
-Paper zu Fleet-Management im automobilen E-Auto-Kontext erneut überflogen
+Paper zu Fleet-Management im automobilen E-Auto-Kontext erneut Ã¼berflogen
 LaTeX aufgesetzt
 Github aufgesetzt
 Citavi aufgesetzt
 
 ** Treffen mit Prof. Klein <2019-03-05 Di>
 Ausgedehntes Mittagessen beim Griechen mit Auto von Klein hingefahren
-Gespräch zur Masterarbeit mit Methoden und Modellen verstehen
-Allgemeines Gespräch zu wie Uni funktioniert oder zu Klausuren
-Angesprochen, dass ich als Tutor unterstützen würde
+GesprÃ¤ch zur Masterarbeit mit Methoden und Modellen verstehen
+Allgemeines GesprÃ¤ch zu wie Uni funktioniert oder zu Klausuren
+Angesprochen, dass ich als Tutor unterstÃ¼tzen wÃ¼rde
 Klein schickte mir Paper zu
 
 ** Paper lesen und Orga <2019-03-06 Mi>
@@ -307,7 +311,7 @@ Org-Dokument weiter verbessert
 
 ** Termin mit Sebastian<2019-03-07 Do>
 In Miranda, Bront und Liu reingelesen
-Zeitplan überarbeitet
+Zeitplan Ã¼berarbeitet
 Mit Sebastian Per-Du -erneut? :D
 Vorgehen erneut angepasst
 Python Tutorials gelistet
@@ -322,3 +326,5 @@ RStudio gewohnt und ziemlich gut (Autocompletion, Plots, Documentation, Refactor
 Simulationsstudie implementiert
 Python Tutorials weiter gelesen
 Etwas code refactoring (nach PEP-8 Konventionen)
+** Python geht weiter<2019-03-11 Mo>
+For Schleife mit xrange oder array kopieren

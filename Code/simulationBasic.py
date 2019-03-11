@@ -10,6 +10,11 @@ import pandas as pd
 from scipy.stats import bernoulli
 from scipy.stats import uniform
 
+import matplotlib as mpl
+mpl.use('module://backend_interagg')
+import matplotlib.pyplot as plt
+plt.style.use('seaborn-whitegrid')
+
 #%% OVERALL PARAMETERS
 numProducts = 4
 products = np.arange(numProducts+1) # product number 0 is no purchase
@@ -107,16 +112,11 @@ def history(numPeriods, arrivalProbability, preferenceWeights, noPurchasePrefere
 dfResult = history(numPeriods, arrivalProbability, preferenceWeights, noPurchasePreference, capacity, offerSet, products, revenues)
 
 
-#%% Plotting
-# import matplotlib as plt
-# plt.interactive(False)
-import matplotlib.pyplot as plt
-plt.style.use('seaborn-whitegrid')
 
 #%%
 
 x = -dfResult.index
 y = np.cumsum(dfResult['revenue'])
-plt.plot(x,y)
+plt.plot(x, y)
 
 
