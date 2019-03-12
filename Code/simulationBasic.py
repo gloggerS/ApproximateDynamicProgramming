@@ -32,6 +32,11 @@ import time
 # Memoization
 import functools
 
+# Genaueres inspizieren von Funktionen
+# import inspect
+# lines = inspect.getsource(value_expected)
+# print(lines)
+
 # %% OVERALL PARAMETERS
 numProducts = 4
 products = np.arange(numProducts) + 1  # only real products (starting from 1)
@@ -55,15 +60,30 @@ offer_set = np.array([1, 0, 1, 1])
 
 
 # %% FUNCTIONS
-def customer_choice_individual(offer_set):
+def memoize(func):
+    cache = func.cache = {}
+
+    @functools.wraps(func)
+    def memoizer(*args, **kwargs):
+        key = str(args) + str(kwargs)
+        if key not in cache:
+            cache[key] = func(*args, **kwargs)
+        return cache[key]
+    return memoizer
+
+@memoize
+def customer_choice_individual(offer_set_tuple):
     """
     For one customer of one customer segment, determine its purchase probabilities given one offer set.
+
+    Tuple needed for memoization.
 
     :param preference_weights: vector indicating the preference for each product
     :param preference_no_purchase: preference for no purchase
     :param offer_set: vector with offered products indicated by 1=product offered
     :return: vector of purchase probabilities starting with no purchase
     """
+    offer_set = np.asarray(offer_set_tuple)
     ret = preference_weights * offer_set
     ret = np.array(ret / (preference_no_purchase + sum(ret)))
     ret = np.insert(ret, 0, 1 - sum(ret))
@@ -140,7 +160,7 @@ def history(numPeriods, arrivalProbability, capacity, offerSet, revenues):
 
     return df_history
 
-
+@memoize
 def value_expected(capacity, time):
     """
     Recursive implementation of the value function, i.e. dynamic program (DP)
@@ -162,7 +182,7 @@ def value_expected(capacity, time):
 
     for offer_set_index in range(len(offer_sets_to_test)):
         offer_set = offer_sets_to_test[offer_set_index]
-        probs = customer_choice_individual_tuple(tuple(offer_set))
+        probs = customer_choice_individual(tuple(offer_set))
 
         val = value_expected(capacity, time - 1)
         for j in products:
@@ -177,66 +197,3 @@ def value_expected(capacity, time):
             offer_sets_max = offer_set_index
 
     return offer_sets_max_val
-
-#
-# #%% Test - history
-# dfResult = history(numPeriods, arrivalProbability, capacity, offer_set, revenues)
-#
-# x = -dfResult.index
-# y = np.cumsum(dfResult['revenue'])
-# plt.plot(x, y)
-#
-# #%% Test - customer weight
-# probs = customer_choice_individual(offer_set)
-#
-# #%% Test - value expected
-# value_expected(3, 3)
-
-
-
-
-
-
-# %% working here
-import functools
-
-# import inspect
-# lines = inspect.getsource(value_expected)
-# print(lines)
-
-#%%
-
-def memoize(obj):
-    cache = obj.cache = {}
-
-    @functools.wraps(obj)
-    def memoizer(*args, **kwargs):
-        key = str(args) + str(kwargs)
-        if key not in cache:
-            cache[key] = obj(*args, **kwargs)
-        return cache[key]
-    return memoizer
-
-#%%
-def customer_choice_individual_tuple(offer_set_tuple):
-    """
-    For one customer of one customer segment, determine its purchase probabilities given one offer set.
-
-    :param preference_weights: vector indicating the preference for each product
-    :param preference_no_purchase: preference for no purchase
-    :param offer_set: vector with offered products indicated by 1=product offered
-    :return: vector of purchase probabilities starting with no purchase
-    """
-    offer_set = np.asarray(offer_set_tuple)
-    ret = preference_weights * offer_set
-    ret = np.array(ret / (preference_no_purchase + sum(ret)))
-    ret = np.insert(ret, 0, 1 - sum(ret))
-    return ret
-
-customer_choice_individual_tuple = memoize(customer_choice_individual_tuple)
-value_expected = memoize(value_expected)
-
-#%%
-start_time = time.time()
-print(value_expected(3, 3))
-print(time.time() - start_time)
