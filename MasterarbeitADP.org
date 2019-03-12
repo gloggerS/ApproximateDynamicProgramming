@@ -152,7 +152,8 @@ Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
 Termine allgemein: nicht am Freitag?
 in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 *** bis zum nächsten Treffen
-**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [18/44]
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [23/44]
+CLOCK: [2019-03-12 Di 09:14]
 CLOCK: [2019-03-11 Mo 20:02]--[2019-03-11 Mo 20:46] =>  0:44
 CLOCK: [2019-03-11 Mo 18:44]--[2019-03-11 Mo 18:53] =>  0:09
 CLOCK: [2019-03-11 Mo 13:53]--[2019-03-11 Mo 14:39] =>  0:46
@@ -189,11 +190,11 @@ CLOCK: [2019-03-11 Mo 09:33]--[2019-03-11 Mo 09:33] =>  0:00
 ***** DONE for-Schleife
 ***** DONE Ausgabe mit print
 ***** DONE Formatierte Ausgabe
-***** TODO Funktionen
-***** TODO Parameter-Übergabe
-***** TODO Globale und lokale Variablen
-***** TODO Rekursion und Rekursive Funktionen
-***** TODO Einführung in Dekorateure
+***** DONE Funktionen
+***** DONE Parameter-Übergabe
+***** DONE Globale und lokale Variablen
+***** DONE Rekursion und Rekursive Funktionen
+***** DONE Einführung in Dekorateure
 ***** DONE Memoisation und Python-Dekorateure
 CLOSED: [2019-03-08 Fr 09:07]
 ***** TODO Daten lesen und schreiben
@@ -217,12 +218,18 @@ CLOSED: [2019-03-08 Fr 09:07]
 ***** TODO Hin zu Metaklassen
 ***** TODO Metaklassen
 ***** TODO Beispiel für Metaklassen
-**** TODO Dynamisches Programm dazu mit Zeitvergleich mit und ohne Memoisation 
+**** TODO Dynamiches Programm dazu mit Zeitvergleich mit und ohne Memoisation 
+CLOCK: [2019-03-12 Di 12:18]--[2019-03-12 Di 12:57] =>  0:39
 CLOCK: [2019-03-11 Mo 18:08]--[2019-03-11 Mo 18:44] =>  0:36
 CLOCK: [2019-03-11 Mo 14:46]--[2019-03-11 Mo 17:29] =>  2:43
-
-
+****** TODO Memoisation von customer_ choiche_ segments
+****** TODO Memoisation von value_ expected
+**** DONE Excel Spielerei für das ganze
+CLOSED: [2019-03-12 Di 14:01]
+super aufwändig, aber nicht mächtig genug, um Funktionen abzubilden (sehr schnell zu hochdimensional; Excel zum Spielen gut)
 **** TODO Bellmannsche Funktionalgleichung anfügen
+CLOCK: [2019-03-12 Di 12:18]--[2019-03-12 Di 12:18] =>  0:00
+CLOCK: [2019-03-12 Di 12:18]--[2019-03-12 Di 12:18] =>  0:00
 **** DONE Paper Talluri und van Ryzin lesen
 SCHEDULED: <2019-03-06 Mi>
     
@@ -301,6 +308,7 @@ Hier ein paar gute Links zu Python.
 
 ** Produkte verbrauchen verschiedene Kapazitäten (Kapazitätsvektor)
 
+** Stages von Software-Development hinzufügen (stabile Version separat handhaben, mit Tests Stabilität sicherstellen)
 * Tagebuch
 
 ** Persönliche Vorbereitung<2019-03-04 Mo>
@@ -348,3 +356,6 @@ Workflow noch holprig (in Pycharm coden und Ergebnisse in Jupyter Notebooks ausg
 Python Guide [[https://gist.github.com/sloria/7001839][The Best of the Best Practices (BOBP) Guide for Python]]
 Produkte enthalten nicht das "Kein-Produkt" (gab laufend Probleme mit unterschiedlichen Dimensionen von Sachen)
 DataFrame mit loc adressieren gibt Objekt vom Typ series zurück, welches zu Problemen führt beim Vergleich auf einen fixen Wert
+** Pyhton, again what learned<2019-03-12 Di>
+Funktionen haben eine Paramterliste, beim Funktionsaufruf werden Argumente übergeben
+Chomsky hat Rekursion in Sprache (Grammatik) definiert

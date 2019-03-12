@@ -29,6 +29,9 @@ plt.style.use('seaborn-whitegrid')
 # Timing
 import time
 
+# Memoization
+import functools
+
 # %% OVERALL PARAMETERS
 numProducts = 4
 products = np.arange(numProducts) + 1  # only real products (starting from 1)
@@ -52,18 +55,6 @@ offer_set = np.array([1, 0, 1, 1])
 
 
 # %% FUNCTIONS
-def memoize(f):
-    """ Trick für die effizientere Implementierung von Rekursion."""
-    memo = {}
-
-    def helper(x):
-        if x not in memo:
-            memo[x] = f(x)
-        return memo[x]
-
-    return helper
-
-
 def customer_choice_individual(preference_weights, preference_no_purchase, offer_set):
     """
     For one customer of one customer segment, determine its purchase probabilities given one offer set.
@@ -79,16 +70,15 @@ def customer_choice_individual(preference_weights, preference_no_purchase, offer
     return ret
 
 
-def customer_choice_segments(x):
+def customer_choice_segments(customer_segments_num, preference_no_purchase, offer_set, preference_weights):
     """
     Generiert die Wahrscheinlichkeitsverteilung gemäß der Präferenzen der einzelnen Kundensegmente. x als Tupel, um Memoisierung zu nutzen
 
     :param x: customer_segments_num, preference_no_purchase, offer_set, preference_weights, products
     :return:
     """
-    (customer_segments_num, preference_no_purchase, offer_set, preference_weights, products) = x
 
-    products_with_no_purchase = np.insert(products, 0, 0)
+    products_with_no_purchase = np.arange(len(offer_set)+1)
     df_customer = pd.DataFrame(index=[customer_segments_num], columns=products_with_no_purchase)
     df_customer = df_customer.fillna(0)
     df_customer.loc[1, :] = customer_choice_individual(preference_weights, preference_no_purchase, offer_set)
@@ -143,8 +133,7 @@ def history(numPeriods, arrivalProbability, preferenceWeights, noPurchasePrefere
 
     revenues_with_no_purchase = np.insert(revenues, 0, 0)
 
-    df_customer = customer_choice_segments((customer_segments_num, noPurchasePreference, offerSet, preferenceWeights,
-                                           products))
+    df_customer = customer_choice_segments(customer_segments_num, noPurchasePreference, offerSet, preferenceWeights)
 
     for i in np.delete(index, 0):  # start in second row (without actually deleting row)
         if df_history.loc[i, 'customerArrived'] == 1:
@@ -170,7 +159,8 @@ def history(numPeriods, arrivalProbability, preferenceWeights, noPurchasePrefere
 
     return df_history
 
-def value_expected(capacity, products, revenues, preference_weights, preference_no_purchase, time):
+
+def value_expected(capacity, time, products, revenues, preference_weights, preference_no_purchase):
     """
     Recursive implementation of the value function, i.e. dynamic program (DP)
 
@@ -195,16 +185,16 @@ def value_expected(capacity, products, revenues, preference_weights, preference_
 
     for offer_set_index in range(len(offer_sets_to_test)):
         offer_set = offer_sets_to_test[offer_set_index]
-        probs = customer_choice_segments(([1], preference_no_purchase, offer_set, preference_weights, products))
+        probs = customer_choice_segments([1], preference_no_purchase, offer_set, preference_weights)
 
-        val = value_expected(capacity, products, revenues, preference_weights, preference_no_purchase, time - 1)
+        val = value_expected(capacity, time - 1, products, revenues, preference_weights, preference_no_purchase)
         for j in products:
             p = float(probs.loc[1, j])
             if p > 0.0:
-                value_delta = value_expected(capacity, products, revenues, preference_weights,
-                                             preference_no_purchase, time - 1) - \
-                              value_expected(capacity - 1, products, revenues, preference_weights,
-                                             preference_no_purchase, time - 1)
+                value_delta = value_expected(capacity, time - 1, products, revenues, preference_weights,
+                                             preference_no_purchase) - \
+                              value_expected(capacity - 1, time - 1, products, revenues, preference_weights,
+                                             preference_no_purchase)
                 val += p * (revenues[j - 1] - value_delta)  # j-1 shifts to right product
 
         if val > offer_sets_max_val:
@@ -214,15 +204,16 @@ def value_expected(capacity, products, revenues, preference_weights, preference_
     return offer_sets_max_val
 
 
-# %% working here
+#%% Test - history
+dfResult = history(numPeriods, arrivalProbability, preference_weights, preference_no_purchase, capacity,
+                   offer_set, products, revenues, customer_segments_num)
 
-customer_choice_segments = memoize(customer_choice_segments)
+x = -dfResult.index
+y = np.cumsum(dfResult['revenue'])
+plt.plot(x, y)
 
-# %%
-x = ([1], preference_no_purchase, offer_set, preference_weights, products)
+#%% Test - customer weight
+probs = customer_choice_segments([1], preference_no_purchase, offer_set, preference_weights)
 
-probs = customer_choice_segments(x)
-
-# %%
-start_time = time.time()
-value_expected(2, products, revenues, preference_weights, preference_no_purchase, 2)
+#%% Test - value expected
+value_expected(1, 1, products, revenues, preference_weights, preference_no_purchase)
