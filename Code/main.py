@@ -6,6 +6,7 @@ def memoize(func):
 
     @functools.wraps(func)
     def memoized_func(*args, **kwargs):
+        print(id(func))
         key = str(args) + str(kwargs)
         if key not in cache:
             print("cache missed: ", key)
@@ -20,7 +21,9 @@ def fibonacci(n, a):
     if n == 1: return 1
     else: return fibonacci(n-1, a) + fibonacci(n-2, a)
 
+print(id(fibonacci))
 fibonacci = memoize(fibonacci)
+print(id(fibonacci))
 
 a = np.array([2,3])
-fibonacci(10, a)
+fibonacci(2, a)
