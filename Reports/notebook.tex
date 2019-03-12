@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{Ergebnisse}
+    \title{0311-Ergebnisse-DynamischeProgrammierung}
     
     
     
@@ -280,130 +280,112 @@
     
 
     
-    \hypertarget{ergebnisse}{%
-\section{Ergebnisse}\label{ergebnisse}}
+    \hypertarget{dynamisches-programm-zur-implementierung-der-value-function}{%
+\subsection{Dynamisches Programm zur Implementierung der Value
+Function}\label{dynamisches-programm-zur-implementierung-der-value-function}}
 
-\hypertarget{simulationsstudie}{%
-\subsection{Simulationsstudie}\label{simulationsstudie}}
-
-Zur Implementierung möchte ich hier unterschiedliche Implementierungen
-bezüglich ihrer Performanz miteinander vergleichen. * vorgeschlagene
-Version via eines Zufallsvektors mit
-Wahrscheinlichkeiten\textasciitilde{}Uniform(0,1), der dann auf den
-Vektor mit Kaufwahrscheinlichkeiten gemappt wird * direktes sampling der
-Produkte gemäß den Kaufwahrscheinlichkeiten
+Wieder möchten wir verschiedene Arten der Implementierung vergleichen.
+Konkret betrachten wir die Funktion
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} notebook
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} \PYZhy{}*\PYZhy{} coding: utf\PYZhy{}8 \PYZhy{}*\PYZhy{}}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{Created on Mon Mar  11 14:46:31 2019}
         
-        \PY{c+c1}{\PYZsh{}\PYZpc{}\PYZpc{} PACKAGES}
+        \PY{l+s+sd}{@author: Stefan}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{c+c1}{\PYZsh{} \PYZpc{}\PYZpc{} PACKAGES}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} notebook
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{} Data}
         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{c+c1}{\PYZsh{} Calculation and Counting}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        
+        \PY{c+c1}{\PYZsh{} Distributions}
         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{bernoulli}
-        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{uniform}
         
-        \PY{c+c1}{\PYZsh{} import matplotlib as mpl}
-        \PY{c+c1}{\PYZsh{} mpl.use(\PYZsq{}module://backend\PYZus{}interagg\PYZsq{})}
-        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
-        \PY{c+c1}{\PYZsh{} plt.style.use(\PYZsq{}seaborn\PYZhy{}whitegrid\PYZsq{})}
-        
+        \PY{c+c1}{\PYZsh{} Timing}
         \PY{k+kn}{import} \PY{n+nn}{time}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}\PYZpc{}\PYZpc{} OVERALL PARAMETERS}
-        \PY{n}{numProducts} \PY{o}{=} \PY{l+m+mi}{10000}
-        \PY{n}{revenues} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{n}{numProducts}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
-        \PY{n}{revenues} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{revenues}\PY{p}{)}  \PY{c+c1}{\PYZsh{} no purchase gives 0 revenue}
-        \PY{n}{products} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{numProducts}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} product number 0 is no purchase}
         
-        \PY{n}{numPeriods} \PY{o}{=} \PY{l+m+mi}{10000}
+        \PY{c+c1}{\PYZsh{} Memoization}
+        \PY{k+kn}{import} \PY{n+nn}{functools}
         
-        \PY{n}{numCustomerSegments} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{c+c1}{\PYZsh{} Genaueres inspizieren von Funktionen}
+        \PY{c+c1}{\PYZsh{} import inspect}
+        \PY{c+c1}{\PYZsh{} lines = inspect.getsource(value\PYZus{}expected)}
+        \PY{c+c1}{\PYZsh{} print(lines)}
+        
+        \PY{c+c1}{\PYZsh{} \PYZpc{}\PYZpc{} OVERALL PARAMETERS}
+        \PY{n}{numProducts} \PY{o}{=} \PY{l+m+mi}{4}
+        \PY{n}{products} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{numProducts}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}  \PY{c+c1}{\PYZsh{} only real products (starting from 1)}
+        \PY{n}{revenues} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{800}\PY{p}{,} \PY{l+m+mi}{600}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} only real products}
+        
+        \PY{n}{numPeriods} \PY{o}{=} \PY{l+m+mi}{10}
+        
+        \PY{n}{customer\PYZus{}segments\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{1}
         \PY{n}{arrivalProbability} \PY{o}{=} \PY{l+m+mf}{0.8}
-        \PY{n}{preferenceWeights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{n}{numProducts}\PY{p}{)}
+        \PY{n}{preference\PYZus{}weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{1.2}\PY{p}{,} \PY{l+m+mf}{1.6}\PY{p}{]}\PY{p}{)}
         
-        \PY{n}{noPurchasePreference} \PY{o}{=} \PY{l+m+mf}{0.2}
+        \PY{n}{varNoPurchasePreferences} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+        \PY{n}{varCapacity} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{120}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} \PYZpc{}\PYZpc{} LOCAL PARAMETERS}
         
-        \PY{n}{capacity} \PY{o}{=} \PY{l+m+mi}{7000}
-        \PY{n}{offerSet} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{numProducts}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{customer\PYZus{}choice}\PY{p}{(}\PY{n}{preferenceWeights}\PY{p}{,} \PY{n}{noPurchasePreference}\PY{p}{,} \PY{n}{offerSet}\PY{p}{)}\PY{p}{:}
-            \PY{n}{ret} \PY{o}{=} \PY{n}{preferenceWeights}\PY{o}{*}\PY{n}{offerSet}
-            \PY{n}{ret} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{ret}\PY{o}{/}\PY{p}{(}\PY{n}{noPurchasePreference} \PY{o}{+} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{ret}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-            \PY{n}{ret} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{ret}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{ret}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} \PYZpc{}\PYZpc{} JUST TEMPORARY}
+        \PY{n}{preference\PYZus{}no\PYZus{}purchase} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{capacity} \PY{o}{=} \PY{l+m+mi}{6}
+        \PY{n}{offer\PYZus{}set} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} \PYZpc{}\PYZpc{} FUNCTIONS}
+        \PY{k}{def} \PY{n+nf}{memoize}\PY{p}{(}\PY{n}{func}\PY{p}{)}\PY{p}{:}
+            \PY{n}{cache} \PY{o}{=} \PY{n}{func}\PY{o}{.}\PY{n}{cache} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+            \PY{n+nd}{@functools}\PY{o}{.}\PY{n}{wraps}\PY{p}{(}\PY{n}{func}\PY{p}{)}
+            \PY{k}{def} \PY{n+nf}{memoizer}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                \PY{n}{key} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{args}\PY{p}{)} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{kwargs}\PY{p}{)}
+                \PY{k}{if} \PY{n}{key} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{cache}\PY{p}{:}
+                    \PY{n}{cache}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+                \PY{k}{return} \PY{n}{cache}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+            \PY{k}{return} \PY{n}{memoizer}
+        
+        
+        \PY{k}{def} \PY{n+nf}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    For one customer of one customer segment, determine its purchase probabilities given one offer set.}
+        
+        \PY{l+s+sd}{    Tuple needed for memoization.}
+        
+        \PY{l+s+sd}{    :param preference\PYZus{}weights: vector indicating the preference for each product}
+        \PY{l+s+sd}{    :param preference\PYZus{}no\PYZus{}purchase: preference for no purchase}
+        \PY{l+s+sd}{    :param offer\PYZus{}set: vector with offered products indicated by 1=product offered}
+        \PY{l+s+sd}{    :return: vector of purchase probabilities starting with no purchase}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{offer\PYZus{}set} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{)}
+            \PY{n}{ret} \PY{o}{=} \PY{n}{preference\PYZus{}weights} \PY{o}{*} \PY{n}{offer\PYZus{}set}
+            \PY{n}{ret} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{ret} \PY{o}{/} \PY{p}{(}\PY{n}{preference\PYZus{}no\PYZus{}purchase} \PY{o}{+} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{ret}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ret} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{ret}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{ret}\PY{p}{)}\PY{p}{)}
             \PY{k}{return} \PY{n}{ret}
         
-        \PY{k}{def} \PY{n+nf}{sample\PYZus{}path}\PY{p}{(}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{arrivalProbability}\PY{p}{)}\PY{p}{:}
-            \PY{k}{return} \PY{n}{bernoulli}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{n}{arrivalProbability}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{history\PYZus{}rv}\PY{p}{(}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{arrivalProbability}\PY{p}{,} \PY{n}{preferenceWeights}\PY{p}{,} \PY{n}{noPurchasePreference}\PY{p}{,} \PY{n}{capacity}\PY{p}{,} \PY{n}{offerSet}\PY{p}{,} \PY{n}{products}\PY{p}{,} \PY{n}{revenues}\PY{p}{)}\PY{p}{:}
-            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{l+s+sd}{    Over one complete booking horizon with *numPeriod* periods and a total *capacity*, the selling history is recorded. A customer comes with *arrivalProbability* and has given *preferenceWeights* and *noPurchasePreferences*.}
-        \PY{l+s+sd}{    TODO: calculate *offerSet* over time.}
-        \PY{l+s+sd}{    RETURN: data frame with columns (time, capacity (at start), customer arrived, product sold, revenue)}
-        \PY{l+s+sd}{    *customerArrived*: ID of }
-        \PY{l+s+sd}{    *randomNumber*: to specify which product will be sold}
-        \PY{l+s+sd}{    *customerPreferences*: for each customer segment stores the preferences to determine which product will be bought}
-        \PY{l+s+sd}{    }
-        \PY{l+s+sd}{    Parameters}
-        \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
-        \PY{l+s+sd}{    customerArrived :}
-        \PY{l+s+sd}{        the ID of the customer segment that has arrived (used for customer preferences lateron)}
-        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
-            \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{numPeriods}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} first row dummy (for for loop)}
-            \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customerArrived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{randomNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-            
-            \PY{n}{dfHistory} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{index}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{columns}\PY{p}{)}
-            \PY{n}{dfHistory} \PY{o}{=} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
-            
-            \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{numPeriods}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{numPeriods}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{capacity}
-            \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{numPeriods}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customerArrived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sample\PYZus{}path}\PY{p}{(}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{arrivalProbability}\PY{p}{)}
-            
-            \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{numPeriods}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{randomNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{n}{numPeriods}\PY{p}{)}
-            
-            \PY{n}{indexCustomer} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} num customer segments}
-            \PY{n}{columnsCustomer} \PY{o}{=} \PY{n}{products}
-            
-            \PY{n}{dfCustomer} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{indexCustomer}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{columnsCustomer}\PY{p}{)}
-            \PY{n}{dfCustomer} \PY{o}{=} \PY{n}{dfCustomer}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
-            
-            \PY{n}{dfCustomer}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{customer\PYZus{}choice}\PY{p}{(}\PY{n}{preferenceWeights}\PY{p}{,} \PY{n}{noPurchasePreference}\PY{p}{,} \PY{n}{offerSet}\PY{p}{)}\PY{p}{)}
-            
-            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} start in second row}
-                \PY{k}{if} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customerArrived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
-                    \PY{k}{if} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
-                        \PY{k}{break}
-                    
-                    \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-                    
-                    \PY{n}{prodPurchasable} \PY{o}{=} \PY{p}{(}\PY{n}{dfCustomer}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customerArrived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{randomNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-                    \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{prodPurchasable}\PY{o}{*}\PY{n}{products}\PY{p}{)}
-                    
-                    \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{revenues}\PY{p}{[}\PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
-                    
-                    \PY{k}{if} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
-                        \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
-                    \PY{k}{else}\PY{p}{:}
-                        \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-                \PY{k}{else}\PY{p}{:}
-                    \PY{c+c1}{\PYZsh{} no customer arrived}
-                    \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dfHistory}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-            
-            \PY{k}{return} \PY{n}{dfHistory}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{history\PYZus{}choice}\PY{p}{(}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{arrivalProbability}\PY{p}{,} \PY{n}{preferenceWeights}\PY{p}{,} \PY{n}{noPurchasePreference}\PY{p}{,} \PY{n}{capacity}\PY{p}{,} \PY{n}{offerSet}\PY{p}{,} \PY{n}{products}\PY{p}{,}
-                    \PY{n}{revenues}\PY{p}{)}\PY{p}{:}
+        
+        \PY{k}{def} \PY{n+nf}{sample\PYZus{}path}\PY{p}{(}\PY{n}{num\PYZus{}periods}\PY{p}{,} \PY{n}{arrival\PYZus{}probability}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Calculates the sample path.}
+        
+        \PY{l+s+sd}{    :param num\PYZus{}periods:}
+        \PY{l+s+sd}{    :param arrival\PYZus{}probability:}
+        \PY{l+s+sd}{    :return: Vector with arrival of customers.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{return} \PY{n}{bernoulli}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{n}{num\PYZus{}periods}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{n}{arrival\PYZus{}probability}\PY{p}{)}
+        
+        
+        \PY{k}{def} \PY{n+nf}{history}\PY{p}{(}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{arrivalProbability}\PY{p}{,} \PY{n}{capacity}\PY{p}{,} \PY{n}{offerSet}\PY{p}{,} \PY{n}{revenues}\PY{p}{)}\PY{p}{:}
             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
         
         \PY{l+s+sd}{    Over one complete booking horizon with *numPeriod* periods and a total *capacity*, the selling history is recorded. A customer comes with *arrivalProbability* and has given *preferenceWeights* and *noPurchasePreferences*.}
@@ -419,11 +401,8 @@ Produkte gemäß den Kaufwahrscheinlichkeiten
         
         \PY{l+s+sd}{    :param numPeriods:}
         \PY{l+s+sd}{    :param arrivalProbability:}
-        \PY{l+s+sd}{    :param preferenceWeights:}
-        \PY{l+s+sd}{    :param noPurchasePreference:}
         \PY{l+s+sd}{    :param capacity:}
         \PY{l+s+sd}{    :param offerSet:}
-        \PY{l+s+sd}{    :param products:}
         \PY{l+s+sd}{    :param revenues:}
         \PY{l+s+sd}{    :return:}
         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
@@ -437,12 +416,10 @@ Produkte gemäß den Kaufwahrscheinlichkeiten
             \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{numPeriods}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{numPeriods}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{capacity}
             \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{numPeriods} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customerArrived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sample\PYZus{}path}\PY{p}{(}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{arrivalProbability}\PY{p}{)}
         
-            \PY{n}{index\PYZus{}customer} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} num customer segments}
+            \PY{n}{revenues\PYZus{}with\PYZus{}no\PYZus{}purchase} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{revenues}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{products\PYZus{}with\PYZus{}no\PYZus{}purchase} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{revenues\PYZus{}with\PYZus{}no\PYZus{}purchase}\PY{p}{)}\PY{p}{)}
         
-            \PY{n}{df\PYZus{}customer} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{index\PYZus{}customer}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{products}\PY{p}{)}
-            \PY{n}{df\PYZus{}customer} \PY{o}{=} \PY{n}{df\PYZus{}customer}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
-        
-            \PY{n}{df\PYZus{}customer}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{customer\PYZus{}choice}\PY{p}{(}\PY{n}{preferenceWeights}\PY{p}{,} \PY{n}{noPurchasePreference}\PY{p}{,} \PY{n}{offerSet}\PY{p}{)}
+            \PY{n}{customer\PYZus{}probabilities} \PY{o}{=} \PY{n}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{(}\PY{n}{offerSet}\PY{p}{)}
         
             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} start in second row (without actually deleting row)}
                 \PY{k}{if} \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customerArrived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
@@ -452,9 +429,10 @@ Produkte gemäß den Kaufwahrscheinlichkeiten
         
                     \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
         
-                    \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{products}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{n}{df\PYZus{}customer}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{products\PYZus{}with\PYZus{}no\PYZus{}purchase}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                                                                        \PY{n}{p}\PY{o}{=}\PY{n}{customer\PYZus{}probabilities}\PY{p}{)}
         
-                    \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{revenues}\PY{p}{[}\PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+                    \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{revenues\PYZus{}with\PYZus{}no\PYZus{}purchase}\PY{p}{[}\PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
         
                     \PY{k}{if} \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productSold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
                         \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
@@ -465,74 +443,79 @@ Produkte gemäß den Kaufwahrscheinlichkeiten
                     \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityStart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}history}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capacityEnd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
         
             \PY{k}{return} \PY{n}{df\PYZus{}history}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
-        \PY{n}{dfResult} \PY{o}{=} \PY{n}{history\PYZus{}rv}\PY{p}{(}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{arrivalProbability}\PY{p}{,} \PY{n}{preferenceWeights}\PY{p}{,} \PY{n}{noPurchasePreference}\PY{p}{,} \PY{n}{capacity}\PY{p}{,} \PY{n}{offerSet}\PY{p}{,} \PY{n}{products}\PY{p}{,} \PY{n}{revenues}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}time}\PY{p}{)}
         
-        \PY{n}{x} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{dfResult}\PY{o}{.}\PY{n}{index}
-        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{dfResult}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{value\PYZus{}expected}\PY{p}{(}\PY{n}{capacity}\PY{p}{,} \PY{n}{time}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Recursive implementation of the value function, i.e. dynamic program (DP)}
+        
+        \PY{l+s+sd}{    :param capacity:}
+        \PY{l+s+sd}{    :param time:}
+        \PY{l+s+sd}{    :return: value to be expected}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{offer\PYZus{}sets\PYZus{}to\PYZus{}test} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{list}\PY{p}{,} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{repeat}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{products}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{offer\PYZus{}sets\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{offer\PYZus{}sets\PYZus{}max\PYZus{}val} \PY{o}{=} \PY{l+m+mi}{0}
+        
+            \PY{k}{if} \PY{n}{capacity} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{0}
+            \PY{k}{if} \PY{n}{capacity} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{math}\PY{o}{.}\PY{n}{inf}
+            \PY{k}{if} \PY{n}{time} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{0}
+        
+            \PY{k}{for} \PY{n}{offer\PYZus{}set\PYZus{}index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{offer\PYZus{}sets\PYZus{}to\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{offer\PYZus{}set} \PY{o}{=} \PY{n}{offer\PYZus{}sets\PYZus{}to\PYZus{}test}\PY{p}{[}\PY{n}{offer\PYZus{}set\PYZus{}index}\PY{p}{]}
+                \PY{n}{probs} \PY{o}{=} \PY{n}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{(}\PY{n+nb}{tuple}\PY{p}{(}\PY{n}{offer\PYZus{}set}\PY{p}{)}\PY{p}{)}
+        
+                \PY{n}{val} \PY{o}{=} \PY{n}{value\PYZus{}expected}\PY{p}{(}\PY{n}{capacity}\PY{p}{,} \PY{n}{time} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}
+                \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{products}\PY{p}{:}
+                    \PY{n}{p} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{probs}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{p} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.0}\PY{p}{:}
+                        \PY{n}{value\PYZus{}delta} \PY{o}{=} \PY{n}{value\PYZus{}expected}\PY{p}{(}\PY{n}{capacity}\PY{p}{,} \PY{n}{time} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PYZbs{}
+                                      \PY{n}{value\PYZus{}expected}\PY{p}{(}\PY{n}{capacity} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{time} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}
+                        \PY{n}{val} \PY{o}{+}\PY{o}{=} \PY{n}{p} \PY{o}{*} \PY{p}{(}\PY{n}{revenues}\PY{p}{[}\PY{n}{j} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{value\PYZus{}delta}\PY{p}{)}  \PY{c+c1}{\PYZsh{} j\PYZhy{}1 shifts to right product}
+        
+                \PY{k}{if} \PY{n}{val} \PY{o}{\PYZgt{}} \PY{n}{offer\PYZus{}sets\PYZus{}max\PYZus{}val}\PY{p}{:}
+                    \PY{n}{offer\PYZus{}sets\PYZus{}max\PYZus{}val} \PY{o}{=} \PY{n}{val}
+                    \PY{n}{offer\PYZus{}sets\PYZus{}max} \PY{o}{=} \PY{n}{offer\PYZus{}set\PYZus{}index}
+        
+            \PY{k}{return} \PY{n}{offer\PYZus{}sets\PYZus{}max\PYZus{}val}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-34.369131088256836
+{\color{incolor}In [{\color{incolor}4}]:} \PY{o}{\PYZpc{}}\PY{k}{timeit} value\PYZus{}expected(3,3)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5.71 s ± 334 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 
     \end{Verbatim}
 
-    
-    \begin{verbatim}
-<IPython.core.display.Javascript object>
-    \end{verbatim}
-
-    
-    
-    \begin{verbatim}
-<IPython.core.display.HTML object>
-    \end{verbatim}
-
-    
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}6}]:} [<matplotlib.lines.Line2D at 0x13f7951e390>]
-\end{Verbatim}
-            
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
-        \PY{n}{dfResult} \PY{o}{=} \PY{n}{history\PYZus{}choice}\PY{p}{(}\PY{n}{numPeriods}\PY{p}{,} \PY{n}{arrivalProbability}\PY{p}{,} \PY{n}{preferenceWeights}\PY{p}{,} \PY{n}{noPurchasePreference}\PY{p}{,} \PY{n}{capacity}\PY{p}{,} \PY{n}{offerSet}\PY{p}{,} \PY{n}{products}\PY{p}{,} \PY{n}{revenues}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{start\PYZus{}time}\PY{p}{)}
-        
-        \PY{n}{x} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{dfResult}\PY{o}{.}\PY{n}{index}
-        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{dfResult}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{customer\PYZus{}choice\PYZus{}individual} \PY{o}{=} \PY{n}{memoize}\PY{p}{(}\PY{n}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{)}
+        \PY{o}{\PYZpc{}}\PY{k}{timeit} value\PYZus{}expected(3,3)
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-27.95623469352722
+2.85 s ± 66.9 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 
     \end{Verbatim}
 
-    
-    \begin{verbatim}
-<IPython.core.display.Javascript object>
-    \end{verbatim}
-
-    
-    
-    \begin{verbatim}
-<IPython.core.display.HTML object>
-    \end{verbatim}
-
-    
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}7}]:} [<matplotlib.lines.Line2D at 0x13f795ae4e0>]
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{value\PYZus{}expected} \PY{o}{=} \PY{n}{memoize}\PY{p}{(}\PY{n}{value\PYZus{}expected}\PY{p}{)}
+        \PY{o}{\PYZpc{}}\PY{k}{timeit} value\PYZus{}expected(3,3)
 \end{Verbatim}
-            
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+875 ns ± 23.5 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+
+    \end{Verbatim}
+
 
     % Add a bibliography block to the postdoc
     

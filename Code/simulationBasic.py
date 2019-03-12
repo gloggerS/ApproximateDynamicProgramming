@@ -7,6 +7,20 @@ Created on Mon Mar  11 14:46:31 2019
 
 # %% PACKAGES
 
+# # Plot iPython
+# %matplotlib notebook
+# import matplotlib.pyplot as plt
+
+# Plot Python
+import matplotlib as mpl
+
+mpl.use('module://backend_interagg')
+import matplotlib.pyplot as plt
+
+plt.style.use('seaborn-whitegrid')
+
+
+
 # Data
 import numpy as np
 import pandas as pd
@@ -18,13 +32,7 @@ import math
 # Distributions
 from scipy.stats import bernoulli
 
-# Plot
-import matplotlib as mpl
 
-mpl.use('module://backend_interagg')
-import matplotlib.pyplot as plt
-
-plt.style.use('seaborn-whitegrid')
 
 # Timing
 import time
