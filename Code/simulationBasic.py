@@ -185,7 +185,7 @@ def value_expected(capacity, time, products, revenues, preference_weights, prefe
 
     for offer_set_index in range(len(offer_sets_to_test)):
         offer_set = offer_sets_to_test[offer_set_index]
-        probs = customer_choice_segments([1], preference_no_purchase, offer_set, preference_weights)
+        probs = customer_choice_segments(1, preference_no_purchase, offer_set, preference_weights)
 
         val = value_expected(capacity, time - 1, products, revenues, preference_weights, preference_no_purchase)
         for j in products:
