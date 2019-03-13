@@ -1,4 +1,3 @@
-from simulationBasic import *
 
 # %% OVERALL PARAMETERS
 numProducts = 4
@@ -20,19 +19,3 @@ varCapacity = np.arange(40, 120, 20)
 preference_no_purchase = 2
 capacity = 6
 offer_set = np.array([1, 0, 1, 1])
-
-
-#%% Test - sample_path
-dfResult = sample_path(numPeriods, arrivalProbability, capacity, offer_set, revenues)
-
-x = -dfResult.index
-y = np.cumsum(dfResult['revenue'])
-plt.plot(x, y)
-
-#%% Test - customer weight
-probs = customer_choice_individual(offer_set)
-
-#%% Test - value expected
-start_time = time.time()
-print(value_expected(3, 3))
-print(time.time() - start_time)

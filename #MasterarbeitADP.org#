@@ -152,7 +152,8 @@ Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
 Termine allgemein: nicht am Freitag?
 in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 *** bis zum nächsten Treffen
-**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [23/44]
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [26/44]
+CLOCK: [2019-03-13 Mi 09:06]--[2019-03-13 Mi 10:02] =>  0:56
 CLOCK: [2019-03-12 Di 09:14]--[2019-03-12 Di 09:14] =>  0:00
 CLOCK: [2019-03-11 Mo 20:02]--[2019-03-11 Mo 20:46] =>  0:44
 CLOCK: [2019-03-11 Mo 18:44]--[2019-03-11 Mo 18:53] =>  0:09
@@ -197,9 +198,12 @@ CLOCK: [2019-03-11 Mo 09:33]--[2019-03-11 Mo 09:33] =>  0:00
 ***** DONE Einführung in Dekorateure
 ***** DONE Memoisation und Python-Dekorateure
 CLOSED: [2019-03-08 Fr 09:07]
-***** TODO Daten lesen und schreiben
-***** TODO Modularisierung: Module
-***** TODO Tests, Doctest und UnitTest
+***** DONE Daten lesen und schreiben
+CLOSED: [2019-03-13 Mi 09:32]
+***** DONE Modularisierung: Module
+CLOSED: [2019-03-13 Mi 09:45]
+***** DONE Tests, Doctest und UnitTest
+CLOSED: [2019-03-13 Mi 10:02]
 ***** TODO Reguläre Ausdrücke
 ***** TODO Reguläre Ausdrücke, Fortgeschrittene
 ***** TODO Modularisierung: Pakete
@@ -219,7 +223,7 @@ CLOSED: [2019-03-08 Fr 09:07]
 ***** TODO Metaklassen
 ***** TODO Beispiel für Metaklassen
 **** DONE Dynamiches Programm dazu mit Zeitvergleich mit und ohne Memoisation 
-CLOCK: [2019-03-12 Di 17:54]
+CLOCK: [2019-03-12 Di 17:54]--[2019-03-12 Di 18:06] =>  0:12
 Zeitvergleich noch ergänzen
 CLOSED: [2019-03-12 Di 17:53]
 CLOCK: [2019-03-12 Di 16:00]--[2019-03-12 Di 17:53] =>  1:53
@@ -233,12 +237,6 @@ CLOSED: [2019-03-12 Di 17:53]
 **** DONE Excel Spielerei für das ganze
 CLOSED: [2019-03-12 Di 14:01]
 super aufwändig, aber nicht mächtig genug, um Funktionen abzubilden (sehr schnell zu hochdimensional; Excel zum Spielen gut)
-**** TODO Bellmannsche Funktionalgleichung anfügen
-CLOCK: [2019-03-12 Di 12:18]--[2019-03-12 Di 12:18] =>  0:00
-CLOCK: [2019-03-12 Di 12:18]--[2019-03-12 Di 12:18] =>  0:00
-**** DONE Paper Talluri und van Ryzin lesen
-SCHEDULED: <2019-03-06 Mi>
-    
 **** TODO Paper Liu und van Ryzin lesen
     SCHEDULED: <2019-03-07 Do>
 **** TODO Paper Miranda Bront lesen
@@ -262,12 +260,15 @@ SCHEDULED: <2019-03-08 Fr>
 ***** TODO Vorgehen zur Lösung
 ***** TODO Resultate
 ***** TODO Fragen meinerseits
-**** TODO Paper Talluri und van Ryzin nachimplementieren [0/5]
+**** TODO Paper Talluri und van Ryzin nachimplementieren [0/6]
 ***** TODO Effiziente Sets bestimmen graphisch
 ***** TODO Effiziente Sets bestimmen über Optimierung
 ***** TODO RM mit effizienten Sets?
 ***** TODO RM mit EMSR-b with Buy-Up
 ***** TODO Numerische Vergleiche auf dem Beispieldatensatz (automatisiert)
+**** TODO Paper Koch nachimplementieren
+***** TODO Figure 2
+CLOCK: [2019-03-13 Mi 11:03]
 ** Arbeitsweise 
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
@@ -368,4 +369,9 @@ Chomsky hat Rekursion in Sprache (Grammatik) definiert
 Überarbeitung der Value expected (gebe nur mit welche Kapazität und wieviel Zeit übrig, Rest bleibt immer gleich)
 Code aufgeräumt (separtes Testen, kürzere Parameterliste, dafür Verwendung von globalen Variablen in Funktionen)
 Memoisation hingebracht nach ewigem Rumgetue (Importieren von Funktionen verhindert anständige Memoisation, Tupel nötig als Parameter)
-
+Bericht erstellt zur Performanz der Memoisierung
+** Und heute?<2019-03-13 Mi>
+Mal sehen, wie es weiter gehen kann
+Datei = Daten + Kartei (Portmonteau oder Kofferwort)
+Figure 2 aus Koch nachimplementieren
+Value Expected überarbeiten (optimal policy zurückgeben, ArrivalProbability berücksichtigen)

@@ -218,13 +218,18 @@ CLOSED: [2019-03-08 Fr 09:07]
 ***** TODO Hin zu Metaklassen
 ***** TODO Metaklassen
 ***** TODO Beispiel für Metaklassen
-**** TODO Dynamiches Programm dazu mit Zeitvergleich mit und ohne Memoisation 
-CLOCK: [2019-03-12 Di 16:00]
+**** DONE Dynamiches Programm dazu mit Zeitvergleich mit und ohne Memoisation 
+CLOCK: [2019-03-12 Di 17:54]--[2019-03-12 Di 18:06] =>  0:12
+Zeitvergleich noch ergänzen
+CLOSED: [2019-03-12 Di 17:53]
+CLOCK: [2019-03-12 Di 16:00]--[2019-03-12 Di 17:53] =>  1:53
 CLOCK: [2019-03-12 Di 12:18]--[2019-03-12 Di 12:57] =>  0:39
 CLOCK: [2019-03-11 Mo 18:08]--[2019-03-11 Mo 18:44] =>  0:36
 CLOCK: [2019-03-11 Mo 14:46]--[2019-03-11 Mo 17:29] =>  2:43
-****** TODO Memoisation von customer_ choiche_ segments
-****** TODO Memoisation von value_ expected
+****** DONE Memoisation von customer_ choiche_ segments
+CLOSED: [2019-03-12 Di 17:53]
+****** DONE Memoisation von value_ expected
+CLOSED: [2019-03-12 Di 17:53]
 **** DONE Excel Spielerei für das ganze
 CLOSED: [2019-03-12 Di 14:01]
 super aufwändig, aber nicht mächtig genug, um Funktionen abzubilden (sehr schnell zu hochdimensional; Excel zum Spielen gut)
@@ -363,3 +368,4 @@ Chomsky hat Rekursion in Sprache (Grammatik) definiert
 Überarbeitung der Value expected (gebe nur mit welche Kapazität und wieviel Zeit übrig, Rest bleibt immer gleich)
 Code aufgeräumt (separtes Testen, kürzere Parameterliste, dafür Verwendung von globalen Variablen in Funktionen)
 Memoisation hingebracht nach ewigem Rumgetue (Importieren von Funktionen verhindert anständige Memoisation, Tupel nötig als Parameter)
+Bericht erstellt zur Performanz der Memoisierung
