@@ -13,3 +13,4 @@ plt.close()
 plt.plot(capacities, value_exact)
 
 #%%
+value_expected(40, 399)

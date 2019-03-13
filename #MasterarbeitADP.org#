@@ -268,7 +268,9 @@ SCHEDULED: <2019-03-08 Fr>
 ***** TODO Numerische Vergleiche auf dem Beispieldatensatz (automatisiert)
 **** TODO Paper Koch nachimplementieren
 ***** TODO Figure 2
-CLOCK: [2019-03-13 Mi 11:03]
+CLOCK: [2019-03-13 Mi 13:28]
+CLOCK: [2019-03-13 Mi 11:03]--[2019-03-13 Mi 12:28] =>  1:25
+***** TODO samplePath mit Anpassung offerSet
 ** Arbeitsweise 
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
@@ -375,3 +377,4 @@ Mal sehen, wie es weiter gehen kann
 Datei = Daten + Kartei (Portmonteau oder Kofferwort)
 Figure 2 aus Koch nachimplementieren
 Value Expected überarbeiten (optimal policy zurückgeben, ArrivalProbability berücksichtigen)
+Schwierigkeit, die Daten sauber von den Funktionen zu trennen (bisher preferenceWeights als globale Variablen)
