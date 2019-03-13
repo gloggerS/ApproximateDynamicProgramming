@@ -240,7 +240,14 @@ super aufwändig, aber nicht mächtig genug, um Funktionen abzubilden (sehr schn
 **** TODO Paper Liu und van Ryzin lesen
     SCHEDULED: <2019-03-07 Do>
 **** TODO Paper Miranda Bront lesen
-    SCHEDULED: <2019-03-07 Do>
+    SCHEDULED: <2019-03-07 
+**** TODO Paper Koch zusammenfassen [0/5]
+SCHEDULED: <2019-03-13 Mi>
+***** TODO Identifiziertes Problem
+***** TODO Schwierigkeiten
+***** TODO Vorgehen zur Lösung
+***** TODO Resultate
+***** TODO Fragen meinerseits
 **** TODO Paper Talluri und van Ryzin zusammenfassen [0/5]
 SCHEDULED: <2019-03-08 Fr>
 ***** TODO Identifiziertes Problem
@@ -378,3 +385,6 @@ Datei = Daten + Kartei (Portmonteau oder Kofferwort)
 Figure 2 aus Koch nachimplementieren
 Value Expected überarbeiten (optimal policy zurückgeben, ArrivalProbability berücksichtigen)
 Schwierigkeit, die Daten sauber von den Funktionen zu trennen (bisher preferenceWeights als globale Variablen)
+Python neu installiert, da Gurobi-Schnittstelle nicht dazugeladen werden konnte
+Paper Koch zusammenfassen
+Altbewährtes SciView Problem wieder gelöst [[https://youtrack.jetbrains.com/issue/PY-29684][SciView Lösung]]

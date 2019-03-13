@@ -15,10 +15,8 @@ from simulationBasic_data_flight_singleLeg import *
 
 # Plot Python
 import matplotlib as mpl
-
-mpl.use('module://backend_interagg')
+mpl.use("module://backend_interagg")
 import matplotlib.pyplot as plt
-
 plt.style.use('seaborn-whitegrid')
 
 

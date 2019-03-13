@@ -1,44 +1,68 @@
-#!/usr/bin/python
-
-# Copyright 2018, Gurobi Optimization, LLC
-
-# This example reads an LP model from a file and solves it.
-# If the model is infeasible or unbounded, the example turns off
-# presolve and solves the model again. If the model is infeasible,
-# the example computes an Irreducible Inconsistent Subsystem (IIS),
-# and writes it to a file
-
-import sys
 from gurobipy import *
 
-if len(sys.argv) < 2:
-    print('Usage: lp.py filename')
-    quit()
+# Model data
 
-# Read and solve model
+commodities = ['Pencils', 'Pens']
+nodes = ['Detroit', 'Denver', 'Boston', 'New York', 'Seattle']
 
-model = read(sys.argv[1])
-model.optimize()
+arcs, capacity = multidict({
+  ('Detroit', 'Boston'):   100,
+  ('Detroit', 'New York'):  80,
+  ('Detroit', 'Seattle'):  120,
+  ('Denver',  'Boston'):   120,
+  ('Denver',  'New York'): 120,
+  ('Denver',  'Seattle'):  120 })
 
-if model.status == GRB.Status.INF_OR_UNBD:
-    # Turn presolve off to determine whether model is infeasible
-    # or unbounded
-    model.setParam(GRB.Param.Presolve, 0)
-    model.optimize()
+cost = {
+  ('Pencils', 'Detroit', 'Boston'):   10,
+  ('Pencils', 'Detroit', 'New York'): 20,
+  ('Pencils', 'Detroit', 'Seattle'):  60,
+  ('Pencils', 'Denver',  'Boston'):   40,
+  ('Pencils', 'Denver',  'New York'): 40,
+  ('Pencils', 'Denver',  'Seattle'):  30,
+  ('Pens',    'Detroit', 'Boston'):   20,
+  ('Pens',    'Detroit', 'New York'): 20,
+  ('Pens',    'Detroit', 'Seattle'):  80,
+  ('Pens',    'Denver',  'Boston'):   60,
+  ('Pens',    'Denver',  'New York'): 70,
+  ('Pens',    'Denver',  'Seattle'):  30 }
 
-if model.status == GRB.Status.OPTIMAL:
-    print('Optimal objective: %g' % model.objVal)
-    model.write('model.sol')
-    exit(0)
-elif model.status != GRB.Status.INFEASIBLE:
-    print('Optimization was stopped with status %d' % model.status)
-    exit(0)
+inflow = {
+  ('Pencils', 'Detroit'):   50,
+  ('Pencils', 'Denver'):    60,
+  ('Pencils', 'Boston'):   -50,
+  ('Pencils', 'New York'): -50,
+  ('Pencils', 'Seattle'):  -10,
+  ('Pens',    'Detroit'):   60,
+  ('Pens',    'Denver'):    40,
+  ('Pens',    'Boston'):   -40,
+  ('Pens',    'New York'): -30,
+  ('Pens',    'Seattle'):  -30 }
+
+# Create optimization model
+m = Model('netflow')
+
+# Create variables
+flow = m.addVars(commodities, arcs, obj=cost, name="flow")
+
+# Arc capacity constraints
+m.addConstrs(
+    (flow.sum('*',i,j) <= capacity[i,j] for i,j in arcs), "cap")
 
 
-# Model is infeasible - compute an Irreducible Inconsistent Subsystem (IIS)
+# Flow conservation constraints
+m.addConstrs(
+    (flow.sum(h,'*',j) + inflow[h,j] == flow.sum(h,j,'*')
+    for h in commodities for j in nodes), "node")
 
-print('')
-print('Model is infeasible')
-model.computeIIS()
-model.write("model.ilp")
-print("IIS written to file 'model.ilp'")
+# Compute optimal solution
+m.optimize()
+
+# Print solution
+if m.status == GRB.Status.OPTIMAL:
+    solution = m.getAttr('x', flow)
+    for h in commodities:
+        print('\nOptimal flows for %s:' % h)
+        for i,j in arcs:
+            if solution[h,i,j] > 0:
+                print('%s -> %s: %g' % (i, j, solution[h,i,j]))
