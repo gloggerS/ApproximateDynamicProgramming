@@ -152,7 +152,8 @@ Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
 Termine allgemein: nicht am Freitag?
 in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 *** bis zum nächsten Treffen
-**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [26/44]
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [29/44]
+CLOCK: [2019-03-14 Do 09:20]
 CLOCK: [2019-03-13 Mi 09:06]--[2019-03-13 Mi 10:02] =>  0:56
 CLOCK: [2019-03-12 Di 09:14]--[2019-03-12 Di 09:14] =>  0:00
 CLOCK: [2019-03-11 Mo 20:02]--[2019-03-11 Mo 20:46] =>  0:44
@@ -204,9 +205,9 @@ CLOSED: [2019-03-13 Mi 09:32]
 CLOSED: [2019-03-13 Mi 09:45]
 ***** DONE Tests, Doctest und UnitTest
 CLOSED: [2019-03-13 Mi 10:02]
-***** TODO Reguläre Ausdrücke
-***** TODO Reguläre Ausdrücke, Fortgeschrittene
-***** TODO Modularisierung: Pakete
+***** DONE Reguläre Ausdrücke
+***** DONE Reguläre Ausdrücke, Fortgeschrittene
+***** DONE Modularisierung: Pakete
 ***** TODO Lambda-Operator, map- filter- und reduce-Funktion
 ***** TODO Listen-Abstraktion (List Comprehension)
 ***** TODO Generatoren und Iteratoren
@@ -275,7 +276,7 @@ SCHEDULED: <2019-03-08 Fr>
 ***** TODO Numerische Vergleiche auf dem Beispieldatensatz (automatisiert)
 **** TODO Paper Koch nachimplementieren
 ***** TODO Figure 2
-CLOCK: [2019-03-13 Mi 13:28]
+CLOCK: [2019-03-13 Mi 13:28]--[2019-03-13 Mi 13:28] =>  0:00
 CLOCK: [2019-03-13 Mi 11:03]--[2019-03-13 Mi 12:28] =>  1:25
 ***** TODO samplePath mit Anpassung offerSet
 ** Arbeitsweise 
@@ -387,3 +388,5 @@ Value Expected überarbeiten (optimal policy zurückgeben, ArrivalProbability berü
 Schwierigkeit, die Daten sauber von den Funktionen zu trennen (bisher preferenceWeights als globale Variablen)
 Python neu installiert, da Gurobi-Schnittstelle nicht dazugeladen werden konnte
 Paper Koch zusammenfassen
+Altbewährtes SciView Problem wieder gelöst [[https://youtrack.jetbrains.com/issue/PY-29684][SciView Lösung]]
+** Auf ein Neues<2019-03-14 Do>
