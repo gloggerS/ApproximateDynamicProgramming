@@ -35,3 +35,15 @@ Iteration    Objective       Primal Inf.    Dual Inf.      Time
 
 Solved in 0 iterations and 0.00 seconds
 Optimal objective  5.500000000e+03
+
+Gurobi 8.1.0 (win64, Python) logging started 03/15/19 17:17:33
+
+Academic license - for non-commercial use only
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available

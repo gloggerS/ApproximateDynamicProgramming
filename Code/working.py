@@ -3,13 +3,34 @@ from simulationBasic import *
 import numpy as np
 from copy import deepcopy
 
+from gurobipy import *
 
 #%%
-def policy_evaluation(i, theta, pi):
+def policy_iteration(K, I):
+    theta = np.zeros(T+1)
+    pi = np.zeros(shape=(T+1, capacity + 1))
+
+    v_samples = list()
+    c_samples = list()
+
+    for k in np.arange(K):
+        # line 4
+        for i in np.arange(I):
+            v, c = policy_evaluation(pi)
+            v_samples.append(v)
+            c_samples.append(c)
+
+        # line 20
+        theta, pi = update_parameters(v_samples, c_samples, theta, pi)
+
+    return theta, pi
+
+
+def policy_evaluation(pi):
     """
     Evaluates one step of the policy iteration. Compare Sebastian Fig. 1
     :param i:
-    :return: updated sample data v_sample (value function) and c_sample (capacity)
+    :return: sample data v_sample (value function) and c_sample (capacity)
     """
     # line 3
     v_sample = np.zeros(T)
@@ -111,16 +132,46 @@ def simulate_sales(offer_tuple):
     return int(np.random.choice(products_with_no_purchase, size=1, p=customer_probabilities))
 
 
-def update_parameters(v_sample, c_sample, theta, pi):
+def update_parameters(v_samples, c_samples, theta, pi, I):
     """
     Updates the parameter theta, pi given the sample path using least squares linear regression with constraints.
+    Using gurobipy
 
-    :param v_sample:
-    :param c_sample:
+    :param v_samples:
+    :param c_samples:
     :param theta:
     :param pi:
     :return:
     """
+    set_i = np.arange(I)
+    set_t = np.arange(len(theta)-1)
+
+    theta_multidict = {}
+    for t in set_t:
+        theta_multidict["t_"+str(t)] = theta[t]
+
+    pi_multidict = {}
+    for t in set_t:
+        for c in np.arange(len(pi[0])):
+            pi_multidict["t_" + str(t) + "_c_" + str(c)] = pi[t, c]
+
+    try:
+        m = Model()
+
+        # Variables
+        mTheta = m.addVars(theta_multidict, name="theta")
+        mPi = m.addVars(pi_multidict, name="pi")
+
+        # Goal Function
+        lse = quicksum((v_samples[i][t] - theta)**2 for i in set_i for t in set_t)
+        m.setObjective(lse, GRB.MINIMIZE)
+
+
+
+        m.optimize()
+    except GurobiError:
+        print('Error reported')
+
 
 #%% testing
 
