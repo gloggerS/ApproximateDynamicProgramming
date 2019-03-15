@@ -5,7 +5,8 @@ Created on Mon Mar  11 14:46:31 2019
 @author: Stefan
 """
 
-from simulationBasic_data_flight_singleLeg import *
+# from simulationBasic_data_flight_singleLeg import *
+from bront_data import *
 
 # %% PACKAGES
 
@@ -95,8 +96,7 @@ def sample_path(num_periods, arrival_probability, capacity, revenues):
     """
 
     Over one complete booking horizon with *num_period* periods and a total *capacity*, the selling sample_path is
-    recorded. A customer comes with *arrivalProbability* and has given *preferenceWeights* and *noPurchasePreferences*.
-    TODO: calculate *offerSet* over time.
+    recorded. A customer comes with *arrival_probability* and has given *preferenceWeights* and *noPurchasePreferences*.
     RETURN: data frame with columns (time, capacity (at start), customer arrived, product sold, revenue)
     *customerArrived*: ID of
     *customerPreferences*: for each customer segment stores the preferences to determine which product will be bought
@@ -113,55 +113,53 @@ def sample_path(num_periods, arrival_probability, capacity, revenues):
     :return:
     """
 
-    index = np.arange(num_periods + 1)[::-1]  # first row is a dummy (for nice for loop)
+    index = np.arange(num_periods + 1)  # first row is a dummy (for nice for loop)
     columns = ['capacityStart', 'customerArrived', 'productSold', 'revenue', 'capacityEnd']
 
     df_sample_path = pd.DataFrame(index=index, columns=columns)
     df_sample_path = df_sample_path.fillna(0)
 
-    df_sample_path.loc[num_periods, 'capacityStart'] = df_sample_path.loc[num_periods, 'capacityEnd'] = capacity
-    df_sample_path.loc[(num_periods - 1):0, 'customerArrived'] = arrival(num_periods, arrival_probability)
+    df_sample_path.loc[0, 'capacityStart'] = df_sample_path.loc[0, 'capacityEnd'] = capacity
+    df_sample_path.loc[1:num_periods, 'customerArrived'] = arrival(num_periods, arrival_probability)
 
     revenues_with_no_purchase = np.insert(revenues, 0, 0)
     products_with_no_purchase = np.arange(revenues_with_no_purchase.size)
 
-    for time_to_go in np.delete(index, 0):  # start in second row (without actually deleting row)
-        if df_sample_path.loc[time_to_go, 'customerArrived'] == 1:
-            if df_sample_path.loc[time_to_go + 1, 'capacityEnd'] == 0:
+    for t in np.delete(index, 0):  # start in second row (without actually deleting row)
+        if df_sample_path.loc[t, 'customerArrived'] == 1:
+            if df_sample_path.loc[t - 1, 'capacityEnd'] == 0:
                 break
             # A customer has arrived and we have capacity.
 
-            df_sample_path.loc[time_to_go, 'capacityStart'] = df_sample_path.loc[time_to_go + 1, 'capacityEnd']
+            df_sample_path.loc[t, 'capacityStart'] = df_sample_path.loc[t - 1, 'capacityEnd']
 
-            offer_set_tuple = value_expected(df_sample_path.loc[time_to_go, 'capacityStart'], time_to_go)[1]
+            offer_set_tuple = value_expected(df_sample_path.loc[t, 'capacityStart'], t)[1]
             customer_probabilities = customer_choice_individual(offer_set_tuple)
 
-            df_sample_path.loc[time_to_go, 'productSold'] = np.random.choice(products_with_no_purchase, size=1,
+            df_sample_path.loc[t, 'productSold'] = np.random.choice(products_with_no_purchase, size=1,
                                                                              p=customer_probabilities)
 
-            df_sample_path.loc[time_to_go, 'revenue'] = revenues_with_no_purchase[df_sample_path.loc[time_to_go,
-                                                                                                     'productSold']]
+            df_sample_path.loc[t, 'revenue'] = revenues_with_no_purchase[df_sample_path.loc[t, 'productSold']]
 
-            if df_sample_path.loc[time_to_go, 'productSold'] != 0:
-                df_sample_path.loc[time_to_go, 'capacityEnd'] = df_sample_path.loc[time_to_go, 'capacityStart'] - 1
+            if df_sample_path.loc[t, 'productSold'] != 0:
+                df_sample_path.loc[t, 'capacityEnd'] = df_sample_path.loc[t, 'capacityStart'] - 1
             else:
-                df_sample_path.loc[time_to_go, 'capacityEnd'] = df_sample_path.loc[time_to_go, 'capacityStart']
+                df_sample_path.loc[t, 'capacityEnd'] = df_sample_path.loc[t, 'capacityStart']
         else:
             # no customer arrived
-            df_sample_path.loc[time_to_go, 'capacityEnd'] = df_sample_path.loc[time_to_go, 'capacityStart'] = \
-                df_sample_path.loc[
-                    time_to_go + 1, 'capacityEnd']
+            df_sample_path.loc[t, 'capacityEnd'] = df_sample_path.loc[t, 'capacityStart'] = \
+                df_sample_path.loc[t - 1, 'capacityEnd']
 
     return df_sample_path
 
 
 @memoize
-def value_expected(capacity, time_to_go):
+def value_expected(capacity, t):
     """
     Recursive implementation of the value function, i.e. dynamic program (DP)
 
     :param capacity:
-    :param time_to_go: time to go (last chance for revenue is t=0)
+    :param t: time to go (last chance for revenue is t=0)
     :return: value to be expected and optimal policy
     """
     offer_sets_to_test = list(map(list, itertools.product([0, 1], repeat=len(products))))
@@ -172,20 +170,20 @@ def value_expected(capacity, time_to_go):
         return 0, None
     if capacity < 0:
         return -math.inf, None
-    if time_to_go == -1:
+    if t == T+1:
         return 0, None
 
     for offer_set_index in range(len(offer_sets_to_test)):
         offer_set = offer_sets_to_test[offer_set_index]
         probs = customer_choice_individual(tuple(offer_set))
 
-        val = value_expected(capacity, time_to_go - 1)[0]
+        val = value_expected(capacity, t + 1)[0]
         for j in products:
             p = float(probs[j])
             if p > 0.0:
-                value_delta = value_expected(capacity, time_to_go - 1)[0] - \
-                              value_expected(capacity - 1, time_to_go - 1)[0]
-                val += arrivalProbability * p * (revenues[j - 1] - value_delta)  # j-1 shifts to right product
+                value_delta = value_expected(capacity, t + 1)[0] - \
+                              value_expected(capacity - 1, t + 1)[0]
+                val += arrival_probability * p * (revenues[j - 1] - value_delta)  # j-1 shifts to right product
 
         if val > offer_sets_max_val:
             offer_sets_max_val = val
