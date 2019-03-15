@@ -3,30 +3,49 @@ from simulationBasic import *
 import numpy as np
 from copy import deepcopy
 
+
 #%%
 def policy_evaluation(i, theta, pi):
     """
-    Evaluates one step of the policy iteration
+    Evaluates one step of the policy iteration. Compare Sebastian Fig. 1
     :param i:
     :return: updated sample data v_sample (value function) and c_sample (capacity)
     """
-    v_sample = c_sample = r_sample = np.zeros(T)
+    # line 3
+    v_sample = np.zeros(T)
+    c_sample = np.zeros(T)
+    r_sample = np.zeros(T)
+
+    # line 5
     c = capacity
 
+    # line 6
     for t in np.arange(T):
+        # line 7
         c_sample[t] = c
+
+        # line 9
         if c == 0:
             pi[t+1, c] = np.inf
         else:
+            # line 10
             pi[t+1, c] = pi[t+1, c]  # piecewise linear => compute_pi(c)
 
-        x[t] = determine_offer_tuple(pi[t + 1, c])
-        j = simulate_sales(x[t])
+        # line 12
+        x = determine_offer_tuple(pi[t + 1, c])
+
+        # line 13
+        j = simulate_sales(x)
+
+        # line 14
         if j > 0:
             r_sample[t] = revenues[j-1]
             c = c-1
 
-    np.cumsum(r_sample[::-1])
+    # line 16-18
+    v_sample = np.cumsum(r_sample[::-1])[::-1]
+
+    return v_sample, c_sample
 
 
 def determine_offer_tuple(pi):
@@ -88,7 +107,7 @@ def determine_offer_tuple(pi):
 
 def simulate_sales(offer_tuple):
     products_with_no_purchase = np.arange(revenues.size+1)
-    customer_probabilities = customer_choice_individual(offer_tuple)
+    customer_probabilities = customer_choice_all(offer_tuple)
     return int(np.random.choice(products_with_no_purchase, size=1, p=customer_probabilities))
 
 

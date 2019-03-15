@@ -61,7 +61,7 @@ def memoize(func):
 
 
 @memoize
-def customer_choice_individual(offer_set_tuple):
+def customer_choice_individual(offer_set_tuple, pw = preference_weights, pnp = preference_no_purchase):
     """
     For one customer of one customer segment, determine its purchase probabilities given one offer set.
 
@@ -70,15 +70,25 @@ def customer_choice_individual(offer_set_tuple):
     :param offer_set_tuple: tuple with offered products indicated by 1=product offered
     :return: array of purchase probabilities starting with no purchase
     """
+
     if offer_set_tuple is None:
-        ret = np.zeros_like(preference_weights)
+        ret = np.zeros_like(pw)
         return np.insert(ret, 0, 1)
 
     offer_set = np.asarray(offer_set_tuple)
-    ret = preference_weights * offer_set
-    ret = np.array(ret / (preference_no_purchase + sum(ret)))
+    ret = pw * offer_set
+    ret = np.array(ret / (pnp + sum(ret)))
     ret = np.insert(ret, 0, 1 - sum(ret))
     return ret
+
+
+@memoize
+def customer_choice_all(offer_set_tuple):
+    probs = np.zeros(len(offer_set_tuple) + 1)
+    for l in np.arange(len(preference_weights)):
+        probs += arrival_probability[l]*customer_choice_individual(offer_set_tuple, preference_weights[l, :], preference_no_purchase[l])
+        print(probs)
+    return probs
 
 
 def arrival(num_periods, arrival_probability):
@@ -137,7 +147,7 @@ def sample_path(num_periods, arrival_probability, capacity, revenues):
             customer_probabilities = customer_choice_individual(offer_set_tuple)
 
             df_sample_path.loc[t, 'productSold'] = np.random.choice(products_with_no_purchase, size=1,
-                                                                             p=customer_probabilities)
+                                                                    p=customer_probabilities)
 
             df_sample_path.loc[t, 'revenue'] = revenues_with_no_purchase[df_sample_path.loc[t, 'productSold']]
 
@@ -170,7 +180,7 @@ def value_expected(capacity, t):
         return 0, None
     if capacity < 0:
         return -math.inf, None
-    if t == T+1:
+    if t == T + 1:
         return 0, None
 
     for offer_set_index in range(len(offer_sets_to_test)):

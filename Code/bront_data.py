@@ -27,4 +27,5 @@ preference_weights = np.array([[1, 1, 1],
                               [0, 0, 1]])
 preference_no_purchase = np.array([1, 1, 1])
 revenues = np.array([100, 19, 19])
+arrival_probability = np.array([0.2, 0.3, 0.5])
 pi = np.zeros(shape=(T+1, capacity +1))
