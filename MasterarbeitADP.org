@@ -276,7 +276,7 @@ CLOCK: [2019-03-13 Mi 13:28]--[2019-03-13 Mi 13:28] =>  0:00
 CLOCK: [2019-03-13 Mi 11:03]--[2019-03-13 Mi 12:28] =>  1:25
 ***** DONE samplePath mit Anpassung offerSet
 ***** TODO API linear
-CLOCK: [2019-03-15 Fr 13:11]
+CLOCK: [2019-03-15 Fr 13:11]--[2019-03-15 Fr 18:04] =>  4:53
 CLOCK: [2019-03-15 Fr 10:25]--[2019-03-15 Fr 11:45] =>  1:20
 :PROPERTIES:
 :ORDERED:  t
@@ -309,10 +309,11 @@ dann gehts auch weiter in Richtung Künstlicher Intelligenz
 ** Simulationsstudie
 Single Leg Beispiel
 
-* Python-Homepages
+* Tutorials
+** Python-Homepages
 Hier ein paar gute Links zu Python.
 
-** Tutorials
+*** Tutorials
 [[https://www.python-kurs.eu/python3_kurs.php][Python Kurs - Python 3 Tutorial]]
 [[https://docs.scipy.org/doc/numpy/user/quickstart.html][Quickstart tutorial von SciPy.org]]
 [[https://www.geeksforgeeks.org/python-programming-language/][Übersicht von GeeksForGeeks - geht sehr ins Detail]]
@@ -320,9 +321,11 @@ Hier ein paar gute Links zu Python.
 [[https://geo-python.github.io/2017/course-info/course-info.html][Geo-Python - Vorlesungsunterlagen einer finnischen Uni (Helsinki)]]
 [[https://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/index.html][Hands-on Python Tutorial von Loyola University in Chicago]]
 
-** weitere Tipps
+*** weitere Tipps
 [[https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/][28 Jupyter Notebook tips, tricks, and shortcuts]]
 
+** Gurobi
+[[https://medium.com/opex-analytics/optimization-modeling-in-python-pulp-gurobi-and-cplex-83a62129807a][Blog on Optimization Modeling in Python]]
 * Erweiterungen
 ** Mehrere Customer-Segmente
 
@@ -401,3 +404,4 @@ Paper von Sebastian komplett durchgearbeitet und in Citavi überführt
 Zeit in Notation wie bei Paper Sebastian (t aufsteigend bis Ende T)
 Code Richtung Bront erweitert (mehrere Segmente hinzugefügt, offer-set calculation mit marginal Nutzen)
 Policy evaluation implementiert
+Gurobi Optimierung gestartet

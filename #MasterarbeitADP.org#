@@ -276,7 +276,8 @@ CLOCK: [2019-03-13 Mi 13:28]--[2019-03-13 Mi 13:28] =>  0:00
 CLOCK: [2019-03-13 Mi 11:03]--[2019-03-13 Mi 12:28] =>  1:25
 ***** DONE samplePath mit Anpassung offerSet
 ***** TODO API linear
-CLOCK: [2019-03-15 Fr 13:11]
+CLOCK: [2019-03-16 Sa 09:00]
+CLOCK: [2019-03-15 Fr 13:11]--[2019-03-15 Fr 18:04] =>  4:53
 CLOCK: [2019-03-15 Fr 10:25]--[2019-03-15 Fr 11:45] =>  1:20
 :PROPERTIES:
 :ORDERED:  t
@@ -404,3 +405,6 @@ Paper von Sebastian komplett durchgearbeitet und in Citavi überführt
 Zeit in Notation wie bei Paper Sebastian (t aufsteigend bis Ende T)
 Code Richtung Bront erweitert (mehrere Segmente hinzugefügt, offer-set calculation mit marginal Nutzen)
 Policy evaluation implementiert
+Gurobi Optimierung gestartet
+** A bissle geht no<2019-03-16 Sa>
+Weiter an der Gurobi Optimierung

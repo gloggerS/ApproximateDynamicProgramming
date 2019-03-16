@@ -21,7 +21,7 @@ def policy_iteration(K, I):
             c_samples.append(c)
 
         # line 20
-        theta, pi = update_parameters(v_samples, c_samples, theta, pi)
+        theta, pi = update_parameters(v_samples, c_samples, theta, pi, I)
 
     return theta, pi
 
@@ -145,32 +145,59 @@ def update_parameters(v_samples, c_samples, theta, pi, I):
     """
     set_i = np.arange(I)
     set_t = np.arange(len(theta)-1)
+    set_c = np.arange(len(pi[0]))
 
     theta_multidict = {}
     for t in set_t:
-        theta_multidict["t_"+str(t)] = theta[t]
+        theta_multidict[t] = theta[t]
+    theta_indices, theta_tuples = multidict(theta_multidict)
 
     pi_multidict = {}
     for t in set_t:
-        for c in np.arange(len(pi[0])):
-            pi_multidict["t_" + str(t) + "_c_" + str(c)] = pi[t, c]
+        for c in set_c:
+            pi_multidict[t, c] = pi[t, c]
+    pi_indices, pi_tuples = multidict(pi_multidict)
 
     try:
         m = Model()
 
         # Variables
-        mTheta = m.addVars(theta_multidict, name="theta")
-        mPi = m.addVars(pi_multidict, name="pi")
+        mTheta = m.addVars(theta_indices, name="theta", lb=0.0)  # Constraint 10
+        mPi = m.addVars(pi_indices, name="pi", ub=max(revenues))  # Constraint 11
+
+        for t in set_t:
+            mTheta[t].start = theta_tuples[t]
+            for c in set_c:
+                mPi[t, c].start = pi_tuples[t, c]
 
         # Goal Function
-        lse = quicksum((v_samples[i][t] - theta)**2 for i in set_i for t in set_t)
+        lse = quicksum((v_samples[i][t] - mTheta[t]-quicksum(mPi[t, c]*c_samples[t][c] for c in set_c)) *
+                       (v_samples[i][t] - mTheta[t]-quicksum(mPi[t, c]*c_samples[t][c] for c in set_c))
+                       for i in set_i for t in set_t)
         m.setObjective(lse, GRB.MINIMIZE)
 
-
+        # Constraints
+        # C12 (not needed yet)
+        for t in set_t[:-1]:
+            m.addConstr(mTheta[t], GRB.GREATER_EQUAL, mTheta[t+1], name="C15")  # Constraint 15
+            for c in set_c:
+                m.addConstr(mPi[t, c], GRB.GREATER_EQUAL, mPi[t+1, c], name="C16")  # Constraint 16
 
         m.optimize()
+
+        theta_new = deepcopy(theta)
+        pi_new = deepcopy(pi)
+
+        for t in set_t:
+            theta_new[t] = m.getVarByName("theta[" + str(t) + "]").X
+            for c in set_c:
+                pi_new[t, c] = m.getVarByName("pi[" + str(t) + "," + str(c) + "]").X
+
+        return theta_new, pi_new
     except GurobiError:
         print('Error reported')
+
+        return 0, 0
 
 
 #%% testing
