@@ -299,8 +299,15 @@ CLOSED: [2019-03-19 Di 14:53]
       :END:
 ***** TODO Bront DCOMP 
       :LOGBOOK:
-      CLOCK: [2019-03-20 Mi 13:17]
+      CLOCK: [2019-03-20 Mi 13:17]--[2019-03-20 Mi 17:57]
       :END:
+
+****** DONE MIP formulation
+       CLOSED: [2019-03-20 Mi 17:59]
+****** DONE greedy heuristic
+       CLOSED: [2019-03-20 Mi 17:59]
+
+****** TODO leg level decomposition
 ** Arbeitsweise 
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
@@ -439,6 +446,4 @@ regular expression um optimierte Variablen zu erhalten
 Gurobi Constraints bulk weise hinzufügen
 "and" is lazy version of "&"
 ideavim auch in Pycharm hinzufügen
-besser Gurobi auch sagen, dass er maximieren soll
-quicksum geschickt einsetzen (nur für Summe, nicht darüber hinaus)
 

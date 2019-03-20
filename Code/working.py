@@ -175,7 +175,9 @@ def column_greedy(pi, w = 0):  # pass w to test example for greedy heuristic
     y = np.zeros_like(revenues)
 
     if isinstance(w, int) and w == 0:  # and is lazy version of &
-        w = revenues - np.dot(A.transpose(),pi)  # calculate the opportunity costs
+        w = np.zeros_like(revenues, dtype=float)  # calculate the opportunity costs
+        for j in np.arange(len(revenues)):
+            w[j] = revenues[j] - sum(A[:, j]*pi)
 
     # Step 2
     Sprime = set(np.where(w > 0)[0])
