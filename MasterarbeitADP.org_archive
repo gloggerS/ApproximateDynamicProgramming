@@ -117,3 +117,54 @@ CLOCK: [2019-03-14 Do 11:09]--[2019-03-14 Do 12:23] =>  1:14
 ** DONE Vorgehen zur Lösung
 ** DONE Resultate
 ** DONE Fragen meinerseits
+
+* DONE Paper Miranda Bront lesen
+CLOSED: [2019-03-19 Di 14:08] SCHEDULED: <2019-03-07 
+    CLOCK: [2019-03-19 Di 13:04]--[2019-03-19 Di 14:04] =>  1:00
+    CLOCK: [2019-03-19 Di 11:30]--[2019-03-19 Di 12:02] =>  0:32
+    CLOCK: [2019-03-19 Di 10:49]--[2019-03-19 Di 11:22] =>  0:33
+    CLOCK: [2019-03-19 Di 09:57]--[2019-03-19 Di 10:44] =>  0:47
+:PROPERTIES:
+:ARCHIVE_TIME: 2019-03-19 Di 14:10
+:ARCHIVE_FILE: c:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/MasterarbeitADP.org
+:ARCHIVE_OLPATH: 07.03. Treffen mit Sebastian Koch/Zeitplan besprechen/bis zum nächsten Treffen
+:ARCHIVE_CATEGORY: MasterarbeitADP
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: Treffen
+:END:
+
+* DONE Paper Miranda Bront zusammenfassen [0/5]
+CLOSED: [2019-03-19 Di 14:53]
+CLOCK: [2019-03-19 Di 14:25]--[2019-03-19 Di 14:53] =>  0:28
+:PROPERTIES:
+:ARCHIVE_TIME: 2019-03-19 Di 14:53
+:ARCHIVE_FILE: c:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/MasterarbeitADP.org
+:ARCHIVE_OLPATH: 07.03. Treffen mit Sebastian Koch/Zeitplan besprechen/bis zum nächsten Treffen
+:ARCHIVE_CATEGORY: MasterarbeitADP
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: Treffen
+:END:
+** TODO Identifiziertes Problem
+** TODO Schwierigkeiten
+** TODO Vorgehen zur Lösung
+** TODO Resultate
+** TODO Fragen meinerseits
+
+* DONE Upgrade zu Spacemacs 
+  CLOSED: [2019-03-20 Mi 09:49]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2019-03-20 Mi 09:49
+  :ARCHIVE_FILE: c:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/MasterarbeitADP.org
+  :ARCHIVE_OLPATH: 07.03. Treffen mit Sebastian Koch/Zeitplan besprechen/bis zum nächsten Treffen
+  :ARCHIVE_CATEGORY: MasterarbeitADP
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: Treffen
+  :END:
+** DONE Spacemacs installieren
+   :LOGBOOK:
+   CLOCK: [2019-03-20 Mi 09:09]--[2019-03-20 Mi 09:48] =>  0:36
+   :END:
+
+   CLOSED: [2019-03-20 Mi 09:11]
+** DONE Tutorial VIM navigation
+   CLOSED: [2019-03-20 Mi 09:47]

@@ -1,12 +1,23 @@
 #+TAGS: github pdf book Treffen
-#+STARTUP: entitiespretty
+#+STARTUP: entitiespretty logdone
 
 * 26.03. Treffen mit Sebastian
-** Implementierung
-*** vektorisierte Implementierung nicht möglich wegen variablem Offerset
+
+** Ergebnisse
+
+*** 
+** Ideen
+*** zur Implementierung
+**** vektorisierte Implementierung nicht möglich wegen variablem Offerset
 Idee: Am schnellsten ist vektorisierte Implementierung. Weiß über alle Perioden, welche Kunden kommen und welche Präferenzen diese haben. Dann mit Zufallszahl über alle Perioden die verkauften Produkte erfassen mit ihrem Revenue. Und zum Schluss Kapazitäten anpassen, ob noch was vorhanden (Daten kappen). 
 Klappt nicht: Offerset ändert sich je nach verfügbarer Kapazität.
-
+** Fragen
+*** Wie hast du den Datenaustausch implementiert, also dass man schnell verschiedene Beispieldatensätze durchrechnen kann?
+Idee: ein Python file "data", in dem alle Beispieldatensätze drin sind. Dieses wird dann angepasst, und Code laufen gelassen.
+*** Welche Struktur des Codes ist sinnvoll?
+globale Daten
+Funktionalitäten
+Ergebnisse berechnen und darstellen (und automatisch mit Zeitstempel abspeichern in Ordner)
 * Overall
 ** https://vhbonline.org/vhb4you/jourqual/vhb-jourqual-archiv/jq1/teilranking-logistik-operations-research-produktion/
 ** Goals
@@ -15,11 +26,9 @@ Klappt nicht: Offerset ändert sich je nach verfügbarer Kapazität.
 *** Implement a problem in Python
 *** Aim for a paper (ultimate goal)
 
-
 * Persönliches
 Bin ein fleißiger Arbeiter, aber es werden wohl Phasen kommen, in denen es schleppender vorangeht. Ich glaube, ich ertappe mich dann wieder dabei, zu denken, dass Bichler und Auktionen auch ein schönes Thema gewesen wäre. Aber das ist vergangen! Ich bin jetzt hier bei Klein!
 Werte, die mir wichtig sind:  Pflichtbewusstsein, Disziplin, Bescheidenheit, 
-
 
 * Literature
 ** https://github.com/tristanguigue/dynamic-programming		     :github:
@@ -152,7 +161,8 @@ Wo gibts Engstellen / wo sollte mehr Zeit für eingeplant werden?
 Termine allgemein: nicht am Freitag?
 in nächster Zeit: grob alle 2 Wochen: nächster optimalerweise am Fr, 22.3.
 *** bis zum nächsten Treffen
-**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [32/44]
+**** TODO Python Skills auffrischen mit Tutorial python-kurs.eu [33/44]
+CLOCK: [2019-03-19 Di 09:32]--[2019-03-19 Di 09:52] =>  0:20
 CLOCK: [2019-03-15 Fr 09:34]--[2019-03-15 Fr 10:02] =>  0:28
 CLOCK: [2019-03-14 Do 17:15]--[2019-03-14 Do 17:53] =>  0:38
 CLOCK: [2019-03-14 Do 09:20]--[2019-03-14 Do 10:22] =>  1:02
@@ -214,7 +224,7 @@ CLOSED: [2019-03-13 Mi 10:02]
 ***** DONE Listen-Abstraktion (List Comprehension)
 ***** DONE Generatoren und Iteratoren
 send Methode nicht verstanden
-***** TODO Ausnahme-Behandlung
+***** DONE Ausnahme-Behandlung
 ***** TODO Einführung in die Objektorientierte Programmierung (OOP)
 ***** TODO Klassen- und Instanzattribute
 ***** TODO Properties
@@ -243,8 +253,6 @@ CLOSED: [2019-03-12 Di 14:01]
 super aufwändig, aber nicht mächtig genug, um Funktionen abzubilden (sehr schnell zu hochdimensional; Excel zum Spielen gut)
 **** TODO Paper Liu und van Ryzin lesen
     SCHEDULED: <2019-03-07 Do>
-**** TODO Paper Miranda Bront lesen
-    SCHEDULED: <2019-03-07 
 **** TODO Paper Talluri und van Ryzin zusammenfassen [0/5]
 SCHEDULED: <2019-03-08 Fr>
 ***** TODO Identifiziertes Problem
@@ -258,30 +266,37 @@ SCHEDULED: <2019-03-08 Fr>
 ***** TODO Vorgehen zur Lösung
 ***** TODO Resultate
 ***** TODO Fragen meinerseits
-**** TODO Paper Miranda Bront zusammenfassen [0/5]
-***** TODO Identifiziertes Problem
-***** TODO Schwierigkeiten
-***** TODO Vorgehen zur Lösung
-***** TODO Resultate
-***** TODO Fragen meinerseits
-**** TODO Paper Talluri und van Ryzin nachimplementieren [0/6]
+**** TODO Paper Talluri und van Ryzin nachimplementieren [0/5]
 ***** TODO Effiziente Sets bestimmen graphisch
 ***** TODO Effiziente Sets bestimmen über Optimierung
 ***** TODO RM mit effizienten Sets?
 ***** TODO RM mit EMSR-b with Buy-Up
 ***** TODO Numerische Vergleiche auf dem Beispieldatensatz (automatisiert)
 **** TODO Paper Koch nachimplementieren
+     :LOGBOOK:
+     CLOCK: [2019-03-19 Di 16:39]--[2019-03-19 Di 17:36] =>  0:57
+     CLOCK: [2019-03-19 Di 16:04]--[2019-03-19 Di 16:04] =>  0:00
+     :END:
 ***** DONE Figure 2
 CLOCK: [2019-03-13 Mi 13:28]--[2019-03-13 Mi 13:28] =>  0:00
 CLOCK: [2019-03-13 Mi 11:03]--[2019-03-13 Mi 12:28] =>  1:25
 ***** DONE samplePath mit Anpassung offerSet
-***** TODO API linear
+***** DONE API linear
+CLOCK: [2019-03-16 Sa 09:00]--[2019-03-16 Sa 10:01] =>  1:01
 CLOCK: [2019-03-15 Fr 13:11]--[2019-03-15 Fr 18:04] =>  4:53
 CLOCK: [2019-03-15 Fr 10:25]--[2019-03-15 Fr 11:45] =>  1:20
 :PROPERTIES:
 :ORDERED:  t
 :END:
-***** TODO API piecewise linear
+***** DONE API piecewise linear
+CLOSED: [2019-03-19 Di 14:53]
+***** TODO bisherigen Code Überarbeiten
+***** TODO Bront CDLP 
+      :LOGBOOK:
+      CLOCK: [2019-03-20 Mi 10:09]
+      CLOCK: [2019-03-20 Mi 10:09]--[2019-03-20 Mi 10:09] =>  0:00
+      :END:
+***** TODO Bront DCOMP 
 ** Arbeitsweise 
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
@@ -405,3 +420,15 @@ Zeit in Notation wie bei Paper Sebastian (t aufsteigend bis Ende T)
 Code Richtung Bront erweitert (mehrere Segmente hinzugefügt, offer-set calculation mit marginal Nutzen)
 Policy evaluation implementiert
 Gurobi Optimierung gestartet
+** A bissle geht no<2019-03-16 Sa>
+Weiter an der Gurobi Optimierung gewerkelt und abgeschlossen
+Erfolgreiche Woche, Paper von Sebastian in Grundstruktur nachimplementiert :)
+** Weiter in der neuen Woche<2019-03-19 Di> 
+Paper von Miranda Bront et al gelesen und zusammengefasst
+Implementierung gestartet
+Spacemacs begonnen (installiert und vim Tutorium gestartet)
+
+** Bront implementieren und Spaß haben<2019-03-20 Mi>
+CDLP implementieren und Ergebnis mit Example 0 vergleichen
+Spacemacs weitertreiben (vim Tutorium durchgearbeitet)
+regular expression um optimierte Variable zu erhalten

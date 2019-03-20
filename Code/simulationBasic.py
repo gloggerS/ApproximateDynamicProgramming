@@ -51,6 +51,7 @@ def memoize(func):
     cache = func.cache = {}
 
     @functools.wraps(func)
+
     def memoizer(*args, **kwargs):
         key = str(args) + str(kwargs)
         if key not in cache:
@@ -87,7 +88,6 @@ def customer_choice_all(offer_set_tuple):
     probs = np.zeros(len(offer_set_tuple) + 1)
     for l in np.arange(len(preference_weights)):
         probs += arrival_probability[l]*customer_choice_individual(offer_set_tuple, preference_weights[l, :], preference_no_purchase[l])
-        print(probs)
     return probs
 
 
