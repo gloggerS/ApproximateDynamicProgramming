@@ -291,12 +291,16 @@ CLOCK: [2019-03-15 Fr 10:25]--[2019-03-15 Fr 11:45] =>  1:20
 ***** DONE API piecewise linear
 CLOSED: [2019-03-19 Di 14:53]
 ***** TODO bisherigen Code Überarbeiten
-***** TODO Bront CDLP 
+***** DONE Bront CDLP 
+      CLOSED: [2019-03-20 Mi 12:18]
       :LOGBOOK:
-      CLOCK: [2019-03-20 Mi 10:09]
+      CLOCK: [2019-03-20 Mi 10:09]--[2019-03-20 Mi 12:17] =>  2:08
       CLOCK: [2019-03-20 Mi 10:09]--[2019-03-20 Mi 10:09] =>  0:00
       :END:
 ***** TODO Bront DCOMP 
+      :LOGBOOK:
+      CLOCK: [2019-03-20 Mi 13:17]
+      :END:
 ** Arbeitsweise 
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
@@ -431,4 +435,10 @@ Spacemacs begonnen (installiert und vim Tutorium gestartet)
 ** Bront implementieren und Spaß haben<2019-03-20 Mi>
 CDLP implementieren und Ergebnis mit Example 0 vergleichen
 Spacemacs weitertreiben (vim Tutorium durchgearbeitet)
-regular expression um optimierte Variable zu erhalten
+regular expression um optimierte Variablen zu erhalten
+Gurobi Constraints bulk weise hinzufügen
+"and" is lazy version of "&"
+ideavim auch in Pycharm hinzufügen
+besser Gurobi auch sagen, dass er maximieren soll
+quicksum geschickt einsetzen (nur für Summe, nicht darüber hinaus)
+

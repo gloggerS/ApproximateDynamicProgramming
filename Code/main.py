@@ -1,7 +1,1 @@
-import re
-
-t = "t[80]"
-
-pat = r".*?\[(.*)\].*"
-match = re.search(pat, t)
-match.group(1)
+which = lambda lst:list(np.where(lst)[0])

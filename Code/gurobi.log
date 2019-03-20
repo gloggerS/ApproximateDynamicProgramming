@@ -1314,3 +1314,366 @@ Iteration    Objective       Primal Inf.    Dual Inf.      Time
 
 Solved in 10 iterations and 0.01 seconds
 Optimal objective  1.183988636e+04
+Optimize a model with 4 rows, 255 columns and 927 nonzeros
+Coefficient statistics:
+  Matrix range     [4e-02, 1e+00]
+  Objective range  [6e+01, 5e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+01]
+Presolve time: 0.01s
+Presolved: 4 rows, 255 columns, 927 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    9.1657662e+34   5.943074e+32   9.165766e+04      0s
+      10    1.1721591e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.01 seconds
+Optimal objective  1.172159091e+04
+Optimize a model with 8 rows, 255 columns and 1854 nonzeros
+Coefficient statistics:
+  Matrix range     [4e-02, 1e+00]
+  Objective range  [6e+01, 5e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+01]
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.1721591e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  1.172159091e+04
+Optimize a model with 4 rows, 1 columns and 4 nonzeros
+Coefficient statistics:
+  Matrix range     [3e-01, 1e+00]
+  Objective range  [5e+02, 5e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+01]
+Presolve removed 4 rows and 1 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    8.1160846e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  8.116084559e+03
+
+Gurobi 8.1.0 (win64, Python) logging started 03/20/19 13:56:19
+
+Academic license - for non-commercial use only
+Optimize a model with 4 rows, 1 columns and 4 nonzeros
+Coefficient statistics:
+  Matrix range     [3e-01, 1e+00]
+  Objective range  [5e+02, 5e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+01]
+Presolve removed 4 rows and 1 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    8.1160846e+03   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  8.116084559e+03
+Optimize a model with 125 rows, 53 columns and 295 nonzeros
+Variable types: 45 continuous, 8 integer (8 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 4e+01]
+  Objective range  [3e+02, 1e+03]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve time: 0.02s
+Presolved: 125 rows, 53 columns, 335 nonzeros
+Variable types: 45 continuous, 8 integer (8 binary)
+
+Root relaxation: objective -1.125515e+02, 11 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0    -112.5514943 -112.55149  0.00%     -    0s
+
+Explored 0 nodes (11 simplex iterations) in 0.03 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: -112.551 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.125514942529e+02, best bound -1.125514942529e+02, gap 0.0000%
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+00]
+  Objective range  [4e+00, 3e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve removed 8 rows and 4 columns
+Presolve time: 0.02s
+Presolved: 22 rows, 11 columns, 60 nonzeros
+Variable types: 4 continuous, 7 integer (3 binary)
+
+Root relaxation: objective -7.615000e+01, 3 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -76.1500000  -76.15000  0.00%     -    0s
+
+Explored 0 nodes (3 simplex iterations) in 0.04 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: -76.15 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -7.615000000000e+01, best bound -7.615000000000e+01, gap 0.0000%
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+00]
+  Objective range  [4e+00, 2e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve removed 8 rows and 4 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 11 columns, 60 nonzeros
+Variable types: 4 continuous, 7 integer (3 binary)
+
+Root relaxation: objective 0.000000e+00, 0 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       0.0000000    0.00000  0.00%     -    0s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 0 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Out of range for parameter value ObjNumber
+Error: it isn't a multi-objective model
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+00]
+  Objective range  [4e+00, 2e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve removed 8 rows and 4 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 11 columns, 60 nonzeros
+Variable types: 4 continuous, 7 integer (3 binary)
+
+Root relaxation: objective 0.000000e+00, 0 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       0.0000000    0.00000  0.00%     -    0s
+
+Explored 0 nodes (0 simplex iterations) in 0.04 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 0 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+00]
+  Objective range  [4e+00, 2e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve removed 8 rows and 4 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 11 columns, 60 nonzeros
+Variable types: 4 continuous, 7 integer (3 binary)
+
+Root relaxation: objective 0.000000e+00, 0 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       0.0000000    0.00000  0.00%     -    0s
+
+Explored 0 nodes (0 simplex iterations) in 0.01 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 0 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+00]
+  Objective range  [4e+00, 2e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve removed 8 rows and 4 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 11 columns, 60 nonzeros
+Variable types: 4 continuous, 7 integer (3 binary)
+
+Root relaxation: objective 8.400000e+00, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0       8.4000000    8.40000  0.00%     -    0s
+
+Explored 0 nodes (7 simplex iterations) in 0.01 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 8.4 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 8.400000000000e+00, best bound 8.400000000000e+00, gap 0.0000%
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Out of range for parameter value ObjNumber
+Error: it isn't a multi-objective model
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+00]
+  Objective range  [2e+01, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve removed 8 rows and 4 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 11 columns, 60 nonzeros
+Variable types: 4 continuous, 7 integer (3 binary)
+
+Root relaxation: objective 3.250000e+01, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0      32.5000000   32.50000  0.00%     -    0s
+
+Explored 0 nodes (7 simplex iterations) in 0.00 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 32.5 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.250000000000e+01, best bound 3.250000000000e+01, gap 0.0000%
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Out of range for parameter value ObjNumber
+Error: it isn't a multi-objective model
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+00]
+  Objective range  [2e+01, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolved: 22 rows, 11 columns, 60 nonzeros
+
+Continuing optimization...
+
+
+Explored 0 nodes (7 simplex iterations) in 0.00 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 32.5 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.250000000000e+01, best bound 3.250000000000e+01, gap 0.0000%
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Out of range for parameter value ObjNumber
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Out of range for parameter value ObjNumber
+Error: it isn't a multi-objective model
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+00]
+  Objective range  [2e+01, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve removed 8 rows and 4 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 11 columns, 57 nonzeros
+Variable types: 4 continuous, 7 integer (3 binary)
+
+Root relaxation: objective 5.950000e+01, 8 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   59.50000    0    7          -   59.50000      -     -    0s
+H    0     0                      53.5000000   59.50000  11.2%     -    0s
+     0     0     cutoff    0        53.50000   53.50000  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 2
+
+Explored 1 nodes (10 simplex iterations) in 0.04 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 53.5 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.350000000000e+01, best bound 5.350000000000e+01, gap 0.0000%
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Out of range for parameter value ObjNumber
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Optimize a model with 30 rows, 15 columns and 71 nonzeros
+Variable types: 12 continuous, 3 integer (3 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+00]
+  Objective range  [2e+01, 1e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+00]
+Presolve removed 8 rows and 4 columns
+Presolve time: 0.00s
+Presolved: 22 rows, 11 columns, 57 nonzeros
+Variable types: 4 continuous, 7 integer (3 binary)
+
+Root relaxation: objective 5.950000e+01, 8 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0   59.50000    0    7          -   59.50000      -     -    0s
+H    0     0                      53.5000000   59.50000  11.2%     -    0s
+     0     0     cutoff    0        53.50000   53.50000  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 2
+
+Explored 1 nodes (10 simplex iterations) in 0.01 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 1: 53.5 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.350000000000e+01, best bound 5.350000000000e+01, gap 0.0000%
