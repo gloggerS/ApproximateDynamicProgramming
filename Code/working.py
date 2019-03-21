@@ -30,8 +30,6 @@ def CDLP():
         temp = {}
         for i in np.arange(len(A)):
             temp[i] = quantity_all(tuple(offer_array), i)
-        Q[index] = temp
-
 
     try:
         m = Model()
@@ -64,9 +62,11 @@ def CDLP():
     except GurobiError:
         print('Error reported')
 
+
 # %%
 
 def CDLP_reduced(offer_sets_all):
+
     S = {}
     R = {}
     Q = {}
@@ -111,10 +111,45 @@ def CDLP_reduced(offer_sets_all):
             dualPi[i] = mc[i].pi
         dualSigma = msigma.pi
 
-        return ret, dualPi, dualSigma
+        valOpt = m.objVal
+
+        return ret, valOpt, dualPi, dualSigma
 
     except GurobiError:
         print('Error reported')
+
+#%%
+def CDLP_by_column_generation():
+    pi = np.zeros(len(A))
+
+    offer_sets_all = column_greedy(pi)
+    if all(offer_sets_all == np.zeros_like(offer_sets_all)):
+        print("MIP solution used to solve CDLP by column generation")
+        offer_sets_all = column_MIP(pi)
+
+
+    offer_sets_all = pd.DataFrame([np.array(offer_sets_all)])
+
+    val_akt = 0
+    ret, val_new, dualPi, dualSigma = CDLP_reduced(offer_sets_all)
+
+
+    while val_new > val_akt:
+        val_akt = val_new
+
+        offer_set_new = column_greedy(dualPi)
+        if not offer_sets_all[(offer_sets_all == np.array(offer_set_new)).all(axis=1)].index.empty:
+            offer_set_new = column_MIP(dualPi)
+            if not offer_sets_all[(offer_sets_all == np.array(offer_set_new)).all(axis=1)].index.empty:
+                break  # nothing changed
+
+        offer_sets_all = offer_sets_all.append([np.array(offer_set_new)], ignore_index=True)
+        ret, val_new, dualPi, dualSigma = CDLP_reduced(offer_sets_all)
+
+    return ret, val_new
+
+
+
 
 
 #%%

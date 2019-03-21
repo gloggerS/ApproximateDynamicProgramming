@@ -1,8 +1,8 @@
 import numpy as np
 
 # example = "example0"
-example = "example for Greedy Heuristic"
-# example = "example parallel flights"
+# example = "example for Greedy Heuristic"
+example = "example parallel flights"
 
 if example == "example0":
     # toy example for explaining stuff, check implementation of CDLP
@@ -40,6 +40,7 @@ elif example == "example for Greedy Heuristic":
     w = revenues = np.array([100, 19, 19])
     arrival_probability = np.array([0.2, 0.3, 0.5])
 
+
     # # extension (TODO what for?)
     # capacity = 10
     # pi = np.zeros(shape=(T + 1, capacity + 1))
@@ -49,6 +50,7 @@ elif example == "example parallel flights":
     # example for parallel flights
     numProducts = n = 6
     revenues = np.array([400, 800, 500, 1000, 300, 600])
+    A = np.array([[1, 1, 1, 1, 1, 1]])
     preference_weights = np.array([[0, 5, 0, 10, 0, 1],
                                    [5, 0, 1, 0, 10, 0],
                                    [10, 8, 6, 4, 3, 1],
@@ -60,6 +62,7 @@ elif example == "example parallel flights":
 
     offer_set_tuple = (1, 1, 1, 1, 1, 1)
 
+    lam = 1
 
 # # %% OLD
 #

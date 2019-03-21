@@ -18,6 +18,15 @@ Idee: ein Python file "data", in dem alle Beispieldatensätze drin sind. Dieses w
 globale Daten
 Funktionalitäten
 Ergebnisse berechnen und darstellen (und automatisch mit Zeitstempel abspeichern in Ordner)
+*** Verständnis von CDLP by column generation richtig?
+zunächst wird pi auf 0 gesetzt (duale Kosten der Ressourcen)
+dann wird versucht die Greedy Heuristic zu lösen
+falls das scheitert (nur 0en kommen zurück), wird MIP angeworfen, um offerSetsAll zu bestimmen
+mit dem ersten offerSetsAll wird CDLP reduced gelöst
+wir erhalten den optimalen Zielwert und die dualen Variablen
+jetzt solange wiederholen, bis sich Zielwert nicht weiter verbessert:
+
+
 * Overall
 ** https://vhbonline.org/vhb4you/jourqual/vhb-jourqual-archiv/jq1/teilranking-logistik-operations-research-produktion/
 ** Goals
@@ -299,6 +308,7 @@ CLOSED: [2019-03-19 Di 14:53]
       :END:
 ***** TODO Bront DCOMP 
       :LOGBOOK:
+      CLOCK: [2019-03-21 Do 10:10]--[2019-03-21 Do 10:55] =>  0:45
       CLOCK: [2019-03-20 Mi 13:17]--[2019-03-20 Mi 17:57]
       :END:
 
@@ -307,6 +317,7 @@ CLOSED: [2019-03-19 Di 14:53]
 ****** DONE greedy heuristic
        CLOSED: [2019-03-20 Mi 17:59]
 
+****** TODO CDLP by column generation
 ****** TODO leg level decomposition
 ** Arbeitsweise 
 *** abzusprechen 
