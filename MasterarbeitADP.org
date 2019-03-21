@@ -11,6 +11,8 @@
 **** vektorisierte Implementierung nicht möglich wegen variablem Offerset
 Idee: Am schnellsten ist vektorisierte Implementierung. Weiß über alle Perioden, welche Kunden kommen und welche Präferenzen diese haben. Dann mit Zufallszahl über alle Perioden die verkauften Produkte erfassen mit ihrem Revenue. Und zum Schluss Kapazitäten anpassen, ob noch was vorhanden (Daten kappen). 
 Klappt nicht: Offerset ändert sich je nach verfügbarer Kapazität.
+**** Problem als Klasse definieren, dann Struktur mit konkretem Beispiel laden
+**** Auch Ergebnis von Optimierung als Klasse zurückgeben (gleich das Modell?)
 ** Fragen
 *** Wie hast du den Datenaustausch implementiert, also dass man schnell verschiedene Beispieldatensätze durchrechnen kann?
 Idee: ein Python file "data", in dem alle Beispieldatensätze drin sind. Dieses wird dann angepasst, und Code laufen gelassen.
@@ -313,6 +315,8 @@ CLOSED: [2019-03-19 Di 14:53]
        :LOGBOOK:
        CLOCK: [2019-03-21 Do 15:38]
        :END:
+****** TODO check CDLP by column generation
+
 ** Arbeitsweise 
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
@@ -462,4 +466,5 @@ Duale Variablen passen nicht
 leg level decomposition passt nicht ganz (Indices laufen falsch zusammen)
 Paradigma: Produkte sind von 1 ab durchnummeriert, kein Kauf bei 0 und daran festhalten
 Entsprechend das komplette working-file überarbeiten
-
+Offer-Sets und Duale Preise werden noch nicht korrekt berechnet
+Aber CDLP ist jetzt korrekt 
