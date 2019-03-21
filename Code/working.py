@@ -10,12 +10,85 @@ import re
 # %% working on Bront CDLP -
 # Ziel: Revenue results for parallel flights example reproduzieren (Table A.1, Spalte CDLP)
 
+# j für Produkte
+# i für Ressourcen
 
-def revenue_all(offer_set_tuple):
-    return sum(revenues * customer_choice_all(offer_set_tuple)[1:])
 
-def quantity_all(offer_set_tuple, i):
-    return sum(A[i-1, :] * customer_choice_all(offer_set_tuple)[1:])
+def products():
+    """
+    Products are indexed from 1 to numProducts
+
+    :return:
+    """
+    return np.arange(numProducts)+1
+
+
+@memoize
+def purchase_rate(offer_set_tuple, j):
+    """
+    P_j(S)
+
+    :param offer_set_tuple: S
+    :param j: product j
+    :return: P_j(S)
+    """
+    return customer_choice_vector(offer_set_tuple)[j]
+
+
+@memoize
+def revenue(offer_set_tuple):
+    """
+    R(S)
+
+    :param offer_set_tuple: S
+    :return: R(S)
+    """
+    return sum(revenues * customer_choice_vector(offer_set_tuple)[1:])
+
+
+@memoize
+def quantity_i(offer_set_tuple, i):
+    """
+    Q_i(S)
+
+    :param offer_set_tuple: S
+    :param i: resource i
+    :return: Q_i(S)
+    """
+    return sum(A[i, :] * customer_choice_vector(offer_set_tuple)[1:])
+
+
+@memoize
+def quantity_vector(offer_set_tuple):
+    """
+    Q(S)
+
+    :param offer_set_tuple: S
+    :return: Q(S)
+    """
+    ret = np.zeros(len(A))
+    for i in np.arange(len(A)):
+        ret[i] = quantity_i(offer_set_tuple, i)
+    return ret
+
+
+@memoize
+def revenue_i(offer_set_tuple, pi, i):
+    """
+    Revenue rate when offering set S (compare "Solution to the One-Dimensional DP Approximation")
+    R^i(S)
+
+    :param offer_set_tuple:
+    :param pi:
+    :param i: product i
+    :return: R^i(S)
+    """
+    ret = 0
+    for j in products():
+        ret += purchase_rate(offer_set_tuple, j) * (revenues[j] + pi[i] * A[i, j-1] -
+                                                    sum(pi[A[:, j-1] == 1 & (np.arange(len(pi)) != i)]))
+    return ret
+
 
 def CDLP():
     offer_sets_all = pd.DataFrame(list(map(list, itertools.product([0, 1], repeat=numProducts))))
@@ -26,10 +99,11 @@ def CDLP():
     Q = {}
     for index, offer_array in offer_sets_all.iterrows():
         S[index] = tuple(offer_array)
-        R[index] = revenue_all(tuple(offer_array))
+        R[index] = revenue(tuple(offer_array))
         temp = {}
         for i in np.arange(len(A)):
-            temp[i] = quantity_all(tuple(offer_array), i)
+            temp[i] = quantity_i(tuple(offer_array), i)
+        Q[index] = temp
 
     try:
         m = Model()
@@ -56,7 +130,7 @@ def CDLP():
                 match = re.search(pat, v.VarName)
                 erg_index = match.group(1)
                 ret[int(erg_index)] = (tuple(offer_sets_all.loc[int(erg_index)]), v.X)
-                print(offer_sets_all.loc[int(erg_index)], ": ", v.X)
+                print(tuple(offer_sets_all.loc[int(erg_index)]), ": ", v.X)
         return ret
 
     except GurobiError:
@@ -72,10 +146,10 @@ def CDLP_reduced(offer_sets_all):
     Q = {}
     for index, offer_array in offer_sets_all.iterrows():
         S[index] = tuple(offer_array)
-        R[index] = revenue_all(tuple(offer_array))
+        R[index] = revenue(tuple(offer_array))
         temp = {}
         for i in np.arange(len(A)):
-            temp[i] = quantity_all(tuple(offer_array), i)
+            temp[i] = quantity_i(tuple(offer_array), i)
         Q[index] = temp
 
     try:
@@ -146,10 +220,60 @@ def CDLP_by_column_generation():
         offer_sets_all = offer_sets_all.append([np.array(offer_set_new)], ignore_index=True)
         ret, val_new, dualPi, dualSigma = CDLP_reduced(offer_sets_all)
 
-    return ret, val_new
+    return ret, val_new, dualPi, dualSigma
+
+
+#%%
+# leg level decomposition
+
+
+@memoize
+def value_leg(ressource_i, x_i, t, pi):
+    if t == T+1:
+        return 0
+    elif x_i == 0:
+        return 0
+
+    offer_sets_all = pd.DataFrame(list(map(list, itertools.product([0, 1], repeat=numProducts))))
+
+    val_akt = 0
+    index_max = 0
+
+    for index, offer_array in offer_sets_all.iterrows():
+        val_new = lam * (revenue_i(tuple(offer_array), pi, ressource_i) - quantity_i(tuple(offer_array), i) * value_leg(ressource_i, x_i, t + 1, pi))
+        if val_new > val_akt:
+            index_max = index
+            val_akt = val_new
+
+    return val_akt + value_leg(ressource_i, x_i, t+1, pi)
+
+
+def displacement_costs_vector(capacities_remaining, t, pi, beta=1):
+    delta_v = np.zeros(len(A))
+    for i in np.arange(len(A)):
+        delta_v[i] = beta*(value_leg(i, capacities_remaining[i], t, pi) - value_leg(i, capacities_remaining[i]-1, t+1, pi)) + (1-beta)*pi[i]
+    return delta_v
 
 
 
+def calculate_offer_set(capacities_remaining, t, pi, beta=1):
+    val_akt = 0
+    index_max = 0
+
+    offer_sets_all = pd.DataFrame(list(map(list, itertools.product([0, 1], repeat=numProducts))))
+
+    for index, offer_array in offer_sets_all.iterrows():
+        val_new = 0
+        for j in np.arange(numProducts):
+            if offer_array[j] > 0 and all(capacities_remaining - A[:,j] > 0):
+                val_new += quantity_i(tuple(offer_array), j) * (revenues[j] - sum(displacement_costs_vector(capacities_remaining, t, pi, beta=1)*A[:,j]))
+        val_new = lam*val_new
+
+        if val_new > val_akt:
+            index_max = index
+            val_akt = val_new
+
+    return tuple(offer_sets_all[index_max])
 
 
 #%%
@@ -253,8 +377,14 @@ def column_greedy(pi, w = 0):  # pass w to test example for greedy heuristic
     y[list(S)] = 1
     return tuple(y)
 
+#%%
+CDLP()
 
 #%%
-offer_sets_all = pd.DataFrame([[1, 1, 1, 1, 1, 1, 1, 1]])
+# todo
+ret, val, dualPi, dualSigma = CDLP_by_column_generation()
 
-w, e, r = CDLP_reduced(offer_sets_all)
+#%%
+dualPi = np.array([0, 1, 134.55])
+capacities_remaining = np.array([3,2,2])
+calculate_offer_set(capacities_remaining, 27, dualPi, beta=1)

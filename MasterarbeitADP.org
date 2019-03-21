@@ -18,15 +18,7 @@ Idee: ein Python file "data", in dem alle Beispieldatensätze drin sind. Dieses w
 globale Daten
 Funktionalitäten
 Ergebnisse berechnen und darstellen (und automatisch mit Zeitstempel abspeichern in Ordner)
-*** Verständnis von CDLP by column generation richtig?
-zunächst wird pi auf 0 gesetzt (duale Kosten der Ressourcen)
-dann wird versucht die Greedy Heuristic zu lösen
-falls das scheitert (nur 0en kommen zurück), wird MIP angeworfen, um offerSetsAll zu bestimmen
-mit dem ersten offerSetsAll wird CDLP reduced gelöst
-wir erhalten den optimalen Zielwert und die dualen Variablen
-jetzt solange wiederholen, bis sich Zielwert nicht weiter verbessert:
-
-
+*** Wie funktioniert das Debuggen in Python (Pycharm oder Spyder)? 
 * Overall
 ** https://vhbonline.org/vhb4you/jourqual/vhb-jourqual-archiv/jq1/teilranking-logistik-operations-research-produktion/
 ** Goals
@@ -307,18 +299,20 @@ CLOSED: [2019-03-19 Di 14:53]
       CLOCK: [2019-03-20 Mi 10:09]--[2019-03-20 Mi 10:09] =>  0:00
       :END:
 ***** TODO Bront DCOMP 
-      :LOGBOOK:
-      CLOCK: [2019-03-21 Do 10:10]--[2019-03-21 Do 10:55] =>  0:45
-      CLOCK: [2019-03-20 Mi 13:17]--[2019-03-20 Mi 17:57]
-      :END:
 
 ****** DONE MIP formulation
        CLOSED: [2019-03-20 Mi 17:59]
 ****** DONE greedy heuristic
+      :LOGBOOK:
+      CLOCK: [2019-03-20 Mi 13:17]--[2019-03-20 Mi 17:57]
+      :END:
+
        CLOSED: [2019-03-20 Mi 17:59]
 
-****** TODO CDLP by column generation
 ****** TODO leg level decomposition
+       :LOGBOOK:
+       CLOCK: [2019-03-21 Do 15:38]
+       :END:
 ** Arbeitsweise 
 *** abzusprechen 
 Ansprechpartner am Lehrstuhl (Betreuer): Sebastian Koch
@@ -457,4 +451,15 @@ regular expression um optimierte Variablen zu erhalten
 Gurobi Constraints bulk weise hinzufügen
 "and" is lazy version of "&"
 ideavim auch in Pycharm hinzufügen
+
+** Schnelles Programmieren hat seine Tücken<2019-03-21 Do> 
+Implementieren an Bront
+CDLP-reduced fertig
+Herausfinden, ob Row schon im data-frame ist
+Ich werde vertrauter mit dem Indexing von data-frames
+Bisschen ein Durcheinander ohne kommentierte Funktionen (welcher Datentyp wird erwartet, in welcher Reihenfolge, ...)
+Duale Variablen passen nicht
+leg level decomposition passt nicht ganz (Indices laufen falsch zusammen)
+Paradigma: Produkte sind von 1 ab durchnummeriert, kein Kauf bei 0 und daran festhalten
+Entsprechend das komplette working-file überarbeiten
 

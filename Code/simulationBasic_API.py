@@ -128,7 +128,7 @@ def determine_offer_tuple(pi):
 
 def simulate_sales(offer_tuple):
     products_with_no_purchase = np.arange(revenues.size+1)
-    customer_probabilities = customer_choice_all(offer_tuple)
+    customer_probabilities = customer_choice_vector(offer_tuple)
     return int(np.random.choice(products_with_no_purchase, size=1, p=customer_probabilities))
 
 

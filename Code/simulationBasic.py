@@ -84,7 +84,7 @@ def customer_choice_individual(offer_set_tuple, pw = preference_weights, pnp = p
 
 
 @memoize
-def customer_choice_all(offer_set_tuple):
+def customer_choice_vector(offer_set_tuple):
     probs = np.zeros(len(offer_set_tuple) + 1)
     for l in np.arange(len(preference_weights)):
         probs += arrival_probability[l]*customer_choice_individual(offer_set_tuple, preference_weights[l, :], preference_no_purchase[l])

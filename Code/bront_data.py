@@ -1,8 +1,8 @@
 import numpy as np
 
-# example = "example0"
+example = "example0"
 # example = "example for Greedy Heuristic"
-example = "example parallel flights"
+# example = "example parallel flights"
 
 if example == "example0":
     # toy example for explaining stuff, check implementation of CDLP
