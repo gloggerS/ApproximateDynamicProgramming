@@ -107,9 +107,6 @@ def sample_path(num_periods, arrival_probability, capacity, revenues):
 
     Over one complete booking horizon with *num_period* periods and a total *capacity*, the selling sample_path is
     recorded. A customer comes with *arrival_probability* and has given *preferenceWeights* and *noPurchasePreferences*.
-    RETURN: data frame with columns (time, capacity (at start), customer arrived, product sold, revenue)
-    *customerArrived*: ID of
-    *customerPreferences*: for each customer segment stores the preferences to determine which product will be bought
 
     Helpers
     ----
@@ -120,7 +117,9 @@ def sample_path(num_periods, arrival_probability, capacity, revenues):
     :param arrival_probability:
     :param capacity:
     :param revenues:
-    :return:
+    :return: data frame with columns (time, capacity (at start), customer arrived, product sold, revenue)
+    *customerArrived*: ID of
+    *customerPreferences*: for each customer segment stores the preferences to determine which product will be bought
     """
 
     index = np.arange(num_periods + 1)  # first row is a dummy (for nice for loop)

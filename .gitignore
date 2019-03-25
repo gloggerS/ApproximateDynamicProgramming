@@ -10,3 +10,6 @@ Literatur/
 # Excel Sheets
 ########################
 *.xlsx
+
+# Further Files
+*.org
