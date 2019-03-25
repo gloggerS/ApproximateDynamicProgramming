@@ -14,6 +14,8 @@ import re
 # i für Ressourcen
 
 
+# %%
+# Helper functions
 def products():
     """
     Products are indexed from 1 to numProducts
@@ -50,6 +52,7 @@ def customer_segments():
     :return:
     """
     return np.arange(len(preference_no_purchase))
+
 
 @memoize
 def purchase_rate(offer_set_tuple, j):
@@ -118,6 +121,8 @@ def revenue_i(offer_set_tuple, pi, i):
     return ret
 
 
+# %%
+# Main functions
 def CDLP():
     """
     Implements (3) of Bront et al

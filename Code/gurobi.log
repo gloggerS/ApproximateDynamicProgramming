@@ -2507,3 +2507,22 @@ Iteration    Objective       Primal Inf.    Dual Inf.      Time
 
 Solved in 10 iterations and 0.00 seconds
 Optimal objective  1.140909091e+04
+
+Gurobi 8.1.0 (win64, Python) logging started 03/25/19 11:55:48
+
+Academic license - for non-commercial use only
+Optimize a model with 4 rows, 255 columns and 927 nonzeros
+Coefficient statistics:
+  Matrix range     [4e-02, 1e+00]
+  Objective range  [6e+01, 5e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+01]
+Presolve time: 0.00s
+Presolved: 4 rows, 255 columns, 927 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    9.1657662e+34   5.943074e+32   9.165766e+04      0s
+      10    1.1409091e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.02 seconds
+Optimal objective  1.140909091e+04

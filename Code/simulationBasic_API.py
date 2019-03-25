@@ -5,6 +5,7 @@ from copy import deepcopy
 
 from gurobipy import *
 
+
 #%%
 def policy_iteration(K, I):
     theta = np.zeros(T+1)
