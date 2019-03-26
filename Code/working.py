@@ -153,7 +153,7 @@ def CDLP():
 
         mc = {}
         # Constraints
-        for i in np.arange(len(A)):
+        for i in resources():
             mc[i] = m.addConstr(lam * quicksum(Q[s][i]*mt[s] for s in offer_sets_all.index.values), GRB.LESS_EQUAL,
                                 capacities[i], name="constraintOnResource")
         msigma = m.addConstr(quicksum(mt[s] for s in offer_sets_all.index.values), GRB.LESS_EQUAL, T)
@@ -197,7 +197,7 @@ def CDLP_reduced(offer_sets):
         S[index] = tuple(offer_array)
         R[index] = revenue(tuple(offer_array))
         temp = {}
-        for i in np.arange(len(A)):
+        for i in resources():
             temp[i] = quantity_i(tuple(offer_array), i)
         Q[index] = temp
 
@@ -212,7 +212,7 @@ def CDLP_reduced(offer_sets):
 
         mc = {}
         # Constraints
-        for i in np.arange(len(A)):
+        for i in resources():
             mc[i] = m.addConstr(lam * quicksum(Q[s][i] * mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL,
                                 capacities[i],
                                 name="constraintOnResource")
@@ -394,7 +394,7 @@ def column_greedy(pi, w=0):  # pass w to test example for greedy heuristic
 #%%
 # leg level decomposition
 @memoize
-def value_leg(i, x_i, t, pi):
+def value_leg_i(i, x_i, t, pi):
     """
     Implements the table of value leg decomposition on p. 776
 
@@ -416,13 +416,51 @@ def value_leg(i, x_i, t, pi):
 
     for index, offer_array in offer_sets_all.iterrows():
         val_new = (revenue_i(tuple(offer_array), pi, i) -
-                   quantity_i(tuple(offer_array), i) * (value_leg(i, x_i, t+1, pi) - value_leg(i, x_i-1, t+1, pi)))
+                   quantity_i(tuple(offer_array), i) * (value_leg_i(i, x_i, t+1, pi) - value_leg_i(i, x_i - 1, t+1, pi)))
         val_new = val_new
         if val_new > val_akt:
             index_max = index
             val_akt = val_new
 
-    return lam*val_akt + value_leg(i, x_i, t+1, pi)
+    return lam * val_akt + value_leg_i(i, x_i, t+1, pi)
+
+
+# leg level decomposition directly via (11)
+@memoize
+def value_leg_i_11(i, x_i, t, pi):
+    """
+    Implements the table of value leg decomposition on p. 776
+
+    :param i:
+    :param x_i:
+    :param t:
+    :param pi:
+    :return:
+    """
+    if t == T+1:
+        return 0
+    elif x_i <= 0:
+        return 0
+
+    offer_sets_all = offer_sets()
+
+    val_akt = 0
+    index_max = 0
+
+    for index, offer_array in offer_sets_all.iterrows():
+        val_new = 0
+        for j in products():
+            if offer_array[j-1] > 0:
+                val_new += purchase_rate(tuple(offer_array), j) * \
+                (revenues[j-1] -
+                 (value_leg_i_11(i, x_i, t+1, pi) - value_leg_i_11(i, x_i-1, t+1, pi) - pi[i]) * A[i, j-1] -
+                 sum(pi[A[:, j-1]]))
+            print(index, val_new)
+        if val_new > val_akt:
+            index_max = index
+            val_akt = val_new
+
+    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi), index_max
 
 
 def displacement_costs_vector(capacities_remaining, t, pi, beta=1):
@@ -437,9 +475,9 @@ def displacement_costs_vector(capacities_remaining, t, pi, beta=1):
     """
     delta_v = np.zeros_like(resources())
     for i in resources():
-        delta_v[i] = beta*(value_leg(i, capacities_remaining[i], t+1, pi) -
-                           value_leg(i, capacities_remaining[i]-1, t+1, pi)) + \
-                     (1-beta)*pi[i]
+        delta_v[i] = beta * (value_leg_i_11(i, capacities_remaining[i], t, pi) -
+                             value_leg_i_11(i, capacities_remaining[i] - 1, t, pi)) + \
+                     (1-beta) * pi[i]
     return delta_v
 
 
@@ -462,9 +500,11 @@ def calculate_offer_set(capacities_remaining, t, pi, beta=1):
         val_new = 0
         for j in products():
             if offer_array[j-1] > 0 and all(capacities_remaining - A[:, j-1] >= 0):
-                print("yea")
-                print(purchase_rate(tuple(offer_array), j) )
-                print(revenues[j-1] - sum(displacement_costs_vector(capacities_remaining, t, pi, beta=1)*A[:, j-1]))
+
+                # print("yea, available", tuple(offer_array))
+                # print(purchase_rate(tuple(offer_array), j))
+                # print(revenues[j-1] - sum(displacement_costs_vector(capacities_remaining, t+1, pi, beta=1)*A[:, j-1]))
+
                 val_new += purchase_rate(tuple(offer_array), j) * \
                            (revenues[j-1] - sum(displacement_costs_vector(capacities_remaining, t, pi, beta=1)*A[:, j-1]))
         val_new = lam*val_new
@@ -474,14 +514,8 @@ def calculate_offer_set(capacities_remaining, t, pi, beta=1):
             index_max = index
             val_akt = val_new
 
-    return tuple(offer_sets_all[index_max:])
+    return index_max, tuple(offer_sets_all.iloc[[index_max]])
 
-
-
-
-#%%
-# CDLP testen mit example 0 (compare results with values on page 774)
-ret, val, dualPi, dualSigma = CDLP()
 
 #%%
 # todo
@@ -489,7 +523,51 @@ ret, val, dualPi, dualSigma = CDLP_by_column_generation()
 
 #%%
 # todo
-dualPi = np.array([0, 1, 134.55])
+dualPi = pi = np.array([0, 1, 134.55])
 capacities_remaining = np.array([0, 0, 1])
-t = calculate_offer_set(capacities_remaining, 27, dualPi, beta=1)
+t = 27
+ind, tup = calculate_offer_set(capacities_remaining, 27, dualPi, beta=1)
+ind
 
+value_leg_i_11(0, 1, 30, np.array([0, 0, 0]))
+
+#%%
+# leg level decomposition directly via (11)
+def value_leg_i_11_own(i, x_i, t, pi):
+    """
+    Implements the table of value leg decomposition on p. 776
+
+    :param i:
+    :param x_i:
+    :param t:
+    :param pi:
+    :return:
+    """
+    if t == T+1:
+        return 0
+    elif x_i <= 0:
+        return 0
+
+    offer_sets_all = offer_sets()
+
+    val_akt = 0
+    index_max = 0
+
+    for index, offer_array in offer_sets_all.iterrows():
+        val_new = 0
+        for j in products():
+            if offer_array[j-1] > 0:
+                val_new += purchase_rate(tuple(offer_array), j) * \
+                (revenues[j-1] -
+                 (value_leg_i_11_own(i, x_i, t+1, pi) - value_leg_i_11_own(i, x_i-1, t+1, pi) - pi[i]) * A[i, j-1] -
+                 sum(pi[A[:, j-1]]))
+            print(index, val_new)
+        if val_new > val_akt:
+            index_max = index
+            val_akt = val_new
+
+    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi), index_max
+
+pi = np.array([0, 0, 0])
+capacities_remaining = np.array([0, 0, 1])
+value_leg_i_11(0, 1, 30, capacities_remaining)
