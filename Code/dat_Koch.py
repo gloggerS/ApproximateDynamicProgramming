@@ -15,14 +15,14 @@ if example == "singleLegFlight":
     arrival_probabilities = np.array([0.5])
     preference_weights = np.array([[0.4, 0.8, 1.2, 1.6]])
 
-    varNoPurchasePreferences = np.array([1, 2, 3])
-    preference_no_purchase = np.array([varNoPurchasePreferences[0]])
+    var_no_purchase_preferences = np.array([[1], [2], [3]])
+    preference_no_purchase = np.array([var_no_purchase_preferences[0]])
 
     m = 1
     resources = np.arange(m)
 
-    varCapacity = np.arange(40, 120, 20)
-    capacities = np.array([varCapacity[0]])
+    var_capacities = np.array([[40], [60], [80], [100], [120]])
+    capacities = var_capacities[0]
 
     # capacity demand matrix A (rows: resources, cols: products)
     # a_ij = 1 if resource i is used by product j
@@ -48,3 +48,6 @@ def get_data_for_table1():
            products, revenues, A, \
            customer_segments, preference_weights, arrival_probabilities, \
            times
+
+def get_variations():
+    return var_capacities, var_no_purchase_preferences

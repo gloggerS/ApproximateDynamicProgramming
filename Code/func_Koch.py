@@ -18,6 +18,7 @@ import math
 import functools
 
 from dat_Koch import get_data_for_table1
+from dat_Koch import get_variations
 
 # %% HELPER-FUNCTIONS
 def memoize(func):
@@ -62,12 +63,12 @@ def customer_choice_individual(offer_set_tuple, preference_weights, preference_n
 
     if offer_set_tuple is None:
         ret = np.zeros_like(preference_weights)
-        return np.append(ret, 1 - sum(ret))
+        return np.append(ret, 1 - np.sum(ret))
 
     offer_set = np.asarray(offer_set_tuple)
     ret = preference_weights * offer_set
-    ret = np.array(ret / (preference_no_purchase + sum(ret)))
-    ret = np.append(ret, 1 - sum(ret))
+    ret = np.array(ret / (preference_no_purchase + np.sum(ret)))
+    ret = np.append(ret, 1 - np.sum(ret))
     return ret
 
 
@@ -152,8 +153,24 @@ def value_expected(capacities, t, preference_no_purchase):
 
 
 # %%
-value_expected(capacities=np.array([40]), t=0, preference_no_purchase=np.array([1]))
+var_capacities, var_no_purchase_preferences = get_variations()
 
+num_rows = len(var_capacities)*len(var_no_purchase_preferences)
+df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP'])
+i = 0
+for capacity in var_capacities:
+    for preference_no_purchase in var_no_purchase_preferences:
+        print(capacity)
+        print(preference_no_purchase)
+
+        df.loc[i] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
+                                                                      preference_no_purchase=preference_no_purchase)]
+        i += 1
+
+df.to_pickle("table1_DP.pkl")
+
+#%%
+df2 = pd.read_pickle("table1_DP.pkl")
 
 # %%
 customer_choice_individual(offer_set_tuple=tuple(np.array([0, 0, 0, 1])),
