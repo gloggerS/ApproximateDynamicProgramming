@@ -7,7 +7,7 @@ example = "example0"
 if example == "example0":
     # toy example for explaining stuff, check implementation of CDLP
     numProducts = n = 8
-    revenues = np.array([1200, 800, 500, 500, 800, 500, 300, 300])
+    revenues = np.array([1200, 800, 500, 500, 800, 500, 300, 300], dtype=np.float)
     capacities = np.array([10, 5, 5])
 
     # capacity demand matrix A (rows: resources, cols: products)

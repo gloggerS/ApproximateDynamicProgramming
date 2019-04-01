@@ -1,6 +1,8 @@
-which = lambda lst:list(np.where(lst)[0])
-B = np.array([[0, 1, 1, 0, 0, 1, 1, 0],
-                  [1, 0, 0, 0, 1, 0, 0, 0],
-                  [0, 1, 0, 1, 0, 1, 0, 1]])
-a = np.arange(3)
-a[B[:, 1]]
+def fib(n, sum):
+    if n < 1:
+        return sum
+    else:
+        return fib(n-1, sum+n)
+
+c = 2983
+print(fib(c, 0))
