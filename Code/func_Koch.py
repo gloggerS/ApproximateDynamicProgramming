@@ -265,7 +265,7 @@ def CDLP(capacities, preference_no_purchase, offer_sets: np.ndarray):
                 ret[int(erg_index)] = (tuple(offer_sets.loc[int(erg_index)]), v.X)
                 print(offer_sets.loc[int(erg_index)], ": ", v.X)
 
-        dualPi = np.zeros_like(resources)
+        dualPi = np.zeros_like(resources, dtype=float)
         for i in resources:
             dualPi[i] = mc[i].pi
         dualSigma = msigma.pi
@@ -496,6 +496,8 @@ def CDLP_by_column_generation(capacities, preference_no_purchase):
 
 
 #%%
+# example = "threeParallelFlights"
+# CDLP by column generation
 var_capacities, var_no_purchase_preferences = get_variations()
 
 num_rows = len(var_capacities)*len(var_no_purchase_preferences)
@@ -513,3 +515,10 @@ for capacities in var_capacities:
 
 df.to_pickle("table3_CDLP.pkl")
 
+# %%
+# example 0
+# towards Table 3 in Miranda and Bront
+capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
+ret, val_new_CDLP, dual_pi, dual_sigma = CDLP_by_column_generation(capacities, preference_no_purchase)
+dual_pi
+dual_sigma

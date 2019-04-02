@@ -1,8 +1,8 @@
 import numpy as np
 
 # example = "singleLegFlight"
-example = "threeParallelFlights"
-# example = "example0"
+# example = "threeParallelFlights"
+example = "example0"
 # example = "example for Greedy Heuristic"
 # example = "example parallel flights"
 
