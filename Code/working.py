@@ -7,27 +7,27 @@ import pandas as pd
 from gurobipy import *
 import re
 
-# %% working on Bront CDLP -
-# Ziel: Revenue results for parallel flights example reproduzieren (Table A.1, Spalte CDLP)
+# %% working on bront cdlp -
+# ziel: revenue results for parallel flights example reproduzieren (table a.1, spalte cdlp)
 
-# j für Produkte
-# i für Ressourcen
+# j für produkte
+# i für ressourcen
 
 
 # %%
-# Helper functions
+# helper functions
 def products():
     """
-    Products are indexed from 1 to numProducts
+    products are indexed from 1 to numproducts
 
     :return:
     """
-    return np.arange(numProducts)+1
+    return np.arange(numproducts)+1
 
 
 def resources():
     """
-    Resources are indexed from 0 to len(A)-1
+    resources are indexed from 0 to len(a)-1
 
     :return:
     """

@@ -17,6 +17,11 @@ import math
 # Memoization
 import functools
 
+# Gurobi
+from gurobipy import *
+import re
+
+from dat_Koch import get_data
 from dat_Koch import get_data_for_table1
 from dat_Koch import get_variations
 
@@ -34,7 +39,7 @@ def memoize(func):
     return memoizer
 
 
-def offer_sets(products):
+def get_offer_sets_all(products):
     """
     Generates all possible offer sets.
 
@@ -121,7 +126,7 @@ def value_expected(capacities, t, preference_no_purchase):
         times = get_data_for_table1()
     T = len(times)
 
-    offer_sets_to_test = offer_sets(products)
+    offer_sets_to_test = get_offer_sets_all(products)
 
     max_index = 0
     max_val = 0
@@ -153,6 +158,7 @@ def value_expected(capacities, t, preference_no_purchase):
 
 # %%
 # FUNCTIONS for Bront et al
+# helpers
 def purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities):
     """
     P_j(S) for all j, P_0(S) at the end
@@ -195,19 +201,88 @@ def quantity_i(offer_set_tuple, preference_weights, preference_no_purchase, arri
 
 
 # %%
+# FUNCTIONS for Bront et al
+# functions
+def CDLP(offer_sets: np.ndarray):
+    """
+    Implements (4) of Bront et al. Needs the offer-sets to look at (N) as input.
+
+    :param offer_sets: N
+    :return: dictionary of (offer set, time offered),
+    """
+    resources, capacities, \
+        products, revenues, A, \
+        customer_segments, preference_weights, preference_no_purchase, arrival_probabilities, \
+        times = get_data()
+
+    offer_sets = pd.DataFrame(offer_sets)
+
+    S = {}
+    R = {}
+    Q = {}
+    for index, offer_array in offer_sets.iterrows():
+        S[index] = tuple(offer_array)
+        R[index] = revenue(tuple(offer_array), preference_weights, preference_no_purchase, arrival_probabilities)
+        temp = {}
+        for i in resources:
+            temp[i] = quantity_i(tuple(offer_array), preference_weights, preference_no_purchase,
+                                 arrival_probabilities, i)
+        Q[index] = temp
+
+    try:
+        m = Model()
+
+        # Variables
+        mt = m.addVars(offer_sets.index.values, name="t", lb=0.0)  # last constraint
+
+        # Objective Function
+        m.setObjective(lam * quicksum(R[s] * mt[s] for s in offer_sets.index.values), GRB.MAXIMIZE)
+
+        mc = {}
+        # Constraints
+        for i in resources:
+            mc[i] = m.addConstr(lam * quicksum(Q[s][i] * mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL,
+                                capacities[i],
+                                name="constraintOnResource")
+        msigma = m.addConstr(quicksum(mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL, T)
+
+        m.optimize()
+
+        ret = {}
+        pat = r".*?\[(.*)\].*"
+        for v in m.getVars():
+            if v.X > 0:
+                match = re.search(pat, v.VarName)
+                erg_index = match.group(1)
+                ret[int(erg_index)] = (tuple(offer_sets.loc[int(erg_index)]), v.X)
+                print(offer_sets.loc[int(erg_index)], ": ", v.X)
+
+        dualPi = np.zeros_like(resources)
+        for i in resources:
+            dualPi[i] = mc[i].pi
+        dualSigma = msigma.pi
+
+        valOpt = m.objVal
+
+        return ret, valOpt, dualPi, dualSigma
+
+    except GurobiError:
+        print('Error reported')
+
+# %%
 var_capacities, var_no_purchase_preferences = get_variations()
 
 num_rows = len(var_capacities)*len(var_no_purchase_preferences)
 df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP'])
-i = 0
+indexi = 0
 for capacity in var_capacities:
     for preference_no_purchase in var_no_purchase_preferences:
         print(capacity)
         print(preference_no_purchase)
 
-        df.loc[i] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
-                                                                      preference_no_purchase=preference_no_purchase)]
-        i += 1
+        df.loc[indexi] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
+                                                                           preference_no_purchase=preference_no_purchase)]
+        indexi += 1
 
 df.to_pickle("table1_DP.pkl")
 
@@ -218,3 +293,9 @@ df2 = pd.read_pickle("table1_DP.pkl")
 customer_choice_individual(offer_set_tuple=tuple(np.array([0, 0, 0, 1])),
                            preference_weights=np.array([0.4, 0.8, 1.2, 1.6]),
                            preference_no_purchase=np.array([1]))
+
+# %%
+# CHECKS for correctness
+# CDLP with example 0
+t = get_offer_sets_all(products)
+CDLP(get_offer_sets_all(products))

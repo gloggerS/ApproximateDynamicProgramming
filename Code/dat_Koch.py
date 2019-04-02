@@ -1,6 +1,10 @@
 import numpy as np
 
-example = "threeParallelFlights"
+# example = "singleLegFlight"
+# example = "threeParallelFlights"
+example = "example0"
+# example = "example for Greedy Heuristic"
+# example = "example parallel flights"
 
 if example == "singleLegFlight":
     n = 4
@@ -27,6 +31,7 @@ if example == "singleLegFlight":
     # capacity demand matrix A (rows: resources, cols: products)
     # a_ij = 1 if resource i is used by product j
     A = np.array([[1, 1, 1, 1]])
+
 elif example == "threeParallelFlights":
     n = 6
     products = np.arange(n)
@@ -63,6 +68,35 @@ elif example == "threeParallelFlights":
     A = np.array([[1, 1, 0, 0, 0, 0],
                   [0, 0, 1, 1, 0, 0],
                   [0, 0, 0, 0, 1, 1]])
+
+elif example == "example0":
+    # toy example for explaining stuff, check implementation of CDLP
+    n = 8
+    products = np.arange(n)
+    revenues = np.array([1200, 800, 500, 500, 800, 500, 300, 300], dtype=np.float)
+
+    m = 3
+    resources = np.arange(m)
+    capacities = np.array([10, 5, 5])
+
+    # capacity demand matrix A (rows: resources, cols: products)
+    # a_ij = 1 if resource i is used by product j
+    A = np.array([[0, 1, 1, 0, 0, 1, 1, 0],
+                  [1, 0, 0, 0, 1, 0, 0, 0],
+                  [0, 1, 0, 1, 0, 1, 0, 1]])
+
+    T = 30
+
+    L = 5
+    customer_segments = np.arange(L)
+    arrival_probabilities = np.array([0.15, 0.15, 0.2, 0.25, 0.25])
+    preference_weights = np.array([[5, 0, 0, 0, 8, 0, 0, 0],
+                                  [10, 6, 0, 0, 0, 0, 0, 0],
+                                  [0, 0, 0, 0, 8, 5, 0, 0],
+                                  [0, 0, 4, 0, 0, 0, 8, 0],
+                                  [0, 0, 0, 6, 0, 0, 0, 8]])
+    preference_no_purchase = np.array([2, 5, 2, 2, 2])
+
 
 # %% Check up
 print("Check of dimensions: \n  ------------------------")
