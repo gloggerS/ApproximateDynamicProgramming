@@ -293,8 +293,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.Code" />
-      <item itemvalue="Python.simulationBasic" />
       <item itemvalue="Python.func_Koch" />
+      <item itemvalue="Python.simulationBasic" />
       <item itemvalue="Python.working" />
     </list>
     <recent_temporary>
