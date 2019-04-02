@@ -82,7 +82,7 @@ def customer_choice_vector(offer_set_tuple, preference_weights, preference_no_pu
     :param preference_no_purchase: preference for no purchase for all customers
     :param arrival_probabilities: vector with arrival probabilities of all customer segments
     :return: array with probabilities of purchase ending with no purchase
-    TODO probabilities don't have to sum up to one?
+    TODO probabilities don't have to sum up to one? BEACHTE: Unterschied zu (1) in Bront et all
     """
     probs = np.zeros(len(offer_set_tuple) + 1)
     for l in np.arange(len(preference_weights)):
@@ -150,6 +150,48 @@ def value_expected(capacities, t, preference_no_purchase):
             max_index = offer_set_index
             max_val = val
     return max_val, tuple(offer_sets_to_test[max_index, :])
+
+# %%
+# FUNCTIONS for Bront et al
+def purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities):
+    """
+    P_j(S) for all j, P_0(S) at the end
+
+    :param offer_set_tuple: S
+    :param preference_weights
+    :param preference_no_purchase
+    :param arrival_probabilities
+    :return: P_j(S) for all j, P_0(S) at the end
+    """
+    probs = np.zeros(len(offer_set_tuple) + 1)
+    p = arrival_probabilities/(sum(arrival_probabilities))
+    for l in np.arange(len(preference_weights)):
+        probs += p[l] * customer_choice_individual(offer_set_tuple, preference_weights[l, :],
+                                                   preference_no_purchase[l])
+    return probs
+
+
+def revenue(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities):
+    """
+    R(S)
+
+    :param offer_set_tuple: S
+    :return: R(S)
+    """
+    return sum(revenues * purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase,
+                                               arrival_probabilities)[:-1])
+
+
+def quantity_i(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities, i):
+    """
+    Q_i(S)
+
+    :param offer_set_tuple: S
+    :param i: resource i
+    :return: Q_i(S)
+    """
+    return sum(A[i, :] * purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase,
+                                              arrival_probabilities)[:-1])
 
 
 # %%
