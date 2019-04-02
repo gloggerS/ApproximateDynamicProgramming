@@ -132,11 +132,17 @@ def get_data():
            customer_segments, preference_weights, preference_no_purchase, arrival_probabilities, \
            times
 
+
 def get_data_without_variations():
     return resources, \
            products, revenues, A, \
            customer_segments, preference_weights, arrival_probabilities, \
            times
+
+
+def get_capacities_and_preferences_no_purchase():
+    return capacities, preference_no_purchase
+
 
 def get_variations():
     return var_capacities, var_no_purchase_preferences
