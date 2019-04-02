@@ -13,6 +13,7 @@ import pandas as pd
 # Calculation and Counting
 import itertools
 import math
+import copy
 
 # Memoization
 import functools
@@ -21,8 +22,12 @@ import functools
 from gurobipy import *
 import re
 
+# Some hacks
+import sys
+from contextlib import redirect_stdout
+
 from dat_Koch import get_data
-from dat_Koch import get_data_for_table1
+from dat_Koch import get_data_without_variations
 from dat_Koch import get_variations
 
 # %% HELPER-FUNCTIONS
@@ -123,7 +128,7 @@ def value_expected(capacities, t, preference_no_purchase):
     resources, \
         products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_for_table1()
+        times = get_data_without_variations()
     T = len(times)
 
     offer_sets_to_test = get_offer_sets_all(products)
@@ -216,6 +221,7 @@ def CDLP(offer_sets: np.ndarray):
         times = get_data()
 
     offer_sets = pd.DataFrame(offer_sets)
+    lam = sum(arrival_probabilities)
 
     S = {}
     R = {}
@@ -269,6 +275,172 @@ def CDLP(offer_sets: np.ndarray):
     except GurobiError:
         print('Error reported')
 
+
+def column_MIP(pi, w=0):  # pass w to test example for greedy heuristic
+    """
+    Implements MIP formulation on p. 775 lhs
+
+    :param pi:
+    :param w:
+    :return: optimal tuple of products to offer
+    """
+    resources, capacities, \
+        products, revenues, A, \
+        customer_segments, preference_weights, preference_no_purchase, arrival_probabilities, \
+        times = get_data()
+
+    K = 1/min(preference_no_purchase.min(), np.min(preference_weights[np.nonzero(preference_weights)]))+1
+
+    if isinstance(w, int) and w == 0:  # 'and' is lazy version of &
+        w = np.zeros_like(revenues, dtype=float)
+        for j in products:
+            w[j] = revenues[j] - sum(A[:, j]*pi)
+
+    try:
+        m = Model()
+
+        mx = {}
+        my = {}
+        mz = {}
+
+        # Variables
+        for j in products:
+            my[j] = m.addVar(0, 1, vtype=GRB.BINARY, name="y["+str(j)+"]")
+        for l in customer_segments:
+            mx[l] = m.addVar(0.0, name="x["+str(l)+"]")
+            temp = {}
+            for j in products:
+                temp[j] = m.addVar(0.0, name="z["+str(l)+","+str(j)+"]")
+            mz[l] = temp
+
+        # Objective
+        m.setObjective(quicksum(arrival_probabilities[l] * w[j] * preference_weights[l, j] * mz[l][j]
+                                for l in customer_segments for j in products), GRB.MAXIMIZE)
+
+        # Constraints
+        mc1 = m.addConstrs((mx[l]*preference_no_purchase[l] +
+                            quicksum(preference_weights[l, j]*mz[l][j] for j in products) == 1
+                            for l in customer_segments), name="mc1")
+        mc2 = m.addConstrs((mx[l] - mz[l][j] <= K - K*my[j] for l in customer_segments for j in products),
+                           name="mc2")
+        mc3 = m.addConstrs((mz[l][j] <= mx[l] for l in customer_segments for j in products), name="mc3")
+        mc4 = m.addConstrs((mz[l][j] <= K*my[j] for l in customer_segments for j in products), name="mc4")
+
+        m.optimize()
+
+        y = np.zeros_like(revenues)
+        for j in products:
+            y[j] = my[j].x
+
+        return tuple(y)
+
+    except GurobiError:
+        print('Error reported')
+
+
+def column_greedy(pi, w=0):  # pass w to test example for greedy heuristic
+    """
+    Implements Greedy Heuristic on p. 775 rhs
+
+    :param pi:
+    :param w:
+    :return: heuristically optimal tuple of products to offer
+    """
+    resources, capacities, \
+        products, revenues, A, \
+        customer_segments, preference_weights, preference_no_purchase, arrival_probabilities, \
+        times = get_data()
+
+
+    # Step 1
+    y = np.zeros_like(revenues)
+
+    if isinstance(w, int) and w == 0:  # and is lazy version of &
+        w = np.zeros_like(revenues, dtype=float)  # calculate the opportunity costs
+        for j in products:
+            w[j] = revenues[j] - sum(A[:, j]*pi)
+
+    # Step 2
+    Sprime = set(np.where(w > 0)[0])
+
+    # Step 3
+    value_marginal = np.zeros_like(w, dtype=float)
+    for j in Sprime:
+        for l in customer_segments:
+            value_marginal[j] += preference_weights[l, j]/(preference_weights[l, j] + preference_no_purchase[l])
+        value_marginal[j] *= w[j]
+
+    jstar = np.argmax(value_marginal)
+    v_new = value_marginal[jstar]
+
+    S = {jstar}
+    Sprime = Sprime-S
+
+    # Step 4
+    while True:
+        v_akt = copy.deepcopy(v_new)  # deepcopy to be on the safe side
+        v_temp = np.zeros_like(revenues, dtype=float)  # uses more space then necessary, but simplifies indices below
+        for j in Sprime:
+            for l in customer_segments:
+                z = 0
+                n = 0
+                for p in S.union({j}):
+                    z += w[p]*preference_weights[l, p]
+                    n += preference_weights[l, p]
+                n += preference_no_purchase[l]
+                v_temp[j] += arrival_probabilities[l]*z/n
+        jstar = np.argmax(value_marginal)  # argmax always returns index of first maxima (if there is > 1)
+        v_new = value_marginal[jstar]
+        if v_new > v_akt:
+            S = S.union({jstar})
+            Sprime = Sprime - {jstar}
+        else:
+            break
+
+    # Step 5
+    y[list(S)] = 1
+    return tuple(y), v_new
+
+
+# CDLP by column generation
+def CDLP_by_column_generation(capacities, preference_no_purchase):
+    """
+    Implements Bront et als approach for CDLP by column generation as pointed out on p. 775 just above "5. Decomp..."
+
+    :return:
+    """
+    resources, capacities, \
+        products, revenues, A, \
+        customer_segments, preference_weights, preference_no_purchase, arrival_probabilities, \
+        times = get_data()
+
+    pi = np.zeros(len(A))
+
+    col_offerset, col_val = column_greedy(pi)
+    if all(col_offerset == np.zeros_like(col_offerset)):
+        print("MIP solution used to solve CDLP by column generation")
+        col_offerset, col_val = column_MIP(pi)
+
+    offer_sets = pd.DataFrame([np.array(col_offerset)])
+
+    val_akt_CDLP = 0
+    ret, val_new_CDLP, dualPi, dualSigma = CDLP(offer_sets)
+
+    while val_new_CDLP > val_akt_CDLP:
+        val_akt_CDLP = copy.deepcopy(val_new_CDLP)  # deepcopy and new name to be on the safe side
+
+        col_offerset, col_val = column_greedy(dualPi)
+        if not offer_sets[(offer_sets == np.array(col_offerset)).all(axis=1)].index.empty:
+            col_offerset, col_val = column_MIP(dualPi)
+            if not offer_sets[(offer_sets == np.array(col_offerset)).all(axis=1)].index.empty:
+                break  # nothing changed
+
+        offer_sets = offer_sets.append([np.array(col_offerset)], ignore_index=True)
+        ret, val_new_CDLP, dualPi, dualSigma = CDLP(offer_sets)
+
+    return ret, val_new_CDLP, dualPi, dualSigma
+
+
 # %%
 var_capacities, var_no_purchase_preferences = get_variations()
 
@@ -296,6 +468,36 @@ customer_choice_individual(offer_set_tuple=tuple(np.array([0, 0, 0, 1])),
 
 # %%
 # CHECKS for correctness
-# CDLP with example 0
-t = get_offer_sets_all(products)
-CDLP(get_offer_sets_all(products))
+# CDLP with all possible offersets with example0
+
+with open('res_CDLP.txt', 'w') as f:
+    with redirect_stdout(f):
+        CDLP(get_offer_sets_all(products))
+
+# column_MIP with "example for Greedy Heuristic"
+with open('res_MIP.txt', 'w') as f:
+    with redirect_stdout(f):
+        column_MIP(pi, w)
+
+# column_greedy with "example for Greedy Heuristic"
+with open('res_GreedyHeuristic.txt', 'w') as f:
+    with redirect_stdout(f):
+        print(column_greedy(pi, w))
+
+#%%
+var_capacities, var_no_purchase_preferences = get_variations()
+
+num_rows = len(var_capacities)*len(var_no_purchase_preferences)
+df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP'])
+indexi = 0
+for capacity in var_capacities:
+    for preference_no_purchase in var_no_purchase_preferences:
+        print(capacity)
+        print(preference_no_purchase)
+
+        df.loc[indexi] = [capacity, preference_no_purchase, (capacities=capacity, t=0,
+                                                                           preference_no_purchase=preference_no_purchase)]
+        indexi += 1
+
+df.to_pickle("table3_CDLP.pkl")
+CDLP_by_column_generation()

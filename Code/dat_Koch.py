@@ -1,8 +1,8 @@
 import numpy as np
 
 # example = "singleLegFlight"
-# example = "threeParallelFlights"
-example = "example0"
+example = "threeParallelFlights"
+# example = "example0"
 # example = "example for Greedy Heuristic"
 # example = "example parallel flights"
 
@@ -86,6 +86,7 @@ elif example == "example0":
                   [0, 1, 0, 1, 0, 1, 0, 1]])
 
     T = 30
+    times = np.arange(T)
 
     L = 5
     customer_segments = np.arange(L)
@@ -97,6 +98,24 @@ elif example == "example0":
                                   [0, 0, 0, 6, 0, 0, 0, 8]])
     preference_no_purchase = np.array([2, 5, 2, 2, 2])
 
+elif example == "example for Greedy Heuristic":
+    # example for 4.2.2 Greedy Heuristic
+    n = 3
+    products = np.arange(n)
+
+    A = np.array([[1, 0, 0],
+                  [0, 1, 0],
+                  [0, 0, 1]])
+    L = 3
+    customer_segments = np.arange(L)
+    preference_weights = np.array([[1, 1, 1],
+                                   [0, 1, 0],
+                                   [0, 0, 1]])
+    preference_no_purchase = np.array([1, 1, 1])
+    w = revenues = np.array([100, 19, 19])
+    arrival_probabilities = np.array([1, 1, 1])
+
+    pi = 0
 
 # %% Check up
 print("Check of dimensions: \n  ------------------------")
@@ -113,7 +132,7 @@ def get_data():
            customer_segments, preference_weights, preference_no_purchase, arrival_probabilities, \
            times
 
-def get_data_for_table1():
+def get_data_without_variations():
     return resources, \
            products, revenues, A, \
            customer_segments, preference_weights, arrival_probabilities, \
