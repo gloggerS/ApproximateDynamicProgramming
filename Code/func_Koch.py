@@ -31,6 +31,7 @@ from dat_Koch import get_data_without_variations
 from dat_Koch import get_variations
 from dat_Koch import get_capacities_and_preferences_no_purchase
 
+
 # %% HELPER-FUNCTIONS
 def memoize(func):
     cache = func.cache = {}
@@ -659,8 +660,7 @@ remaining_capacity = np.array([[2,2,1],
                                [1,0,0],
                                [0,1,0],
                                [0,0,1]])
-df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
+df2 = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
 for indexi in np.arange(len(df)):
-    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], 27, np.array([0, 1134.55, 500]))[1]]
+    df2.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], 27, np.array([0, 1134.55, 500]))[1]]
 
-df

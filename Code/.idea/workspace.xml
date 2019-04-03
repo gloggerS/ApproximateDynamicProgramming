@@ -20,7 +20,7 @@
         <entry file="file://$PROJECT_DIR$/func_Koch.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="501">
-              <caret line="653" column="39" lean-forward="true" selection-start-line="653" selection-start-column="39" selection-end-line="653" selection-end-column="39" />
+              <caret line="540" column="16" selection-start-line="540" selection-start-column="16" selection-end-line="540" selection-end-column="16" />
               <folding>
                 <element signature="e#106#124#0" expanded="true" />
               </folding>
@@ -31,8 +31,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dat_Koch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="127" selection-start-line="127" selection-end-line="127" />
+            <state relative-caret-position="558">
+              <caret line="97" column="60" lean-forward="true" selection-start-line="97" selection-start-column="60" selection-end-line="97" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -168,6 +168,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/simulationBasic.py" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -314,8 +315,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.Code" />
-      <item itemvalue="Python.simulationBasic" />
       <item itemvalue="Python.func_Koch" />
+      <item itemvalue="Python.simulationBasic" />
       <item itemvalue="Python.working" />
     </list>
     <recent_temporary>
@@ -327,10 +328,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.28538013" visible="true" weight="0.098614074" />
-      <window_info id="Structure" order="1" sideWeight="0.7146199" side_tool="true" visible="true" weight="0.098614074" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.7146199" side_tool="true" visible="true" weight="0.098614074" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32779318" />
@@ -347,7 +347,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.53333336" side_tool="true" visible="true" weight="0.15405117" />
-      <window_info active="true" anchor="right" id="SciView" order="4" sideWeight="0.46666667" visible="true" weight="0.15405117" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.46666667" visible="true" weight="0.15405117" />
       <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
     <layout-to-restore>
@@ -378,7 +378,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/func_Koch.py</url>
-          <line>552</line>
+          <line>553</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
@@ -581,15 +581,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dat_Koch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="127" selection-start-line="127" selection-end-line="127" />
+        <state relative-caret-position="558">
+          <caret line="97" column="60" lean-forward="true" selection-start-line="97" selection-start-column="60" selection-end-line="97" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/func_Koch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="501">
-          <caret line="653" column="39" lean-forward="true" selection-start-line="653" selection-start-column="39" selection-end-line="653" selection-end-column="39" />
+          <caret line="540" column="16" selection-start-line="540" selection-start-column="16" selection-end-line="540" selection-end-column="16" />
           <folding>
             <element signature="e#106#124#0" expanded="true" />
           </folding>
