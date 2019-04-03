@@ -464,9 +464,9 @@ def value_leg_i_11(i, x_i, t, pi):
     lam = sum(arrival_probabilities)
 
     if t == T+1:
-        return 0
+        return 0, None
     elif x_i <= 0:
-        return 0
+        return 0, None
 
     offer_sets_all = get_offer_sets_all(products)
     offer_sets_all = pd.DataFrame(offer_sets_all)
@@ -479,15 +479,38 @@ def value_leg_i_11(i, x_i, t, pi):
         for j in products:
             if offer_array[j] > 0:
                 temp[j] = (revenues[j] -
-                 (value_leg_i_11(i, x_i, t+1, pi) - value_leg_i_11(i, x_i-1, t+1, pi) - pi[i]) * A[i, j] -
+                 (value_leg_i_11(i, x_i, t+1, pi)[0] - value_leg_i_11(i, x_i-1, t+1, pi)[0] - pi[i]) * A[i, j] -
                  sum(pi[A[:, j]]))
         val_new = sum(purchase_rate_vector(tuple(offer_array), preference_weights,
-                                           preference_no_purchase, arrival_probabilities) * temp)
+                                           preference_no_purchase, arrival_probabilities)[:-1] * temp)
         if val_new > val_akt:
-            index_max = index
-            val_akt = val_new
+            index_max = copy.copy(index)
+            val_akt = copy.deepcopy(val_new)
 
-    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi), index_max
+    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi)[0], index_max
+
+
+def displacement_costs_vector(capacities_remaining, t, pi, beta=1):
+    """
+    Implements the displacement vector on p. 777
+
+    :param capacities_remaining:
+    :param t:
+    :param pi:
+    :param beta:
+    :return:
+    """
+    resources, \
+        products, revenues, A, \
+        customer_segments, preference_weights, arrival_probabilities, \
+        times = get_data_without_variations()
+
+    delta_v = np.zeros_like(resources)
+    for i in resources:
+        delta_v[i] = beta * (value_leg_i_11(i, capacities_remaining[i], t, pi)[0] -
+                             value_leg_i_11(i, capacities_remaining[i] - 1, t, pi)[0]) + \
+                     (1-beta) * pi[i]
+    return delta_v
 
 
 def calculate_offer_set(capacities_remaining, t, pi, beta=1):
@@ -510,21 +533,24 @@ def calculate_offer_set(capacities_remaining, t, pi, beta=1):
     index_max = 0
 
     offer_sets_all = get_offer_sets_all(products)
+    offer_sets_all = pd.DataFrame(offer_sets_all)
 
     for index, offer_array in offer_sets_all.iterrows():
         val_new = 0
+        displacement_costs = displacement_costs_vector(capacities_remaining, t+1, pi, beta)
+        purchase_rate = purchase_rate_vector(tuple(offer_array), preference_weights,
+                                             preference_no_purchase, arrival_probabilities)
         for j in products:
             if offer_array[j] > 0 and all(capacities_remaining - A[:, j] >= 0):
-                val_new += purchase_rate(tuple(offer_array), j) * \
-                           (revenues[j] - sum(displacement_costs_vector(capacities_remaining, t, pi, beta=1)*A[:, j]))
+                val_new += purchase_rate[j] * \
+                           (revenues[j] - sum(displacement_costs*A[:, j]))
         val_new = lam*val_new
-        # print(index, val_new)
 
         if val_new > val_akt:
-            index_max = index
-            val_akt = val_new
+            index_max = copy.copy(index)
+            val_akt = copy.deepcopy(val_new)
 
-    return index_max, tuple(offer_sets_all.iloc[[index_max]])
+    return index_max, products[np.array(offer_sets_all.iloc[[index_max]]==1)[0]] + 1
 
 # # %%
 # var_capacities, var_no_purchase_preferences = get_variations()
@@ -576,33 +602,65 @@ def calculate_offer_set(capacities_remaining, t, pi, beta=1):
 # with open('res_GreedyHeuristic.txt', 'w') as f:
 #     with redirect_stdout(f):
 #         print(column_greedy(preference_no_purchase, pi, w))
-
-
-
-#%%
-# example = "threeParallelFlights"
-# CDLP by column generation
-var_capacities, var_no_purchase_preferences = get_variations()
-
-num_rows = len(var_capacities)*len(var_no_purchase_preferences)
-
-df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP'])
-indexi = 0
-for capacities in var_capacities:
-    for preference_no_purchase in var_no_purchase_preferences:
-        print(capacities)
-        print(preference_no_purchase)
-
-        df.loc[indexi] = [np.round(capacities), preference_no_purchase, CDLP_by_column_generation(capacities=np.round(capacities),
-                                                                                      preference_no_purchase=preference_no_purchase)[1]]
-        indexi += 1
-
-df.to_pickle("table3_CDLP.pkl")
+#
+#
+#
+# #%%
+# # example = "threeParallelFlights"
+# # CDLP by column generation
+# var_capacities, var_no_purchase_preferences = get_variations()
+#
+# num_rows = len(var_capacities)*len(var_no_purchase_preferences)
+#
+# df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP'])
+# indexi = 0
+# for capacities in var_capacities:
+#     for preference_no_purchase in var_no_purchase_preferences:
+#         print(capacities)
+#         print(preference_no_purchase)
+#
+#         df.loc[indexi] = [np.round(capacities), preference_no_purchase, CDLP_by_column_generation(capacities=np.round(capacities),
+#                                                                                       preference_no_purchase=preference_no_purchase)[1]]
+#         indexi += 1
+#
+# df.to_pickle("table3_CDLP.pkl")
+#
+# # %%
+# # example 0
+# # towards Table 3 in Miranda and Bront
+# capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
+# ret, val_new_CDLP, dual_pi, dual_sigma = CDLP_by_column_generation(capacities, preference_no_purchase)
+# print(dual_pi)
 
 # %%
-# example 0
-# towards Table 3 in Miranda and Bront
-capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
-ret, val_new_CDLP, dual_pi, dual_sigma = CDLP_by_column_generation(capacities, preference_no_purchase)
-dual_pi
-dual_sigma
+# remaining_capacity = np.array([[3,2,2],
+#                                [2,3,2],
+#                                [2,2,3],
+#                                [3,2,1],
+#                                [3,1,2],
+#                                [2,3,1],
+#                                [1,3,2],
+#                                ])
+remaining_capacity = np.array([[2,2,1],
+                               [2,1,2],
+                               [1,2,2],
+                               [2,1,1],
+                               [1,2,1],
+                               [1,1,2],
+                               [2,1,0],
+                               [2,0,1],
+                               [0,2,1],
+                               [1,0,2],
+                               [0,1,2],
+                               [1,1,1],
+                               [1,1,0],
+                               [1,0,1],
+                               [0,1,1],
+                               [1,0,0],
+                               [0,1,0],
+                               [0,0,1]])
+df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
+for indexi in np.arange(len(df)):
+    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], 27, np.array([0, 1134.55, 500]))[1]]
+
+df
