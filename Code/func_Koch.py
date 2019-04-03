@@ -30,6 +30,7 @@ from dat_Koch import get_data
 from dat_Koch import get_data_without_variations
 from dat_Koch import get_variations
 from dat_Koch import get_capacities_and_preferences_no_purchase
+from dat_Koch import get_preference_no_purchase
 
 
 # %% HELPER-FUNCTIONS
@@ -447,7 +448,7 @@ def CDLP_by_column_generation(capacities, preference_no_purchase):
 
 # leg level decomposition directly via (11)
 @memoize
-def value_leg_i_11(i, x_i, t, pi):
+def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
     """
     Implements the table of value leg decomposition on p. 776
 
@@ -478,9 +479,10 @@ def value_leg_i_11(i, x_i, t, pi):
     for index, offer_array in offer_sets_all.iterrows():
         temp = np.zeros_like(products, dtype=float)
         for j in products:
-            if offer_array[j] > 0:
+            if offer_array[j] > 0 and A[i, j] > 0:
                 temp[j] = (revenues[j] -
-                 (value_leg_i_11(i, x_i, t+1, pi)[0] - value_leg_i_11(i, x_i-1, t+1, pi)[0] - pi[i]) * A[i, j] -
+                 (value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0] -
+                  value_leg_i_11(i, x_i-1, t+1, pi, preference_no_purchase)[0] - pi[i]) * A[i, j] -
                  sum(pi[A[:, j]]))
         val_new = sum(purchase_rate_vector(tuple(offer_array), preference_weights,
                                            preference_no_purchase, arrival_probabilities)[:-1] * temp)
@@ -488,10 +490,10 @@ def value_leg_i_11(i, x_i, t, pi):
             index_max = copy.copy(index)
             val_akt = copy.deepcopy(val_new)
 
-    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi)[0], index_max
+    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0], index_max, tuple(offer_sets_all.iloc[index_max])
 
 
-def displacement_costs_vector(capacities_remaining, t, pi, beta=1):
+def displacement_costs_vector(capacities_remaining, preference_no_purchase, t, pi, beta=1):
     """
     Implements the displacement vector on p. 777
 
@@ -508,13 +510,13 @@ def displacement_costs_vector(capacities_remaining, t, pi, beta=1):
 
     delta_v = np.zeros_like(resources)
     for i in resources:
-        delta_v[i] = beta * (value_leg_i_11(i, capacities_remaining[i], t, pi)[0] -
-                             value_leg_i_11(i, capacities_remaining[i] - 1, t, pi)[0]) + \
+        delta_v[i] = beta * (value_leg_i_11(i, capacities_remaining[i], t, pi, preference_no_purchase)[0] -
+                             value_leg_i_11(i, capacities_remaining[i] - 1, t, pi, preference_no_purchase)[0]) + \
                      (1-beta) * pi[i]
     return delta_v
 
 
-def calculate_offer_set(capacities_remaining, t, pi, beta=1):
+def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, beta=1):
     """
     Implements (14) on p. 777
 
@@ -536,9 +538,15 @@ def calculate_offer_set(capacities_remaining, t, pi, beta=1):
     offer_sets_all = get_offer_sets_all(products)
     offer_sets_all = pd.DataFrame(offer_sets_all)
 
+
+
+    # offer_sets_all.loc[:, 'val'] = 0
+
+
+
     for index, offer_array in offer_sets_all.iterrows():
         val_new = 0
-        displacement_costs = displacement_costs_vector(capacities_remaining, t+1, pi, beta)
+        displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t+1, pi, beta)
         purchase_rate = purchase_rate_vector(tuple(offer_array), preference_weights,
                                              preference_no_purchase, arrival_probabilities)
         for j in products:
@@ -546,6 +554,10 @@ def calculate_offer_set(capacities_remaining, t, pi, beta=1):
                 val_new += purchase_rate[j] * \
                            (revenues[j] - sum(displacement_costs*A[:, j]))
         val_new = lam*val_new
+
+
+        # offer_sets_all.loc[index, 'val'] = copy.copy(val_new)
+
 
         if val_new > val_akt:
             index_max = copy.copy(index)
@@ -660,7 +672,39 @@ remaining_capacity = np.array([[2,2,1],
                                [1,0,0],
                                [0,1,0],
                                [0,0,1]])
-df2 = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
+preference_no_purchase = get_preference_no_purchase()
+df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
 for indexi in np.arange(len(df)):
-    df2.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], 27, np.array([0, 1134.55, 500]))[1]]
+    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], preference_no_purchase, 27, np.array([0, 1134.55, 500]))[1]]
+#
+#
+# #%%
+# preference_no_purchase = get_preference_no_purchase()
+# i, df = calculate_offer_set(np.array([1,0,1]), preference_no_purchase, 27, np.array([0, 1134.55, 500]))
+# max_val = max(df.iloc[:, -1])
+# indices = df.iloc[:, -1] > 0.9*max_val
+# sum(indices)
+# df[indices]
+# df[(df.iloc[:, :-1] == np.array([0, 1, 1, 1, 0, 0, 0, 0])).apply(all, axis=1)]
+# df[(df.iloc[:, :-1] == np.array([0, 1, 1, 1, 0, 1, 0, 0])).apply(all, axis=1)]
 
+#%%
+preference_no_purchase = get_preference_no_purchase()
+t = 30
+print(value_leg_i_11(0, 1, t, np.zeros(3), preference_no_purchase))
+print(value_leg_i_11(1, 1, t, np.zeros(3), preference_no_purchase))
+print(value_leg_i_11(2, 1, t, np.zeros(3), preference_no_purchase))
+
+of = tuple([0, 1, 1, 0, 0, 1, 0, 0])
+purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
+of = tuple([0, 1, 1, 0, 0, 0, 0, 0])
+purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
+
+
+# #%%
+# i, df = calculate_offer_set(capacities, preference_no_purchase, 0, np.zeros_like(resources))
+# (value_leg_i_11(0, capacities[0], 0, np.zeros_like(resources))[0] + \
+# value_leg_i_11(1, capacities[1], 0, np.zeros_like(resources))[0] + \
+# value_leg_i_11(2, capacities[2], 0, np.zeros_like(resources))[0])/3
+#
+# # value_expected(capacities, 0, preference_no_purchase)

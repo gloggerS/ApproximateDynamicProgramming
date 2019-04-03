@@ -146,3 +146,8 @@ def get_capacities_and_preferences_no_purchase():
 
 def get_variations():
     return var_capacities, var_no_purchase_preferences
+
+
+def get_preference_no_purchase():
+    return preference_no_purchase
+
