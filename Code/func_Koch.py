@@ -441,6 +441,90 @@ def CDLP_by_column_generation(capacities, preference_no_purchase):
 
     return ret, val_new_CDLP, dual_pi, dual_sigma
 
+# %%
+# DECOMPOSITION APPROXIMATION ALGORITHM
+
+# leg level decomposition directly via (11)
+@memoize
+def value_leg_i_11(i, x_i, t, pi):
+    """
+    Implements the table of value leg decomposition on p. 776
+
+    :param i:
+    :param x_i:
+    :param t:
+    :param pi:
+    :return:
+    """
+    resources, \
+        products, revenues, A, \
+        customer_segments, preference_weights, arrival_probabilities, \
+        times = get_data_without_variations()
+    T = len(times)
+    lam = sum(arrival_probabilities)
+
+    if t == T+1:
+        return 0
+    elif x_i <= 0:
+        return 0
+
+    offer_sets_all = get_offer_sets_all(products)
+    offer_sets_all = pd.DataFrame(offer_sets_all)
+
+    val_akt = 0
+    index_max = 0
+
+    for index, offer_array in offer_sets_all.iterrows():
+        temp = np.zeros_like(products, dtype=float)
+        for j in products:
+            if offer_array[j] > 0:
+                temp[j] = (revenues[j] -
+                 (value_leg_i_11(i, x_i, t+1, pi) - value_leg_i_11(i, x_i-1, t+1, pi) - pi[i]) * A[i, j] -
+                 sum(pi[A[:, j]]))
+        val_new = sum(purchase_rate_vector(tuple(offer_array), preference_weights,
+                                           preference_no_purchase, arrival_probabilities) * temp)
+        if val_new > val_akt:
+            index_max = index
+            val_akt = val_new
+
+    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi), index_max
+
+
+def calculate_offer_set(capacities_remaining, t, pi, beta=1):
+    """
+    Implements (14) on p. 777
+
+    :param capacities_remaining:
+    :param t:
+    :param pi:
+    :param beta:
+    :return:
+    """
+    resources, \
+        products, revenues, A, \
+        customer_segments, preference_weights, arrival_probabilities, \
+        times = get_data_without_variations()
+    lam = sum(arrival_probabilities)
+
+    val_akt = 0
+    index_max = 0
+
+    offer_sets_all = get_offer_sets_all(products)
+
+    for index, offer_array in offer_sets_all.iterrows():
+        val_new = 0
+        for j in products:
+            if offer_array[j] > 0 and all(capacities_remaining - A[:, j] >= 0):
+                val_new += purchase_rate(tuple(offer_array), j) * \
+                           (revenues[j] - sum(displacement_costs_vector(capacities_remaining, t, pi, beta=1)*A[:, j]))
+        val_new = lam*val_new
+        # print(index, val_new)
+
+        if val_new > val_akt:
+            index_max = index
+            val_akt = val_new
+
+    return index_max, tuple(offer_sets_all.iloc[[index_max]])
 
 # # %%
 # var_capacities, var_no_purchase_preferences = get_variations()
