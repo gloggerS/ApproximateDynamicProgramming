@@ -1,0 +1,5 @@
+N = int(input())
+X = list(map(int, "10 40 30 50 20".rstrip().split()))
+W = list(map(int, "1 2 3 4 5".rstrip().split()))
+sum_X = sum([a*b for (a,b) in zip(X, W)])
+print(sum_X/sum(W))

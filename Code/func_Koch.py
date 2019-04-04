@@ -565,6 +565,32 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
 
     return index_max, products[np.array(offer_sets_all.iloc[[index_max]]==1)[0]] + 1
 
+#%%
+# Talluri and van Ryzin
+def efficient_sets(sets_revenues, sets_quantities):
+    """
+    Calculates the efficient sets by marginal revenue ratio as discussed in Talluri and van Ryzin p. 21 upper left
+
+    :param purchase_rates:
+    :param quantities:
+    :return:
+    """
+    ret = {0}
+
+    while True:
+        print(ret)
+        q_max = sets_quantities[max(ret)]
+        r_max = sets_revenues[max(ret)]
+        tocheck = np.arange(len(sets_quantities))[(sets_quantities >= q_max) & (sets_revenues >= r_max)]
+        tocheck = tocheck[1:]  # first element is always itself
+        if len(tocheck) == 0:
+            return ret
+        marg_revenues = np.zeros(len(sets_quantities))
+        for i in tocheck:
+            marg_revenues[i] = (sets_revenues[i] - r_max) / (sets_quantities[i] - q_max)
+        ret.add(np.argmax(marg_revenues))
+
+#%%
 # # %%
 # var_capacities, var_no_purchase_preferences = get_variations()
 #
@@ -675,7 +701,7 @@ remaining_capacity = np.array([[2,2,1],
 preference_no_purchase = get_preference_no_purchase()
 df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
 for indexi in np.arange(len(df)):
-    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], preference_no_purchase, 27, np.array([0, 1134.55, 500]))[1]]
+    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], preference_no_purchase, 3, np.array([0, 1134.55, 500]))[1]]
 #
 #
 # #%%

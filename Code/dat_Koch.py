@@ -2,9 +2,10 @@ import numpy as np
 
 # example = "singleLegFlight"
 # example = "threeParallelFlights"
-example = "example0"
+# example = "example0"
 # example = "example for Greedy Heuristic"
 # example = "example parallel flights"
+example = "efficient sets"
 
 if example == "singleLegFlight":
     n = 4
@@ -117,6 +118,17 @@ elif example == "example for Greedy Heuristic":
 
     pi = 0
 
+if example == "efficient sets":
+    purchase_rate_vectors = np.array([[0, 0, 0, 1],
+                                      [0.3, 0, 0, 0.7],
+                                      [0, 0.4, 0, 0.6],
+                                      [0, 0, 0.5, 0.5],
+                                      [0.1, 0.6, 0, 0.3],
+                                      [0.3, 0, 0.5, 0.2],
+                                      [0, 0.4, 0.5, 0.1],
+                                      [0.1, 0.4, 0.5, 0]])
+    sets_quantities = np.array([0, 0.3, 0.4, 0.5, 0.7, 0.8, 0.9, 1])
+    sets_revenues = np.array([0, 240, 200, 225, 380, 465, 425, 505])
 # %% Check up
 print("Check of dimensions: \n  ------------------------")
 print("Ressourcen: \t", len(resources) == len(capacities) == A.shape[0])
