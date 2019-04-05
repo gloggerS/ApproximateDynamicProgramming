@@ -56,7 +56,6 @@ def get_offer_sets_all(products):
     """
     n = len(products)
     offer_sets_all = np.array(list(map(list, itertools.product([0, 1], repeat=n))))
-    offer_sets_all = offer_sets_all[1:]  # always at least one product to offer
     return offer_sets_all
 
 
@@ -567,28 +566,32 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
 
 #%%
 # Talluri and van Ryzin
-def efficient_sets(sets_revenues, sets_quantities):
+def efficient_sets(data_sets):
     """
     Calculates the efficient sets by marginal revenue ratio as discussed in Talluri and van Ryzin p. 21 upper left
 
-    :param purchase_rates:
-    :param quantities:
+    :param data_sets: A dataset with the quantities and revenues of all sets. Index has the sets.
     :return:
     """
-    ret = {0}
+    ES = ['0']
+    data_sets = data_sets.sort_values(['q'])
+    sets_quantities = data_sets.loc[:, 'q']
+    sets_revenues = data_sets.loc[:, 'r']
 
     while True:
-        print(ret)
-        q_max = sets_quantities[max(ret)]
-        r_max = sets_revenues[max(ret)]
-        tocheck = np.arange(len(sets_quantities))[(sets_quantities >= q_max) & (sets_revenues >= r_max)]
-        tocheck = tocheck[1:]  # first element is always itself
+        print(ES)
+        q_max = max(sets_quantities[ES])
+        r_max = max(sets_revenues[ES])
+        tocheck = set(data_sets.index[(sets_quantities >= q_max) & (sets_revenues >= r_max)])
+        tocheck = tocheck - set(ES)
         if len(tocheck) == 0:
-            return ret
-        marg_revenues = np.zeros(len(sets_quantities))
+            return ES
+        marg_revenues = pd.DataFrame(data=np.zeros(len(tocheck)), index=tocheck)
         for i in tocheck:
-            marg_revenues[i] = (sets_revenues[i] - r_max) / (sets_quantities[i] - q_max)
-        ret.add(np.argmax(marg_revenues))
+            marg_revenues.loc[i] = (sets_revenues[i] - r_max) / (sets_quantities[i] - q_max)
+        ES.append(max(marg_revenues.idxmax()))
+
+efficient_sets(data_sets)
 
 #%%
 # # %%

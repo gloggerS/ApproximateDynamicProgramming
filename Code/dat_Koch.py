@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 # example = "singleLegFlight"
 # example = "threeParallelFlights"
@@ -129,6 +130,9 @@ if example == "efficient sets":
                                       [0.1, 0.4, 0.5, 0]])
     sets_quantities = np.array([0, 0.3, 0.4, 0.5, 0.7, 0.8, 0.9, 1])
     sets_revenues = np.array([0, 240, 200, 225, 380, 465, 425, 505])
+    offer_sets = np.array(['0', 'Y', 'M', 'K', 'Y,M', 'Y,K', 'M,K', 'Y,M,K'])
+
+    data_sets = pd.DataFrame(data=np.array([sets_quantities, sets_revenues]).T, columns=['q', 'r'], index=offer_sets)
 # %% Check up
 print("Check of dimensions: \n  ------------------------")
 print("Ressourcen: \t", len(resources) == len(capacities) == A.shape[0])
