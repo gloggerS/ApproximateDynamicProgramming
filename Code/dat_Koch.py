@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
 
-example = "singleLegFlight"
+# example = "singleLegFlight"
 # example = "threeParallelFlights"
-# example = "example0"
+example = "example0"
 # example = "example for Greedy Heuristic"
 # example = "example parallel flights"
 # example = "efficient sets"
@@ -133,6 +133,70 @@ if example == "efficient sets":
     offer_sets = np.array(['0', 'Y', 'M', 'K', 'Y,M', 'Y,K', 'M,K', 'Y,M,K'])
 
     data_sets = pd.DataFrame(data=np.array([sets_quantities, sets_revenues]).T, columns=['q', 'r'], index=offer_sets)
+
+#%%
+
+data_by_name = {}
+
+# singleLegFlight
+data_by_name["singleLegFlight"] = {}
+
+data_by_name["singleLegFlight"]["n"] = 4
+data_by_name["singleLegFlight"]["products"] = np.arange(4)
+data_by_name["singleLegFlight"]["revenues"] = np.array([1000, 800, 600, 400])
+
+data_by_name["singleLegFlight"]["T"] = 400
+data_by_name["singleLegFlight"]["times"] = np.arange(400)
+
+data_by_name["singleLegFlight"]["L"] = 1
+data_by_name["singleLegFlight"]["customer_segments"] = np.arange(1)
+data_by_name["singleLegFlight"]["arrival_probabilities"] = np.array([0.5])
+data_by_name["singleLegFlight"]["preference_weights"] = np.array([[0.4, 0.8, 1.2, 1.6]])
+
+data_by_name["singleLegFlight"]["var_no_purchase_preferences"] = np.array([[1], [2], [3]])
+data_by_name["singleLegFlight"]["preference_no_purchase"] = \
+    np.array(data_by_name["singleLegFlight"]["var_no_purchase_preferences"][0])
+
+data_by_name["singleLegFlight"]["m"] = 1
+data_by_name["singleLegFlight"]["resources"] = np.arange(m)
+
+data_by_name["singleLegFlight"]["var_capacities"] = np.array([[40], [60], [80], [100], [120]])
+data_by_name["singleLegFlight"]["capacities"] = data_by_name["singleLegFlight"]["var_capacities"][0]
+
+# capacity demand matrix A (rows: resources, cols: products)
+# a_ij = 1 if resource i is used by product j
+data_by_name["singleLegFlight"]["A"] = np.array([[1, 1, 1, 1]])
+
+
+# toy example for explaining stuff, check implementation of CDLP
+data_by_name["example0"] = {}
+
+data_by_name["example0"]["n"] = 8
+
+data_by_name["example0"]["products"] = np.arange(8)
+data_by_name["example0"]["revenues"] = np.array([1200, 800, 500, 500, 800, 500, 300, 300], dtype=np.float)
+
+data_by_name["example0"]["resources"] = np.arange(3)
+data_by_name["example0"]["capacities"] = np.array([10, 5, 5])
+
+# capacity demand matrix A (rows: resources, cols: products)
+# a_ij = 1 if resource i is used by product j
+data_by_name["example0"]["A"] = np.array([[0, 1, 1, 0, 0, 1, 1, 0],
+                  [1, 0, 0, 0, 1, 0, 0, 0],
+                  [0, 1, 0, 1, 0, 1, 0, 1]])
+
+data_by_name["example0"]["times"] = np.arange(30)
+
+data_by_name["example0"]["customer_segments"] = np.arange(5)
+data_by_name["example0"]["arrival_probabilities"] = np.array([0.15, 0.15, 0.2, 0.25, 0.25])
+data_by_name["example0"]["preference_weights"] = np.array([[5, 0, 0, 0, 8, 0, 0, 0],
+                                  [10, 6, 0, 0, 0, 0, 0, 0],
+                                  [0, 0, 0, 0, 8, 5, 0, 0],
+                                  [0, 0, 4, 0, 0, 0, 8, 0],
+                                  [0, 0, 0, 6, 0, 0, 0, 8]])
+data_by_name["example0"]["preference_no_purchase"] = np.array([2, 5, 2, 2, 2])
+
+
 # %% Check up
 print("Check of dimensions: \n  ------------------------")
 print("Ressourcen: \t", len(resources) == len(capacities) == A.shape[0])
@@ -149,11 +213,18 @@ def get_data():
            times
 
 
-def get_data_without_variations():
-    return resources, \
+def get_data_without_variations(dataName=""):
+    if dataName == "":
+        return resources, \
            products, revenues, A, \
            customer_segments, preference_weights, arrival_probabilities, \
            times
+    else:
+        return data_by_name[dataName]["resources"], \
+               data_by_name[dataName]["products"], data_by_name[dataName]["revenues"], data_by_name[dataName]["A"], \
+               data_by_name[dataName]["customer_segments"], data_by_name[dataName]["preference_weights"], \
+               data_by_name[dataName]["arrival_probabilities"], \
+               data_by_name[dataName]["times"]
 
 
 def get_capacities_and_preferences_no_purchase():

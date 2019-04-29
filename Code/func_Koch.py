@@ -49,7 +49,7 @@ def memoize(func):
 
 def get_offer_sets_all(products):
     """
-    Generates all possible offer sets.
+    Generates all possible offer sets, starting with offering nothing.
 
     :param products:
     :return:
@@ -63,11 +63,12 @@ def get_offer_sets_all(products):
 @memoize
 def customer_choice_individual(offer_set_tuple, preference_weights, preference_no_purchase):
     """
-    For one customer of one customer segment, determine its purchase probabilities given one offer set.
+    For one customer of one customer segment, determine its purchase probabilities given one offer set and given
+    that one customer of this segment arrived.
 
     Tuple needed for memoization.
 
-    :param offer_set_tuple: tuple with offered products indicated by 1=product offered
+    :param offer_set_tuple: tuple with offered products indicated by 1=product offered, 0=product not offered
     :param preference_weights: preference weights of one customer
     :param preference_no_purchase: no purchase preference of one customer
     :return: array of purchase probabilities ending with no purchase
@@ -94,27 +95,14 @@ def customer_choice_vector(offer_set_tuple, preference_weights, preference_no_pu
     :param preference_no_purchase: preference for no purchase for all customers
     :param arrival_probabilities: vector with arrival probabilities of all customer segments
     :return: array with probabilities of purchase ending with no purchase
-    TODO probabilities don't have to sum up to one? BEACHTE: Unterschied zu (1) in Bront et all
+
+    NOTE: probabilities don't have to sum up to one? BEACHTE: Unterschied zu (1) in Bront et all
     """
     probs = np.zeros(len(offer_set_tuple) + 1)
     for l in np.arange(len(preference_weights)):
         probs += arrival_probabilities[l] * customer_choice_individual(offer_set_tuple, preference_weights[l, :],
                                                                        preference_no_purchase[l])
     return probs
-
-
-def delta_value_j(j, capacities, t, A, preference_no_purchase):
-    """
-    For one product j, what is the difference in the value function if we sell one product.
-
-    :param j:
-    :param capacities:
-    :param t:
-    :param preference_no_purchase:
-    :return:
-    """
-    return value_expected(capacities, t, preference_no_purchase)[0] - \
-        value_expected(capacities - A[:, j], t, preference_no_purchase)[0]
 
 
 @memoize
@@ -152,7 +140,7 @@ def value_expected(capacities, t, preference_no_purchase):
 
         val = float(value_expected(capacities, t + 1, preference_no_purchase)[0])  # ohne "float" würde ein numpy array
         #  zurückgegeben, und das später (max_val = val) direkt auf val verknüpft (call by reference)
-        for j in products:  # nett, da Nichtkaufalternative danach kommt und nicht betrachtet wird
+        for j in products:  # nett, da Nichtkaufalternative danach (products+1) kommt und so also nicht betrachtet wird
             p = float(probs[j])
             if p > 0.0:
                 value_delta_j = delta_value_j(j, capacities, t + 1, A, preference_no_purchase)
@@ -162,6 +150,22 @@ def value_expected(capacities, t, preference_no_purchase):
             max_index = offer_set_index
             max_val = val
     return max_val, tuple(offer_sets_to_test[max_index, :])
+
+
+def delta_value_j(j, capacities, t, A, preference_no_purchase):
+    """
+    For one product j, what is the difference in the value function if we sell one product.
+    TODO: stört mich etwas, Inidices von t, eng verbandelt mit value_expected()
+
+    :param j:
+    :param capacities:
+    :param t:
+    :param preference_no_purchase:
+    :return:
+    """
+    return value_expected(capacities, t, preference_no_purchase)[0] - \
+        value_expected(capacities - A[:, j], t, preference_no_purchase)[0]
+
 
 # %%
 # FUNCTIONS for Bront et al
@@ -175,6 +179,11 @@ def purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purc
     :param preference_no_purchase
     :param arrival_probabilities
     :return: P_j(S) for all j, P_0(S) at the end
+
+    TODO: p wird hier normiert, also gegeben ein Customer kommt, zu welchem Segment gehört
+    s. p. 772 in Bront et al.
+    vgl. customer_choice_vector()
+    Lsg. wird hier mit \lambda lam wieder ausgebügelt in CDLP()
     """
     probs = np.zeros(len(offer_set_tuple) + 1)
     p = arrival_probabilities/(sum(arrival_probabilities))
@@ -231,7 +240,8 @@ def CDLP(capacities, preference_no_purchase, offer_sets: np.ndarray):
     Q = {}
     for index, offer_array in offer_sets.iterrows():
         S[index] = tuple(offer_array)
-        R[index] = revenue(tuple(offer_array), preference_weights, preference_no_purchase, arrival_probabilities, revenues)
+        R[index] = revenue(tuple(offer_array), preference_weights, preference_no_purchase, arrival_probabilities,
+                           revenues)
         temp = {}
         for i in resources:
             temp[i] = quantity_i(tuple(offer_array), preference_weights, preference_no_purchase,
@@ -341,7 +351,7 @@ def column_MIP(preference_no_purchase, pi, w=0):  # pass w to test example for g
         print('Error reported')
 
 
-def column_greedy(preference_no_purchase, pi, w=0):  # pass w to test example for greedy heuristic
+def column_greedy(preference_no_purchase, pi, w=0, dataName=""):  # pass w to test example for greedy heuristic
     """
     Implements Greedy Heuristic on p. 775 rhs
 
@@ -352,7 +362,7 @@ def column_greedy(preference_no_purchase, pi, w=0):  # pass w to test example fo
     resources, \
         products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations()
+        times = get_data_without_variations(dataName)
 
     # Step 1
     y = np.zeros_like(revenues)
@@ -455,7 +465,7 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
     :param x_i:
     :param t:
     :param pi:
-    :return:
+    :return: optimal value, index of optimal offer set, tuple optimal offer set
     """
     resources, \
         products, revenues, A, \
@@ -465,9 +475,9 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
     lam = sum(arrival_probabilities)
 
     if t == T+1:
-        return 0, None
+        return 0, None, None
     elif x_i <= 0:
-        return 0, None
+        return 0, None, None
 
     offer_sets_all = get_offer_sets_all(products)
     offer_sets_all = pd.DataFrame(offer_sets_all)
@@ -478,18 +488,19 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
     for index, offer_array in offer_sets_all.iterrows():
         temp = np.zeros_like(products, dtype=float)
         for j in products:
-            if offer_array[j] > 0 and A[i, j] > 0:
+            if offer_array[j] > 0:
                 temp[j] = (revenues[j] -
-                 (value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0] -
-                  value_leg_i_11(i, x_i-1, t+1, pi, preference_no_purchase)[0] - pi[i]) * A[i, j] -
-                 sum(pi[A[:, j]]))
+                           (value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0] -
+                            value_leg_i_11(i, x_i-1, t+1, pi, preference_no_purchase)[0] - pi[i]) * A[i, j] -
+                           sum(pi[A[:, j]]))
         val_new = sum(purchase_rate_vector(tuple(offer_array), preference_weights,
                                            preference_no_purchase, arrival_probabilities)[:-1] * temp)
         if val_new > val_akt:
             index_max = copy.copy(index)
             val_akt = copy.deepcopy(val_new)
 
-    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0], index_max, tuple(offer_sets_all.iloc[index_max])
+    return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0], \
+        index_max, tuple(offer_sets_all.iloc[index_max])
 
 
 def displacement_costs_vector(capacities_remaining, preference_no_purchase, t, pi, beta=1):
@@ -515,7 +526,7 @@ def displacement_costs_vector(capacities_remaining, preference_no_purchase, t, p
     return delta_v
 
 
-def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, beta=1):
+def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, beta=1, dataName=""):
     """
     Implements (14) on p. 777
 
@@ -523,12 +534,12 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
     :param t:
     :param pi:
     :param beta:
-    :return:
+    :return: index of optimal offer set, optimal offer set (the products)
     """
     resources, \
         products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations()
+        times = get_data_without_variations(dataName)
     lam = sum(arrival_probabilities)
 
     val_akt = 0
@@ -536,12 +547,6 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
 
     offer_sets_all = get_offer_sets_all(products)
     offer_sets_all = pd.DataFrame(offer_sets_all)
-
-
-
-    # offer_sets_all.loc[:, 'val'] = 0
-
-
 
     for index, offer_array in offer_sets_all.iterrows():
         val_new = 0
@@ -554,15 +559,11 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
                            (revenues[j] - sum(displacement_costs*A[:, j]))
         val_new = lam*val_new
 
-
-        # offer_sets_all.loc[index, 'val'] = copy.copy(val_new)
-
-
         if val_new > val_akt:
             index_max = copy.copy(index)
             val_akt = copy.deepcopy(val_new)
 
-    return index_max, products[np.array(offer_sets_all.iloc[[index_max]]==1)[0]] + 1
+    return index_max, products[np.array(offer_sets_all.iloc[[index_max]] == 1)[0]] + 1
 
 #%%
 # Talluri and van Ryzin
