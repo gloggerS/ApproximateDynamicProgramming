@@ -591,27 +591,31 @@ def efficient_sets(data_sets):
             marg_revenues.loc[i] = (sets_revenues[i] - r_max) / (sets_quantities[i] - q_max)
         ES.append(max(marg_revenues.idxmax()))
 
-efficient_sets(data_sets)
+
+#%%
+# Koch - Approximate Policy Iteration
+
 
 #%%
 # # %%
-# var_capacities, var_no_purchase_preferences = get_variations()
-#
-# num_rows = len(var_capacities)*len(var_no_purchase_preferences)
-# df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP'])
-# indexi = 0
-# for capacity in var_capacities:
-#     for preference_no_purchase in var_no_purchase_preferences:
-#         print(capacity)
-#         print(preference_no_purchase)
-#
-#         df.loc[indexi] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
-#                                                                            preference_no_purchase=preference_no_purchase)]
-#         indexi += 1
-#
-# df.to_pickle("table1_DP.pkl")
-#
-# #%%
+var_capacities, var_no_purchase_preferences = get_variations()
+
+num_rows = len(var_capacities)*len(var_no_purchase_preferences)
+df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP', 'CDLP'])
+indexi = 0
+for capacity in var_capacities:
+    for preference_no_purchase in var_no_purchase_preferences:
+        print(capacity)
+        print(preference_no_purchase)
+
+        df.loc[indexi] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
+                                                                           preference_no_purchase=preference_no_purchase),
+                          CDLP_by_column_generation(capacities=capacity, preference_no_purchase=preference_no_purchase)]
+        indexi += 1
+
+df.to_pickle("table1_DP.pkl")
+
+#%%
 # df2 = pd.read_pickle("table1_DP.pkl")
 #
 # # %%
@@ -705,29 +709,29 @@ preference_no_purchase = get_preference_no_purchase()
 df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
 for indexi in np.arange(len(df)):
     df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], preference_no_purchase, 3, np.array([0, 1134.55, 500]))[1]]
-#
-#
-# #%%
-# preference_no_purchase = get_preference_no_purchase()
-# i, df = calculate_offer_set(np.array([1,0,1]), preference_no_purchase, 27, np.array([0, 1134.55, 500]))
-# max_val = max(df.iloc[:, -1])
-# indices = df.iloc[:, -1] > 0.9*max_val
-# sum(indices)
+
+
+#%%
+preference_no_purchase = get_preference_no_purchase()
+i, df = calculate_offer_set(np.array([1,0,1]), preference_no_purchase, 27, np.array([0, 1134.55, 500]))
+max_val = max(df.iloc[:, -1])
+indices = df.iloc[:, -1] > 0.9*max_val
+sum(indices)
 # df[indices]
 # df[(df.iloc[:, :-1] == np.array([0, 1, 1, 1, 0, 0, 0, 0])).apply(all, axis=1)]
 # df[(df.iloc[:, :-1] == np.array([0, 1, 1, 1, 0, 1, 0, 0])).apply(all, axis=1)]
 
 #%%
-preference_no_purchase = get_preference_no_purchase()
-t = 30
-print(value_leg_i_11(0, 1, t, np.zeros(3), preference_no_purchase))
-print(value_leg_i_11(1, 1, t, np.zeros(3), preference_no_purchase))
-print(value_leg_i_11(2, 1, t, np.zeros(3), preference_no_purchase))
-
-of = tuple([0, 1, 1, 0, 0, 1, 0, 0])
-purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
-of = tuple([0, 1, 1, 0, 0, 0, 0, 0])
-purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
+# preference_no_purchase = get_preference_no_purchase()
+# t = 30
+# print(value_leg_i_11(0, 1, t, np.zeros(3), preference_no_purchase))
+# print(value_leg_i_11(1, 1, t, np.zeros(3), preference_no_purchase))
+# print(value_leg_i_11(2, 1, t, np.zeros(3), preference_no_purchase))
+#
+# of = tuple([0, 1, 1, 0, 0, 1, 0, 0])
+# purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
+# of = tuple([0, 1, 1, 0, 0, 0, 0, 0])
+# purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
 
 
 # #%%

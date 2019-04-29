@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
 
-# example = "singleLegFlight"
+example = "singleLegFlight"
 # example = "threeParallelFlights"
 # example = "example0"
 # example = "example for Greedy Heuristic"
 # example = "example parallel flights"
-example = "efficient sets"
+# example = "efficient sets"
 
 if example == "singleLegFlight":
     n = 4
