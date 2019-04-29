@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dat_Koch.py" beforeDir="false" afterPath="$PROJECT_DIR$/dat_Koch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc_Koch.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/doc_Koch.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/func_Koch.py" beforeDir="false" afterPath="$PROJECT_DIR$/func_Koch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,14 +20,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/func_Koch.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="476">
-              <caret line="714" selection-start-line="714" selection-end-line="714" />
+              <caret line="726" column="28" selection-start-line="726" selection-start-column="28" selection-end-line="726" selection-end-column="28" />
               <folding>
                 <element signature="e#106#124#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="213">
+              <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -70,15 +77,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -102,12 +100,15 @@
       <find>arrivalProbability</find>
       <find>l</find>
       <find>x_k</find>
+      <find>rem cap</find>
+      <find>offer_sets_all</find>
     </findStrings>
     <replaceStrings>
       <replace>dfHistory</replace>
       <replace>sample_path</replace>
       <replace>arrival_probability</replace>
       <replace>c_k</replace>
+      <replace>df</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -132,9 +133,9 @@
         <option value="$PROJECT_DIR$/0helper.txt" />
         <option value="$PROJECT_DIR$/../private/start-Master.py" />
         <option value="$PROJECT_DIR$/working.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/dat_Koch.py" />
         <option value="$PROJECT_DIR$/func_Koch.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -324,6 +325,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.27910239" visible="true" weight="0.08208955" />
       <window_info id="Structure" order="1" sideWeight="0.7208976" side_tool="true" visible="true" weight="0.08208955" />
@@ -336,7 +338,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32914573" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.33291456" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.33240998" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12739871" side_tool="true" weight="0.21052632" />
       <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.34164357" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -568,13 +570,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dat_Koch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -588,10 +583,17 @@
     <entry file="file://$PROJECT_DIR$/func_Koch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
-          <caret line="714" selection-start-line="714" selection-end-line="714" />
+          <caret line="726" column="28" selection-start-line="726" selection-start-column="28" selection-end-line="726" selection-end-column="28" />
           <folding>
             <element signature="e#106#124#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
         </state>
       </provider>
     </entry>

@@ -22,6 +22,9 @@ import functools
 from gurobipy import *
 import re
 
+# Plot
+import matplotlib.pyplot as plt
+
 # Some hacks
 import sys
 from contextlib import redirect_stdout
@@ -80,7 +83,7 @@ def customer_choice_individual(offer_set_tuple, preference_weights, preference_n
 
     offer_set = np.asarray(offer_set_tuple)
     ret = preference_weights * offer_set
-    ret = np.array(ret / (preference_no_purchase + np.sum(ret)))
+    ret = np.array(ret / (np.sum(ret) + preference_no_purchase))
     ret = np.append(ret, 1 - np.sum(ret))
     return ret
 
@@ -482,7 +485,7 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
     offer_sets_all = get_offer_sets_all(products)
     offer_sets_all = pd.DataFrame(offer_sets_all)
 
-    val_akt = 0
+    val_akt = 0.0
     index_max = 0
 
     for index, offer_array in offer_sets_all.iterrows():
@@ -518,7 +521,7 @@ def displacement_costs_vector(capacities_remaining, preference_no_purchase, t, p
         customer_segments, preference_weights, arrival_probabilities, \
         times = get_data_without_variations()
 
-    delta_v = np.zeros_like(resources)
+    delta_v = 1.0*np.zeros_like(resources)
     for i in resources:
         delta_v[i] = beta * (value_leg_i_11(i, capacities_remaining[i], t, pi, preference_no_purchase)[0] -
                              value_leg_i_11(i, capacities_remaining[i] - 1, t, pi, preference_no_purchase)[0]) + \
@@ -548,9 +551,10 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
     offer_sets_all = get_offer_sets_all(products)
     offer_sets_all = pd.DataFrame(offer_sets_all)
 
+    displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t + 1, pi, beta)
+
     for index, offer_array in offer_sets_all.iterrows():
         val_new = 0
-        displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t+1, pi, beta)
         purchase_rate = purchase_rate_vector(tuple(offer_array), preference_weights,
                                              preference_no_purchase, arrival_probabilities)
         for j in products:
@@ -563,7 +567,7 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
             index_max = copy.copy(index)
             val_akt = copy.deepcopy(val_new)
 
-    return index_max, products[np.array(offer_sets_all.iloc[[index_max]] == 1)[0]] + 1
+    return index_max, products[np.array(offer_sets_all.iloc[[index_max]] == 1)[0]] + 1, offer_sets_all
 
 #%%
 # Talluri and van Ryzin
@@ -696,6 +700,7 @@ remaining_capacity = np.array([[2,2,1],
                                [1,1,2],
                                [2,1,0],
                                [2,0,1],
+                               [1,2,0],
                                [0,2,1],
                                [1,0,2],
                                [0,1,2],
@@ -709,7 +714,11 @@ remaining_capacity = np.array([[2,2,1],
 preference_no_purchase = get_preference_no_purchase()
 df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
 for indexi in np.arange(len(df)):
-    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi], preference_no_purchase, 3, np.array([0, 1134.55, 500]))[1]]
+    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi],
+                                                                      preference_no_purchase, 27,
+                                                                      np.array([0, 1134.55, 500]))[1]]
+#%%
+
 
 
 #%%

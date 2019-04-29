@@ -1,35 +1,54 @@
-n = 6
-products = np.arange(n)
-revenues = np.array([400, 800, 500, 1000, 300, 600])
+def print_top(df, p=0.9):
+    df2 = df.loc[df.loc[:, "val"] > p * max(df.loc[:, "val"]), :]
+    return df2.sort_values(["val"], ascending=False)
 
-T = 300
-times = np.arange(T)
+capacities_remaining = np.array([1, 0, 1])
+pi = np.array([0, 1134.55, 500])
+t = 29
+beta = 1
 
-L = 4
-customer_segments = np.arange(L)
-arrival_probabilities = np.array([0.1, 0.15, 0.2, 0.05])
-preference_weights = np.array([[0, 5, 0, 10, 0, 1],
-                               [5, 0, 1, 0, 10, 0],
-                               [10, 8, 6, 4, 3, 1],
-                               [8, 10, 4, 6, 1, 3]])
+dataName = "example0"
 
-var_no_purchase_preferences = np.array([[1, 5, 5, 1],
-                                        [1, 10, 5, 1],
-                                        [5, 20, 10, 5]])
-preference_no_purchase = var_no_purchase_preferences[0]
+resources, \
+products, revenues, A, \
+customer_segments, preference_weights, arrival_probabilities, \
+times = get_data_without_variations(dataName)
+lam = sum(arrival_probabilities)
 
-m = 3
-resources = np.arange(m)
+val_akt = 0
+index_max = 0
 
-base_capacity = np.array([30, 50, 40])
-delta = np.arange(0.4, 1.21, 0.2)
-var_capacities = np.zeros((len(delta), len(base_capacity)))
-for i in np.arange(len(delta)):
-    var_capacities[i] = delta[i]*base_capacity
-capacities = var_capacities[0]
+offer_sets_all = get_offer_sets_all(products)
+offer_sets_all = pd.DataFrame(offer_sets_all)
+a = np.array([1,2])
+offer_sets_all.loc[0, "purchase_rates"] = [a]
+displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t + 1, pi, beta)
 
-# capacity demand matrix A (rows: resources, cols: products)
-# a_ij = 1 if resource i is used by product j
-A = np.array([[1, 1, 0, 0, 0, 0],
-              [0, 0, 1, 1, 0, 0],
-              [0, 0, 0, 0, 1, 1]])
+for index, offer_array in offer_sets_all.iterrows():
+    # check if it makes sense to consider the offer_array
+    # it doesn't make sense, if product cannot be sold due to capacity reasons
+    alright = True
+    for j in products:
+        if offer_array[j] > 0 and any(capacities_remaining - A[:, j] < 0):
+            alright = False
+
+    if alright:
+        val_new = 0.0
+        purchase_rate = purchase_rate_vector(tuple(offer_array), preference_weights,
+                                             preference_no_purchase, arrival_probabilities)
+        for j in products:
+            if offer_array[j] > 0:
+                val_new += purchase_rate[j] * \
+                           (revenues[j] - sum(displacement_costs * A[:, j]))
+        val_new = lam * val_new
+
+        if val_new > val_akt:
+            index_max = copy.copy(index)
+            val_akt = copy.deepcopy(val_new)
+
+        offer_sets_all.loc[index, "val"] = val_new
+        offer_sets_all.loc[index, "purchase_rates"] = [[1,1]]
+    else:
+        offer_sets_all.loc[index, "val"] = 0.0
+
+print(print_top(offer_sets_all))
