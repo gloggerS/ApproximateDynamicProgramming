@@ -488,9 +488,6 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
     val_akt = 0.0
     index_max = 0
 
-    df2 = pd.DataFrame({"purchase_rates": [[0]] * offer_sets_all.__len__()})
-    df3 = pd.DataFrame({"temps": [[0]] * offer_sets_all.__len__()})
-
     for index, offer_array in offer_sets_all.iterrows():
         temp = np.zeros_like(products, dtype=float)
         for j in products:
@@ -505,11 +502,8 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
             index_max = copy.copy(index)
             val_akt = copy.deepcopy(val_new)
 
-        df2.loc[index, "purchase_rates"] = [purchase_rate_vector(tuple(offer_array), preference_weights,
-                                           preference_no_purchase, arrival_probabilities)]
-        df3.loc[index, "temps"] = [temp]
     return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0], \
-        index_max, tuple(offer_sets_all.iloc[index_max]), df2.loc[index_max, "purchase_rates"], df3.loc[index_max, "temps"]
+        index_max, tuple(offer_sets_all.iloc[index_max])
 
 def displacement_costs_vector(capacities_remaining, preference_no_purchase, t, pi, beta=1):
     """
@@ -620,7 +614,9 @@ def DPD(capacities, preference_no_purchase, dualPrice, t=0):
 
     val = 0.0
     for i in resources:
-        val += value_leg_i_11(i, capacities[i], t, dualPrice, preference_no_purchase) + sum(exclude_index(dualPrice, i))
+        val += value_leg_i_11(i, capacities[i], t, dualPrice, preference_no_purchase)
+        temp = dualPrice*capacities
+        val += sum(exclude_index(temp, i))
 
     val = val/len(resources)
 
