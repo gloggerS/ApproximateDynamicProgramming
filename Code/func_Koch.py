@@ -478,9 +478,9 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
     lam = sum(arrival_probabilities)
 
     if t == T+1:
-        return 0, None, None
+        return 0, None, None, None
     elif x_i <= 0:
-        return 0, None, None
+        return 0, None, None, None
 
     offer_sets_all = get_offer_sets_all(products)
     offer_sets_all = pd.DataFrame(offer_sets_all)
@@ -488,8 +488,13 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
     val_akt = 0.0
     index_max = 0
 
+    df2 = pd.DataFrame({"purchase_rates": [[0]] * offer_sets_all.__len__()})
+    df3 = pd.DataFrame({"temps": [[0]] * offer_sets_all.__len__()})
+
     for index, offer_array in offer_sets_all.iterrows():
         temp = np.zeros_like(products, dtype=float)
+        if index == 2**6:
+            a = 123
         for j in products:
             if offer_array[j] > 0:
                 temp[j] = (revenues[j] -
@@ -502,9 +507,11 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
             index_max = copy.copy(index)
             val_akt = copy.deepcopy(val_new)
 
+        df2.loc[index, "purchase_rates"] = [purchase_rate_vector(tuple(offer_array), preference_weights,
+                                           preference_no_purchase, arrival_probabilities)]
+        df3.loc[index, "temps"] = [temp]
     return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0], \
-        index_max, tuple(offer_sets_all.iloc[index_max])
-
+        index_max, tuple(offer_sets_all.iloc[index_max]), df2.loc[index_max, "purchase_rates"], df3.loc[index_max, "temps"]
 
 def displacement_costs_vector(capacities_remaining, preference_no_purchase, t, pi, beta=1):
     """
@@ -600,154 +607,191 @@ def efficient_sets(data_sets):
 #%%
 # Koch - Approximate Policy Iteration
 
-
-#%%
-# # %%
-var_capacities, var_no_purchase_preferences = get_variations()
-
-num_rows = len(var_capacities)*len(var_no_purchase_preferences)
-df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP', 'CDLP'])
-indexi = 0
-for capacity in var_capacities:
-    for preference_no_purchase in var_no_purchase_preferences:
-        print(capacity)
-        print(preference_no_purchase)
-
-        df.loc[indexi] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
-                                                                           preference_no_purchase=preference_no_purchase),
-                          CDLP_by_column_generation(capacities=capacity, preference_no_purchase=preference_no_purchase)]
-        indexi += 1
-
-df.to_pickle("table1_DP.pkl")
-
-#%%
-# df2 = pd.read_pickle("table1_DP.pkl")
-#
-# # %%
-# customer_choice_individual(offer_set_tuple=tuple(np.array([0, 0, 0, 1])),
-#                            preference_weights=np.array([0.4, 0.8, 1.2, 1.6]),
-#                            preference_no_purchase=np.array([1]))
-#
-# # %%
-# # CHECKS for correctness
-# # example0
-# # CDLP with all possible offerset
-#
-# capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
-#
-# with open('res_CDLP.txt', 'w') as f:
-#     with redirect_stdout(f):
-#         CDLP(capacities, preference_no_purchase, get_offer_sets_all(products))
 #
 # #%%
-# # "example for Greedy Heuristic"
-# # column_MIP
-#
-# capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
-#
-# with open('res_MIP.txt', 'w') as f:
-#     with redirect_stdout(f):
-#         column_MIP(preference_no_purchase, pi, w)
-#
-# # column_greedy
-# with open('res_GreedyHeuristic.txt', 'w') as f:
-#     with redirect_stdout(f):
-#         print(column_greedy(preference_no_purchase, pi, w))
-#
-#
-#
-# #%%
-# # example = "threeParallelFlights"
-# # CDLP by column generation
+# # # %%
 # var_capacities, var_no_purchase_preferences = get_variations()
 #
 # num_rows = len(var_capacities)*len(var_no_purchase_preferences)
-#
-# df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP'])
+# df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP', 'CDLP'])
 # indexi = 0
-# for capacities in var_capacities:
+# for capacity in var_capacities:
 #     for preference_no_purchase in var_no_purchase_preferences:
-#         print(capacities)
+#         print(capacity)
 #         print(preference_no_purchase)
 #
-#         df.loc[indexi] = [np.round(capacities), preference_no_purchase, CDLP_by_column_generation(capacities=np.round(capacities),
-#                                                                                       preference_no_purchase=preference_no_purchase)[1]]
+#         df.loc[indexi] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
+#                                                                            preference_no_purchase=preference_no_purchase),
+#                           CDLP_by_column_generation(capacities=capacity, preference_no_purchase=preference_no_purchase)]
 #         indexi += 1
 #
-# df.to_pickle("table3_CDLP.pkl")
+# df.to_pickle("table1_DP.pkl")
+#
+# #%%
+# # df2 = pd.read_pickle("table1_DP.pkl")
+# #
+# # # %%
+# # customer_choice_individual(offer_set_tuple=tuple(np.array([0, 0, 0, 1])),
+# #                            preference_weights=np.array([0.4, 0.8, 1.2, 1.6]),
+# #                            preference_no_purchase=np.array([1]))
+# #
+# # # %%
+# # # CHECKS for correctness
+# # # example0
+# # # CDLP with all possible offerset
+# #
+# # capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
+# #
+# # with open('res_CDLP.txt', 'w') as f:
+# #     with redirect_stdout(f):
+# #         CDLP(capacities, preference_no_purchase, get_offer_sets_all(products))
+# #
+# # #%%
+# # # "example for Greedy Heuristic"
+# # # column_MIP
+# #
+# # capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
+# #
+# # with open('res_MIP.txt', 'w') as f:
+# #     with redirect_stdout(f):
+# #         column_MIP(preference_no_purchase, pi, w)
+# #
+# # # column_greedy
+# # with open('res_GreedyHeuristic.txt', 'w') as f:
+# #     with redirect_stdout(f):
+# #         print(column_greedy(preference_no_purchase, pi, w))
+# #
+# #
+# #
+# # #%%
+# # # example = "threeParallelFlights"
+# # # CDLP by column generation
+# # var_capacities, var_no_purchase_preferences = get_variations()
+# #
+# # num_rows = len(var_capacities)*len(var_no_purchase_preferences)
+# #
+# # df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP'])
+# # indexi = 0
+# # for capacities in var_capacities:
+# #     for preference_no_purchase in var_no_purchase_preferences:
+# #         print(capacities)
+# #         print(preference_no_purchase)
+# #
+# #         df.loc[indexi] = [np.round(capacities), preference_no_purchase, CDLP_by_column_generation(capacities=np.round(capacities),
+# #                                                                                       preference_no_purchase=preference_no_purchase)[1]]
+# #         indexi += 1
+# #
+# # df.to_pickle("table3_CDLP.pkl")
+# #
+# # # %%
+# # # example 0
+# # # towards Table 3 in Miranda and Bront
+# # capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
+# # ret, val_new_CDLP, dual_pi, dual_sigma = CDLP_by_column_generation(capacities, preference_no_purchase)
+# # print(dual_pi)
 #
 # # %%
-# # example 0
-# # towards Table 3 in Miranda and Bront
-# capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
-# ret, val_new_CDLP, dual_pi, dual_sigma = CDLP_by_column_generation(capacities, preference_no_purchase)
-# print(dual_pi)
-
-# %%
-# remaining_capacity = np.array([[3,2,2],
-#                                [2,3,2],
-#                                [2,2,3],
-#                                [3,2,1],
-#                                [3,1,2],
-#                                [2,3,1],
-#                                [1,3,2],
-#                                ])
-remaining_capacity = np.array([[2,2,1],
-                               [2,1,2],
-                               [1,2,2],
-                               [2,1,1],
-                               [1,2,1],
-                               [1,1,2],
-                               [2,1,0],
-                               [2,0,1],
-                               [1,2,0],
-                               [0,2,1],
-                               [1,0,2],
-                               [0,1,2],
-                               [1,1,1],
-                               [1,1,0],
-                               [1,0,1],
-                               [0,1,1],
-                               [1,0,0],
-                               [0,1,0],
-                               [0,0,1]])
-preference_no_purchase = get_preference_no_purchase()
-df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
-for indexi in np.arange(len(df)):
-    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi],
-                                                                      preference_no_purchase, 27,
-                                                                      np.array([0, 1134.55, 500]))[1]]
-#%%
-
-
-
-#%%
-preference_no_purchase = get_preference_no_purchase()
-i, df = calculate_offer_set(np.array([1,0,1]), preference_no_purchase, 27, np.array([0, 1134.55, 500]))
-max_val = max(df.iloc[:, -1])
-indices = df.iloc[:, -1] > 0.9*max_val
-sum(indices)
-# df[indices]
-# df[(df.iloc[:, :-1] == np.array([0, 1, 1, 1, 0, 0, 0, 0])).apply(all, axis=1)]
-# df[(df.iloc[:, :-1] == np.array([0, 1, 1, 1, 0, 1, 0, 0])).apply(all, axis=1)]
-
-#%%
+# # remaining_capacity = np.array([[3,2,2],
+# #                                [2,3,2],
+# #                                [2,2,3],
+# #                                [3,2,1],
+# #                                [3,1,2],
+# #                                [2,3,1],
+# #                                [1,3,2],
+# #                                ])
+# remaining_capacity = np.array([[2,2,1],
+#                                [2,1,2],
+#                                [1,2,2],
+#                                [2,1,1],
+#                                [1,2,1],
+#                                [1,1,2],
+#                                [2,1,0],
+#                                [2,0,1],
+#                                [1,2,0],
+#                                [0,2,1],
+#                                [1,0,2],
+#                                [0,1,2],
+#                                [1,1,1],
+#                                [1,1,0],
+#                                [1,0,1],
+#                                [0,1,1],
+#                                [1,0,0],
+#                                [0,1,0],
+#                                [0,0,1]])
 # preference_no_purchase = get_preference_no_purchase()
-# t = 30
-# print(value_leg_i_11(0, 1, t, np.zeros(3), preference_no_purchase))
-# print(value_leg_i_11(1, 1, t, np.zeros(3), preference_no_purchase))
-# print(value_leg_i_11(2, 1, t, np.zeros(3), preference_no_purchase))
-#
-# of = tuple([0, 1, 1, 0, 0, 1, 0, 0])
-# purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
-# of = tuple([0, 1, 1, 0, 0, 0, 0, 0])
-# purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
-
-
+# df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
+# for indexi in np.arange(len(df)):
+#     df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi],
+#                                                                       preference_no_purchase, 27,
+#                                                                       np.array([0, 1134.55, 500]))[1]]
 # #%%
-# i, df = calculate_offer_set(capacities, preference_no_purchase, 0, np.zeros_like(resources))
-# (value_leg_i_11(0, capacities[0], 0, np.zeros_like(resources))[0] + \
-# value_leg_i_11(1, capacities[1], 0, np.zeros_like(resources))[0] + \
-# value_leg_i_11(2, capacities[2], 0, np.zeros_like(resources))[0])/3
 #
-# # value_expected(capacities, 0, preference_no_purchase)
+#
+#
+# #%%
+# preference_no_purchase = get_preference_no_purchase()
+# i, df = calculate_offer_set(np.array([1,0,1]), preference_no_purchase, 27, np.array([0, 1134.55, 500]))
+# max_val = max(df.iloc[:, -1])
+# indices = df.iloc[:, -1] > 0.9*max_val
+# sum(indices)
+# # df[indices]
+# # df[(df.iloc[:, :-1] == np.array([0, 1, 1, 1, 0, 0, 0, 0])).apply(all, axis=1)]
+# # df[(df.iloc[:, :-1] == np.array([0, 1, 1, 1, 0, 1, 0, 0])).apply(all, axis=1)]
+#
+# #%%
+# # preference_no_purchase = get_preference_no_purchase()
+# # t = 30
+# # print(value_leg_i_11(0, 1, t, np.zeros(3), preference_no_purchase))
+# # print(value_leg_i_11(1, 1, t, np.zeros(3), preference_no_purchase))
+# # print(value_leg_i_11(2, 1, t, np.zeros(3), preference_no_purchase))
+# #
+# # of = tuple([0, 1, 1, 0, 0, 1, 0, 0])
+# # purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
+# # of = tuple([0, 1, 1, 0, 0, 0, 0, 0])
+# # purchase_rate_vector(of, preference_weights, preference_no_purchase, arrival_probabilities)
+#
+#
+# # #%%
+# # i, df = calculate_offer_set(capacities, preference_no_purchase, 0, np.zeros_like(resources))
+# # (value_leg_i_11(0, capacities[0], 0, np.zeros_like(resources))[0] + \
+# # value_leg_i_11(1, capacities[1], 0, np.zeros_like(resources))[0] + \
+# # value_leg_i_11(2, capacities[2], 0, np.zeros_like(resources))[0])/3
+# #
+# # # value_expected(capacities, 0, preference_no_purchase)
+
+capacities_remaining = np.array([1,0,1])
+pi = np.array([0, 1134.55, 500])
+t = 27
+beta = 1
+
+n = 8
+products = np.arange(n)
+revenues = np.array([1200, 800, 500, 500, 800, 500, 300, 300], dtype=np.float)
+
+m = 3
+resources = np.arange(m)
+capacities = np.array([10, 5, 5])
+
+# capacity demand matrix A (rows: resources, cols: products)
+# a_ij = 1 if resource i is used by product j
+A = np.array([[0, 1, 1, 0, 0, 1, 1, 0],
+              [1, 0, 0, 0, 1, 0, 0, 0],
+              [0, 1, 0, 1, 0, 1, 0, 1]])
+
+T = 30
+times = np.arange(T)
+
+L = 5
+customer_segments = np.arange(L)
+arrival_probabilities = np.array([0.15, 0.15, 0.2, 0.25, 0.25])
+preference_weights = np.array([[5, 0, 0, 0, 8, 0, 0, 0],
+                              [10, 6, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 8, 5, 0, 0],
+                              [0, 0, 4, 0, 0, 0, 8, 0],
+                              [0, 0, 0, 6, 0, 0, 0, 8]])
+preference_no_purchase = np.array([2, 5, 2, 2, 2])
+
+i = 0
+t = 30
+
+value_leg_i_11(i, capacities_remaining[i], t, pi, preference_no_purchase)

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/func_Koch.py" beforeDir="false" afterPath="$PROJECT_DIR$/func_Koch.py" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/func_Koch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
+            <state relative-caret-position="227">
+              <caret line="501" column="97" lean-forward="true" selection-start-line="501" selection-start-column="97" selection-end-line="501" selection-end-column="97" />
               <folding>
                 <element signature="e#106#124#0" expanded="true" />
               </folding>
@@ -32,11 +31,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Anaconda3/envs/MasterarbeitADP/Lib/site-packages/pandas/core/series.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="764" selection-start-line="764" selection-end-line="764" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="54" column="29" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
+            <state relative-caret-position="119">
+              <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -44,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dat_Koch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1088">
-              <caret line="136" selection-start-line="136" selection-end-line="136" />
+            <state relative-caret-position="578">
+              <caret line="100" column="54" selection-start-line="100" selection-start-column="54" selection-end-line="100" selection-end-column="54" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -134,8 +142,8 @@
         <option value="$PROJECT_DIR$/../private/start-Master.py" />
         <option value="$PROJECT_DIR$/working.py" />
         <option value="$PROJECT_DIR$/dat_Koch.py" />
-        <option value="$PROJECT_DIR$/func_Koch.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/func_Koch.py" />
       </list>
     </option>
   </component>
@@ -336,15 +344,15 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32914573" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32871652" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.33240998" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12739871" side_tool="true" weight="0.21052632" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.34164357" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.34164357" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.33941093" side_tool="true" visible="true" weight="0.3763326" />
-      <window_info active="true" anchor="right" id="SciView" order="4" sideWeight="0.66058904" visible="true" weight="0.3763326" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.66058904" visible="true" weight="0.3763326" />
       <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
     <layout-to-restore>
@@ -377,6 +385,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/func_Koch.py</url>
+          <line>496</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -387,7 +402,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Code$func_Koch.coverage" NAME="func_Koch Coverage Results" MODIFIED="1554302556390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$func_Koch.coverage" NAME="func_Koch Coverage Results" MODIFIED="1556616546963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/notebooks/Ergebnisse.ipynb" />
@@ -569,30 +584,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dat_Koch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="136" selection-start-line="136" selection-end-line="136" />
+        <state relative-caret-position="578">
+          <caret line="100" column="54" selection-start-line="100" selection-start-column="54" selection-end-line="100" selection-end-column="54" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/func_Koch.py">
+    <entry file="file://$USER_HOME$/Anaconda3/envs/MasterarbeitADP/Lib/site-packages/pandas/core/series.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
-          <folding>
-            <element signature="e#106#124#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="234">
+          <caret line="764" selection-start-line="764" selection-end-line="764" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/func_Koch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="54" column="29" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
+        <state relative-caret-position="227">
+          <caret line="501" column="97" lean-forward="true" selection-start-line="501" selection-start-column="97" selection-end-line="501" selection-end-column="97" />
+          <folding>
+            <element signature="e#106#124#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
