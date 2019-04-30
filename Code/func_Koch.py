@@ -603,6 +603,30 @@ def efficient_sets(data_sets):
 
 
 #%%
+def exclude_index(narray: np.array , index_to_exclude):
+    return narray[np.arange(len(narray)) != index_to_exclude]
+
+# DPD
+def DPD(capacities, preference_no_purchase, dualPrice, t=0):
+    """
+    Implements Bront et als approach for DPD (12) on p. 776
+
+    :return:
+    """
+    resources, \
+        products, revenues, A, \
+        customer_segments, preference_weights, arrival_probabilities, \
+        times = get_data_without_variations()
+
+    val = 0.0
+    for i in resources:
+        val += value_leg_i_11(i, capacities[i], t, dualPrice, preference_no_purchase) + sum(exclude_index(dualPrice, i))
+
+    val = val/len(resources)
+
+    return val
+
+#%%
 # Koch - Approximate Policy Iteration
 
 #
@@ -661,27 +685,28 @@ def efficient_sets(data_sets):
 # #
 # #
 # #
-# # #%%
-# # # example = "threeParallelFlights"
-# # # CDLP by column generation
-# # var_capacities, var_no_purchase_preferences = get_variations()
-# #
-# # num_rows = len(var_capacities)*len(var_no_purchase_preferences)
-# #
-# # df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP'])
-# # indexi = 0
-# # for capacities in var_capacities:
-# #     for preference_no_purchase in var_no_purchase_preferences:
-# #         print(capacities)
-# #         print(preference_no_purchase)
-# #
-# #         df.loc[indexi] = [np.round(capacities), preference_no_purchase, CDLP_by_column_generation(capacities=np.round(capacities),
-# #                                                                                       preference_no_purchase=preference_no_purchase)[1]]
-# #         indexi += 1
-# #
-# # df.to_pickle("table3_CDLP.pkl")
-# #
-# # # %%
+#%%
+example = "threeParallelFlights"
+# CDLP by column generation and DPD
+var_capacities, var_no_purchase_preferences = get_variations()
+
+num_rows = len(var_capacities)*len(var_no_purchase_preferences)
+
+df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP', 'DPD'])
+indexi = 0
+for capacities in var_capacities:
+    for preference_no_purchase in var_no_purchase_preferences:
+        print(capacities)
+        print(preference_no_purchase)
+
+        temp = CDLP_by_column_generation(capacities=np.round(capacities), preference_no_purchase=preference_no_purchase)
+        dualPrice = temp[2]
+        df.loc[indexi] = [np.round(capacities), preference_no_purchase, temp[1], DPD(capacities, preference_no_purchase, dualPrice)]
+        indexi += 1
+
+df.to_pickle("table3_CDLP_DPD.pkl")
+
+# %%
 # # # example 0
 # # # towards Table 3 in Miranda and Bront
 # # capacities, preference_no_purchase = get_capacities_and_preferences_no_purchase()
@@ -689,59 +714,61 @@ def efficient_sets(data_sets):
 # # print(dual_pi)
 #
 # # %%
-remaining_capacity = np.array([[2,2,1],
-                               [2,1,2],
-                               [1,2,2],
-                               [2,1,1],
-                               [1,2,1],
-                               [1,1,2],
-                               [2,1,0],
-                               [2,0,1],
-                               [1,2,0],
-                               [0,2,1],
-                               [1,0,2],
-                               [0,1,2],
-                               [1,1,1],
-                               [1,1,0],
-                               [1,0,1],
-                               [0,1,1],
-                               [1,0,0],
-                               [0,1,0],
-                               [0,0,1]])
-preference_no_purchase = get_preference_no_purchase()
-df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
-for indexi in np.arange(len(df)):
-    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi],
-                                                                      preference_no_purchase, 27,
-                                                                      np.array([0, 1134.55, 500]))[1]]
-print(df)
-
-remaining_capacity2 = np.array([[3, 2, 2],
-                               [2, 3, 2],
-                               [2, 2, 3],
-                               [3, 2, 1],
-                               [3, 1, 2],
-                               [2, 3, 1],
-                               [1, 3, 2],
-                               [2, 1, 3],
-                               [1, 2, 3],
-                               [3, 1, 1],
-                               [1, 3, 1],
-                               [1, 1, 3],
-                               [3, 1, 0],
-                               [3, 0, 1],
-                               [1, 3, 0],
-                               [0, 3, 1],
-                               [1, 0, 3],
-                               [0, 1, 3],
-                               [2, 2, 2]])
-preference_no_purchase = get_preference_no_purchase()
-df2 = pd.DataFrame(index=np.arange(len(remaining_capacity2)), columns=['rem cap', 'offer set'])
-for indexi in np.arange(len(df2)):
-    df2.loc[indexi] = [remaining_capacity2[indexi], calculate_offer_set(remaining_capacity2[indexi],
-                                                                      preference_no_purchase, 27,
-                                                                      np.array([0, 1134.55, 500]))[1]]
-print(df2)
+# remaining_capacity = np.array([[2,2,1],
+#                                [2,1,2],
+#                                [1,2,2],
+#                                [2,1,1],
+#                                [1,2,1],
+#                                [1,1,2],
+#                                [2,1,0],
+#                                [2,0,1],
+#                                [1,2,0],
+#                                [0,2,1],
+#                                [1,0,2],
+#                                [0,1,2],
+#                                [1,1,1],
+#                                [1,1,0],
+#                                [1,0,1],
+#                                [0,1,1],
+#                                [1,0,0],
+#                                [0,1,0],
+#                                [0,0,1]])
+# preference_no_purchase = get_preference_no_purchase()
+# df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
+# for indexi in np.arange(len(df)):
+#     df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi],
+#                                                                       preference_no_purchase, 27,
+#                                                                       np.array([0, 1134.55, 500]))[1]]
+# print(df)
+# df.to_pickle("table3_DPD-offerset_bront-1.pkl")
+#
+# remaining_capacity2 = np.array([[3, 2, 2],
+#                                [2, 3, 2],
+#                                [2, 2, 3],
+#                                [3, 2, 1],
+#                                [3, 1, 2],
+#                                [2, 3, 1],
+#                                [1, 3, 2],
+#                                [2, 1, 3],
+#                                [1, 2, 3],
+#                                [3, 1, 1],
+#                                [1, 3, 1],
+#                                [1, 1, 3],
+#                                [3, 1, 0],
+#                                [3, 0, 1],
+#                                [1, 3, 0],
+#                                [0, 3, 1],
+#                                [1, 0, 3],
+#                                [0, 1, 3],
+#                                [2, 2, 2]])
+# preference_no_purchase = get_preference_no_purchase()
+# df2 = pd.DataFrame(index=np.arange(len(remaining_capacity2)), columns=['rem cap', 'offer set'])
+# for indexi in np.arange(len(df2)):
+#     df2.loc[indexi] = [remaining_capacity2[indexi], calculate_offer_set(remaining_capacity2[indexi],
+#                                                                       preference_no_purchase, 27,
+#                                                                       np.array([0, 1134.55, 500]))[1]]
+# print(df2)
+# df2.to_pickle("table3_DPD-offerset_bront-2.pkl")
 
 #%%
 #
