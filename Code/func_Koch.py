@@ -493,14 +493,18 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
 
     for index, offer_array in offer_sets_all.iterrows():
         temp = np.zeros_like(products, dtype=float)
-        if index == 2**6:
+        if index == 0:
             a = 123
         for j in products:
             if offer_array[j] > 0:
+                a = revenues[j]
+                b = value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0]
+                c = value_leg_i_11(i, x_i-1, t+1, pi, preference_no_purchase)[0] - pi[i]
+                d = sum(pi[A[:, j] == 1])
                 temp[j] = (revenues[j] -
                            (value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0] -
                             value_leg_i_11(i, x_i-1, t+1, pi, preference_no_purchase)[0] - pi[i]) * A[i, j] -
-                           sum(pi[A[:, j]]))
+                           sum(pi[A[:, j] == 1]))
         val_new = sum(purchase_rate_vector(tuple(offer_array), preference_weights,
                                            preference_no_purchase, arrival_probabilities)[:-1] * temp)
         if val_new > val_akt:
@@ -791,7 +795,7 @@ preference_weights = np.array([[5, 0, 0, 0, 8, 0, 0, 0],
                               [0, 0, 0, 6, 0, 0, 0, 8]])
 preference_no_purchase = np.array([2, 5, 2, 2, 2])
 
-i = 0
+i = 2
 t = 30
 
 value_leg_i_11(i, capacities_remaining[i], t, pi, preference_no_purchase)

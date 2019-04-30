@@ -2,7 +2,7 @@ def print_top(df, p=0.9):
     df2 = df.loc[df.loc[:, "val"] > p * max(df.loc[:, "val"]), :]
     return df2.sort_values(["val"], ascending=False)
 
-capacities_remaining = np.array([1,0,1])
+capacities_remaining = np.array([0,0,1])
 pi = np.array([0, 1134.55, 500])
 t = 27
 beta = 1
