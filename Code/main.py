@@ -21,7 +21,7 @@ index_max = 0
 offer_sets_all = get_offer_sets_all(products)
 offer_sets_all = pd.DataFrame(offer_sets_all)
 df2 = pd.DataFrame({"purchase_rates":[[0]]*offer_sets_all.__len__()})
-displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t + 1, pi, beta)
+displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t +2, pi, beta)
 
 for index, offer_array in offer_sets_all.iterrows():
     # check if it makes sense to consider the offer_array
@@ -55,3 +55,4 @@ for index, offer_array in offer_sets_all.iterrows():
 
 q = print_top(offer_sets_all)
 q
+

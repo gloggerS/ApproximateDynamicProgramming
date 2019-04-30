@@ -493,14 +493,8 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
 
     for index, offer_array in offer_sets_all.iterrows():
         temp = np.zeros_like(products, dtype=float)
-        if index == 0:
-            a = 123
         for j in products:
             if offer_array[j] > 0:
-                a = revenues[j]
-                b = value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0]
-                c = value_leg_i_11(i, x_i-1, t+1, pi, preference_no_purchase)[0] - pi[i]
-                d = sum(pi[A[:, j] == 1])
                 temp[j] = (revenues[j] -
                            (value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0] -
                             value_leg_i_11(i, x_i-1, t+1, pi, preference_no_purchase)[0] - pi[i]) * A[i, j] -
@@ -562,7 +556,7 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
     offer_sets_all = get_offer_sets_all(products)
     offer_sets_all = pd.DataFrame(offer_sets_all)
 
-    displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t + 1, pi, beta)
+    displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t + 2, pi, beta)
 
     for index, offer_array in offer_sets_all.iterrows():
         val_new = 0
@@ -695,40 +689,61 @@ def efficient_sets(data_sets):
 # # print(dual_pi)
 #
 # # %%
-# # remaining_capacity = np.array([[3,2,2],
-# #                                [2,3,2],
-# #                                [2,2,3],
-# #                                [3,2,1],
-# #                                [3,1,2],
-# #                                [2,3,1],
-# #                                [1,3,2],
-# #                                ])
-# remaining_capacity = np.array([[2,2,1],
-#                                [2,1,2],
-#                                [1,2,2],
-#                                [2,1,1],
-#                                [1,2,1],
-#                                [1,1,2],
-#                                [2,1,0],
-#                                [2,0,1],
-#                                [1,2,0],
-#                                [0,2,1],
-#                                [1,0,2],
-#                                [0,1,2],
-#                                [1,1,1],
-#                                [1,1,0],
-#                                [1,0,1],
-#                                [0,1,1],
-#                                [1,0,0],
-#                                [0,1,0],
-#                                [0,0,1]])
-# preference_no_purchase = get_preference_no_purchase()
-# df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
-# for indexi in np.arange(len(df)):
-#     df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi],
-#                                                                       preference_no_purchase, 27,
-#                                                                       np.array([0, 1134.55, 500]))[1]]
-# #%%
+remaining_capacity = np.array([[2,2,1],
+                               [2,1,2],
+                               [1,2,2],
+                               [2,1,1],
+                               [1,2,1],
+                               [1,1,2],
+                               [2,1,0],
+                               [2,0,1],
+                               [1,2,0],
+                               [0,2,1],
+                               [1,0,2],
+                               [0,1,2],
+                               [1,1,1],
+                               [1,1,0],
+                               [1,0,1],
+                               [0,1,1],
+                               [1,0,0],
+                               [0,1,0],
+                               [0,0,1]])
+preference_no_purchase = get_preference_no_purchase()
+df = pd.DataFrame(index=np.arange(len(remaining_capacity)), columns=['rem cap', 'offer set'])
+for indexi in np.arange(len(df)):
+    df.loc[indexi] = [remaining_capacity[indexi], calculate_offer_set(remaining_capacity[indexi],
+                                                                      preference_no_purchase, 27,
+                                                                      np.array([0, 1134.55, 500]))[1]]
+print(df)
+
+remaining_capacity2 = np.array([[3, 2, 2],
+                               [2, 3, 2],
+                               [2, 2, 3],
+                               [3, 2, 1],
+                               [3, 1, 2],
+                               [2, 3, 1],
+                               [1, 3, 2],
+                               [2, 1, 3],
+                               [1, 2, 3],
+                               [3, 1, 1],
+                               [1, 3, 1],
+                               [1, 1, 3],
+                               [3, 1, 0],
+                               [3, 0, 1],
+                               [1, 3, 0],
+                               [0, 3, 1],
+                               [1, 0, 3],
+                               [0, 1, 3],
+                               [2, 2, 2]])
+preference_no_purchase = get_preference_no_purchase()
+df2 = pd.DataFrame(index=np.arange(len(remaining_capacity2)), columns=['rem cap', 'offer set'])
+for indexi in np.arange(len(df2)):
+    df2.loc[indexi] = [remaining_capacity2[indexi], calculate_offer_set(remaining_capacity2[indexi],
+                                                                      preference_no_purchase, 27,
+                                                                      np.array([0, 1134.55, 500]))[1]]
+print(df2)
+
+#%%
 #
 #
 #
@@ -762,40 +777,3 @@ def efficient_sets(data_sets):
 # # value_leg_i_11(2, capacities[2], 0, np.zeros_like(resources))[0])/3
 # #
 # # # value_expected(capacities, 0, preference_no_purchase)
-
-capacities_remaining = np.array([1,0,1])
-pi = np.array([0, 1134.55, 500])
-t = 27
-beta = 1
-
-n = 8
-products = np.arange(n)
-revenues = np.array([1200, 800, 500, 500, 800, 500, 300, 300], dtype=np.float)
-
-m = 3
-resources = np.arange(m)
-capacities = np.array([10, 5, 5])
-
-# capacity demand matrix A (rows: resources, cols: products)
-# a_ij = 1 if resource i is used by product j
-A = np.array([[0, 1, 1, 0, 0, 1, 1, 0],
-              [1, 0, 0, 0, 1, 0, 0, 0],
-              [0, 1, 0, 1, 0, 1, 0, 1]])
-
-T = 30
-times = np.arange(T)
-
-L = 5
-customer_segments = np.arange(L)
-arrival_probabilities = np.array([0.15, 0.15, 0.2, 0.25, 0.25])
-preference_weights = np.array([[5, 0, 0, 0, 8, 0, 0, 0],
-                              [10, 6, 0, 0, 0, 0, 0, 0],
-                              [0, 0, 0, 0, 8, 5, 0, 0],
-                              [0, 0, 4, 0, 0, 0, 8, 0],
-                              [0, 0, 0, 6, 0, 0, 0, 8]])
-preference_no_purchase = np.array([2, 5, 2, 2, 2])
-
-i = 2
-t = 30
-
-value_leg_i_11(i, capacities_remaining[i], t, pi, preference_no_purchase)
