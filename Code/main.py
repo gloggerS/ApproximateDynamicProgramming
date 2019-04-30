@@ -2,9 +2,9 @@ def print_top(df, p=0.9):
     df2 = df.loc[df.loc[:, "val"] > p * max(df.loc[:, "val"]), :]
     return df2.sort_values(["val"], ascending=False)
 
-capacities_remaining = np.array([1, 0, 1])
+capacities_remaining = np.array([1,0,1])
 pi = np.array([0, 1134.55, 500])
-t = 29
+t = 27
 beta = 1
 
 dataName = "example0"
@@ -20,8 +20,7 @@ index_max = 0
 
 offer_sets_all = get_offer_sets_all(products)
 offer_sets_all = pd.DataFrame(offer_sets_all)
-a = np.array([1,2])
-offer_sets_all.loc[0, "purchase_rates"] = [a]
+df2 = pd.DataFrame({"purchase_rates":[[0]]*offer_sets_all.__len__()})
 displacement_costs = displacement_costs_vector(capacities_remaining, preference_no_purchase, t + 1, pi, beta)
 
 for index, offer_array in offer_sets_all.iterrows():
@@ -47,8 +46,12 @@ for index, offer_array in offer_sets_all.iterrows():
             val_akt = copy.deepcopy(val_new)
 
         offer_sets_all.loc[index, "val"] = val_new
-        offer_sets_all.loc[index, "purchase_rates"] = [[1,1]]
+        df2.loc[index, "purchase_rates"] = [purchase_rate]
     else:
         offer_sets_all.loc[index, "val"] = 0.0
 
-print(print_top(offer_sets_all))
+
+# offer_sets_all["purchase_rates"] = df2["purchase_rates"]
+
+q = print_top(offer_sets_all)
+q
