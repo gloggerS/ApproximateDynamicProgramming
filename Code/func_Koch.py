@@ -614,7 +614,7 @@ def DPD(capacities, preference_no_purchase, dualPrice, t=0):
 
     val = 0.0
     for i in resources:
-        val += value_leg_i_11(i, capacities[i], t, dualPrice, preference_no_purchase)
+        val += value_leg_i_11(i, capacities[i], t, dualPrice, preference_no_purchase)[0]
         temp = dualPrice*capacities
         val += sum(exclude_index(temp, i))
 
