@@ -60,7 +60,7 @@ elif example == "threeParallelFlights":
 
     base_capacity = np.array([30, 50, 40])
     delta = np.arange(0.4, 1.21, 0.2)
-    var_capacities = np.zeros((len(delta), len(base_capacity)))
+    var_capacities = np.zeros((len(delta), len(base_capacity)), dtype=int)
     for i in np.arange(len(delta)):
         var_capacities[i] = delta[i]*base_capacity
     capacities = var_capacities[0]

@@ -622,12 +622,13 @@ def DPD(capacities, preference_no_purchase, dualPrice, t=0):
 
     return val
 
-#%%
-# Koch - Approximate Policy Iteration
 
+# %% Approximate Policy Iteration
+
+
+# %%
+# Koch - Approximate Policy Iteration
 #
-# #%%
-# # # %%
 # var_capacities, var_no_purchase_preferences = get_variations()
 #
 # num_rows = len(var_capacities)*len(var_no_purchase_preferences)
@@ -644,8 +645,8 @@ def DPD(capacities, preference_no_purchase, dualPrice, t=0):
 #         indexi += 1
 #
 # df.to_pickle("table1_DP.pkl")
-#
-# #%%
+
+#%%
 # # df2 = pd.read_pickle("table1_DP.pkl")
 # #
 # # # %%
@@ -700,7 +701,10 @@ for capacities in var_capacities:
         df.loc[indexi] = [np.round(capacities), preference_no_purchase, temp[1], DPD(capacities, preference_no_purchase, dualPrice)]
         indexi += 1
 
-df.to_pickle("table3_CDLP_DPD.pkl")
+# df.to_pickle("table3_CDLP_DPD.pkl")
+
+# %%
+df = pd.read_pickle("table3_CDLP_DPD.pkl")
 
 # %%
 # # # example 0

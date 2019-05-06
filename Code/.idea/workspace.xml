@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="">
+    <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat_Koch.py" beforeDir="false" afterPath="$PROJECT_DIR$/dat_Koch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc_Koch.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/doc_Koch.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/func_Koch.py" beforeDir="false" afterPath="$PROJECT_DIR$/func_Koch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/func_Koch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="730">
-              <caret line="631" column="1" lean-forward="true" selection-start-line="631" selection-start-column="1" selection-end-line="631" selection-end-column="1" />
+            <state relative-caret-position="196">
+              <caret line="66" column="50" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
               <folding>
                 <element signature="e#106#124#0" expanded="true" />
               </folding>
@@ -32,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="986">
-              <caret line="58" lean-forward="true" selection-start-line="23" selection-end-line="58" />
+            <state relative-caret-position="479">
+              <caret line="84" lean-forward="true" selection-start-line="81" selection-start-column="7" selection-end-line="84" />
             </state>
           </provider>
         </entry>
@@ -44,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dat_Koch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="46" column="39" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="39" />
+            <state relative-caret-position="479">
+              <caret line="65" column="34" lean-forward="true" selection-start-line="62" selection-start-column="4" selection-end-line="65" selection-end-column="34" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -56,8 +59,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulationBasic_API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            <state>
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -91,6 +93,8 @@
       <find>rem cap</find>
       <find>offer_sets_all</find>
       <find>sum(</find>
+      <find>get_data</find>
+      <find>offer</find>
     </findStrings>
     <replaceStrings>
       <replace>dfHistory</replace>
@@ -122,17 +126,17 @@
         <option value="$PROJECT_DIR$/0helper.txt" />
         <option value="$PROJECT_DIR$/../private/start-Master.py" />
         <option value="$PROJECT_DIR$/working.py" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/dat_Koch.py" />
         <option value="$PROJECT_DIR$/func_Koch.py" />
+        <option value="$PROJECT_DIR$/dat_Koch.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2705" />
+    <option name="x" value="2884" />
     <option name="y" value="-13" />
-    <option name="width" value="486" />
-    <option name="height" value="303" />
+    <option name="width" value="968" />
+    <option name="height" value="608" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -159,7 +163,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/simulationBasic.py" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.maddyhome.idea.vim.ui.VimEmulationConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -317,8 +321,8 @@
     <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.2783251" visible="true" weight="0.0826226" />
-      <window_info id="Structure" order="1" sideWeight="0.72167486" side_tool="true" visible="true" weight="0.0826226" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.54559046" visible="true" weight="0.08635394" />
+      <window_info id="Structure" order="1" sideWeight="0.45440957" side_tool="true" visible="true" weight="0.08635394" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32779318" />
@@ -328,14 +332,14 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32871652" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.45152354" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.22345337" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12739871" side_tool="true" weight="0.21052632" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.25023085" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.38227147" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.33866996" side_tool="true" visible="true" weight="0.3411514" />
-      <window_info anchor="right" id="SciView" order="4" sideWeight="0.66133004" visible="true" weight="0.3411514" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.3497758" side_tool="true" visible="true" weight="0.1977612" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.6502242" visible="true" weight="0.1977612" />
       <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
     <layout-to-restore>
@@ -540,16 +544,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulationBasic_API.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/envs/MasterarbeitADP/Lib/site-packages/pandas/core/series.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -567,30 +561,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/simulationBasic_API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" lean-forward="true" selection-start-line="23" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dat_Koch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="46" column="39" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="39" />
+        <state>
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/func_Koch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="730">
-          <caret line="631" column="1" lean-forward="true" selection-start-line="631" selection-start-column="1" selection-end-line="631" selection-end-column="1" />
+        <state relative-caret-position="196">
+          <caret line="66" column="50" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
           <folding>
             <element signature="e#106#124#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dat_Koch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="65" column="34" lean-forward="true" selection-start-line="62" selection-start-column="4" selection-end-line="65" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="84" lean-forward="true" selection-start-line="81" selection-start-column="7" selection-end-line="84" />
         </state>
       </provider>
     </entry>
