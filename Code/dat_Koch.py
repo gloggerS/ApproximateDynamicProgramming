@@ -196,6 +196,11 @@ data_by_name["example0"]["preference_weights"] = np.array([[5, 0, 0, 0, 8, 0, 0,
                                   [0, 0, 0, 6, 0, 0, 0, 8]])
 data_by_name["example0"]["preference_no_purchase"] = np.array([2, 5, 2, 2, 2])
 
+import pickle
+f = open("data_by_name", "wb")
+pickle.dump(data_by_name, f)
+f.close()
+
 
 # %% Check up
 print("Check of dimensions: \n  ------------------------")
