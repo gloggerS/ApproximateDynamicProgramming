@@ -3,7 +3,7 @@ This file contains helper functions for all other methods. It is standalone and 
 """
 
 
-#  PACKAGES
+#%%  PACKAGES
 # Data
 import numpy as np
 import pandas as pd
@@ -27,11 +27,7 @@ import matplotlib.pyplot as plt
 import sys
 from contextlib import redirect_stdout
 
-from dat_Koch import get_data
-from dat_Koch import get_data_without_variations
-from dat_Koch import get_variations
-from dat_Koch import get_capacities_and_preferences_no_purchase
-from dat_Koch import get_preference_no_purchase
+from A_data_read import *
 
 
 # %% HELPER-FUNCTIONS
@@ -61,7 +57,7 @@ def get_offer_sets_all(products):
 
 
 # %% FUNCTIONS
-@memoize
+# @memoize  # easy calculations, save memory
 def customer_choice_individual(offer_set_tuple, preference_weights, preference_no_purchase):
     """
     For one customer of one customer segment, determine its purchase probabilities given one offer set and given
@@ -107,19 +103,19 @@ def customer_choice_vector(offer_set_tuple, preference_weights, preference_no_pu
 
 
 @memoize
-def value_expected(capacities, t, preference_no_purchase):
+def value_expected(capacities, t, preference_no_purchase, example):
     """
     Recursive implementation of the value function, i.e. dynamic program (DP) as described on p. 241.
 
     :param capacities:
     :param t: time to go (last chance for revenue is t=0)
     :param preference_no_purchase:
-    :return: value to be expected and optimal policy
+    :return: value to be expected and optimal policy (products to offer)
     """
     resources, \
         products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations()
+        times = get_data_without_variations(example)
     T = len(times)
 
     offer_sets_to_test = get_offer_sets_all(products)
@@ -139,12 +135,12 @@ def value_expected(capacities, t, preference_no_purchase):
         probs = customer_choice_vector(tuple(offer_set), preference_weights, preference_no_purchase,
                                        arrival_probabilities)
 
-        val = float(value_expected(capacities, t + 1, preference_no_purchase)[0])  # ohne "float" würde ein numpy array
+        val = float(value_expected(capacities, t + 1, preference_no_purchase, example)[0])  # ohne "float" würde ein numpy array
         #  zurückgegeben, und das später (max_val = val) direkt auf val verknüpft (call by reference)
         for j in products:  # nett, da Nichtkaufalternative danach (products+1) kommt und so also nicht betrachtet wird
             p = float(probs[j])
             if p > 0.0:
-                value_delta_j = delta_value_j(j, capacities, t + 1, A, preference_no_purchase)
+                value_delta_j = delta_value_j(j, capacities, t + 1, A, preference_no_purchase, example)
                 val += p * (revenues[j] - value_delta_j)
 
         if val > max_val:
@@ -153,7 +149,7 @@ def value_expected(capacities, t, preference_no_purchase):
     return max_val, tuple(offer_sets_to_test[max_index, :])
 
 
-def delta_value_j(j, capacities, t, A, preference_no_purchase):
+def delta_value_j(j, capacities, t, A, preference_no_purchase, example):
     """
     For one product j, what is the difference in the value function if we sell one product.
     TODO: stört mich etwas, Inidices von t, eng verbandelt mit value_expected()
@@ -164,8 +160,8 @@ def delta_value_j(j, capacities, t, A, preference_no_purchase):
     :param preference_no_purchase:
     :return:
     """
-    return value_expected(capacities, t, preference_no_purchase)[0] - \
-        value_expected(capacities - A[:, j], t, preference_no_purchase)[0]
+    return value_expected(capacities, t, preference_no_purchase, example)[0] - \
+        value_expected(capacities - A[:, j], t, preference_no_purchase, example)[0]
 
 
 # %%
@@ -220,74 +216,7 @@ def quantity_i(offer_set_tuple, preference_weights, preference_no_purchase, arri
 # %%
 # FUNCTIONS for Bront et al
 # functions
-def CDLP(capacities, preference_no_purchase, offer_sets: np.ndarray):
-    """
-    Implements (4) of Bront et al. Needs the offer-sets to look at (N) as input.
 
-    :param offer_sets: N
-    :return: dictionary of (offer set, time offered),
-    """
-    resources, \
-        products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations()
-
-    offer_sets = pd.DataFrame(offer_sets)
-    lam = sum(arrival_probabilities)
-    T = len(times)
-
-    S = {}
-    R = {}
-    Q = {}
-    for index, offer_array in offer_sets.iterrows():
-        S[index] = tuple(offer_array)
-        R[index] = revenue(tuple(offer_array), preference_weights, preference_no_purchase, arrival_probabilities,
-                           revenues)
-        temp = {}
-        for i in resources:
-            temp[i] = quantity_i(tuple(offer_array), preference_weights, preference_no_purchase,
-                                 arrival_probabilities, i, A)
-        Q[index] = temp
-
-    try:
-        m = Model()
-
-        # Variables
-        mt = m.addVars(offer_sets.index.values, name="t", lb=0.0)  # last constraint
-
-        # Objective Function
-        m.setObjective(lam * quicksum(R[s] * mt[s] for s in offer_sets.index.values), GRB.MAXIMIZE)
-
-        mc = {}
-        # Constraints
-        for i in resources:
-            mc[i] = m.addConstr(lam * quicksum(Q[s][i] * mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL,
-                                capacities[i],
-                                name="constraintOnResource")
-        msigma = m.addConstr(quicksum(mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL, T)
-
-        m.optimize()
-
-        ret = {}
-        pat = r".*?\[(.*)\].*"
-        for v in m.getVars():
-            if v.X > 0:
-                match = re.search(pat, v.VarName)
-                erg_index = match.group(1)
-                ret[int(erg_index)] = (tuple(offer_sets.loc[int(erg_index)]), v.X)
-                print(offer_sets.loc[int(erg_index)], ": ", v.X)
-
-        dualPi = np.zeros_like(resources, dtype=float)
-        for i in resources:
-            dualPi[i] = mc[i].pi
-        dualSigma = msigma.pi
-
-        valOpt = m.objVal
-
-        return ret, valOpt, dualPi, dualSigma
-
-    except GurobiError:
-        print('Error reported')
 
 
 def column_MIP(preference_no_purchase, pi, w=0):  # pass w to test example for greedy heuristic
