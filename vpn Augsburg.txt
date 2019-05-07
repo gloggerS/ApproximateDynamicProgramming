@@ -1,0 +1,13 @@
+* Any Connect Client
+asa.rz.uni-augsburg.de
+Benutzername: gloggest
+Passwort: von Uni Augsburg
+
+* Remote Desktop
+Rechner Lehrstuhl Klein: 137.250.34.140
+Benutzername: gloggest
+Benutzername: WIWI-KLE-WS32\gloggest
+
+Passwort: MafSG
+
+Anaconda installieren

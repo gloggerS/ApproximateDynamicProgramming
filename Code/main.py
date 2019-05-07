@@ -48,7 +48,8 @@ def policy_iteration(K, I, capacities, thresholds, T):
 def policy_evaluation(pi, customer_stream_vector):
     """
     Evaluates one step of the policy iteration. Compare Sebastian Fig. 1
-    :param i:
+    :param pi:
+    :param customer_stream_vector:
     :return: sample data v_sample (value function) and c_sample (capacity)
     """
     resources, \
@@ -57,7 +58,6 @@ def policy_evaluation(pi, customer_stream_vector):
         times = get_data_without_variations()
 
     # line 3
-    v_sample = np.zeros(len(times))
     c_sample = np.zeros(shape=(len(times), len(capacities)), dtype=int)
     r_sample = np.zeros(len(times))
 
@@ -263,4 +263,5 @@ step_size = 4
 thresholds[0] = np.arange(0, capacities[0]+step_size, step=step_size, dtype=int)  # will include 1 value >= max capacity
 thresholds[1] = np.arange(0, capacities[1]+step_size, step=step_size, dtype=int)
 thresholds[2] = np.arange(0, capacities[2]+step_size, step=step_size, dtype=int)
+
 
