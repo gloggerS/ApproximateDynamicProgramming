@@ -218,7 +218,6 @@ def quantity_i(offer_set_tuple, preference_weights, preference_no_purchase, arri
 # functions
 
 
-
 def column_MIP(preference_no_purchase, pi, w=0):  # pass w to test example for greedy heuristic
     """
     Implements MIP formulation on p. 775 lhs

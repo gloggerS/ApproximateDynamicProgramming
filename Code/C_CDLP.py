@@ -25,7 +25,7 @@ use_variations = settings.iloc[1, 1]  # true if varying capacities should be use
 
 
 # prepare storage location
-newpath = os.getcwd()+"\\Results\\CDLP-"+example+str(datetime.datetime.now()).replace(":", "-").replace(".", "-")
+newpath = os.getcwd()+"\\Results\\CDLP-"+example+"-"+str(datetime.datetime.now()).replace(":", "-").replace(".", "-")
 os.makedirs(newpath)
 
 # copy settings to storage location
@@ -147,6 +147,9 @@ for capacity in var_capacities:
                           CDLP_by_column_generation(capacities=capacity, preference_no_purchase=preference_no_purchase)]
         indexi += 1
 
-df.to_pickle("CDLP.pkl", newpath)
+df.to_pickle("CDLP-"+example+"-"+use_variations+".pkl", newpath)
 
+time_elapsed = time.time() - time_start
+print("\n\nTotal time needed:\n", time_elapsed, "seconds = \n", time_elapsed/60, "minutes", file=logfile)
 logfile.close()
+print("Done. Time elapsed:", time.time() - time_start)
