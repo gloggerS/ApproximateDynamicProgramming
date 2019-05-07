@@ -18,17 +18,29 @@ from B_helper import *
 # Get settings, prepare data, create storage for results
 print("CDLP starting.\n\n")
 
+# settings
+settings = pd.read_csv("0_settings.csv", delimiter=";", header=None)
+example = settings.iloc[0, 1]
+use_variations = settings.iloc[1, 1]  # true if varying capacities should be used
+
+
+# prepare storage location
+newpath = os.getcwd()+"\\Results\\CDLP-"+example+str(datetime.datetime.now()).replace(":", "-").replace(".", "-")
+os.makedirs(newpath)
+
+# copy settings to storage location
+copyfile("0_settings.csv", newpath+"\\0_settings.csv")
+logfile = open(newpath+"\\0_logging.txt", "w+")  # write and create (if not there)
+
 # time
 print("Time:", datetime.datetime.now())
+print("Time (starting):", datetime.datetime.now(), file=logfile)
 time_start = time.time()
 
 # settings
-settings = pd.read_csv("0_settings.csv", delimiter=";", header=None)
 for row in settings:
     print(settings.loc[row, 0], ":\t", settings.loc[row, 1])
-
-example = settings.iloc[0, 1]
-use_variations = settings.iloc[1, 1]  # true if varying capacities should be used
+    print(settings.loc[row, 0], ":\t", settings.loc[row, 1], file=logfile)
 
 # variations (capacity and no purchase preference)
 if use_variations:
@@ -44,13 +56,6 @@ resources, \
     customer_segments, preference_weights, arrival_probabilities, \
     times = get_data_without_variations(example)
 T = len(times)
-
-# prepare storage location
-newpath = os.getcwd()+"\\Results\\"+str(datetime.datetime.now()).replace(":", "-").replace(".", "-")
-os.makedirs(newpath)
-
-# copy settings to storage location
-copyfile("0_settings.csv", newpath+"\\0_settings.csv")
 
 print("\nEverything set up.")
 
@@ -133,8 +138,8 @@ df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP', 'CDLP'])
 indexi = 0
 for capacity in var_capacities:
     for preference_no_purchase in var_no_purchase_preferences:
-        print(capacity)
-        print(preference_no_purchase)
+        print(capacity, "-", preference_no_purchase)
+        print(str(datetime.datetime.now()), ":", capacity, "-", preference_no_purchase, file=logfile)
 
         df.loc[indexi] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
                                                                            preference_no_purchase=preference_no_purchase,
@@ -144,3 +149,4 @@ for capacity in var_capacities:
 
 df.to_pickle("CDLP.pkl", newpath)
 
+logfile.close()
