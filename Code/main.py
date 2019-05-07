@@ -264,4 +264,3 @@ thresholds[0] = np.arange(0, capacities[0]+step_size, step=step_size, dtype=int)
 thresholds[1] = np.arange(0, capacities[1]+step_size, step=step_size, dtype=int)
 thresholds[2] = np.arange(0, capacities[2]+step_size, step=step_size, dtype=int)
 
-
