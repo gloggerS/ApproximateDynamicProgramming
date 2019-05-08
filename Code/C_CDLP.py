@@ -19,7 +19,7 @@ from B_helper import *
 print("CDLP starting.\n\n")
 
 # settings
-settings = pd.read_csv("0_settings.csv", delimiter=";", header=None)
+settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
 example = settings.iloc[0, 1]
 use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
 
@@ -53,9 +53,9 @@ for row in settings:
 if use_variations:
     var_capacities, var_no_purchase_preferences = get_variations(example)
 else:
-    capacities, no_purchase_preference = get_capacities_and_preferences_no_purchase(example)
+    capacities, no_purchase_preferences = get_capacities_and_preferences_no_purchase(example)
     var_capacities = np.array([capacities])
-    var_no_purchase_preference = np.array([no_purchase_preference])
+    var_no_purchase_preferences = np.array([no_purchase_preferences])
 
 # other data
 resources, \
@@ -310,4 +310,5 @@ df.to_csv(newpath+"\\CDLP-"+example+"-"+str(use_variations)+".csv", sep=";")
 time_elapsed = time.time() - time_start
 print("\n\nTotal time needed:\n", time_elapsed, "seconds = \n", time_elapsed/60, "minutes", file=logfile)
 logfile.close()
-print("Done. Time elapsed:", time.time() - time_start)
+print("\n\n\n\nDone. Time elapsed:", time.time() - time_start, "seconds.")
+print("Results stored in: "+newpath)

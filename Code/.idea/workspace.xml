@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0-data_by_name" beforeDir="false" afterPath="$PROJECT_DIR$/0-data_by_name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A_data_entry.py" beforeDir="false" afterPath="$PROJECT_DIR$/A_data_entry.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A_data_read.py" beforeDir="false" afterPath="$PROJECT_DIR$/A_data_read.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C_CDLP.py" beforeDir="false" afterPath="$PROJECT_DIR$/C_CDLP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights2019-05-07 20-38-35-273555/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights2019-05-07 20-38-35-273555/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
-    </list>
+    <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights" />
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/C_CDLP.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="493">
-              <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+              <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
               <folding>
                 <element signature="e#92#111#0" expanded="true" />
               </folding>
@@ -106,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/A_data_entry.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="884">
-              <caret line="177" column="71" selection-start-line="177" selection-start-column="71" selection-end-line="177" selection-end-column="71" />
+              <caret line="177" column="67" selection-start-line="177" selection-start-column="67" selection-end-line="177" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -412,10 +402,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.54383886" visible="true" weight="0.086886995" />
-      <window_info id="Structure" order="1" sideWeight="0.45616114" side_tool="true" visible="true" weight="0.086886995" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.54448396" visible="true" weight="0.086886995" />
+      <window_info id="Structure" order="1" sideWeight="0.455516" side_tool="true" visible="true" weight="0.086886995" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32779318" />
@@ -425,14 +414,14 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3281412" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.22160664" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.22160664" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12739871" side_tool="true" weight="0.21052632" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.22068329" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" weight="0.22068329" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.3507109" side_tool="true" visible="true" weight="0.1977612" />
-      <window_info anchor="right" id="SciView" order="4" sideWeight="0.6492891" visible="true" weight="0.1977612" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.35112694" side_tool="true" visible="true" weight="0.1977612" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.6488731" visible="true" weight="0.1977612" />
       <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
     <layout-to-restore>
@@ -694,7 +683,7 @@
     <entry file="file://$PROJECT_DIR$/A_data_entry.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="884">
-          <caret line="177" column="71" selection-start-line="177" selection-start-column="71" selection-end-line="177" selection-end-column="71" />
+          <caret line="177" column="67" selection-start-line="177" selection-start-column="67" selection-end-line="177" selection-end-column="67" />
         </state>
       </provider>
     </entry>
@@ -732,7 +721,7 @@
     <entry file="file://$PROJECT_DIR$/C_CDLP.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
-          <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
           <folding>
             <element signature="e#92#111#0" expanded="true" />
           </folding>
