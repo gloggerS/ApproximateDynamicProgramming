@@ -703,8 +703,6 @@ for capacities in var_capacities:
 
 # df.to_pickle("table3_CDLP_DPD.pkl")
 
-# %%
-df = pd.read_pickle("table3_CDLP_DPD.pkl")
 
 # %%
 # # # example 0

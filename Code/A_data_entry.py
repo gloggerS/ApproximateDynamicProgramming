@@ -146,15 +146,12 @@ data_by_name = {}
 #%% singleLegFlight
 data_by_name["singleLegFlight"] = {}
 
-data_by_name["singleLegFlight"]["n"] = 4
-data_by_name["singleLegFlight"]["products"] = np.arange(4)
+data_by_name["singleLegFlight"]["products"] = np.arange(4)  # n
 data_by_name["singleLegFlight"]["revenues"] = np.array([1000, 800, 600, 400])
 
-data_by_name["singleLegFlight"]["T"] = 400
-data_by_name["singleLegFlight"]["times"] = np.arange(400)
+data_by_name["singleLegFlight"]["times"] = np.arange(400)  # T
 
-data_by_name["singleLegFlight"]["L"] = 1
-data_by_name["singleLegFlight"]["customer_segments"] = np.arange(1)
+data_by_name["singleLegFlight"]["customer_segments"] = np.arange(1)  # L
 data_by_name["singleLegFlight"]["arrival_probabilities"] = np.array([0.5])
 data_by_name["singleLegFlight"]["preference_weights"] = np.array([[0.4, 0.8, 1.2, 1.6]])
 
@@ -162,8 +159,7 @@ data_by_name["singleLegFlight"]["var_no_purchase_preferences"] = np.array([[1], 
 data_by_name["singleLegFlight"]["preference_no_purchase"] = \
     np.array(data_by_name["singleLegFlight"]["var_no_purchase_preferences"][0])
 
-data_by_name["singleLegFlight"]["m"] = 1
-data_by_name["singleLegFlight"]["resources"] = np.arange(1)
+data_by_name["singleLegFlight"]["resources"] = np.arange(1)  # m
 
 data_by_name["singleLegFlight"]["var_capacities"] = np.array([[40], [60], [80], [100], [120]])
 data_by_name["singleLegFlight"]["capacities"] = data_by_name["singleLegFlight"]["var_capacities"][0]
@@ -176,15 +172,12 @@ data_by_name["singleLegFlight"]["A"] = np.array([[1, 1, 1, 1]])
 #%% three parallel flights
 data_by_name["threeParallelFlights"] = {}
 
-data_by_name["threeParallelFlights"]["n"] = 6
-data_by_name["threeParallelFlights"]["products"] = np.arange(6)
+data_by_name["threeParallelFlights"]["products"] = np.arange(6)  # n
 data_by_name["threeParallelFlights"]["revenues"] = np.array([400, 800, 500, 1000, 300, 600])
 
-data_by_name["threeParallelFlights"]["T"] = 300
-data_by_name["threeParallelFlights"]["times"] = np.arange(300)
+data_by_name["threeParallelFlights"]["times"] = np.arange(10)  # T = 10
 
-data_by_name["threeParallelFlights"]["L"] = 4
-data_by_name["threeParallelFlights"]["customer_segments"] = np.arange(4)
+data_by_name["threeParallelFlights"]["customer_segments"] = np.arange(4)  # L = 4
 data_by_name["threeParallelFlights"]["arrival_probabilities"] = np.array([0.1, 0.15, 0.2, 0.05])
 data_by_name["threeParallelFlights"]["preference_weights"] = np.array([[0, 5, 0, 10, 0, 1],
                                [5, 0, 1, 0, 10, 0],
@@ -197,8 +190,7 @@ data_by_name["threeParallelFlights"]["var_no_purchase_preferences"] = np.array([
 data_by_name["threeParallelFlights"]["preference_no_purchase"] = \
     data_by_name["threeParallelFlights"]["var_no_purchase_preferences"][0]
 
-data_by_name["threeParallelFlights"]["m"] = 3
-data_by_name["threeParallelFlights"]["resources"] = np.arange(3)
+data_by_name["threeParallelFlights"]["resources"] = np.arange(3)  # m = 3
 
 base_capacity = np.array([30, 50, 40])
 delta = np.arange(0.4, 1.21, 0.2)
@@ -217,12 +209,10 @@ data_by_name["threeParallelFlights"]["A"] = np.array([[1, 1, 0, 0, 0, 0],
 # toy example for explaining stuff, check implementation of CDLP
 data_by_name["example0"] = {}
 
-data_by_name["example0"]["n"] = 8
-
-data_by_name["example0"]["products"] = np.arange(8)
+data_by_name["example0"]["products"] = np.arange(8)  # n
 data_by_name["example0"]["revenues"] = np.array([1200, 800, 500, 500, 800, 500, 300, 300], dtype=np.float)
 
-data_by_name["example0"]["resources"] = np.arange(3)
+data_by_name["example0"]["resources"] = np.arange(3)  # m
 data_by_name["example0"]["capacities"] = np.array([10, 5, 5])
 
 # capacity demand matrix A (rows: resources, cols: products)
@@ -231,9 +221,9 @@ data_by_name["example0"]["A"] = np.array([[0, 1, 1, 0, 0, 1, 1, 0],
                   [1, 0, 0, 0, 1, 0, 0, 0],
                   [0, 1, 0, 1, 0, 1, 0, 1]])
 
-data_by_name["example0"]["times"] = np.arange(30)
+data_by_name["example0"]["times"] = np.arange(30)  # T
 
-data_by_name["example0"]["customer_segments"] = np.arange(5)
+data_by_name["example0"]["customer_segments"] = np.arange(5)  # L
 data_by_name["example0"]["arrival_probabilities"] = np.array([0.15, 0.15, 0.2, 0.25, 0.25])
 data_by_name["example0"]["preference_weights"] = np.array([[5, 0, 0, 0, 8, 0, 0, 0],
                                   [10, 6, 0, 0, 0, 0, 0, 0],

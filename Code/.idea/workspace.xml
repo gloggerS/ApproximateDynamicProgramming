@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change beforePath="$PROJECT_DIR$/B_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/B_helper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/0-data_by_name" beforeDir="false" afterPath="$PROJECT_DIR$/0-data_by_name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A_data_entry.py" beforeDir="false" afterPath="$PROJECT_DIR$/A_data_entry.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A_data_read.py" beforeDir="false" afterPath="$PROJECT_DIR$/A_data_read.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/C_CDLP.py" beforeDir="false" afterPath="$PROJECT_DIR$/C_CDLP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights2019-05-07 20-38-35-273555/0_logging.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights2019-05-07 20-38-35-273555/0_settings.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/func_Koch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-255">
-              <caret line="174" column="9" lean-forward="true" selection-start-line="174" selection-start-column="9" selection-end-line="174" selection-end-column="9" />
+            <state relative-caret-position="201">
+              <caret line="687" selection-start-line="687" selection-end-line="702" />
               <folding>
                 <element signature="e#106#124#0" expanded="true" />
               </folding>
@@ -32,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/B_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="323" column="24" lean-forward="true" selection-start-line="323" selection-start-column="24" selection-end-line="323" selection-end-column="24" />
+            <state relative-caret-position="265">
+              <caret line="193" column="4" selection-start-line="193" selection-start-column="4" selection-end-line="193" selection-end-column="4" />
               <folding>
                 <element signature="e#148#166#0" expanded="true" />
               </folding>
@@ -44,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/C_CDLP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="57" column="14" lean-forward="true" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
+            <state relative-caret-position="493">
+              <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
               <folding>
                 <element signature="e#92#111#0" expanded="true" />
               </folding>
@@ -57,10 +64,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A_data_read.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="493">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
+            <state relative-caret-position="762">
               <caret line="266" selection-start-line="266" selection-end-line="266" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -78,9 +103,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A_data_entry.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="884">
+              <caret line="177" column="71" selection-start-line="177" selection-start-column="71" selection-end-line="177" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulationBasic_API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="221">
               <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
@@ -118,6 +152,7 @@
       <find>get_data</find>
       <find>offer</find>
       <find>data_by_name</find>
+      <find>[&quot;singleLegFlight&quot;]</find>
       <find>pickle</find>
     </findStrings>
     <replaceStrings>
@@ -151,7 +186,6 @@
         <option value="$PROJECT_DIR$/0helper.txt" />
         <option value="$PROJECT_DIR$/../private/start-Master.py" />
         <option value="$PROJECT_DIR$/working.py" />
-        <option value="$PROJECT_DIR$/func_Koch.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/notebooks/Presentation of Parameters.ipynb" />
         <option value="$PROJECT_DIR$/dat_Koch.py" />
@@ -159,16 +193,20 @@
         <option value="$PROJECT_DIR$/1-helper.py" />
         <option value="$PROJECT_DIR$/0-data-entry.py" />
         <option value="$PROJECT_DIR$/10-CDLP.py" />
-        <option value="$PROJECT_DIR$/C_CDLP.py" />
+        <option value="$PROJECT_DIR$/func_Koch.py" />
         <option value="$PROJECT_DIR$/B_helper.py" />
+        <option value="$PROJECT_DIR$/A_data_read.py" />
+        <option value="$PROJECT_DIR$/A_data_entry.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/C_CDLP.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2728" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1096" />
+    <option name="x" value="2757" />
+    <option name="y" value="-13" />
+    <option name="width" value="680" />
+    <option name="height" value="361" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -178,6 +216,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -189,7 +228,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -227,7 +265,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.func_Koch">
+  <component name="RunManager" selected="Python.A_data_entry">
+    <configuration name="A_data_entry" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/A_data_entry.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Code" type="PythonConfigurationType" factoryName="Python">
       <module name="Code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -343,20 +400,22 @@
       <item itemvalue="Python.simulationBasic" />
       <item itemvalue="Python.func_Koch" />
       <item itemvalue="Python.working" />
+      <item itemvalue="Python.A_data_entry" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.A_data_entry" />
         <item itemvalue="Python.func_Koch" />
         <item itemvalue="Python.working" />
       </list>
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2728" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5453333" visible="true" weight="0.08635394" />
-      <window_info id="Structure" order="1" sideWeight="0.45466667" side_tool="true" visible="true" weight="0.08635394" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.54383886" visible="true" weight="0.086886995" />
+      <window_info id="Structure" order="1" sideWeight="0.45616114" side_tool="true" visible="true" weight="0.086886995" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32779318" />
@@ -366,14 +425,14 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3281412" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.22222222" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.22160664" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12739871" side_tool="true" weight="0.21052632" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.2211838" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.22068329" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.34933335" side_tool="true" visible="true" weight="0.1977612" />
-      <window_info anchor="right" id="SciView" order="4" sideWeight="0.65066665" visible="true" weight="0.1977612" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.3507109" side_tool="true" visible="true" weight="0.1977612" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.6492891" visible="true" weight="0.1977612" />
       <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
     <layout-to-restore>
@@ -595,15 +654,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/notebooks/Presentation of Parameters.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/0-data-read.py" />
+    <entry file="file://$PROJECT_DIR$/0-data-entry.py" />
+    <entry file="file://$PROJECT_DIR$/1-helper.py" />
+    <entry file="file://$PROJECT_DIR$/10-CDLP.py" />
+    <entry file="file://$PROJECT_DIR$/simulationBasic_API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="266" selection-start-line="266" selection-end-line="266" />
+        <state relative-caret-position="221">
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notebooks/Presentation of Parameters.ipynb">
-      <provider selected="true" editor-type-id="jupyter-editor" />
+    <entry file="file://$PROJECT_DIR$/func_Koch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="687" selection-start-line="687" selection-end-line="702" />
+          <folding>
+            <element signature="e#106#124#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dat_Koch.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -615,79 +691,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/0-data-read.py">
+    <entry file="file://$PROJECT_DIR$/A_data_entry.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="884">
+          <caret line="177" column="71" selection-start-line="177" selection-start-column="71" selection-end-line="177" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/0-data-entry.py">
+    <entry file="file://$PROJECT_DIR$/A_data_read.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="199" column="34" selection-start-line="199" selection-start-column="14" selection-end-line="199" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulationBasic_API.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/1-helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="626" selection-start-line="626" selection-end-line="626" />
-          <folding>
-            <element signature="e#146#164#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/10-CDLP.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="149" column="15" lean-forward="true" selection-start-line="149" selection-start-column="15" selection-end-line="149" selection-end-column="15" />
-          <folding>
-            <element signature="e#92#111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/C_CDLP.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="57" column="14" lean-forward="true" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
-          <folding>
-            <element signature="e#92#111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/func_Koch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255">
-          <caret line="174" column="9" lean-forward="true" selection-start-line="174" selection-start-column="9" selection-end-line="174" selection-end-column="9" />
-          <folding>
-            <element signature="e#106#124#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="493">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/B_helper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="323" column="24" lean-forward="true" selection-start-line="323" selection-start-column="24" selection-end-line="323" selection-end-column="24" />
+        <state relative-caret-position="265">
+          <caret line="193" column="4" selection-start-line="193" selection-start-column="4" selection-end-line="193" selection-end-column="4" />
           <folding>
             <element signature="e#148#166#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="762">
+          <caret line="266" selection-start-line="266" selection-end-line="266" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/C_CDLP.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+          <folding>
+            <element signature="e#92#111#0" expanded="true" />
           </folding>
         </state>
       </provider>
