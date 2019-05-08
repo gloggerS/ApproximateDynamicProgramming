@@ -21,8 +21,7 @@ print("CDLP starting.\n\n")
 # settings
 settings = pd.read_csv("0_settings.csv", delimiter=";", header=None)
 example = settings.iloc[0, 1]
-use_variations = settings.iloc[1, 1]  # true if varying capacities should be used
-
+use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
 
 # prepare storage location
 newpath = os.getcwd()+"\\Results\\CDLP-"+example+"-"+str(datetime.datetime.now()).replace(":", "-").replace(".", "-")
@@ -36,6 +35,14 @@ logfile = open(newpath+"\\0_logging.txt", "w+")  # write and create (if not ther
 print("Time:", datetime.datetime.now())
 print("Time (starting):", datetime.datetime.now(), file=logfile)
 time_start = time.time()
+
+# data
+dat = get_all(example)
+print("\n Data used. \n")
+for key in dat.keys():
+    print(key, ":\n", dat[key])
+print("\n\n")
+del dat
 
 # settings
 for row in settings:
@@ -66,13 +73,8 @@ def CDLP(capacities, preference_no_purchase, offer_sets: np.ndarray):
     Implements (4) of Bront et al. Needs the offer-sets to look at (N) as input.
 
     :param offer_sets: N
-    :return: dictionary of (offer set, time offered),
+    :return: dictionary of (offer set, time offered), optimal value, dual prices of resources, dual price of time
     """
-    resources, \
-        products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations()
-
     offer_sets = pd.DataFrame(offer_sets)
     lam = sum(arrival_probabilities)
     T = len(times)
@@ -139,11 +141,6 @@ def column_MIP(preference_no_purchase, pi, w=0):  # pass w to test example for g
     :param w:
     :return: optimal tuple of products to offer
     """
-    resources, \
-        products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations()
-
     K = 1/min(preference_no_purchase.min(), np.min(preference_weights[np.nonzero(preference_weights)]))+1
 
     if isinstance(w, int) and w == 0:  # 'and' is lazy version of &
@@ -193,7 +190,7 @@ def column_MIP(preference_no_purchase, pi, w=0):  # pass w to test example for g
         print('Error reported')
 
 
-def column_greedy(preference_no_purchase, pi, w=0, dataName=""):  # pass w to test example for greedy heuristic
+def column_greedy(preference_no_purchase, pi, w=0):  # pass w to test example for greedy heuristic
     """
     Implements Greedy Heuristic on p. 775 rhs
 
@@ -201,11 +198,6 @@ def column_greedy(preference_no_purchase, pi, w=0, dataName=""):  # pass w to te
     :param w:
     :return: heuristically optimal tuple of products to offer
     """
-    resources, \
-        products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations(dataName)
-
     # Step 1
     y = np.zeros_like(revenues)
 
@@ -263,11 +255,7 @@ def CDLP_by_column_generation(capacities, preference_no_purchase):
 
     :return:
     """
-    resources, \
-        products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations()
-
+    print("Start CDLP by column generation.")
     dual_pi = np.zeros(len(A))
 
     col_offerset, col_val = column_greedy(preference_no_purchase, dual_pi)
@@ -279,8 +267,11 @@ def CDLP_by_column_generation(capacities, preference_no_purchase):
 
     val_akt_CDLP = 0
     ret, val_new_CDLP, dual_pi, dual_sigma = CDLP(capacities, preference_no_purchase, offer_sets)
+    data_result = pd.DataFrame([{"val": val_new_CDLP, "optimal sets": ret,
+                                 "dual pi": dual_pi, "dual sigma": dual_sigma}])
 
     while val_new_CDLP > val_akt_CDLP:
+        print("Actual value of CDLP: \t", val_new_CDLP)
         val_akt_CDLP = copy.deepcopy(val_new_CDLP)  # deepcopy and new name to be on the safe side
 
         col_offerset, col_val = column_greedy(preference_no_purchase, dual_pi)
@@ -291,7 +282,11 @@ def CDLP_by_column_generation(capacities, preference_no_purchase):
 
         offer_sets = offer_sets.append([np.array(col_offerset)], ignore_index=True)
         ret, val_new_CDLP, dual_pi, dual_sigma = CDLP(capacities, preference_no_purchase, offer_sets)
+        data_result = data_result.append(pd.DataFrame([{"val": val_new_CDLP, "optimal sets": ret,
+                                          "dual pi": dual_pi, "dual sigma": dual_sigma}]))
 
+    data_result.to_csv(newpath+"\\CDLP_by_column_generation-"+str(capacities)+"-"+str(preference_no_purchase)+".csv",
+                       sep=";")
     return ret, val_new_CDLP, dual_pi, dual_sigma
 
 
@@ -299,20 +294,18 @@ def CDLP_by_column_generation(capacities, preference_no_purchase):
 # Run CDLP as in Bront et al (CDLP by column generation, first greedy heuristig to identify entering column to the base,
 # no entering column found => exact MIP procedure
 num_rows = len(var_capacities)*len(var_no_purchase_preferences)
-df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'DP', 'CDLP'])
+df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP'])
 indexi = 0
 for capacity in var_capacities:
     for preference_no_purchase in var_no_purchase_preferences:
         print(capacity, "-", preference_no_purchase)
         print(str(datetime.datetime.now()), ":", capacity, "-", preference_no_purchase, file=logfile)
 
-        df.loc[indexi] = [capacity, preference_no_purchase, value_expected(capacities=capacity, t=0,
-                                                                           preference_no_purchase=preference_no_purchase,
-                                                                           example=example),
+        df.loc[indexi] = [capacity, preference_no_purchase,
                           CDLP_by_column_generation(capacities=capacity, preference_no_purchase=preference_no_purchase)]
         indexi += 1
 
-df.to_pickle("CDLP-"+example+"-"+use_variations+".pkl", newpath)
+df.to_csv(newpath+"\\CDLP-"+example+"-"+str(use_variations)+".csv", sep=";")
 
 time_elapsed = time.time() - time_start
 print("\n\nTotal time needed:\n", time_elapsed, "seconds = \n", time_elapsed/60, "minutes", file=logfile)

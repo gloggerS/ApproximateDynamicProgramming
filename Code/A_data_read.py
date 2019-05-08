@@ -35,3 +35,6 @@ def get_variations(name):
 def get_preference_no_purchase(name):
     return data[name]["preference_no_purchase"]
 
+
+def get_all(name):
+    return data[name]
