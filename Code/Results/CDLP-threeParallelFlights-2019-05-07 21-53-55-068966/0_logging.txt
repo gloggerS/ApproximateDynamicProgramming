@@ -1,4 +1,0 @@
-Time (starting): 2019-05-07 21:53:55.068966
-Example :	 threeParallelFlights
-use_var_capacities :	 False
-2019-05-07 21:53:55.068966 : [12 20 16] - [1 5 5 1]
