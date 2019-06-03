@@ -164,7 +164,7 @@ for c in c_short:
     df2.index = final_results[t].loc[rows_to_consider].index
     final_results[t].loc[rows_to_consider] = df2
 
-num_cores = 2  # multiprocessing.cpu_count()
+num_cores = multiprocessing.cpu_count()
 
 for t in times[::-1][1:]:  # running through the other way round, starting from second last time
     rows = [literal_eval(i) for i in final_results[t].index]
