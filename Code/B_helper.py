@@ -382,6 +382,6 @@ def DPD(capacities, preference_no_purchase, dualPrice, t=0):
     return val
 
 
-# %% Approximate Policy Iteration
-
-
+# %% System Helpers
+def get_storage_path(storage_location):
+    return os.getcwd()+"\\Results\\"+storage_location
