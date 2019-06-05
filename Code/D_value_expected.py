@@ -170,3 +170,4 @@ for t in times[::-1][1:]:  # running through the other way round, starting from 
     rows = [literal_eval(i) for i in final_results[t].index]
     res = Parallel(n_jobs=num_cores)(delayed(optimal_value)(t, c, no_purchase_preferences) for c in rows)
     final_results[t] = res
+
