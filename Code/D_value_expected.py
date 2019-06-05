@@ -10,7 +10,9 @@ import datetime
 import time
 
 import os
-from shutil import copyfile
+from shutil import copyfile, move
+
+import itertools
 
 from A_data_read import *
 from B_helper import *
@@ -18,6 +20,8 @@ from ast import literal_eval
 
 from joblib import Parallel, delayed, dump, load
 import multiprocessing
+
+import pickle
 
 #%%
 # Get settings, prepare data, create storage for results
@@ -27,7 +31,7 @@ print("Value Expected starting.\n\n")
 settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
 example = settings.iloc[0, 1]
 use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
-storage_folder = settings.iloc[2, 1] + "-" + example + "-" + str(use_variations)
+storage_folder = settings.iloc[2, 1] + "-" + example + "-" + str(use_variations) + "-" + time.strftime("%y%m%d-%H%M")
 
 # data
 dat = get_all(example)
@@ -38,12 +42,6 @@ print("\n\n")
 del dat
 
 # prepare storage location
-existing_folders = os.listdir(os.getcwd()+"\\Results\\")
-if storage_folder in existing_folders:
-    # TODO put this in do while
-    answer = input("The calculation was already done. Do you really want to restart calculation? [y/n]")
-    if answer == "n":
-        exit()  # stops the script immediately
 newpath = get_storage_path(storage_folder)
 os.makedirs(newpath)
 
@@ -107,8 +105,6 @@ def optimal_value(t, capacities, no_purchase_preferences):
     prob2 = prob.apply(purchase_rate_vector, args=(preference_weights, no_purchase_preferences, arrival_probabilities))
     prob3 = pd.DataFrame(prob2.values.tolist(), columns=np.arange(len(products)+1))  # probabilities for each product
 
-    print(capacities)
-
     # get to expected value for each product purchase
     work = np.array([*1.0*revenues, 0])
     for j in offer_sets.columns[offer_sets.max() == 1]:  # only those products, that can be offered
@@ -142,13 +138,14 @@ def optimal_value_end(capacities, no_purchase_preferences):
 
     return work2[index_max], str(prob[index_max]), sum(work2 == work2[index_max])
 
-# parallelisation over no_purchase_preferences
+def get_optimal_value(t, c):
+    return final_results[t].loc[str(c)].value
+
+# %%
+# TODO parallelisation over no_purchase_preferences
 no_purchase_preferences = var_no_purchase_preferences[0]
 
 final_results = list(return_raw_data_per_time(capacities_max) for t in times)
-
-def get_optimal_value(t, c):
-    return final_results[t].loc[str(c)].value
 
 # start from the end (last possibility to sell); mostly the same calculation (as just capacity > 0 matters)
 t = times[-1]
@@ -164,9 +161,27 @@ for c in c_short:
     df2.index = final_results[t].loc[rows_to_consider].index
     final_results[t].loc[rows_to_consider] = df2
 
-num_cores = multiprocessing.cpu_count()
+num_cores = 8 # multiprocessing.cpu_count()
 
 for t in times[::-1][1:]:  # running through the other way round, starting from second last time
+    print("Time point: ", t)
     rows = [literal_eval(i) for i in final_results[t].index]
-    res = Parallel(n_jobs=num_cores)(delayed(optimal_value)(t, c, no_purchase_preferences) for c in rows)
-    final_results[t] = res
+    for c in rows:
+        final_results[t].loc[str(c)] = optimal_value(t, c, no_purchase_preferences)
+
+# %%
+# write
+with open("finalresults.data", "wb") as filehandle:
+    pickle.dump(final_results, filehandle)
+
+path_storage = move("finalresults.data", newpath)
+
+time_elapsed = time.time() - time_start
+print("\n\nTotal time needed:\n", time_elapsed, "seconds = \n", time_elapsed/60, "minutes", file=logfile)
+logfile.close()
+print("\n\n\n\nDone. Time elapsed:", time.time() - time_start, "seconds.")
+print("Results stored in: "+newpath)
+
+# read
+# with open(path_storage, "rb") as filehandle:
+#     f = pickle.load(filehandle)
