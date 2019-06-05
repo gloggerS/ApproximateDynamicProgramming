@@ -89,14 +89,15 @@ def return_raw_data_per_time(capacity_max):
     row_names = [str(i) for i in rows]
     df = pd.DataFrame(index=row_names,
                       columns=['value', 'offer_set_optimal', 'num_offer_set_optimal'])
+    df.value = pd.to_numeric(df.value)
     return df
 
 
 # %%%
-no_purchase_preference = var_no_purchase_preferences[0]
+no_purchase_preference = var_no_purchase_preferences[2]
 
 final_results = list(return_raw_data_per_time(capacity_max) for t in np.arange(T+1))
-final_results[T].value = 0
+final_results[T].value = 0.0
 final_results[T].offer_set_optimal = 0
 final_results[T].num_offer_set_optimal = 0
 
@@ -111,25 +112,27 @@ for t in times[::-1]:  # running through the other way round, starting from seco
     print("Time point: ", t)
 
     # c = 0
-    final_results[t].iloc[0, :] = (0, 0, 0)
+    final_results[t].iloc[0, :] = (0.0, 0, 0)
 
     # c > 0
     # Delta-Lookup (same for all products, as each product costs 1 capacity)
-    tmp = np.array(final_results[t+1].value)
-    value_c = np.repeat(np.array([tmp[1:]]), repeats=len(products), axis=0)
-    delta_value = value_c - tmp[:-1]
+    v_t_plus_1 = np.array(final_results[t+1].value)
+    indices_c_minus_A = np.repeat([[i] for i in np.arange(capacity_max)+1], repeats=len(products), axis=1) - \
+                        np.repeat(A, repeats=capacity_max, axis=0)
+    delta_value = np.repeat([[i] for i in v_t_plus_1[1:]], repeats=len(products), axis=1) - v_t_plus_1[indices_c_minus_A]
 
     # TODO parallize via three dimensional array (t, c, offer-sets)
-    for c in np.arange(capacity_max):
-        np_max = prob[:, 0:-1]*(revenues-delta_value[c])
+    for c in np.arange(capacity_max)+1:
+        np_max = prob[:, 0:-1]*(revenues-delta_value[c-1])
         np_max = np.sum(np_max, axis=1)
+
         # get maximum value, index of offer_set of maximum value, count of maximum values
-        final_results[t].iloc[c+1, :] = (max(np_max), np.argmax(np_max), np.unique(np_max, return_counts=True)[1][-1])
+        final_results[t].iloc[c, :] = (max(np_max), np.argmax(np_max), np.unique(np_max, return_counts=True)[1][-1])
 
     final_results[t].value += final_results[t+1].value
 
 
-
+p = final_results[200].plot.hist()
 
 
 def optimal_value_end(capacities, no_purchase_preferences):
