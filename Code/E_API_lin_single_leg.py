@@ -140,11 +140,12 @@ def determine_offer_tuple(pi):
     # line 2-3
     # TODO make calculation faster
     value_marginal = np.zeros_like(revenues)
-    for i in [i for i, x in enumerate(S_prime) if x]:  # only those products in S
+    for j in [i for i, x in enumerate(S_prime) if x]:  # only those products in S to be considered, rest 0
         for l in np.arange(len(preference_weights)):
-            value_marginal[i] += (revenues[i] - sum(A[:,i] * pi))*preference_weights[l, i] /\
-                              (preference_weights[l, i] + var_no_purchase_preferences[l])
+            value_marginal[j] += (revenues[j] - sum(A[:, j] * pi))*preference_weights[l, j] /\
+                              (preference_weights[l, j] + var_no_purchase_preferences[l])
     offer_tuple_new[np.argmax(value_marginal)] = 1
+    S_prime = S_prime & offer_tuple_new==0
     v_new = np.amax(value_marginal)
 
     # line 4
@@ -164,6 +165,7 @@ def determine_offer_tuple(pi):
         v_new = np.amax(value_marginal)
         if v_new > v_akt:
             offer_tuple_new[np.argmax(value_marginal)] = 1
+            S_prime = S_prime & offer_tuple_new == 0
             if all(offer_tuple == offer_tuple_new):
                 break
         else:
@@ -172,12 +174,12 @@ def determine_offer_tuple(pi):
 
 
 
- def calc_value_marginal(index_inner_sum):
+ def calc_value_marginal(indices_inner_sum):
     v_temp = 0
     for l in np.arange(len(preference_weights)):
         v_temp += arrival_probabilities[l] * \
-                sum(index_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) * preference_weights[l, :]) / \
-                  (sum(index_inner_sum * preference_weights[l, :]) + var_no_purchase_preferences[l])
+                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) * preference_weights[l, :]) / \
+                  (sum(indices_inner_sum * preference_weights[l, :]) + var_no_purchase_preferences[l])
     return v_temp
 
 
