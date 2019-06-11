@@ -26,7 +26,7 @@ customer_segments = np.arange(L)
 preference_weights = np.array([[1, 1, 1],
                                [0, 1, 0],
                                [0, 0, 1]])
-var_no_purchase_preferences = np.array([1, 1, 1])
+preference_no_purchase = np.array([1, 1, 1])
 w = revenues = np.array([100, 19, 19])
 arrival_probabilities = np.array([1, 1, 1])
 
