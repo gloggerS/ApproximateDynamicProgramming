@@ -12,118 +12,27 @@ import pickle
 # # example = "example for Greedy Heuristic"
 # # example = "example parallel flights"
 # # example = "efficient sets"
-#
-# if example == "singleLegFlight":
-#     n = 4
-#     products = np.arange(n)
-#     revenues = np.array([1000, 800, 600, 400])
-#
-#     T = 400
-#     times = np.arange(T)
-#
-#     L = 1
-#     customer_segments = np.arange(L)
-#     arrival_probabilities = np.array([0.5])
-#     preference_weights = np.array([[0.4, 0.8, 1.2, 1.6]])
-#
-#     var_no_purchase_preferences = np.array([[1], [2], [3]])
-#     preference_no_purchase = np.array([var_no_purchase_preferences[0]])
-#
-#     m = 1
-#     resources = np.arange(m)
-#
-#     var_capacities = np.array([[40], [60], [80], [100], [120]])
-#     capacities = var_capacities[0]
-#
-#     # capacity demand matrix A (rows: resources, cols: products)
-#     # a_ij = 1 if resource i is used by product j
-#     A = np.array([[1, 1, 1, 1]])
-#
-# elif example == "threeParallelFlights":
-#     n = 6
-#     products = np.arange(n)
-#     revenues = np.array([400, 800, 500, 1000, 300, 600])
-#
-#     T = 300
-#     times = np.arange(T)
-#
-#     L = 4
-#     customer_segments = np.arange(L)
-#     arrival_probabilities = np.array([0.1, 0.15, 0.2, 0.05])
-#     preference_weights = np.array([[0, 5, 0, 10, 0, 1],
-#                                    [5, 0, 1, 0, 10, 0],
-#                                    [10, 8, 6, 4, 3, 1],
-#                                    [8, 10, 4, 6, 1, 3]])
-#
-#     var_no_purchase_preferences = np.array([[1, 5, 5, 1],
-#                                             [1, 10, 5, 1],
-#                                             [5, 20, 10, 5]])
-#     preference_no_purchase = var_no_purchase_preferences[0]
-#
-#     m = 3
-#     resources = np.arange(m)
-#
-#     base_capacity = np.array([30, 50, 40])
-#     delta = np.arange(0.4, 1.21, 0.2)
-#     var_capacities = np.zeros((len(delta), len(base_capacity)), dtype=int)
-#     for i in np.arange(len(delta)):
-#         var_capacities[i] = delta[i]*base_capacity
-#     capacities = var_capacities[0]
-#
-#     # capacity demand matrix A (rows: resources, cols: products)
-#     # a_ij = 1 if resource i is used by product j
-#     A = np.array([[1, 1, 0, 0, 0, 0],
-#                   [0, 0, 1, 1, 0, 0],
-#                   [0, 0, 0, 0, 1, 1]])
-#
-# elif example == "example0":
-#     # toy example for explaining stuff, check implementation of CDLP
-#     n = 8
-#     products = np.arange(n)
-#     revenues = np.array([1200, 800, 500, 500, 800, 500, 300, 300], dtype=np.float)
-#
-#     m = 3
-#     resources = np.arange(m)
-#     capacities = np.array([10, 5, 5])
-#
-#     # capacity demand matrix A (rows: resources, cols: products)
-#     # a_ij = 1 if resource i is used by product j
-#     A = np.array([[0, 1, 1, 0, 0, 1, 1, 0],
-#                   [1, 0, 0, 0, 1, 0, 0, 0],
-#                   [0, 1, 0, 1, 0, 1, 0, 1]])
-#
-#     T = 30
-#     times = np.arange(T)
-#
-#     L = 5
-#     customer_segments = np.arange(L)
-#     arrival_probabilities = np.array([0.15, 0.15, 0.2, 0.25, 0.25])
-#     preference_weights = np.array([[5, 0, 0, 0, 8, 0, 0, 0],
-#                                   [10, 6, 0, 0, 0, 0, 0, 0],
-#                                   [0, 0, 0, 0, 8, 5, 0, 0],
-#                                   [0, 0, 4, 0, 0, 0, 8, 0],
-#                                   [0, 0, 0, 6, 0, 0, 0, 8]])
-#     preference_no_purchase = np.array([2, 5, 2, 2, 2])
-#
-# elif example == "example for Greedy Heuristic":
-#     # example for 4.2.2 Greedy Heuristic
-#     n = 3
-#     products = np.arange(n)
-#
-#     A = np.array([[1, 0, 0],
-#                   [0, 1, 0],
-#                   [0, 0, 1]])
-#     L = 3
-#     customer_segments = np.arange(L)
-#     preference_weights = np.array([[1, 1, 1],
-#                                    [0, 1, 0],
-#                                    [0, 0, 1]])
-#     preference_no_purchase = np.array([1, 1, 1])
-#     w = revenues = np.array([100, 19, 19])
-#     arrival_probabilities = np.array([1, 1, 1])
-#
-#     pi = 0
-#
+
+#%% quick on-/off
+# example for 4.2.2 Greedy Heuristic
+n = 3
+products = np.arange(n)
+
+A = np.array([[1, 0, 0],
+              [0, 1, 0],
+              [0, 0, 1]])
+L = 3
+customer_segments = np.arange(L)
+preference_weights = np.array([[1, 1, 1],
+                               [0, 1, 0],
+                               [0, 0, 1]])
+var_no_purchase_preferences = np.array([1, 1, 1])
+w = revenues = np.array([100, 19, 19])
+arrival_probabilities = np.array([1, 1, 1])
+
+pi = np.array([0, 0, 0])
+
+#%% old code
 # if example == "efficient sets":
 #     purchase_rate_vectors = np.array([[0, 0, 0, 1],
 #                                       [0.3, 0, 0, 0.7],
@@ -167,6 +76,32 @@ data_by_name["singleLegFlight"]["capacities"] = data_by_name["singleLegFlight"][
 # capacity demand matrix A (rows: resources, cols: products)
 # a_ij = 1 if resource i is used by product j
 data_by_name["singleLegFlight"]["A"] = np.array([[1, 1, 1, 1]])
+
+
+#%% smallTest
+data_by_name["smallTest"] = {}
+
+data_by_name["smallTest"]["products"] = np.arange(4)  # n
+data_by_name["smallTest"]["revenues"] = np.array([1000, 800, 600, 400])
+
+data_by_name["smallTest"]["times"] = np.arange(10)  # T
+
+data_by_name["smallTest"]["customer_segments"] = np.arange(1)  # L
+data_by_name["smallTest"]["arrival_probabilities"] = np.array([0.5])
+data_by_name["smallTest"]["preference_weights"] = np.array([[0.4, 0.8, 1.2, 1.6]])
+
+data_by_name["smallTest"]["var_no_purchase_preferences"] = np.array([[1]])
+data_by_name["smallTest"]["preference_no_purchase"] = \
+    np.array(data_by_name["smallTest"]["var_no_purchase_preferences"][0])
+
+data_by_name["smallTest"]["resources"] = np.arange(1)  # m
+
+data_by_name["smallTest"]["var_capacities"] = np.array([[4]])
+data_by_name["smallTest"]["capacities"] = data_by_name["smallTest"]["var_capacities"][0]
+
+# capacity demand matrix A (rows: resources, cols: products)
+# a_ij = 1 if resource i is used by product j
+data_by_name["smallTest"]["A"] = np.array([[1, 1, 1, 1]])
 
 
 #%% three parallel flights

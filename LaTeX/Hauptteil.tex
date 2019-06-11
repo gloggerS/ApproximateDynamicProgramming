@@ -1,0 +1,48 @@
+\chapter{Main chapter}
+
+\section{Ideas}
+\begin{enumerate}
+	\item capacity consumption $a \in \mathbb{N}_0$ statt $a\in \{0,1\}$
+\end{enumerate}
+
+\section{The problem}
+
+Here, we want to lay out the classical revenue management problem an the \enquote{brute force} approach to solve. 
+
+Consider a firm that produces products $j = 1, \dots, n$ with revenues $\boldsymbol{r} = (r_1, \dots, r_n)^T$. Resources $h = 1, \dots, m$ are used for production. In order to produce one unit of product $j$, resources $\boldsymbol{a}_j = (a_{1j}, \dots, a_{mj})^T$ are necessary, with $a_{hj}=1$ if resource $h$ is needed for production of product $j$ and $a_{hj} = 0$ otherwise. Initially, the capacity is described by $\boldsymbol{c}^0 = (c_1^0, \dots, c_m^0)^T$. 
+
+The booking horizon is modelled by sufficiently small time periods $t = 0, \dots, T-1$, such that in each time period at most one customer arrives. This customer also purchases at most one product. If product $j$ is purchased at time $t$, the capacity reduces to $\boldsymbol{c}^{t+1} = \boldsymbol{c}^t - \boldsymbol{a}_j$. Time moves forward, such that the last selling might occur at time $T-1$.
+
+% time index always at the top
+The firm wants to increase the value of the products sold and has flexibility in the sets offered. Thus, the decision variables at each time point $t$ are given by $\boldsymbol{x}^t = (x^t_1, \dots, x^t_n)^T$ with $x^t_j = 1$ if product $j$ is offered at time $t$ and $x^t_j = 0$ otherwise.
+
+One popular method of describing the probabilities of purchases is to have each customer belonging to one customer segment $i = 1, \dots I$, each of which following a multinomial logit model (MNL\nomenclature{MNL}{multinomial logit model}). A customer of segment $i$ arrives with probability $\lambda_i$. His preference weights are given by $\boldsymbol{u}_i = (u_{i1}, \dots, u_{in})^T$ and no purchase preference of $u_{i0}$. Note: $u_{ij} > 0$ if consumer of segment $i$ might purchase product $j$ (the higher, the more interested) and $u_{ij} = 0$ if customer is not interested in product. The probability of purchasing product $j$ when set $\boldsymbol{x}$ is offered is given by $p_{ij}(\boldsymbol{x}) = \frac{u_{ij}x_j}{u_{i0} + \sum_{p\in[n]} u_{ip}x_p}$ and the no-purchase probability is given by $p_{i0}(\boldsymbol{x}) = 1 - \sum_{p\in[n]}p_{ip}$. Together with the uncertainty of which customer segment arrives (if any), we end up at a purchase probability for product $j$ given $\boldsymbol{x}$ of $p_J(\boldsymbol{x}) = \sum_{i \in [I]} p_{ij}(\boldsymbol{x})$.
+
+\subsection{Examples}
+
+\subsubsection{Single-leg flight example}
+
+For reasons of comparability, we use the same example as in \cite{Koch.2017}. An airlines offers four products with revenues $\boldsymbol{r} = (1000, 800, 600, 400)^T$ over $T = 400$ periods. Only one customer segment exists with arrival probability of $\lambda = 0.5$ and preference weights $\boldsymbol{u} = (0.4, 0.8, 1.2, 1.6)^T$. Different network loads can be analyzed by varying initial capacity $c^0 \in \{40, 60, \dots, 120\}$ and varying no-purchase preference weights $u_0 \in \{1,2,3\}$.
+
+\section{Implementation}
+
+Here, we present the results of the exact calculation for the single leg flight example.
+
+Storage folder: \texttt{"C:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/Code/Results/singleLegFlight-True-DP-190611-0917"}
+
+Log:
+
+\verbatiminput{"C:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/Code/Results/singleLegFlight-True-DP-190611-0917/0_logging.txt"}
+
+Results:
+
+\input{"C:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/Code/Results/singleLegFlight-True-DP-190611-0917/erg_paper.txt"}
+
+\section{Approximate Dynamic Programming}
+
+\subsection{Greedy Heuristic to determine offerset}
+
+The following algorithm is based on the ideas of the greedy heuristic for the column generation subproblem outlined in \cite{Bront.2009}.
+
+Our goal is to determine a reasonable set of products to offer in a fast manner. Thus, we use a heuristic and cut down the amount of products to consider as fast as possible.
+

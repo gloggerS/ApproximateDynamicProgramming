@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\usepackage{cleveref}
+
+\begin{document}
+	\begin{algorithm}
+		\caption{Greedy Heuristic}\label{euclid}
+		\begin{algorithmic}
+			\State $S' = \{i \in N : r_i - A_i^T\pi > 0\}$ \label{alg-L1}
+			\State $\textit{stringlen} \gets \text{length of }\textit{string}$
+			\State $i \gets \textit{patlen}$
+			\BState \emph{top}:
+			\If {$i > \textit{stringlen}$} \Return false
+			\EndIf
+			\State $j \gets \textit{patlen}$
+			\BState \emph{loop}:
+			\If {$\textit{string}(i) = \textit{path}(j)$}
+			\State $j \gets j-1$.
+			\State $i \gets i-1$.
+			\State \textbf{goto} \emph{loop}.
+			\State \textbf{close};
+			\EndIf
+			\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+			\State \textbf{goto} \emph{top}.
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+Let $S'$ be the set of products with positive reduced costs, i. \Cref{alg-L1}
+\end{document} 
