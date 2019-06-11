@@ -1,32 +1,7 @@
 \documentclass{article}
-\usepackage{mathtools}
-\usepackage{algorithm}
-\usepackage[noend]{algpseudocode}
 
-\usepackage{todonotes}
-\newcommand{\todoRed}[1]{\todo[inline, color=red!40]{#1}}
-
-\usepackage{cleveref}
 
 \begin{document}
 	
-\todoRed{Value Funktion gebuendelt dargestellt und ueberall mit $\lambda$. Vergleiche zu Bront et al. 4.2.2, wo in 3. ohne $\lambda$ und in 4.a mit $\lambda$.}
-	
-\begin{algorithm}
-	\caption{Greedy Heuristic}\label{alg-GreedyHeuristic}
-	\begin{algorithmic}[1] % [1] results in line numbers
-		% Großes X verwendet, um Menge zu symbolisieren
-		\State $\text{Value}(X) \coloneqq \sum_{l=1}^{L} \lambda_l \frac{\sum_{i \in X}(r_i - A_i^T\pi)u_{li}}{\sum_{i \in X}u_{li} + u_{l0}}$
-		\State $S\coloneqq \emptyset,\quad S' \coloneqq \left\{j \in N : r_j - A_j^T\pi > 0\right\}$ \label{alg-L1}
-		\State $j^* \coloneqq \arg\max_{j \in S'} \text{Value}(\{j\})$
-		\Repeat
-		\State $S \coloneqq S \cup \{j^*\},\quad S' \coloneqq S'\backslash\{j^*\}$
-		\State $j^* \coloneqq \arg \max_{j \in S'} \text{Value}(S \cup \{j\})$
-		\Until {$\text{Value}(S \cup \{j^*\}) \leq \text{Value}(S)$\\}
-		\Return {$S$}
-	\end{algorithmic}
-\end{algorithm}
 
-
-Let $S'$ be the set of products with positive reduced costs, i. \Cref{alg-L1}
 \end{document} 

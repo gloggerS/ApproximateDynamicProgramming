@@ -132,28 +132,27 @@ def determine_offer_tuple(pi):
     """
 
     # setup
-    offer_tuple_new = np.zeros_like(revenues)
+    offer_tuple = np.zeros_like(revenues)
 
     # line 1
     S_prime = revenues - pi > 0  # vector - scalar = vector - np.ones_like(vector)*scalar
 
     # line 2-3
-    # TODO make calculation faster
-    value_marginal = np.zeros_like(revenues)
-    for j in [i for i, x in enumerate(S_prime) if x]:  # only those products in S to be considered, rest 0
-        for l in np.arange(len(preference_weights)):
-            value_marginal[j] += (revenues[j] - sum(A[:, j] * pi))*preference_weights[l, j] /\
-                              (preference_weights[l, j] + var_no_purchase_preferences[l])
-    offer_tuple_new[np.argmax(value_marginal)] = 1
-    S_prime = S_prime & offer_tuple_new==0
-    v_new = np.amax(value_marginal)
+    # offer_sets_to_test has in each row an offer set, we want to test
+    offer_sets_to_test = np.zeros((sum(S_prime), len(revenues)))
+    offer_sets_to_test[np.arange(sum(S_prime)), np.where(S_prime)] = 1
+    offer_sets_to_test += offer_tuple
+    offer_sets_to_test = (offer_sets_to_test > 0)
+
+    value_marginal = np.apply_along_axis(calc_value_marginal, axis=1, arr=offer_sets_to_test)
+
+    offer_tuple[np.argmax(value_marginal)] = 1
+    S_prime = S_prime & offer_tuple == 0
+    v_S = np.amax(value_marginal)
 
     # line 4
     while True:
         # 4a
-        offer_tuple = copy.deepcopy(offer_tuple_new)
-        v_akt = v_new
-
         # offer_sets_to_test has in each row an offer set, we want to test
         offer_sets_to_test = np.zeros((sum(S_prime), len(revenues)))
         offer_sets_to_test[np.arange(sum(S_prime)), np.where(S_prime)] = 1
@@ -162,19 +161,19 @@ def determine_offer_tuple(pi):
 
         # 4b
         value_marginal = np.apply_along_axis(calc_value_marginal, axis=1, arr=offer_sets_to_test)
-        v_new = np.amax(value_marginal)
-        if v_new > v_akt:
-            offer_tuple_new[np.argmax(value_marginal)] = 1
-            S_prime = S_prime & offer_tuple_new == 0
-            if all(offer_tuple == offer_tuple_new):
+
+        if np.amax(value_marginal) > v_S:
+            v_S = np.amax(value_marginal)
+            offer_tuple[np.argmax(value_marginal)] = 1
+            S_prime = S_prime & offer_tuple == 0
+            if all(offer_tuple == 1):
                 break
         else:
             break
     return tuple(offer_tuple)
 
 
-
- def calc_value_marginal(indices_inner_sum):
+def calc_value_marginal(indices_inner_sum):
     v_temp = 0
     for l in np.arange(len(preference_weights)):
         v_temp += arrival_probabilities[l] * \
