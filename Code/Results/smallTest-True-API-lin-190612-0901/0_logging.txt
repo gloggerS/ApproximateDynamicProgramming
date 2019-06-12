@@ -1,0 +1,3 @@
+Time (starting): 2019-06-12 09:01:02.624388
+Example :	 smallTest
+use_var_capacities :	 True

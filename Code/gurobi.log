@@ -36108,3 +36108,340 @@ Solution count 1: 210.171
 
 Optimal solution found (tolerance 1.00e-04)
 Best objective 2.101714969150e+02, best bound 2.101714969150e+02, gap 0.0000%
+
+Gurobi 8.1.0 (win64, Python) logging started 06/12/19 09:34:41
+
+Academic license - for non-commercial use only
+Optimize a model with 18 rows, 40 columns and 36 nonzeros
+Model has 30 quadratic objective terms
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [2e+03, 3e+05]
+  QObjective range [2e+01, 3e+02]
+  Bounds range     [1e+03, 1e+03]
+  RHS range        [0e+00, 0e+00]
+Presolve removed 0 rows and 20 columns
+Presolve time: 0.02s
+Presolved: 18 rows, 20 columns, 36 nonzeros
+Presolved model has 30 quadratic objective terms
+Ordering time: 0.00s
+
+Barrier statistics:
+ Free vars  : 10
+ AA' NZ     : 5.200e+01
+ Factor NZ  : 3.180e+02
+ Factor Ops : 4.986e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0  -4.15484000e+09  3.23860000e+08  1.06e+03 8.25e+03  1.05e+06     0s
+   1  -1.02341687e+09  1.58222093e+08  2.56e+02 1.99e+03  2.80e+05     0s
+   2  -4.10793148e+07  4.73290897e+07  1.89e+01 1.47e+02  4.27e+04     0s
+   3   3.85325340e+07  3.83585617e+07  1.89e-05 1.47e-04  3.63e+03     0s
+   4   3.85320002e+07  3.85316221e+07  4.01e-09 3.12e-08  7.88e+00     0s
+   5   3.85320000e+07  3.85319996e+07  4.11e-12 2.32e-10  7.92e-03     0s
+   6   3.85320000e+07  3.85320000e+07  5.12e-13 1.20e-10  7.93e-06     0s
+   7   3.85320000e+07  3.85320000e+07  3.69e-13 1.84e-10  9.92e-09     0s
+
+Barrier solved model in 7 iterations and 0.03 seconds
+Optimal objective 3.85320000e+07
+
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Optimize a model with 18 rows, 20 columns and 36 nonzeros
+Model has 30 quadratic objective terms
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [2e+03, 3e+05]
+  QObjective range [2e+01, 3e+02]
+  Bounds range     [1e+03, 1e+03]
+  RHS range        [0e+00, 0e+00]
+Presolve time: 0.00s
+Presolved: 18 rows, 20 columns, 36 nonzeros
+Presolved model has 30 quadratic objective terms
+Ordering time: 0.00s
+
+Barrier statistics:
+ Free vars  : 10
+ AA' NZ     : 5.200e+01
+ Factor NZ  : 3.180e+02
+ Factor Ops : 4.986e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0  -4.15484000e+09  3.23860000e+08  1.06e+03 8.25e+03  1.05e+06     0s
+   1  -1.02341687e+09  1.58222093e+08  2.56e+02 1.99e+03  2.80e+05     0s
+   2  -4.10793148e+07  4.73290897e+07  1.89e+01 1.47e+02  4.27e+04     0s
+   3   3.85325340e+07  3.83585617e+07  1.89e-05 1.47e-04  3.63e+03     0s
+   4   3.85320002e+07  3.85316221e+07  4.01e-09 3.12e-08  7.88e+00     0s
+   5   3.85320000e+07  3.85319996e+07  4.11e-12 2.32e-10  7.92e-03     0s
+   6   3.85320000e+07  3.85320000e+07  5.12e-13 1.20e-10  7.93e-06     0s
+   7   3.85320000e+07  3.85320000e+07  3.69e-13 1.84e-10  9.92e-09     0s
+
+Barrier solved model in 7 iterations and 0.00 seconds
+Optimal objective 3.85320000e+07
+
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+Error: it isn't a multi-objective model
+No solution available
+Error: it isn't a multi-objective model
+No solution available
+Optimize a model with 18 rows, 20 columns and 36 nonzeros
+Model has 30 quadratic objective terms
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [2e+03, 3e+05]
+  QObjective range [2e+01, 3e+02]
+  Bounds range     [1e+03, 1e+03]
+  RHS range        [0e+00, 0e+00]
+Presolve time: 0.00s
+Presolved: 18 rows, 20 columns, 36 nonzeros
+Presolved model has 30 quadratic objective terms
+Ordering time: 0.00s
+
+Barrier statistics:
+ Free vars  : 10
+ AA' NZ     : 5.200e+01
+ Factor NZ  : 3.180e+02
+ Factor Ops : 4.986e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0  -4.15484000e+09  3.23860000e+08  1.06e+03 8.25e+03  1.05e+06     0s
+   1  -1.02341687e+09  1.58222093e+08  2.56e+02 1.99e+03  2.80e+05     0s
+   2  -4.10793148e+07  4.73290897e+07  1.89e+01 1.47e+02  4.27e+04     0s
+   3   3.85325340e+07  3.83585617e+07  1.89e-05 1.47e-04  3.63e+03     0s
+   4   3.85320002e+07  3.85316221e+07  4.01e-09 3.12e-08  7.88e+00     0s
+   5   3.85320000e+07  3.85319996e+07  4.11e-12 2.32e-10  7.92e-03     0s
+   6   3.85320000e+07  3.85320000e+07  5.12e-13 1.20e-10  7.93e-06     0s
+   7   3.85320000e+07  3.85320000e+07  3.69e-13 1.84e-10  9.92e-09     0s
+
+Barrier solved model in 7 iterations and 0.00 seconds
+Optimal objective 3.85320000e+07
+
+Optimize a model with 18 rows, 20 columns and 36 nonzeros
+Model has 30 quadratic objective terms
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [3e+03, 3e+05]
+  QObjective range [2e+01, 3e+02]
+  Bounds range     [1e+03, 1e+03]
+  RHS range        [0e+00, 0e+00]
+Presolve removed 6 rows and 6 columns
+Presolve time: 0.02s
+Presolved: 12 rows, 14 columns, 24 nonzeros
+Presolved model has 21 quadratic objective terms
+Ordering time: 0.00s
+
+Barrier statistics:
+ Free vars  : 7
+ AA' NZ     : 3.400e+01
+ Factor NZ  : 1.900e+02
+ Factor Ops : 2.470e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0  -3.73204000e+09  2.98610000e+08  1.06e+03 8.75e+03  1.05e+06     0s
+   1  -9.03091643e+08  1.30035620e+08  2.46e+02 2.02e+03  2.74e+05     0s
+   2  -1.97943567e+07  1.86789804e+07  9.11e+00 7.50e+01  3.56e+04     0s
+   3   1.45477019e+07  1.47195314e+07  5.70e-02 4.69e-01  2.30e+03     0s
+   4   1.47639764e+07  1.47639198e+07  6.23e-06 5.13e-05  2.53e+00     0s
+   5   1.47640000e+07  1.47639999e+07  6.85e-09 5.64e-08  2.79e-03     0s
+   6   1.47640000e+07  1.47640000e+07  8.60e-13 1.38e-11  3.07e-06     0s
+   7   1.47640000e+07  1.47640000e+07  1.14e-13 5.42e-11  4.98e-09     0s
+
+Barrier solved model in 7 iterations and 0.02 seconds
+Optimal objective 1.47640000e+07
+
+Optimize a model with 18 rows, 20 columns and 36 nonzeros
+Model has 30 quadratic objective terms
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [2e+03, 3e+05]
+  QObjective range [2e+01, 3e+02]
+  Bounds range     [1e+03, 1e+03]
+  RHS range        [0e+00, 0e+00]
+Presolve time: 0.00s
+Presolved: 18 rows, 20 columns, 36 nonzeros
+Presolved model has 30 quadratic objective terms
+Ordering time: 0.00s
+
+Barrier statistics:
+ Free vars  : 10
+ AA' NZ     : 5.200e+01
+ Factor NZ  : 3.180e+02
+ Factor Ops : 4.986e+03 (less than 1 second per iteration)
+ Threads    : 1
+
+                  Objective                Residual
+Iter       Primal          Dual         Primal    Dual     Compl     Time
+   0  -4.93324000e+09  4.15860000e+08  1.06e+03 8.45e+03  1.05e+06     0s
+   1  -1.25604237e+09  1.89518134e+08  2.58e+02 2.06e+03  2.83e+05     0s
+   2  -8.53395566e+07  3.70189431e+07  2.15e+01 1.71e+02  4.54e+04     0s
+   3   2.25730734e+07  2.23551409e+07  2.15e-05 1.71e-04  4.54e+03     0s
+   4   2.25720001e+07  2.25710312e+07  4.90e-08 3.90e-07  2.02e+01     0s
+   5   2.25720000e+07  2.25719990e+07  4.98e-11 3.91e-10  2.03e-02     0s
+   6   2.25720000e+07  2.25720000e+07  1.82e-12 1.29e-10  2.04e-05     0s
+   7   2.25720000e+07  2.25720000e+07  9.38e-13 1.47e-10  2.14e-08     0s
+   8   2.25720000e+07  2.25720000e+07  1.42e-12 1.16e-10  6.67e-11     0s
+
+Barrier solved model in 8 iterations and 0.00 seconds
+Optimal objective 2.25720000e+07
+
