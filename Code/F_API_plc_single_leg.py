@@ -28,7 +28,7 @@ import random
 
 #%%
 # Get settings, prepare data, create storage for results
-print("API linear single leg starting.\n\n")
+print("API plc piecewise linear concave single leg starting.\n\n")
 
 # settings
 settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
@@ -41,7 +41,6 @@ epsilon = eval(str(settings.loc[settings[0] == "epsilon", 1].item()))
 exponential_smoothing = settings.loc[settings[0] == "exponential_smoothing", 1].item()
 exponential_smoothing = (exponential_smoothing == "True") | (exponential_smoothing == "true")
 
-#%%
 # data
 dat = get_all(example)
 print("\n Data used. \n")
@@ -88,6 +87,8 @@ resources, \
     customer_segments, preference_weights, arrival_probabilities, \
     times = get_data_without_variations(example)
 T = len(times)
+
+capacities_thresholds = get_capacities_thresholds(example)
 
 print("\nEverything set up.")
 

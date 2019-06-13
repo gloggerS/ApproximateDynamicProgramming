@@ -104,6 +104,33 @@ data_by_name["smallTest"]["capacities"] = data_by_name["smallTest"]["var_capacit
 data_by_name["smallTest"]["A"] = np.array([[1, 1, 1, 1]])
 
 
+#%% smallTest2
+data_by_name["smallTest2"] = {}
+
+data_by_name["smallTest2"]["products"] = np.arange(4)  # n
+data_by_name["smallTest2"]["revenues"] = np.array([1000, 800, 600, 400])
+
+data_by_name["smallTest2"]["times"] = np.arange(20)  # T
+
+data_by_name["smallTest2"]["customer_segments"] = np.arange(1)  # L
+data_by_name["smallTest2"]["arrival_probabilities"] = np.array([0.5])
+data_by_name["smallTest2"]["preference_weights"] = np.array([[0.4, 0.8, 1.2, 1.6]])
+
+data_by_name["smallTest2"]["var_no_purchase_preferences"] = np.array([[1]])
+data_by_name["smallTest2"]["preference_no_purchase"] = \
+    np.array(data_by_name["smallTest2"]["var_no_purchase_preferences"][0])
+
+data_by_name["smallTest2"]["resources"] = np.arange(1)  # m
+
+data_by_name["smallTest2"]["var_capacities"] = np.array([[12]])
+data_by_name["smallTest2"]["capacities"] = data_by_name["smallTest2"]["var_capacities"][0]
+data_by_name["smallTest2"]["capacities_thresholds"] = np.array([[0, 4, 8, 12]])
+
+# capacity demand matrix A (rows: resources, cols: products)
+# a_ij = 1 if resource i is used by product j
+data_by_name["smallTest2"]["A"] = np.array([[1, 1, 1, 1]])
+
+
 #%% three parallel flights
 data_by_name["threeParallelFlights"] = {}
 
@@ -183,6 +210,12 @@ def check_example(name):
           len(data_by_name[name]["arrival_probabilities"]) ==
           data_by_name[name]["preference_weights"].shape[0] ==
           len(data_by_name[name]["preference_no_purchase"]))
+    try:
+        print("Capacity thresholds: \t", len(data_by_name[name]["capacities"]) ==
+              len(data_by_name[name]["capacities_thresholds"]))
+    except:
+        pass
+
     print("\n\n")
 
 

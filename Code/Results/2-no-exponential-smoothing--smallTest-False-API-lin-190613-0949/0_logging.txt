@@ -1,0 +1,16 @@
+Time (starting): 2019-06-13 09:49:48.628374 
+
+Example :	 smallTest
+use_var_capacities :	 False
+storage of value expected :	 1
+K :	 60
+I :	 100
+epsilon :	 [0, *([0.05]*10), *([0.01]*10), *([0]*40)]
+exponential_smoothing :	 False
+
+correct epsilon for epsilon-greedy strategy:  True
+
+
+Total time needed:
+ 143.80769276618958 seconds = 
+ 2.396794879436493 minutes

@@ -36,5 +36,9 @@ def get_preference_no_purchase(name):
     return data[name]["preference_no_purchase"]
 
 
+def get_capacities_thresholds(name):
+    return data[name]["capacities_thresholds"]
+
+
 def get_all(name):
     return data[name]

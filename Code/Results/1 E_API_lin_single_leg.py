@@ -24,8 +24,6 @@ import multiprocessing
 import pickle
 import copy
 
-import random
-
 #%%
 # Get settings, prepare data, create storage for results
 print("API linear single leg starting.\n\n")
@@ -35,13 +33,7 @@ settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
 example = settings.iloc[0, 1]
 use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
 storage_folder = example + "-" + str(use_variations) + "-API-lin-" + time.strftime("%y%m%d-%H%M")
-K = int(settings.loc[settings[0] == "K", 1])
-I = int(settings.loc[settings[0] == "I", 1])
-epsilon = eval(str(settings.loc[settings[0] == "epsilon", 1].item()))
-exponential_smoothing = settings.loc[settings[0] == "exponential_smoothing", 1].item()
-exponential_smoothing = (exponential_smoothing == "True") | (exponential_smoothing == "true")
 
-#%%
 # data
 dat = get_all(example)
 print("\n Data used. \n")
@@ -60,15 +52,13 @@ logfile = open(newpath+"\\0_logging.txt", "w+")  # write and create (if not ther
 
 # time
 print("Time:", datetime.datetime.now())
-print("Time (starting):", datetime.datetime.now(), "\n", file=logfile)
+print("Time (starting):", datetime.datetime.now(), file=logfile)
 time_start = time.time()
 
 # settings
-for row in np.arange(len(settings)):
+for row in settings:
     print(settings.loc[row, 0], ":\t", settings.loc[row, 1])
     print(settings.loc[row, 0], ":\t", settings.loc[row, 1], file=logfile)
-print("correct epsilon for epsilon-greedy strategy: ", len(epsilon) == K+1)
-print("\ncorrect epsilon for epsilon-greedy strategy: ", len(epsilon) == K+1, file=logfile)
 
 # variations (capacity and no purchase preference)
 if use_variations:
@@ -93,13 +83,12 @@ print("\nEverything set up.")
 
 
 #%%
-def determine_offer_tuple(pi, eps):
+def determine_offer_tuple(pi):
     """
     OLD Implementation
     Determines the offerset given the bid prices for each resource.
 
     Implement the Greedy Heuristic from Bront et al: A Column Generation Algorithm ... 4.2.2
-    and extend it for the epsilon greedy strategy
 
     :param pi:
     :return:
@@ -108,21 +97,10 @@ def determine_offer_tuple(pi, eps):
     # setup
     offer_tuple = np.zeros_like(revenues)
 
-    # epsilon greedy strategy - offer no products
-    eps_prob = random.random()
-    if eps_prob < eps/2:
-        return tuple(offer_tuple)
-
     # line 1
     s_prime = revenues - pi > 0  # vector - scalar = vector - np.ones_like(vector)*scalar
     if all(np.invert(s_prime)):
-        return tuple(offer_tuple)
-
-    # epsilon greedy strategy - offer all products
-    if eps_prob < eps:
-        return tuple(offer_tuple)
-
-    # epsilon greedy strategy - greedy heuristic
+        return offer_tuple
 
     # line 2-3
     # offer_sets_to_test has in each row an offer set, we want to test
@@ -229,11 +207,11 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
             for c in set_c:
                 pi_new[t, c] = m.getVarByName("pi[" + str(t) + "," + str(c) + "]").X
 
+
         # without exponential smoothing
-        if exponential_smoothing:
-            return (1 - 1 / k) * thetas + 1 / k * theta_new, (1 - 1 / k) * pis + 1 / k * pi_new
-        else:
-            return theta_new, pi_new
+        return theta_new, pi_new
+        # # with exponential smoothing
+        # return (1-1/k)*thetas + 1/k*theta_new, (1-1/k)*pis + 1/k*pi_new
     except GurobiError:
         print('Error reported')
 
@@ -242,6 +220,11 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
 
 # %%
 # Actual Code
+K = 10
+I = 100
+# K = 60
+# I = 800
+
 # K+1 policy iterations (starting with 0)
 # T time steps
 theta_all = np.array([[np.zeros(1)]*T]*(K+1))
@@ -254,7 +237,6 @@ pis = np.zeros(len(resources))
 
 for k in np.arange(K)+1:
     np.random.seed(k)
-    random.seed(k)
 
     v_samples = np.array([np.zeros(len(times))]*I)
     c_samples = np.array([np.zeros(shape=(len(times), len(capacities)))]*I)
@@ -275,8 +257,8 @@ for k in np.arange(K)+1:
             pis[c_sample[t] == 0] = np.inf
             pis[c_sample[t] > 0] = pi_all[k - 1][t][c_sample[t] > 0]
 
-            # line 12  (epsilon greedy strategy)
-            offer_set = determine_offer_tuple(pis, epsilon[k])
+            # line 12
+            offer_set = determine_offer_tuple(pis)
 
             # line 13
             customer = int(np.random.choice(np.arange(len(arrival_probabilities)),
