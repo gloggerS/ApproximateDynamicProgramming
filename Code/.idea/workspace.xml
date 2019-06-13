@@ -2,18 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change beforePath="$PROJECT_DIR$/0-data_by_name" beforeDir="false" afterPath="$PROJECT_DIR$/0-data_by_name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0_settings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/0_settings.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/A_data_entry.py" beforeDir="false" afterPath="$PROJECT_DIR$/A_data_entry.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A_data_read.py" beforeDir="false" afterPath="$PROJECT_DIR$/A_data_read.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/B_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/B_helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E_API_lin_single_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_single_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-threeParallelFlights-True-190605-0951/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-threeParallelFlights-True-190605-0951/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-threeParallelFlights-True/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-threeParallelFlights-True/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-threeParallelFlights-True/finalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/F_API_plc_single_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/F_API_plc_single_leg.py" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,8 +26,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/A_data_entry.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="126" column="49" selection-start-line="126" selection-start-column="28" selection-end-line="126" selection-end-column="49" />
+            <state relative-caret-position="442">
+              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
             </state>
           </provider>
         </entry>
@@ -42,8 +35,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/D_value_expected_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2227">
-              <caret line="149" column="4" selection-start-line="149" selection-start-column="4" selection-end-line="149" selection-end-column="4" />
+            <state>
               <folding>
                 <element signature="e#131#150#0" expanded="true" />
               </folding>
@@ -51,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/B_helper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="137" column="18" selection-start-line="137" selection-start-column="18" selection-end-line="137" selection-end-column="18" />
+            <state relative-caret-position="-380">
+              <caret line="467" column="4" selection-start-line="467" selection-start-column="4" selection-end-line="467" selection-end-column="4" />
               <folding>
                 <element signature="e#148#166#0" expanded="true" />
               </folding>
@@ -78,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/E_API_lin_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="69" column="75" selection-start-line="69" selection-start-column="75" selection-end-line="69" selection-end-column="75" />
+            <state relative-caret-position="270">
+              <caret line="148" column="39" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
               <folding>
                 <element signature="e#162#181#0" expanded="true" />
               </folding>
@@ -90,8 +82,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/F_API_plc_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1292">
-              <caret line="91" selection-start-line="91" selection-end-line="91" />
+            <state relative-caret-position="161">
+              <caret line="136" selection-start-line="136" selection-end-line="136" />
               <folding>
                 <element signature="e#162#181#0" expanded="true" />
               </folding>
@@ -99,7 +91,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/0_settings.csv">
           <provider editor-type-id="csv-table-editor">
             <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
@@ -153,7 +145,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>customer_choice_segments</find>
       <find>history</find>
       <find>numPer</find>
       <find>todo</find>
@@ -181,8 +172,9 @@
       <find>singleLegFlight</find>
       <find>finalresults.data</find>
       <find>pickle</find>
-      <find>load</find>
       <find>smallTest</find>
+      <find>memoize</find>
+      <find>load</find>
     </findStrings>
     <replaceStrings>
       <replace>dfHistory</replace>
@@ -195,6 +187,7 @@
       <replace>\\</replace>
       <replace>smallTest</replace>
       <replace>smallTest2</replace>
+      <replace>#</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -228,26 +221,26 @@
         <option value="$PROJECT_DIR$/10-CDLP.py" />
         <option value="$PROJECT_DIR$/func_Koch.py" />
         <option value="$PROJECT_DIR$/C_CDLP.py" />
-        <option value="$PROJECT_DIR$/B_helper.py" />
         <option value="$PROJECT_DIR$/D_value_expected.py" />
         <option value="$PROJECT_DIR$/D_value_expected_single_leg.py" />
         <option value="$PROJECT_DIR$/D_value_expected_analysis.py" />
         <option value="$PROJECT_DIR$/E_API_single_leg.py" />
         <option value="$PROJECT_DIR$/Results/1 E_API_lin_single_leg.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/E_API_lin_single_leg.py" />
-        <option value="$PROJECT_DIR$/A_data_entry.py" />
         <option value="$PROJECT_DIR$/A_data_read.py" />
-        <option value="$PROJECT_DIR$/F_API_plc_single_leg.py" />
         <option value="$PROJECT_DIR$/0_settings.csv" />
+        <option value="$PROJECT_DIR$/A_data_entry.py" />
+        <option value="$PROJECT_DIR$/E_API_lin_single_leg.py" />
+        <option value="$PROJECT_DIR$/B_helper.py" />
+        <option value="$PROJECT_DIR$/F_API_plc_single_leg.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2728" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1216" />
+    <option name="x" value="-14" />
+    <option name="y" value="-14" />
+    <option name="width" value="2762" />
+    <option name="height" value="1850" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -311,9 +304,6 @@
       <module name="Code" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -449,17 +439,18 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.A_data_entry" />
+        <item itemvalue="Python.A_data_entry" />
         <item itemvalue="Python.func_Koch" />
         <item itemvalue="Python.working" />
       </list>
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
+    <frame x="-7" y="-7" width="1381" height="925" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5302096" visible="true" weight="0.096481875" />
-      <window_info id="Structure" order="1" sideWeight="0.46979037" side_tool="true" visible="true" weight="0.096481875" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5293132" visible="true" weight="0.13660377" />
+      <window_info id="Structure" order="1" sideWeight="0.47068676" side_tool="true" visible="true" weight="0.13660377" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32779318" />
@@ -469,13 +460,13 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3281412" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.19021237" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.25879398" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12739871" side_tool="true" weight="0.21052632" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.2511542" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.4938704" side_tool="true" visible="true" weight="0.16044776" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.4938704" side_tool="true" visible="true" weight="0.22716981" />
       <window_info anchor="right" id="SciView" order="4" sideWeight="0.5061296" weight="0.22716981" />
       <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
@@ -752,30 +743,10 @@
     <entry file="file://$PROJECT_DIR$/simulationBasic-data.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/D_value_expected_single_leg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2227">
-          <caret line="149" column="4" selection-start-line="149" selection-start-column="4" selection-end-line="149" selection-end-column="4" />
-          <folding>
-            <element signature="e#131#150#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4284">
           <caret line="252" column="19" selection-start-line="187" selection-end-line="252" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/B_helper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="137" column="18" selection-start-line="137" selection-start-column="18" selection-end-line="137" selection-end-column="18" />
-          <folding>
-            <element signature="e#148#166#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -809,37 +780,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/E_API_lin_single_leg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="69" column="75" selection-start-line="69" selection-start-column="75" selection-end-line="69" selection-end-column="75" />
-          <folding>
-            <element signature="e#162#181#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/A_data_entry.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="126" column="49" selection-start-line="126" selection-start-column="28" selection-end-line="126" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/A_data_read.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/F_API_plc_single_leg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1292">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
-          <folding>
-            <element signature="e#162#181#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -855,6 +799,52 @@
       <provider selected="true" editor-type-id="csv-text-editor">
         <state>
           <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/D_value_expected_single_leg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#131#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/A_data_entry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/F_API_plc_single_leg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="136" selection-start-line="136" selection-end-line="136" />
+          <folding>
+            <element signature="e#162#181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E_API_lin_single_leg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="148" column="39" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
+          <folding>
+            <element signature="e#162#181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/B_helper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-380">
+          <caret line="467" column="4" selection-start-line="467" selection-start-column="4" selection-end-line="467" selection-end-column="4" />
+          <folding>
+            <element signature="e#148#166#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

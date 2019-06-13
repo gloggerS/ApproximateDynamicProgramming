@@ -28,7 +28,7 @@ preference_weights = np.array([[1, 1, 1],
                                [0, 0, 1]])
 preference_no_purchase = np.array([1, 1, 1])
 w = revenues = np.array([100, 19, 19])
-arrival_probabilities = np.array([1, 1, 1])
+arrival_probabilities = np.array([.3333, .3333, .3333])
 
 pi = np.array([0, 0, 0])
 
@@ -197,8 +197,9 @@ data_by_name["example0"]["preference_no_purchase"] = np.array([2, 5, 2, 2, 2])
 
 #%% check data
 def check_example(name):
+    print("########################")
     print("Checking ", name)
-    print("Check of dimensions: \n  ------------------------")
+    print("------------------------ \n Check of dimensions: \n  ------------------------")
     print("Ressourcen: \t", len(data_by_name[name]["resources"]) ==
           len(data_by_name[name]["capacities"]) ==
           data_by_name[name]["A"].shape[0])
@@ -215,6 +216,8 @@ def check_example(name):
               len(data_by_name[name]["capacities_thresholds"]))
     except:
         pass
+    print("------------------------ \n Check of validity: \n ------------------------")
+    print("sum of arrival probabilities <= 1: ", sum(data_by_name[name]["arrival_probabilities"]) <= 1)
 
     print("\n\n")
 
