@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change afterPath="$PROJECT_DIR$/T_compare_strategies_single_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E_API_lin_single_leg_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_single_leg_evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/F_API_plc_single_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/F_API_plc_single_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/F_API_plc_single_leg_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/F_API_plc_single_leg_evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
-    </list>
+    <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights" />
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +33,7 @@
         <entry file="file://$PROJECT_DIR$/D_value_expected_single_leg_evaluation.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1683">
-              <caret line="108" column="61" lean-forward="true" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
+              <caret line="108" column="61" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
               <folding>
                 <element signature="e#131#150#0" expanded="true" />
               </folding>
@@ -48,10 +41,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/T_compare_strategies_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
+            <state relative-caret-position="544">
               <caret line="96" selection-start-line="96" selection-end-line="96" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -63,8 +56,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/E_API_lin_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5032">
-              <caret line="322" column="38" selection-start-line="318" selection-end-line="322" selection-end-column="38" />
+            <state relative-caret-position="544">
+              <caret line="331" selection-start-line="92" selection-end-line="331" />
               <folding>
                 <element signature="e#162#181#0" expanded="true" />
               </folding>
@@ -87,10 +80,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/F_API_plc_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="412" column="51" selection-start-line="412" selection-start-column="51" selection-end-line="412" selection-end-column="51" />
+            <state relative-caret-position="2891">
+              <caret line="412" column="51" selection-end-line="462" />
               <folding>
                 <element signature="e#162#181#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/G_NN_single_leg.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="203" column="35" selection-start-line="203" selection-start-column="35" selection-end-line="203" selection-end-column="35" />
+              <folding>
+                <element signature="e#243#262#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,27 +109,6 @@
               <folding>
                 <element signature="e#162#181#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/0_settings.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="8" />
-            </state>
-          </provider>
-          <provider editor-type-id="csv-table-editor">
-            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/A_data_read.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -246,6 +230,7 @@
         <option value="$PROJECT_DIR$/F_API_plc_single_leg_evaluation.py" />
         <option value="$PROJECT_DIR$/D_value_expected_single_leg_evaluation.py" />
         <option value="$PROJECT_DIR$/T_compare_strategies_single_leg.py" />
+        <option value="$PROJECT_DIR$/G_NN_single_leg.py" />
       </list>
     </option>
   </component>
@@ -529,20 +514,6 @@
     <SUITE FILE_PATH="coverage/Code$func_Koch.coverage" NAME="func_Koch Coverage Results" MODIFIED="1557241292700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="1134" selection-start-line="1134" selection-end-line="1134" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/pandas/core/indexing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
@@ -804,16 +775,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/F_API_plc_single_leg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="412" column="51" selection-start-line="412" selection-start-column="51" selection-end-line="412" selection-end-column="51" />
-          <folding>
-            <element signature="e#162#181#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/F_API_plc_single_leg_evaluation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="62">
@@ -837,19 +798,9 @@
     <entry file="file://$PROJECT_DIR$/D_value_expected_single_leg_evaluation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1683">
-          <caret line="108" column="61" lean-forward="true" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
+          <caret line="108" column="61" selection-start-line="108" selection-start-column="61" selection-end-line="108" selection-end-column="61" />
           <folding>
             <element signature="e#131#150#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/E_API_lin_single_leg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5032">
-          <caret line="322" column="38" selection-start-line="318" selection-end-line="322" selection-end-column="38" />
-          <folding>
-            <element signature="e#162#181#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -866,10 +817,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/T_compare_strategies_single_leg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
+        <state relative-caret-position="544">
           <caret line="96" selection-start-line="96" selection-end-line="96" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/F_API_plc_single_leg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2891">
+          <caret line="412" column="51" selection-end-line="462" />
+          <folding>
+            <element signature="e#162#181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E_API_lin_single_leg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="331" selection-start-line="92" selection-end-line="331" />
+          <folding>
+            <element signature="e#162#181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/envs/MasterarbeitADP/Lib/site-packages/IPython/core/interactiveshell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="3266" selection-start-line="3266" selection-end-line="3266" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/G_NN_single_leg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="203" column="35" selection-start-line="203" selection-start-column="35" selection-end-line="203" selection-end-column="35" />
+          <folding>
+            <element signature="e#243#262#0" expanded="true" />
           </folding>
         </state>
       </provider>
