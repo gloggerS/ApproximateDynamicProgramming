@@ -34,7 +34,7 @@ print("API linear single leg starting.\n\n")
 settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
 example = settings.iloc[0, 1]
 use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
-storage_folder = example + "-" + str(use_variations) + "-API-lin-" + time.strftime("%y%m%d-%H%M")
+storage_folder = example + "-" + str(use_variations) + "-API-lin-evaluation-" + time.strftime("%y%m%d-%H%M")
 K = int(settings.loc[settings[0] == "K", 1])
 I = int(settings.loc[settings[0] == "I", 1])
 epsilon = eval(str(settings.loc[settings[0] == "epsilon", 1].item()))
@@ -178,75 +178,6 @@ def calc_value_marginal(indices_inner_sum, pi):
     return v_temp
 
 
-def update_parameters(v_samples, c_samples, thetas, pis, k):
-    """
-    Updates the parameter theta, pi given the sample path using least squares linear regression with constraints.
-    Using gurobipy
-
-    :param v_samples:
-    :param c_samples:
-    :return:
-    """
-    set_i = np.arange(len(v_samples))
-    set_t = np.arange(len(thetas))
-    set_h = np.arange(len(pis[0]))
-
-    theta_multidict = {}
-    for t in set_t:
-        theta_multidict[t] = thetas[t]
-    theta_indices, theta_tuples = multidict(theta_multidict)
-
-    pi_multidict = {}
-    for t in set_t:
-        for h in set_h:
-            pi_multidict[t, h] = pis[t, h]
-    pi_indices, pi_tuples = multidict(pi_multidict)
-
-    try:
-        m = Model()
-
-        # Variables
-        m_theta = m.addVars(theta_indices, name="theta", lb=0.0)  # Constraint 10
-        m_pi = m.addVars(pi_indices, name="pi", ub=max(revenues))  # Constraint 11
-
-        for t in set_t:
-            m_theta[t].start = theta_tuples[t]
-            for h in set_h:
-                m_pi[t, h].start = pi_tuples[t, h]
-
-        # Goal Function (14)
-        lse = quicksum((v_samples[i][t] - m_theta[t] - quicksum(m_pi[t, h] * c_samples[i][t][h] for h in set_h)) *
-                       (v_samples[i][t] - m_theta[t] - quicksum(m_pi[t, h] * c_samples[i][t][h] for h in set_h))
-                       for t in set_t for i in set_i)
-        m.setObjective(lse, GRB.MINIMIZE)
-
-        # Constraints
-        # C12 (not needed yet)
-        for t in set_t[:-1]:
-            m.addConstr(m_theta[t], GRB.GREATER_EQUAL, m_theta[t+1], name="C15")  # Constraint 15
-            for h in set_h:
-                m.addConstr(m_pi[t, h], GRB.GREATER_EQUAL, m_pi[t+1, h], name="C16")  # Constraint 16
-
-        m.optimize()
-
-        theta_new = copy.deepcopy(thetas)
-        pi_new = copy.deepcopy(pis)
-
-        for t in set_t:
-            theta_new[t] = m.getVarByName("theta[" + str(t) + "]").X
-            for h in set_h:
-                pi_new[t, h] = m.getVarByName("pi[" + str(t) + "," + str(h) + "]").X
-
-        # without exponential smoothing
-        if exponential_smoothing:
-            return (1 - 1 / k) * thetas + 1 / k * theta_new, (1 - 1 / k) * pis + 1 / k * pi_new
-        else:
-            return theta_new, pi_new
-    except GurobiError:
-        print('Error reported')
-
-        return 0, 0
-
 def simulate_sales(offer_set):
     customer = int(np.random.choice(np.arange(len(arrival_probabilities)+1),
                                     size=1,
@@ -274,12 +205,15 @@ with open(result_folder+"\\piResult.data", "rb") as filehandle:
 v_results = np.array([np.zeros(len(times))]*online_K)
 c_results = np.array([np.zeros(shape=(len(times), len(capacities)))]*online_K)
 
+# to use in single timestep (will be overwritten)
+pi = np.zeros(len(resources))
+
 for k in np.arange(online_K)+1:
     np.random.seed(K+k)
     random.seed(K+k)
 
     # line 3
-    r_result = np.zeros(len(times))  # will become v_sample
+    r_result = np.zeros(len(times))  # will become v_result
     c_result = np.zeros(shape=(len(times), len(capacities)), dtype=int)
 
     # line 5
@@ -287,25 +221,27 @@ for k in np.arange(online_K)+1:
 
     for t in times:
         # line 7  (starting capacity at time t)
-        c_sample[t] = c
+        c_result[t] = c
 
         # line 12  (epsilon greedy strategy)
-        offer_set = determine_offer_tuple(pis[t], eps=0)
+        pi[c == 0] = np.inf
+        pi[c > 0] = pis[t][c > 0]
+        offer_set = determine_offer_tuple(pi, eps=0)
 
         # line 13  (simulate sales)
         sold = simulate_sales(offer_set)
 
         # line 14
         try:
-            r_sample[t] = revenues[sold]
+            r_result[t] = revenues[sold]
             c -= A[:, sold]
         except IndexError:
             # no product was sold
             pass
 
     # line 16-18
-    v_results[k-1] = np.cumsum(r_sample[::-1])[::-1]
-    c_results[k-1] = c_sample
+    v_results[k-1] = np.cumsum(r_result[::-1])[::-1]
+    c_results[k-1] = c_result
 
 
 # %%

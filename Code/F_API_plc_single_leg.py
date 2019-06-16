@@ -34,7 +34,7 @@ print("API plc piecewise linear concave single leg starting.\n\n")
 settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
 example = settings.iloc[0, 1]
 use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
-storage_folder = example + "-" + str(use_variations) + "-API-lin-" + time.strftime("%y%m%d-%H%M")
+storage_folder = example + "-" + str(use_variations) + "-API-plc-" + time.strftime("%y%m%d-%H%M")
 K = int(settings.loc[settings[0] == "K", 1])
 I = int(settings.loc[settings[0] == "I", 1])
 epsilon = eval(str(settings.loc[settings[0] == "epsilon", 1].item()))
@@ -409,8 +409,8 @@ for k in np.arange(K)+1:
                     # find the relevant interval
                     # for which index the capacity is smaller or equal (starting with upper bound of first interval)
                     # for which index the capacity is greater (ending with lower bound of last interval)
-                    index_c_smaller = c_sample[t] <= capacities_thresholds[h][1:]
-                    index_c_bigger = c_sample[t] > capacities_thresholds[h][:-1]
+                    index_c_smaller = c_sample[t][h] <= capacities_thresholds[h][1:]
+                    index_c_bigger = c_sample[t][h] > capacities_thresholds[h][:-1]
                     pis[h] = pi_all_plc[k-K_lin][t][h][index_c_smaller & index_c_bigger]
 
             # line 12  (epsilon greedy strategy)
@@ -448,6 +448,11 @@ with open(newpath+"\\thetaAll.data", "wb") as filehandle:
 with open(newpath+"\\piAll.data", "wb") as filehandle:
     pickle.dump(pi_all, filehandle)
 
+with open(newpath+"\\thetaResult.data", "wb") as filehandle:
+    pickle.dump(theta_all[-1], filehandle)
+
+with open(newpath+"\\piResult.data", "wb") as filehandle:
+    pickle.dump(pi_all_plc[-1], filehandle)
 
 # %%
 time_elapsed = time.time() - time_start

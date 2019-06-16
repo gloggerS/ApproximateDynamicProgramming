@@ -1,0 +1,13 @@
+Time (starting): 2019-06-16 12:28:48.442468 
+
+Example :	 smallTest2
+use_var_capacities :	 False
+storage of value expected :	 1
+K :	 60
+I :	 100
+epsilon :	 [0, *([0.05]*10), *([0.01]*10), *([0]*40)]
+exponential_smoothing :	 False
+continue_with_evaluation :	 True
+online_K :	 100
+
+correct epsilon for epsilon-greedy strategy:  True
