@@ -28,7 +28,7 @@ import random
 
 #%%
 # Get settings, prepare data, create storage for results
-print("API plc piecewise linear concave single leg starting.\n\n")
+print("API plc piecewise linear concave single leg evaluation starting.\n\n")
 
 # settings
 settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
@@ -40,6 +40,7 @@ I = int(settings.loc[settings[0] == "I", 1])
 epsilon = eval(str(settings.loc[settings[0] == "epsilon", 1].item()))
 exponential_smoothing = settings.loc[settings[0] == "exponential_smoothing", 1].item()
 exponential_smoothing = (exponential_smoothing == "True") | (exponential_smoothing == "true")
+online_K = int(settings.loc[settings[0] == "online_K", 1].item())
 
 # data
 dat = get_all(example)
@@ -349,25 +350,14 @@ def intervals_capacities_num(capacities_thresholds):
     return max(np.apply_along_axis(len, 1, capacities_thresholds))
 
 # %%
-# number of linear iterations
-K_lin = 40
-if K_lin > K:
-    raise ValueError("iteration before applying plc must be smaller than total number of iterations")
-
 # Actual Code
-# K+1 policy iterations (starting with 0)
-# T time steps
-# --> theta
-# m resources
-# max(S_h) intervals
-# --> pi
-theta_all = np.array([[np.zeros(1)]*T]*(K+1))
-pi_all = np.array([[np.zeros(len(resources))]*T] * (K_lin + 1))
-pi_all_plc = np.array([[[np.zeros(intervals_capacities_num(capacities_thresholds)-1)]*len(resources)]*T] *
-                      (K - K_lin + 1))
+# online_K+1 policy iterations (starting with 0)
+r_API = np.zeros(online_K)
 
-# theta and pi for each time step
-# line 1
+# theta and pi as calculated
+-
+
+
 thetas = 0
 pis = np.zeros(len(resources))
 

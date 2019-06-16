@@ -28,7 +28,7 @@ import random
 
 #%%
 # Get settings, prepare data, create storage for results
-print("API plc piecewise linear concave single leg starting.\n\n")
+print("API linear single leg starting.\n\n")
 
 # settings
 settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
@@ -40,7 +40,16 @@ I = int(settings.loc[settings[0] == "I", 1])
 epsilon = eval(str(settings.loc[settings[0] == "epsilon", 1].item()))
 exponential_smoothing = settings.loc[settings[0] == "exponential_smoothing", 1].item()
 exponential_smoothing = (exponential_smoothing == "True") | (exponential_smoothing == "true")
+online_K = int(settings.loc[settings[0] == "online_K", 1].item())
 
+#%%
+# todo get the folder in which the parameters (theta, pi) to use are stored; e.g. via sys.argv (this script is called after the calculation of those parameters)
+for i in sys.argv:
+    print(i)
+
+result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest2-False-API-lin-190616-1023'
+
+#%%
 # data
 dat = get_all(example)
 print("\n Data used. \n")
@@ -88,12 +97,10 @@ resources, \
     times = get_data_without_variations(example)
 T = len(times)
 
-capacities_thresholds = get_capacities_thresholds(example)
-
 print("\nEverything set up.")
 
 #%%
-def determine_offer_tuple(pi, eps):
+def determine_offer_tuple(pi, eps=0):
     """
     OLD Implementation
     Determines the offerset given the bid prices for each resource.
@@ -102,6 +109,7 @@ def determine_offer_tuple(pi, eps):
     and extend it for the epsilon greedy strategy
 
     :param pi:
+    :param eps: epsilon greedy strategy (will be set to 0 to have no influence)
     :return:
     """
 
@@ -131,7 +139,7 @@ def determine_offer_tuple(pi, eps):
     offer_sets_to_test += offer_tuple
     offer_sets_to_test = (offer_sets_to_test > 0)
 
-    value_marginal = np.apply_along_axis(calc_value_marginal, axis=1, arr=offer_sets_to_test)
+    value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
 
     offer_tuple[np.argmax(value_marginal)] = 1
     s_prime = s_prime & offer_tuple == 0
@@ -147,7 +155,7 @@ def determine_offer_tuple(pi, eps):
         offer_sets_to_test = (offer_sets_to_test > 0)
 
         # 4b
-        value_marginal = np.apply_along_axis(calc_value_marginal, axis=1, arr=offer_sets_to_test)
+        value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
 
         if np.amax(value_marginal) > v_s:
             v_s = np.amax(value_marginal)
@@ -160,11 +168,11 @@ def determine_offer_tuple(pi, eps):
     return tuple(offer_tuple)
 
 
-def calc_value_marginal(indices_inner_sum):
+def calc_value_marginal(indices_inner_sum, pi):
     v_temp = 0
     for l in np.arange(len(preference_weights)):
         v_temp += arrival_probabilities[l] * \
-                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pis)) *
+                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) *
                       preference_weights[l, :]) / \
                   (sum(indices_inner_sum * preference_weights[l, :]) + var_no_purchase_preferences[l])
     return v_temp
@@ -239,98 +247,6 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
 
         return 0, 0
 
-
-def update_parameters_plc(v_samples, c_samples, thetas, pis, k):
-    """
-    Updates the parameter theta, pi given the sample path using least squares linear regression with constraints.
-    Using gurobipy
-
-    :param v_samples:
-    :param c_samples:
-    :return:
-    """
-    set_i = np.arange(len(v_samples))
-    set_t = np.arange(len(thetas))
-    set_h = np.arange(len(pis[0]))
-    set_s = np.arange(intervals_capacities_num(capacities_thresholds)-1)
-
-    # i, t, h, s
-    f = np.array([[[np.zeros(len(set_s))]*len(set_h)]*len(set_t)]*len(set_i))
-    for i in set_i:
-        for t in set_t:
-            for h in set_h:
-                # c_h <= b_h^{s-1}
-                index_c_smaller_lower = c_samples[i][t][h] <= capacities_thresholds[h][:-1]
-                f[i][t][h][index_c_smaller_lower] = 0
-                # b_h^{s-1} < c_h <= b_h^s
-                index_c_smaller = c_samples[i][t][h] <= capacities_thresholds[h][1:]
-                index_c_bigger = c_samples[i][t][h] > capacities_thresholds[h][:-1]
-                f[i][t][h][index_c_smaller & index_c_bigger] = c_samples[i][t][h] - capacities_thresholds[h][[*(index_c_smaller & index_c_bigger), False]]
-                # b_h^s > c_h
-                index_c_bigger_upper = c_samples[i][t][h] > capacities_thresholds[h][1:]
-                f[i][t][h][index_c_bigger_upper] = capacities_thresholds[h][[False, *(index_c_bigger_upper)]] - capacities_thresholds[h][[*(index_c_bigger_upper), False]]
-
-    theta_multidict = {}
-    for t in set_t:
-        theta_multidict[t] = thetas[t]
-    theta_indices, theta_tuples = multidict(theta_multidict)
-
-    pi_multidict = {}
-    for t in set_t:
-        for h in set_h:
-            for s in set_s:
-                pi_multidict[t, h, s] = pis[t, h, s]
-    pi_indices, pi_tuples = multidict(pi_multidict)
-
-    try:
-        m = Model()
-
-        # Variables
-        m_theta = m.addVars(theta_indices, name="theta", lb=0.0)  # Constraint 10
-        m_pi = m.addVars(pi_indices, name="pi", ub=max(revenues))  # Constraint 11
-
-        for t in set_t:
-            m_theta[t].start = theta_tuples[t]
-            for h in set_h:
-                for s in set_s:
-                    m_pi[t, h, s].start = pi_tuples[t, h, s]
-
-        # Goal Function (14)
-        lse = quicksum((v_samples[i][t] - m_theta[t] - quicksum(m_pi[t, h, s] * f[i][t][h][s] for s in set_s for h in set_h)) *
-                       (v_samples[i][t] - m_theta[t] - quicksum(m_pi[t, h, s] * f[i][t][h][s] for s in set_s for h in set_h))
-                       for t in set_t for i in set_i)
-        m.setObjective(lse, GRB.MINIMIZE)
-
-        # Constraints
-        for t in set_t[:-1]:
-            m.addConstr(m_theta[t], GRB.GREATER_EQUAL, m_theta[t+1], name="C15")  # Constraint 15
-            for h in set_h:
-                for s in set_s[:-1]:
-                    m.addConstr(m_pi[t, h, s], GRB.GREATER_EQUAL, m_pi[t, h, s+1], name="C12")  # Constraint 12
-                    m.addConstr(m_pi[t, h, s], GRB.GREATER_EQUAL, m_pi[t + 1, h, s], name="C16")  # Constraint 16
-
-        m.optimize()
-
-        theta_new = copy.deepcopy(thetas)
-        pi_new = copy.deepcopy(pis)
-
-        for t in set_t:
-            theta_new[t] = m.getVarByName("theta[" + str(t) + "]").X
-            for h in set_h:
-                for s in set_s:
-                    pi_new[t, h, s] = m.getVarByName("pi[" + str(t) + "," + str(h) + "," + str(s) + "]").X
-
-        # without exponential smoothing
-        if exponential_smoothing:
-            return (1 - 1 / k) * thetas + 1 / k * theta_new, (1 - 1 / k) * pis + 1 / k * pi_new
-        else:
-            return theta_new, pi_new
-    except GurobiError:
-        print('Error reported')
-
-        return 0, 0
-
-
 def simulate_sales(offer_set):
     customer = int(np.random.choice(np.arange(len(arrival_probabilities)+1),
                                     size=1,
@@ -344,109 +260,64 @@ def simulate_sales(offer_set):
                                                                  preference_weights[customer],
                                                                  preferences_no_purchase[customer])))
 
-
-def intervals_capacities_num(capacities_thresholds):
-    return max(np.apply_along_axis(len, 1, capacities_thresholds))
-
 # %%
-# number of linear iterations
-K_lin = 40
-if K_lin > K:
-    raise ValueError("iteration before applying plc must be smaller than total number of iterations")
-
 # Actual Code
-# K+1 policy iterations (starting with 0)
-# T time steps
-# --> theta
-# m resources
-# max(S_h) intervals
-# --> pi
-theta_all = np.array([[np.zeros(1)]*T]*(K+1))
-pi_all = np.array([[np.zeros(len(resources))]*T] * (K_lin + 1))
-pi_all_plc = np.array([[[np.zeros(intervals_capacities_num(capacities_thresholds)-1)]*len(resources)]*T] *
-                      (K - K_lin + 1))
 
-# theta and pi for each time step
-# line 1
-thetas = 0
-pis = np.zeros(len(resources))
+# theta and pi as calculated
+with open(result_folder+"\\thetaResult.data", "rb") as filehandle:
+    thetas = pickle.load(filehandle)
+with open(result_folder+"\\piResult.data", "rb") as filehandle:
+    pis = pickle.load(filehandle)
 
-for k in np.arange(K)+1:
-    np.random.seed(k)
-    random.seed(k)
+#%%
+# online_K+1 policy iterations (starting with 0)
+v_results = np.array([np.zeros(len(times))]*online_K)
+c_results = np.array([np.zeros(shape=(len(times), len(capacities)))]*online_K)
 
-    v_samples = np.array([np.zeros(len(times))]*I)
-    c_samples = np.array([np.zeros(shape=(len(times), len(capacities)))]*I)
+for k in np.arange(online_K)+1:
+    np.random.seed(K+k)
+    random.seed(K+k)
 
-    # initialize pi plc after the number of linear iterations went through
-    if k == K_lin+1:
-        tT = len(pi_all_plc[k-K_lin-1])
-        hH = len(pi_all_plc[k-K_lin-1][0])
-        for t in np.arange(tT):
-            for h in np.arange(hH):
-                pi_all_plc[k-K_lin-1][t][h] = pi_all[k-1][t][h]
+    # line 3
+    r_result = np.zeros(len(times))  # will become v_sample
+    c_result = np.zeros(shape=(len(times), len(capacities)), dtype=int)
 
-    for i in np.arange(I):
-        # line 3
-        r_sample = np.zeros(len(times))  # will become v_sample
-        c_sample = np.zeros(shape=(len(times), len(capacities)), dtype=int)
+    # line 5
+    c = copy.deepcopy(capacities)  # (starting capacity at time 0)
 
-        # line 5
-        c = copy.deepcopy(capacities)  # (starting capacity at time 0)
+    for t in times:
+        # line 7  (starting capacity at time t)
+        c_sample[t] = c
 
-        for t in times:
-            # line 7  (starting capacity at time t)
-            c_sample[t] = c
+        # line 12  (epsilon greedy strategy)
+        offer_set = determine_offer_tuple(pis[t], eps=0)
 
-            # line 8-11  (adjust bid price)
-            pis[c_sample[t] == 0] = np.inf
-            if k <= K_lin:
-                # linear case
-                pis[c_sample[t] > 0] = pi_all[k - 1][t][c_sample[t] > 0]
-            else:
-                # plc case (compare equation 13)
-                for h in [i for i, x in enumerate(c_sample[t] > 0) if x]:
-                    # find the relevant interval
-                    # for which index the capacity is smaller or equal (starting with upper bound of first interval)
-                    # for which index the capacity is greater (ending with lower bound of last interval)
-                    index_c_smaller = c_sample[t] <= capacities_thresholds[h][1:]
-                    index_c_bigger = c_sample[t] > capacities_thresholds[h][:-1]
-                    pis[h] = pi_all_plc[k-K_lin][t][h][index_c_smaller & index_c_bigger]
+        # line 13  (simulate sales)
+        sold = simulate_sales(offer_set)
 
-            # line 12  (epsilon greedy strategy)
-            offer_set = determine_offer_tuple(pis, epsilon[k])
+        # line 14
+        try:
+            r_sample[t] = revenues[sold]
+            c -= A[:, sold]
+        except IndexError:
+            # no product was sold
+            pass
 
-            # line 13  (simulate sales)
-            sold = simulate_sales(offer_set)
+    # line 16-18
+    v_results[k-1] = np.cumsum(r_sample[::-1])[::-1]
+    c_results[k-1] = c_sample
 
-            # line 14
-            try:
-                r_sample[t] = revenues[sold]
-                c -= A[:, sold]
-            except IndexError:
-                # no product was sold
-                pass
-
-        # line 16-18
-        v_samples[i] = np.cumsum(r_sample[::-1])[::-1]
-        c_samples[i] = c_sample
-
-    # line 20
-    if k <= K_lin:
-        # linear case
-        theta_all[k], pi_all[k] = update_parameters(v_samples, c_samples, theta_all[k-1], pi_all[k-1], k)
-    else:
-        # plc case
-        theta_all[k], pi_all_plc[k-K_lin] = update_parameters_plc(v_samples, c_samples, theta_all[k - 1],
-                                                                  pi_all_plc[k - K_lin - 1], k)
 
 # %%
 # write result of calculations
-with open(newpath+"\\thetaAll.data", "wb") as filehandle:
-    pickle.dump(theta_all, filehandle)
+with open(newpath+"\\vAll.data", "wb") as filehandle:
+    pickle.dump(v_results, filehandle)
 
-with open(newpath+"\\piAll.data", "wb") as filehandle:
-    pickle.dump(pi_all, filehandle)
+with open(newpath+"\\cAll.data", "wb") as filehandle:
+    pickle.dump(c_results, filehandle)
+
+with open(newpath+"\\vResults.data", "wb") as filehandle:
+    pickle.dump(v_results[:, 0], filehandle)
 
 
 # %%
