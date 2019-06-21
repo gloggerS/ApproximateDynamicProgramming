@@ -26,78 +26,26 @@ import random
 
 #%%
 # Get settings, prepare data, create storage for results
-print("Value Expected single leg starting.\n\n")
-
-# settings
-settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
-example = settings.iloc[0, 1]
-use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
-storage_folder = example + "-" + str(use_variations) + "-DP-evaluation-" + time.strftime("%y%m%d-%H%M")
-K = int(settings.loc[settings[0] == "K", 1])
-online_K = int(settings.loc[settings[0] == "online_K", 1].item())
+logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
+    customer_segments, preference_weights, arrival_probabilities, times, T, time_start, \
+    K, online_K, epsilon, exponential_smoothing \
+    = setup_testing("DPSingleLeg-Evaluation")
+capacities = var_capacities[0]
+preferences_no_purchase = var_no_purchase_preferences[0]
 
 #%%
 # todo get the folder in which the parameters (theta, pi) to use are stored; e.g. via sys.argv (this script is called after the calculation of those parameters)
 for i in sys.argv:
     print(i)
 
-result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest2-False-DP-190616-1406'
-
-#%%
-# data
-dat = get_all(example)
-print("\n Data used. \n")
-for key in dat.keys():
-    print(key, ":\n", dat[key])
-print("\n\n")
-del dat
-
-# prepare storage location
-newpath = get_storage_path(storage_folder)
-os.makedirs(newpath)
-
-# copy settings to storage location
-copyfile("0_settings.csv", newpath+"\\0_settings.csv")
-logfile = open(newpath+"\\0_logging.txt", "w+")  # write and create (if not there)
-
-# time
-print("Time:", datetime.datetime.now())
-print("Time (starting):", datetime.datetime.now(), file=logfile)
-time_start = time.time()
-
-# settings
-for row in settings:
-    print(settings.loc[row, 0], ":\t", settings.loc[row, 1])
-    print(settings.loc[row, 0], ":\t", settings.loc[row, 1], file=logfile)
-
-# variations (capacity and no purchase preference)
-if use_variations:
-    var_capacities, var_no_purchase_preferences = get_variations(example)
-    preferences_no_purchase = var_no_purchase_preferences[0]
-else:
-    capacities, no_purchase_preferences = get_capacities_and_preferences_no_purchase(example)
-    var_capacities = np.array([capacities])
-    var_no_purchase_preferences = np.array([no_purchase_preferences])
-preferences_no_purchase = var_no_purchase_preferences[0]
-
-# capacities max: run it just for one set of capacities, the rest follows)
-capacity_max = int(np.max(var_capacities, axis=0))
-
-# other data
-resources, \
-    products, revenues, A, \
-    customer_segments, preference_weights, arrival_probabilities, \
-    times = get_data_without_variations(example)
-T = len(times)
-
-print("\nEverything set up.")
+result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest3-False-DP-190621-0838'
 
 
 # %%
 # Actual Code
-def get_offer_set(capacity, time):
+def get_offer_set(c, t):
     # via index of optimal offer set
-    return tuple(offer_sets.iloc[dat_lookup[time].iloc[capacity, 1]])
+    return tuple(offer_sets.iloc[dat_lookup[t].iloc[c, 1]])
 
 
 # needed results: for each time and capacity: value of coming revenues, optimal set to offer, list of other optimal sets
@@ -116,18 +64,20 @@ def simulate_sales(offer_set):
                                     size=1,
                                     p=np.array([*arrival_probabilities, 1-sum(arrival_probabilities)])))
     if customer == len(arrival_probabilities):
-        return len(products)  # no customer arrives => no product sold
+        return len(products), customer  # no customer arrives => no product sold
     else:
         return int(np.random.choice(np.arange(len(products) + 1),
                                     size=1,
                                     p=customer_choice_individual(offer_set,
                                                                  preference_weights[customer],
-                                                                 preferences_no_purchase[customer])))
+                                                                 preferences_no_purchase[customer]))), customer
 
-# %%%
+
+#%%
 # online_K+1 policy iterations (starting with 0)
 v_results = np.array([np.zeros(len(times))]*online_K)
 c_results = np.array([np.zeros(shape=(len(times), len(capacities)))]*online_K)
+customers_visited = np.array([np.zeros(len(times))]*online_K)  # to test whether we have the same customers arriving
 
 with open(result_folder+"\\totalresults.data", "rb") as filehandle:
     dat_lookup = pickle.load(filehandle)
@@ -137,6 +87,7 @@ dat_lookup = dat_lookup[0]
 offer_sets = pd.DataFrame(get_offer_sets_all(products))
 
 for k in np.arange(online_K)+1:
+    print(k, "of", online_K, "starting.")
     np.random.seed(K+k)
     random.seed(K+k)
 
@@ -154,7 +105,8 @@ for k in np.arange(online_K)+1:
         offer_set = get_offer_set(c, t)
 
         # line 13  (simulate sales)
-        sold = simulate_sales(offer_set)
+        sold, customer = simulate_sales(offer_set)
+        customers_visited[k-1, t] = customer
 
         # line 14
         try:
@@ -180,8 +132,4 @@ with open(newpath+"\\vResults.data", "wb") as filehandle:
     pickle.dump(v_results[:, 0], filehandle)
 
 # %%
-time_elapsed = time.time() - time_start
-print("\n\nTotal time needed:\n", time_elapsed, "seconds = \n", time_elapsed/60, "minutes", file=logfile)
-logfile.close()
-print("\n\n\n\nDone. Time elapsed:", time.time() - time_start, "seconds.")
-print("Results stored in: "+newpath)
+wrapup(logfile, time_start, newpath)

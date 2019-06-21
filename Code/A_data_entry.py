@@ -131,6 +131,32 @@ data_by_name["smallTest2"]["capacities_thresholds"] = np.array([[0, 4, 8, 12]])
 data_by_name["smallTest2"]["A"] = np.array([[1, 1, 1, 1]])
 
 
+#%% smallTest3
+data_by_name["smallTest3"] = {}
+
+data_by_name["smallTest3"]["products"] = np.arange(4)  # n
+data_by_name["smallTest3"]["revenues"] = np.array([1000, 800, 600, 400])
+
+data_by_name["smallTest3"]["times"] = np.arange(100)  # T
+
+data_by_name["smallTest3"]["customer_segments"] = np.arange(1)  # L
+data_by_name["smallTest3"]["arrival_probabilities"] = np.array([0.8])
+data_by_name["smallTest3"]["preference_weights"] = np.array([[0.5, 0.7, 1., 1.4]])
+
+data_by_name["smallTest3"]["var_no_purchase_preferences"] = np.array([[1]])
+data_by_name["smallTest3"]["preference_no_purchase"] = \
+    np.array(data_by_name["smallTest3"]["var_no_purchase_preferences"][0])
+
+data_by_name["smallTest3"]["resources"] = np.arange(1)  # m
+
+data_by_name["smallTest3"]["var_capacities"] = np.array([[120]])
+data_by_name["smallTest3"]["capacities"] = data_by_name["smallTest3"]["var_capacities"][0]
+data_by_name["smallTest3"]["capacities_thresholds"] = np.array([[0, 4, 8, 12]])
+
+# capacity demand matrix A (rows: resources, cols: products)
+# a_ij = 1 if resource i is used by product j
+data_by_name["smallTest3"]["A"] = np.array([[1, 1, 1, 1]])
+
 #%% three parallel flights
 data_by_name["threeParallelFlights"] = {}
 

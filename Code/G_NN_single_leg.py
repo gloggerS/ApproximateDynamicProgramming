@@ -190,7 +190,7 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
         # 1 für theta und capacity für pi
         eins = np.ones_like(c_samples[:, t])
         cap = c_samples[:, t]
-        X = np.array([(*eins[i], *cap[i]) for i in np.arange(len(c_samples))])
+        X = np.array([(*eins[i], t, *cap[i]) for i in np.arange(len(c_samples))])
 
         y = v_samples[:, t]
 
@@ -202,10 +202,11 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
     a = clf.fit(X_all, y_all)
 
     # Zeit muss auch mit ins Modell
+    -
 
     for t in times:
-        clf.predict(np.array([[1, 12]])) - clf.predict(np.array([[1, 11]]))
-    clf.predict(np.array([[1, 11]])) - clf.predict(np.array([[1, 10]]))
+        clf.predict(np.array([[1, t, 12]])) - clf.predict(np.array([[1, t+3, 12]]))
+    clf.predict(np.array([[1, 0, 12]])) - clf.predict(np.array([[0, 0, 11]]))
     clf.predict(np.array([[1, 1]])) - clf.predict(np.array([[1, 0]]))
 
 
