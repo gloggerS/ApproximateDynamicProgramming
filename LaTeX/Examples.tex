@@ -3,3 +3,62 @@
 \section{Example0}
 
 One interesting result is that for exact reproduction of the results of Bront et al for their example0, the empty offerset has to be excluded from the optimization problem. Otherwise (including empty set) results in the same optimal value but via another combination of the decision variables.
+
+\textit{Example 0} represents a small airline network. Three cities are interconnected by three flights (legs), with a capacity vector $\boldsymbol{c} = (10, 5, 5)^T$. The booking horizon consists of $T = 30$ periods and there are five customer segments with preferences as in \Cref{tb-Example0-Customers}
+
+\begin{table}
+	\caption{Segment definition for Example 0\label{tb-Example0-Customers}}
+	\begin{tabular}{lccccc}
+		\toprule
+		Segment & $\lambda_l$ & Consideration set & Preference vector & No purchase preference & Description\\
+		\midrule
+		1 & $0.15$ & $\{1, 5\}$ & $(5, 8)$ & $2$ & Price sensitive, nonstop (A$\rightarrow$C)\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{figure}
+	\caption{Airline network for example 0. \label{fig-Example0}}
+	\begin{tikzpicture}[
+	mycircle/.style={
+		circle,
+		draw=black,
+		fill=gray,
+		fill opacity = 0.3,
+		text opacity=1,
+		inner sep=0pt,
+		minimum size=20pt,
+		font=\small},
+	myarrow/.style={-Stealth},
+	node distance=0.6cm and 1.2cm
+	]
+	\node[mycircle] (cB) {$B$};
+	\node[mycircle,below left=of cB] (cA) {$A$};
+	\node[mycircle,below right=of cB] (cC) {$C$};
+	
+	\foreach \i/\j/\txt/\p in {% start node/end node/text/position
+		cA/cB/Leg 1/above,
+		cA/cC/Leg 2/below,
+		cB/cC/Leg 3/above}
+	\draw [myarrow] (\i) -- node[sloped,font=\small,\p] {\txt} (\j);
+	
+	\end{tikzpicture}
+\end{figure}
+
+\begin{table}
+	\caption{Airline network for example 0 (products). \label{tb-Example0-Products}}
+	\begin{tabular}{yxz}
+		\toprule
+		\text{Product} & \text{Origin-destination} & \text{Fare}\\
+		\midrule
+		1 & A \rightarrow C & 1,200\\
+		2 & A \rightarrow B \rightarrow C & 800\\
+		3 & A \rightarrow B & 500\\
+		4 & B \rightarrow C & 500\\
+		5 & A \rightarrow C & 800\\
+		6 & A \rightarrow B \rightarrow C & 500\\
+		7 & A \rightarrow B & 300\\
+		8 & B \rightarrow C & 300\\
+		\bottomrule
+	\end{tabular}
+\end{table}

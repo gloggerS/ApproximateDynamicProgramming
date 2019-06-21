@@ -1,11 +1,29 @@
 \documentclass{scrbook}
-\usepackage[utf8]{inputenc}
 
-
-\usepackage{graphicx}
-\usepackage[space]{grffile}  % handles space in file name
+\usepackage{amstext}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx} % especially for the title page
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{x}{>{$}l<{$}} % math-mode version of "l" column type
+\newcolumntype{y}{>{$}c<{$}} % math-mode version of "c" column type
+\newcolumntype{z}{>{$}r<{$}} % math-mode version of "r" column type
 
 \begin{document}
-
-	
+	\begin{tabular}{yxz}
+		\toprule
+		\text{Product} & \text{Origin-destination} & \text{Fare}\\
+		\midrule
+		1 & A \rightarrow C & 1,200\\
+		2 & A \rightarrow B \rightarrow C & 800\\
+		3 & A \rightarrow B & 500\\
+		4 & B \rightarrow C & 500\\
+		5 & A \rightarrow C & 800\\
+		6 & A \rightarrow B \rightarrow C & 500\\
+		7 & A \rightarrow B & 300\\
+		8 & B \rightarrow C & 300\\
+		\bottomrule
+	\end{tabular}
 \end{document}

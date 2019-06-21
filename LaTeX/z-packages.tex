@@ -76,8 +76,6 @@ right=50mm,
 \usepackage{helvet}
 \renewcommand{\nomlabel}[1]{{\fontfamily{phv}\selectfont \textbf{#1}}} %bold Helvetica
 
-% nice table
-\usepackage{booktabs}
 
 
 % ---------------------------------------------------------------------------------------------
@@ -85,12 +83,19 @@ right=50mm,
 % ---------------------------------------------------------------------------------------------
 
 % tables
+\usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{tabularx} % especially for the title page
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{x}{>{$}l<{$}} % math-mode version of "l" column type
+\newcolumntype{y}{>{$}c<{$}} % math-mode version of "c" column type
+\newcolumntype{z}{>{$}r<{$}} % math-mode version of "r" column type
+
 \usepackage{multicol}
+
+
 
 % language
 \usepackage[utf8]{inputenc} % to type ä,ö,ü,...

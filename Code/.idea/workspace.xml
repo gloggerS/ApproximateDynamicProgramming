@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change afterPath="$PROJECT_DIR$/test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0_settings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/0_settings.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/B_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/B_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/H_CDLP_single_leg.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-CDLPSingleLeg-190621-1557/0_logging.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Results/smallTest3-False-CDLPSingleLeg-190621-1557/0_logging.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/H_CDLP_multi_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="147" column="35" lean-forward="true" selection-start-line="147" selection-start-column="35" selection-end-line="147" selection-end-column="35" />
+            <state relative-caret-position="393">
+              <caret line="146" column="42" lean-forward="true" selection-start-line="146" selection-start-column="42" selection-end-line="146" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -213,8 +207,8 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="2728" />
     <option name="y" value="-8" />
-    <option name="width" value="340" />
-    <option name="height" value="201" />
+    <option name="width" value="170" />
+    <option name="height" value="101" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -447,8 +441,8 @@
     <frame x="2728" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5234604" visible="true" weight="0.07249467" />
-      <window_info id="Structure" order="1" sideWeight="0.47653958" side_tool="true" visible="true" weight="0.07249467" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5224072" visible="true" weight="0.07249467" />
+      <window_info id="Structure" order="1" sideWeight="0.47759283" side_tool="true" visible="true" weight="0.07249467" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32779318" />
@@ -458,14 +452,14 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3281412" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.18928902" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.18899272" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12739871" side_tool="true" weight="0.21052632" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" visible="true" weight="0.29179648" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.8726013" weight="0.29179648" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" side_tool="true" visible="true" weight="0.15565032" />
-      <window_info anchor="right" id="SciView" order="4" visible="true" weight="0.15565032" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.5006402" side_tool="true" visible="true" weight="0.15565032" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.4993598" visible="true" weight="0.15565032" />
       <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
     <layout-to-restore>
@@ -787,8 +781,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/H_CDLP_multi_leg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="147" column="35" lean-forward="true" selection-start-line="147" selection-start-column="35" selection-end-line="147" selection-end-column="35" />
+        <state relative-caret-position="393">
+          <caret line="146" column="42" lean-forward="true" selection-start-line="146" selection-start-column="42" selection-end-line="146" selection-end-column="42" />
         </state>
       </provider>
     </entry>
