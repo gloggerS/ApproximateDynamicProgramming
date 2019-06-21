@@ -30,7 +30,8 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
     = setup("CDLPSingleLeg")
 
 # capacities max: run it just for one set of capacities, the rest follows)
-capacity_max = int(np.max(var_capacities, axis=0))
+capacities = var_capacities[0]
+no_purchase_preference = var_no_purchase_preferences[0]
 
 
 # %%
@@ -49,24 +50,6 @@ def return_raw_data_per_time(capacity):
     return df
 
 
-def purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities):
-    """
-    P_j(S) for all j, P_0(S) at the end
-
-    :param offer_set_tuple: S
-    :param preference_weights
-    :param preference_no_purchase
-    :param arrival_probabilities
-    :return: P_j(S) for all j, P_0(S) at the end
-    """
-    probs = np.zeros(len(offer_set_tuple) + 1)
-    p = arrival_probabilities/(sum(arrival_probabilities))
-    for l in np.arange(len(preference_weights)):
-        probs += p[l] * customer_choice_individual(offer_set_tuple, preference_weights[l, :],
-                                                   preference_no_purchase[l])
-    return probs
-
-
 def revenue(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities):
     """
     R(S)
@@ -74,8 +57,8 @@ def revenue(offer_set_tuple, preference_weights, preference_no_purchase, arrival
     :param offer_set_tuple: S
     :return: R(S)
     """
-    return sum(revenues * purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase,
-                                               arrival_probabilities)[:-1])
+    return sum(revenues * customer_choice_vector(offer_set_tuple, preference_weights, preference_no_purchase,
+                                                 arrival_probabilities)[:-1])
 
 
 def quantity_i(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities, i):
@@ -86,8 +69,71 @@ def quantity_i(offer_set_tuple, preference_weights, preference_no_purchase, arri
     :param i: resource i
     :return: Q_i(S)
     """
-    return sum(A[i, :] * purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase,
-                                              arrival_probabilities)[:-1])
+    return sum(A[i, :] * customer_choice_vector(offer_set_tuple, preference_weights, preference_no_purchase,
+                                                arrival_probabilities)[:-1])
+
+
+def CDLP(offer_sets):
+    """
+    Implements (4) of Bront et al. Needs the offer-sets to look at (N) as input.
+
+    :param offer_sets: N
+    :return: dictionary of (offer set, time offered),
+    """
+
+    S = {}
+    R = {}
+    Q = {}
+
+    for index, offer_array in offer_sets.iterrows():
+        S[index] = tuple(offer_array)
+        R[index] = revenue(tuple(offer_array), preference_weights, no_purchase_preference, arrival_probabilities)
+        temp = {}
+        for i in resources:
+            temp[i] = quantity_i(tuple(offer_array), preference_weights, no_purchase_preference,
+                                 arrival_probabilities, i)
+        Q[index] = temp
+
+    try:
+        m = Model()
+
+        # Variables
+        mt = m.addVars(offer_sets.index.values, name="t", lb=0.0)  # last constraint
+
+        # Objective Function
+        m.setObjective(quicksum(R[s] * mt[s] for s in offer_sets.index.values), GRB.MAXIMIZE)
+
+        mc = {}
+        # Constraints
+        for i in resources:
+            mc[i] = m.addConstr(quicksum(Q[s][i] * mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL,
+                                capacities[i],
+                                name="constraintOnResource")
+        msigma = m.addConstr(quicksum(mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL, T)
+
+        m.optimize()
+
+        ret = {}
+        pat = r".*?\[(.*)\].*"
+        for v in m.getVars():
+            if v.X > 0:
+                match = re.search(pat, v.VarName)
+                erg_index = match.group(1)
+                ret[int(erg_index)] = (tuple(offer_sets.loc[int(erg_index)]), v.X)
+                print(offer_sets.loc[int(erg_index)], ": ", v.X)
+
+        dual_pi = np.zeros_like(resources)
+        for i in resources:
+            dual_pi[i] = mc[i].pi
+        dual_sigma = msigma.pi
+
+        val_opt = m.objVal
+
+        return ret, val_opt, dual_pi, dual_sigma
+
+    except GurobiError:
+        print('Error reported')
+
 
 # %%
 final_results = list(return_raw_data_per_time(capacity_max) for t in np.arange(T+1))
@@ -101,6 +147,7 @@ index_total_results = 0
 for no_purchase_preference in var_no_purchase_preferences:
 
     offer_sets = pd.DataFrame(get_offer_sets_all(products))
+
     prob = offer_sets.apply(tuple, axis=1)
     prob = prob.apply(customer_choice_vector, args=(preference_weights, no_purchase_preference, arrival_probabilities))
     prob = pd.DataFrame(prob.values.tolist(), columns=np.arange(len(products) + 1))  # probabilities for each product

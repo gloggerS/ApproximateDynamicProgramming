@@ -176,53 +176,6 @@ def delta_value_j(j, capacities, t, A, preference_no_purchase, example):
         value_expected(capacities - A[:, j], t, preference_no_purchase, example)[0]
 
 
-# %%
-# FUNCTIONS for Bront et al
-# helpers
-def purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities):
-    """
-    P_j(S) for all j, P_0(S) at the end
-
-    :param offer_set_tuple: S
-    :param preference_weights
-    :param preference_no_purchase
-    :param arrival_probabilities
-    :return: P_j(S) for all j, P_0(S) at the end
-
-    TODO: p wird hier normiert, also gegeben ein Customer kommt, zu welchem Segment gehört
-    s. p. 772 in Bront et al.
-    vgl. customer_choice_vector()
-    Lsg. wird hier mit \lambda lam wieder ausgebügelt in CDLP()
-    """
-    probs = np.zeros(len(offer_set_tuple) + 1)
-    p = arrival_probabilities/(sum(arrival_probabilities))
-    for l in np.arange(len(preference_weights)):
-        probs += p[l] * customer_choice_individual(offer_set_tuple, preference_weights[l, :],
-                                                   preference_no_purchase[l])
-    return probs
-
-
-def revenue(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities, revenues):
-    """
-    R(S)
-
-    :param offer_set_tuple: S
-    :return: R(S)
-    """
-    return sum(revenues * purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase,
-                                               arrival_probabilities)[:-1])
-
-
-def quantity_i(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities, i, A):
-    """
-    Q_i(S)
-
-    :param offer_set_tuple: S
-    :param i: resource i
-    :return: Q_i(S)
-    """
-    return sum(A[i, :] * purchase_rate_vector(offer_set_tuple, preference_weights, preference_no_purchase,
-                                              arrival_probabilities)[:-1])
 
 
 # %%
