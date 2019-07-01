@@ -28,11 +28,13 @@ import random
 
 #%%
 logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
-    customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
-    epsilon, exponential_smoothing \
-    = setup("APILinearSingleLeg")
+        customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
+        epsilon, exponential_smoothing,\
+        K, online_K \
+    = setup_testing("APILinearSingleLeg")
 capacities = var_capacities[0]
 preferences_no_purchase = var_no_purchase_preferences[0]
+I = 100
 
 
 #%%

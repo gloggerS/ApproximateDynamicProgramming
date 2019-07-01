@@ -41,9 +41,13 @@ def append_row(name, folder):
 
 folder_results = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\'
 results = pd.DataFrame(columns=["name", "folder"])
-results = append_row("DP", folder_results + 'smallTest2-False-DP-evaluation-190616-1435')
-results = append_row("API_lin", folder_results + 'smallTest2-False-API-lin-evaluation-190616-1211')
-results = append_row("API_plc", folder_results + 'smallTest2-False-API-plc-evaluation-190616-1245')
+# results = append_row("DP", folder_results + 'smallTest2-False-DP-evaluation-190616-1435')
+# results = append_row("API_lin", folder_results + 'smallTest2-False-API-lin-evaluation-190616-1211')
+# results = append_row("API_plc", folder_results + 'smallTest2-False-API-plc-evaluation-190616-1245')
+
+results = append_row("DP", folder_results + 'smallTest3-False-DPSingleLeg-Evaluation-190624-1007')
+results = append_row("API_lin", folder_results + 'smallTest3-False-APILinearSingleLeg-Evaluation-190624-1029')
+
 
 #%%
 for i in results.iterrows():

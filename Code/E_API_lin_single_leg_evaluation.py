@@ -40,7 +40,7 @@ preferences_no_purchase = var_no_purchase_preferences[0]
 for i in sys.argv:
     print(i)
 
-result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest3-False-API-lin-190621-0947'
+result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest3-False-APILinearSingleLeg-190624-1012'
 
 
 #%%

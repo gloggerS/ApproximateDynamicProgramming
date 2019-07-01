@@ -27,8 +27,9 @@ import random
 #%%
 # Get settings, prepare data, create storage for results
 logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
-    customer_segments, preference_weights, arrival_probabilities, times, T, time_start, \
-    K, online_K, epsilon, exponential_smoothing \
+        customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
+        epsilon, exponential_smoothing,\
+        K, online_K \
     = setup_testing("DPSingleLeg-Evaluation")
 capacities = var_capacities[0]
 preferences_no_purchase = var_no_purchase_preferences[0]
@@ -38,7 +39,7 @@ preferences_no_purchase = var_no_purchase_preferences[0]
 for i in sys.argv:
     print(i)
 
-result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest3-False-DP-190621-0838'
+result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest3-False-DPSingleLeg-190624-1003'
 
 
 # %%
