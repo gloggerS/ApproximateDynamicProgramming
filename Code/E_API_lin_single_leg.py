@@ -32,7 +32,7 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
         epsilon, exponential_smoothing,\
         K, online_K \
     = setup_testing("APILinearSingleLeg")
-capacities = var_capacities[0]
+capacities = var_capacities[1]
 preferences_no_purchase = var_no_purchase_preferences[0]
 I = 100
 
@@ -183,6 +183,7 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
         print('Error reported')
 
         return 0, 0
+
 
 def simulate_sales(offer_set):
     customer = int(np.random.choice(np.arange(len(arrival_probabilities)+1),

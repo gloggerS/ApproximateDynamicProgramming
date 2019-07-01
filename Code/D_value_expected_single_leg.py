@@ -23,6 +23,8 @@ import multiprocessing
 
 import pickle
 
+from copy import deepcopy
+
 #%%
 logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
     customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
@@ -107,7 +109,7 @@ for no_purchase_preference in var_no_purchase_preferences:
 
             final_results[t].value += final_results[t+1].value
 
-    total_results[index_total_results] = final_results
+    total_results[index_total_results] = copy.deepcopy(final_results)
     index_total_results += 1
 
 # %%
@@ -120,8 +122,8 @@ with open(newpath+"\\totalresults.data", "wb") as filehandle:
 erg_paper = pd.DataFrame(index=range(len(var_no_purchase_preferences)*len(var_capacities)),
                          columns=["capacity", "no-purchase preference", "DP-value", "DP-optimal offer set at start"])
 i = 0
-for u in range(len(var_no_purchase_preferences)):
-    for c in var_capacities:
+for c in var_capacities:
+    for u in range(len(var_no_purchase_preferences)):
         tmp = total_results[u][0].iloc[c[0], :]
         erg_paper.iloc[i, :] = (c[0], var_no_purchase_preferences[u][0],
                                 round(float(tmp.value), 2),
