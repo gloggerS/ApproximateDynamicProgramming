@@ -61,6 +61,7 @@ def get_offer_sets_all(products):
     """
     n = len(products)
     offer_sets_all = np.array(list(map(list, itertools.product([0, 1], repeat=n))))
+    offer_sets_all = np.vstack((offer_sets_all, offer_sets_all[0]))[1:]  # move empty offer set to the end
     return offer_sets_all
 
 

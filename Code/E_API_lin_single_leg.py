@@ -58,16 +58,14 @@ def determine_offer_tuple(pi, eps):
     if eps_prob < eps/2:
         return tuple(offer_tuple)
 
-    # line 1
-    s_prime = revenues - np.apply_along_axis(sum, 1, A.T * pi) > 0
-    if all(np.invert(s_prime)):
-        return tuple(offer_tuple)
-
     # epsilon greedy strategy - offer all products
     if eps_prob < eps:
         return tuple(offer_tuple)
 
-    # epsilon greedy strategy - greedy heuristic
+    # line 1
+    s_prime = revenues - np.apply_along_axis(sum, 1, A.T * pi) > 0
+    if all(np.invert(s_prime)):
+        return tuple(offer_tuple)
 
     # line 2-3
     # offer_sets_to_test has in each row an offer set, we want to test
@@ -107,7 +105,7 @@ def determine_offer_tuple(pi, eps):
 
 def calc_value_marginal(indices_inner_sum):
     v_temp = 0
-    for l in np.arange(len(preference_weights)):
+    for l in np.arange(len(preference_weights)):  # sum over all customer segments
         v_temp += arrival_probabilities[l] * \
                   sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pis)) *
                       preference_weights[l, :]) / \
@@ -144,7 +142,7 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
 
         # Variables
         m_theta = m.addVars(theta_indices, name="theta", lb=0.0)  # Constraint 10
-        m_pi = m.addVars(pi_indices, name="pi", ub=max(revenues))  # Constraint 11
+        m_pi = m.addVars(pi_indices, name="pi", ub=max(revenues), lb=0.0)  # Constraint 11
 
         for t in set_t:
             m_theta[t].start = theta_tuples[t]
@@ -174,7 +172,7 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
             for h in set_h:
                 pi_new[t, h] = m.getVarByName("pi[" + str(t) + "," + str(h) + "]").X
 
-        # without exponential smoothing
+        # check exponential smoothing
         if exponential_smoothing:
             return (1 - 1 / k) * thetas + 1 / k * theta_new, (1 - 1 / k) * pis + 1 / k * pi_new
         else:
@@ -185,21 +183,28 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
         return 0, 0
 
 
-def simulate_sales(offer_set):
-    customer = int(np.random.choice(np.arange(len(arrival_probabilities)+1),
-                                    size=1,
-                                    p=np.array([*arrival_probabilities, 1-sum(arrival_probabilities)])))
+def simulate_sales(offer_set, random_customer, random_sales):
+    customer = random_customer <= np.array([*np.cumsum(arrival_probabilities), 1.0])
+    customer = min(np.array(range(0, len(customer)))[customer])
+
     if customer == len(arrival_probabilities):
-        return len(products)  # no customer arrives => no product sold
+        return len(products)  # no customer arrives => no product sold (product out of range)
     else:
-        return int(np.random.choice(np.arange(len(products) + 1),
-                                    size=1,
-                                    p=customer_choice_individual(offer_set,
-                                                                 preference_weights[customer],
-                                                                 preferences_no_purchase[customer])))
+        product = random_sales <= np.cumsum(customer_choice_individual(offer_set,
+                                                             preference_weights[customer],
+                                                             preferences_no_purchase[customer]))
+        product = min(np.arange(len(products) + 1)[product])
+        return product
+
 
 # %%
 # Actual Code
+# random sample paths
+np.random.seed(12)
+random.seed(12)
+customer_stream = [np.random.random(T) for _ in range(I)]
+sales_stream = [np.random.random(T) for _ in range(I)]
+
 # K+1 policy iterations (starting with 0)
 # T time steps
 theta_all = np.array([[np.zeros(1)]*T]*(K+1))
@@ -212,8 +217,7 @@ pis = np.zeros(len(resources))
 
 for k in np.arange(K)+1:
     print(k, "of", K, "starting.")
-    np.random.seed(k)
-    random.seed(k)
+    random.seed(13)  # to have the epsilon's also the same for each policy iteration k
 
     v_samples = np.array([np.zeros(len(times))]*I)
     c_samples = np.array([np.zeros(shape=(len(times), len(capacities)))]*I)
@@ -238,7 +242,7 @@ for k in np.arange(K)+1:
             offer_set = determine_offer_tuple(pis, epsilon[k])
 
             # line 13  (simulate sales)
-            sold = simulate_sales(offer_set)
+            sold = simulate_sales(offer_set, customer_stream[i][t], sales_stream[i][t])
 
             # line 14
             try:

@@ -1,0 +1,3 @@
+Time (starting): 2019-07-01 12:30:48.347872
+Example :	 singleLegFlight
+use_var_capacities :	 True

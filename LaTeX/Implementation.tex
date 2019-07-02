@@ -1,0 +1,117 @@
+\chapter{Thoughts on implementation}
+
+This shall be a short overview of my thoughts regarding the implementation:
+
+\begin{enumerate}
+	\item I wanted to produce reproducible results, i.e. my code shall be usable on a larger scope. Logic and Settings shall be separated. Completed code shall be script based and after run, create a folder with its running configuration.
+	\item Be careful, when storing list or dataframes, as a deepcopy might have to be used.
+	\item 
+\end{enumerate}
+
+\chapter{Interesting findings}
+
+\section{DP offer nothing at start}
+
+In the single leg flight scenario with no purchase preference of 1, we found that it makes no difference (due to rounding error), whether just the most expensive product is offered or no product at all. Thus, we want to quickly note this result down here. 
+
+We want to estimate the actions in time $t = 1$. After having the final results computed for all capacities in $t=2$, we arrive at the following values:
+
+\begin{table}
+	\begin{tabular}{lrrr}
+		\toprule
+		{} &    value &  offer\_set\_optimal &  num\_offer\_set\_optimal \\
+		\midrule
+		0  &      0.0 &                  0 &                      0 \\
+		1  &   1000.0 &                  0 &                      2 \\
+		2  &   2000.0 &                  0 &                      2 \\
+		3  &   3000.0 &                  0 &                      2 \\
+		4  &   4000.0 &                  0 &                      2 \\
+		5  &   5000.0 &                  0 &                      2 \\
+		6  &   6000.0 &                  0 &                      2 \\
+		7  &   7000.0 &                  0 &                      2 \\
+		8  &   8000.0 &                  0 &                      2 \\
+		9  &   9000.0 &                  0 &                      2 \\
+		10 &  10000.0 &                  0 &                      2 \\
+		11 &  11000.0 &                  0 &                      2 \\
+		12 &  12000.0 &                  0 &                      2 \\
+		13 &  13000.0 &                  8 &                      1 \\
+		14 &  14000.0 &                  8 &                      1 \\
+		15 &  15000.0 &                  8 &                      1 \\
+		16 &  16000.0 &                  8 &                      1 \\
+		17 &  17000.0 &                  8 &                      1 \\
+		18 &  18000.0 &                  8 &                      1 \\
+		19 &  19000.0 &                  8 &                      1 \\
+		20 &  20000.0 &                  8 &                      1 \\
+		\bottomrule
+	\end{tabular}
+	
+\end{table}
+
+Furthermore, we have the following offersets:
+
+\begin{table}
+	\begin{tabular}{lrrrr}
+		\toprule
+		{} &  0 &  1 &  2 &  3 \\
+		\midrule
+		0  &  0 &  0 &  0 &  0 \\
+		1  &  0 &  0 &  0 &  1 \\
+		2  &  0 &  0 &  1 &  0 \\
+		3  &  0 &  0 &  1 &  1 \\
+		4  &  0 &  1 &  0 &  0 \\
+		5  &  0 &  1 &  0 &  1 \\
+		6  &  0 &  1 &  1 &  0 \\
+		7  &  0 &  1 &  1 &  1 \\
+		8  &  1 &  0 &  0 &  0 \\
+		9  &  1 &  0 &  0 &  1 \\
+		10 &  1 &  0 &  1 &  0 \\
+		11 &  1 &  0 &  1 &  1 \\
+		12 &  1 &  1 &  0 &  0 \\
+		13 &  1 &  1 &  0 &  1 \\
+		14 &  1 &  1 &  1 &  0 \\
+		15 &  1 &  1 &  1 &  1 \\
+		\bottomrule
+	\end{tabular}
+	
+\end{table}
+
+resulting in the purchase probabilities:
+
+\begin{table}
+	\begin{tabular}{lrrrrr}
+		\toprule
+		{} &         0 &         1 &         2 &         3 &         4 \\
+		\midrule
+		0  &  0.000000 &  0.000000 &  0.000000 &  0.000000 &  1.000000 \\
+		1  &  0.000000 &  0.000000 &  0.000000 &  0.307692 &  0.692308 \\
+		2  &  0.000000 &  0.000000 &  0.272727 &  0.000000 &  0.727273 \\
+		3  &  0.000000 &  0.000000 &  0.157895 &  0.210526 &  0.631579 \\
+		4  &  0.000000 &  0.222222 &  0.000000 &  0.000000 &  0.777778 \\
+		5  &  0.000000 &  0.117647 &  0.000000 &  0.235294 &  0.647059 \\
+		6  &  0.000000 &  0.133333 &  0.200000 &  0.000000 &  0.666667 \\
+		7  &  0.000000 &  0.086957 &  0.130435 &  0.173913 &  0.608696 \\
+		8  &  0.142857 &  0.000000 &  0.000000 &  0.000000 &  0.857143 \\
+		9  &  0.066667 &  0.000000 &  0.000000 &  0.266667 &  0.666667 \\
+		10 &  0.076923 &  0.000000 &  0.230769 &  0.000000 &  0.692308 \\
+		11 &  0.047619 &  0.000000 &  0.142857 &  0.190476 &  0.619048 \\
+		12 &  0.090909 &  0.181818 &  0.000000 &  0.000000 &  0.727273 \\
+		13 &  0.052632 &  0.105263 &  0.000000 &  0.210526 &  0.631579 \\
+		14 &  0.058824 &  0.117647 &  0.176471 &  0.000000 &  0.647059 \\
+		15 &  0.040000 &  0.080000 &  0.120000 &  0.160000 &  0.600000 \\
+		\bottomrule
+	\end{tabular}
+	
+\end{table}
+
+This results in the following expected values, 
+
+$$
+[\textbf{1000.}          815.38461538  890.90909091  810.52631579  955.55555556
+835.29411765  893.33333333  826.08695652 \textbf{1000.}          840.
+907.69230769  828.57142857  963.63636364  852.63157895  905.88235294
+840.        ]
+$$
+
+i.e. offering nothing and offering just the most expensive product both result in an expected value of $1000$.
+
+As it almost never makes sense to offer no product, we switched the offer set with no products to offer at the very end. The python function \texttt{numpy.amax} returns the index of the first maximum (if there are more than one).

@@ -74,7 +74,7 @@ for no_purchase_preference in var_no_purchase_preferences:
         print("Time point: ", t)
 
         # c = 0
-        final_results[t].iloc[0, :] = (0.0, 0, 0)
+        final_results[t].iloc[0, :] = (0.0, len(offer_sets)-1, 0)  # empty offerset at the very end
 
         # c > 0
         if True:

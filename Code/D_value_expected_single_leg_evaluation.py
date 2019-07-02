@@ -34,12 +34,21 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
 capacities = var_capacities[0]
 preferences_no_purchase = var_no_purchase_preferences[0]
 
+folder_test = "C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code"
+with open(folder_test + "\\0-test_customer.data", "rb") as filehandle:
+    test_customer = pickle.load(filehandle)
+with open(folder_test + "\\0-test_sales.data", "rb") as filehandle:
+    test_sales = pickle.load(filehandle)
+
+if online_K > len(test_sales) or online_K > len(test_customer):
+    raise ValueError("online_K as specified in 0_settings.csv has to be smaller then the test data given in test_sales and test_customer")
+
 #%%
 # todo get the folder in which the parameters (theta, pi) to use are stored; e.g. via sys.argv (this script is called after the calculation of those parameters)
 for i in sys.argv:
     print(i)
 
-result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest3-False-DPSingleLeg-190624-1003'
+result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\singleLegFlight-True-DPSingleLeg-190701-1801'
 
 
 # %%
@@ -60,18 +69,18 @@ def return_raw_data_per_time(capacity):
     return df
 
 
-def simulate_sales(offer_set):
-    customer = int(np.random.choice(np.arange(len(arrival_probabilities)+1),
-                                    size=1,
-                                    p=np.array([*arrival_probabilities, 1-sum(arrival_probabilities)])))
+def simulate_sales(offer_set, random_customer, random_sales):
+    customer = random_customer <= np.array([*np.cumsum(arrival_probabilities), 1.0])
+    customer = min(np.array(range(0, len(customer)))[customer])
+
     if customer == len(arrival_probabilities):
-        return len(products), customer  # no customer arrives => no product sold
+        return len(products), customer  # no customer arrives => no product sold (product out of range)
     else:
-        return int(np.random.choice(np.arange(len(products) + 1),
-                                    size=1,
-                                    p=customer_choice_individual(offer_set,
-                                                                 preference_weights[customer],
-                                                                 preferences_no_purchase[customer]))), customer
+        product = random_sales <= np.cumsum(customer_choice_individual(offer_set,
+                                                             preference_weights[customer],
+                                                             preferences_no_purchase[customer]))
+        product = min(np.arange(len(products) + 1)[product])
+        return product, customer
 
 
 #%%
@@ -89,8 +98,8 @@ offer_sets = pd.DataFrame(get_offer_sets_all(products))
 
 for k in np.arange(online_K)+1:
     print(k, "of", online_K, "starting.")
-    np.random.seed(K+k)
-    random.seed(K+k)
+    customer_random_stream = test_customer[k-1]
+    sales_random_stream = test_sales[k-1]
 
     # line 3
     r_result = np.zeros(len(times))  # will become v_result
@@ -98,21 +107,24 @@ for k in np.arange(online_K)+1:
 
     # line 5
     c = copy.deepcopy(capacities)  # (starting capacity at time 0)
+    c = c[0]
 
     for t in times:
+        if c < 0:
+            raise ValueError
         # line 7  (starting capacity at time t)
         c_result[t] = c
 
         offer_set = get_offer_set(c, t)
 
         # line 13  (simulate sales)
-        sold, customer = simulate_sales(offer_set)
+        sold, customer = simulate_sales(offer_set, customer_random_stream[t], sales_random_stream[t])
         customers_visited[k-1, t] = customer
 
         # line 14
         try:
             r_result[t] = revenues[sold]
-            c -= A[:, sold]
+            c -= A[0, sold]  # IMPORTANT: have integer values here, no arrays
         except IndexError:
             # no product was sold
             pass
