@@ -159,53 +159,55 @@ c_results = np.array([np.zeros(shape=(len(times), len(capacities)))]*online_K)
 # to use in single timestep (will be overwritten)
 pi = np.zeros(len(resources))
 
-for k in np.arange(online_K)+1:
-    print(k, "of", online_K, "starting.")
-    np.random.seed(K+k)
-    random.seed(K+k)
+value_final = pd.DataFrame(v_results[:,0])  # setup result storage empty
+value_final['' + str(capacities[0]) + '-' + str(preferences_no_purchase[0])] = pd.DataFrame(v_results[:, 0])
+#%%
+for capacities in var_capacities:
+    for preferences_no_purchase in var_no_purchase_preferences:
+        print(capacities, "of", str(var_capacities), " - and - ", preferences_no_purchase, "of", str(var_no_purchase_preferences), "starting.")
+        for k in np.arange(online_K)+1:
+            print(k, "of", online_K, "starting.")
+            np.random.seed(K+k)
+            random.seed(K+k)
 
-    # line 3
-    r_result = np.zeros(len(times))  # will become v_result
-    c_result = np.zeros(shape=(len(times), len(capacities)), dtype=int)
+            # line 3
+            r_result = np.zeros(len(times))  # will become v_result
+            c_result = np.zeros(shape=(len(times), len(capacities)), dtype=int)
 
-    # line 5
-    c = copy.deepcopy(capacities)  # (starting capacity at time 0)
+            # line 5
+            c = copy.deepcopy(capacities)  # (starting capacity at time 0)
 
-    for t in times:
-        # line 7  (starting capacity at time t)
-        c_result[t] = c
+            for t in times:
+                # line 7  (starting capacity at time t)
+                c_result[t] = c
 
-        # line 12  (epsilon greedy strategy)
-        pi[c == 0] = np.inf
-        pi[c > 0] = pis[t][c > 0]
-        offer_set = determine_offer_tuple(pi, eps=0)
+                # line 12  (epsilon greedy strategy)
+                pi[c == 0] = np.inf
+                pi[c > 0] = pis[t][c > 0]
+                offer_set = determine_offer_tuple(pi, eps=0)
 
-        # line 13  (simulate sales)
-        sold = simulate_sales(offer_set)
+                # line 13  (simulate sales)
+                sold = simulate_sales(offer_set)
 
-        # line 14
-        try:
-            r_result[t] = revenues[sold]
-            c -= A[:, sold]
-        except IndexError:
-            # no product was sold
-            pass
+                # line 14
+                try:
+                    r_result[t] = revenues[sold]
+                    c -= A[:, sold]
+                except IndexError:
+                    # no product was sold
+                    pass
 
-    # line 16-18
-    v_results[k-1] = np.cumsum(r_result[::-1])[::-1]
-    c_results[k-1] = c_result
+            # line 16-18
+            v_results[k-1] = np.cumsum(r_result[::-1])[::-1]
+            c_results[k-1] = c_result
+
+        value_final['' + str(capacities[0]) + '-' + str(preferences_no_purchase[0])] = pd.DataFrame(v_results[:, 0])
 
 
 # %%
 # write result of calculations
-with open(newpath+"\\vAll.data", "wb") as filehandle:
-    pickle.dump(v_results, filehandle)
-
-with open(newpath+"\\cAll.data", "wb") as filehandle:
-    pickle.dump(c_results, filehandle)
-
-with open(newpath+"\\vResults.data", "wb") as filehandle:
-    pickle.dump(v_results[:, 0], filehandle)
+with open(newpath+"\\vResultsTable1.data", "wb") as filehandle:
+    pickle.dump(value_final, filehandle)
 
 
 # %%
