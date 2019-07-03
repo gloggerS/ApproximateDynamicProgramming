@@ -88,7 +88,7 @@ value_final['' + str(capacities[0]) + '-' + str(preferences_no_purchase[0])] = p
 #%%
 for capacities in var_capacities:
     for preferences_no_purchase in var_no_purchase_preferences:
-
+        print(capacities, "of", str(var_capacities), " - and - ", preferences_no_purchase, "of", str(var_no_purchase_preferences), "starting.")
         for k in np.arange(online_K)+1:
             print(k, "of", online_K, "starting.")
             customer_random_stream = test_customer[k-1]
