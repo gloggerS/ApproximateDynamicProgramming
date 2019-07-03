@@ -34,10 +34,9 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
 capacities = var_capacities[0]
 preferences_no_purchase = var_no_purchase_preferences[0]
 
-folder_test = "C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code"
-with open(folder_test + "\\0-test_customer.data", "rb") as filehandle:
+with open("0-test_customer.data", "rb") as filehandle:
     test_customer = pickle.load(filehandle)
-with open(folder_test + "\\0-test_sales.data", "rb") as filehandle:
+with open("0-test_sales.data", "rb") as filehandle:
     test_sales = pickle.load(filehandle)
 
 if online_K > len(test_sales) or online_K > len(test_customer):
@@ -48,7 +47,7 @@ if online_K > len(test_sales) or online_K > len(test_customer):
 for i in sys.argv:
     print(i)
 
-result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\singleLegFlight-True-DPSingleLeg-190701-1801'
+result_folder = os.getcwd() + '\\Results\\singleLegFlight-True-DPSingleLeg-190701-1801'
 
 
 # %%
