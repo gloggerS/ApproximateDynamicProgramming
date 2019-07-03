@@ -1,0 +1,15 @@
+\chapter{Comparison}
+
+Our goal is to evaluate different policies. One policy is considered better then another policy if it generally leads to higher total revenues. To put this vague phrasing into a scientifically sound comparison, we use an approximate two sample test, which we'll describe here in more detail. We base this overview and notation mainly on Ch. 14.7 of \cite{Bamberg.2011} with extensions as in Ch. 11.3 of \cite{Fahrmeir.2007}.
+
+We have a total of $M$ sample paths each consisting of $T$ time steps, i.e. $M \times T$ random numbers determining which customer arrives and $M \times T$ random numbers leading to which product is purchased. Those two numbers are called \textit{exogenous information}. When applying policy $A$, for each sample path at each time step, the respective offerset is presented to the current customer and its preferences determine which product is purchased. All purchases of one sample path are aggregated and stored, such that policy $A$ results in the vector of values $\mathbf{v}^A \in \mathbb{R}^M$. Accordingly, $\mathbf{v}^B$ is determined. As both policies rely on the same exogenous information, the samples are dependent and a paired samples t-test has to be used.
+
+Thus, we end up with two observations of size $M$ 
+
+$$v^A_1, \dots, v^A_M \text{ respectively } v^B_1, \dots, v^B_M~.$$
+
+%todo notation: A once on top and once on bottom
+Let $\bar{\mathbf{v}^A}$ and $S_A^2$ resp. $\bar{\mathbf{v}^B}$ and $S_B^2$ be the empirical mean and empirical variance. Furthermore, $\mu^A$ and $\sigma_A^2$ denote the expected value and variance of $v^A_i$, respectively $\mu^B$ and $\sigma_B^2$ denote the expected value and variance of $v^B_i$. The hypothesis that policy $A$ is better then policy $B$ results in the following null and alternative hypothesis:
+
+$$H_0: \mu^A \leq \mu^B, H_1: \mu^A > \mu^B$$
+

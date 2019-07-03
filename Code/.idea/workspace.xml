@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change afterPath="$PROJECT_DIR$/zz_experiment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/D_value_expected_single_leg_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/D_value_expected_single_leg_evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E_API_lin_single_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_single_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/Figure 2.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Figure 2.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Treffen mit Sebastian/~$0709.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Treffen mit Sebastian/~WRL0003.tmp" beforeDir="false" />
-    </list>
+    <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights" />
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +20,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/D_value_expected_single_leg_evaluation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
+            <state relative-caret-position="432">
               <caret line="135" selection-start-line="135" selection-end-line="135" />
               <folding>
                 <element signature="e#131#150#0" expanded="true" />
@@ -249,10 +241,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="3149" />
-    <option name="y" value="-13" />
-    <option name="width" value="474" />
-    <option name="height" value="305" />
+    <option name="x" value="-14" />
+    <option name="y" value="-14" />
+    <option name="width" value="2762" />
+    <option name="height" value="1850" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -490,11 +482,10 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1381" height="925" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.51303154" visible="true" weight="0.07835821" />
-      <window_info id="Structure" order="1" sideWeight="0.48696846" side_tool="true" visible="true" weight="0.07835821" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5131376" visible="true" weight="0.1109434" />
+      <window_info id="Structure" order="1" sideWeight="0.48686245" side_tool="true" visible="true" weight="0.1109434" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32779318" />
@@ -504,15 +495,15 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32788944" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.7963753" weight="0.1375808" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.7963753" visible="true" weight="0.18718593" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12793177" side_tool="true" weight="0.3271028" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.8720682" visible="true" weight="0.32686982" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.8720682" weight="0.32686982" />
       <window_info anchor="bottom" id="Jupyter" order="11" weight="0.32963988" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.51028806" side_tool="true" visible="true" weight="0.22547974" />
-      <window_info anchor="right" id="SciView" order="4" sideWeight="0.48971194" visible="true" weight="0.22547974" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.51004636" side_tool="true" visible="true" weight="0.31924528" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.48995364" visible="true" weight="0.31924528" />
       <window_info anchor="right" id="Key Promoter X" order="5" />
     </layout>
     <layout-to-restore>
@@ -830,7 +821,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/D_value_expected_single_leg_evaluation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
+        <state relative-caret-position="432">
           <caret line="135" selection-start-line="135" selection-end-line="135" />
           <folding>
             <element signature="e#131#150#0" expanded="true" />
