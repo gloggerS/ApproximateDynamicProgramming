@@ -35,16 +35,25 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
 capacities = var_capacities[0]
 preferences_no_purchase = var_no_purchase_preferences[0]
 
+with open("0-test_customer.data", "rb") as filehandle:
+    test_customer = pickle.load(filehandle)
+with open("0-test_sales.data", "rb") as filehandle:
+    test_sales = pickle.load(filehandle)
+
+if online_K > len(test_sales) or online_K > len(test_customer):
+    raise ValueError("online_K as specified in 0_settings.csv has to be smaller then the test data given in test_sales and test_customer")
+
 #%%
 # todo get the folder in which the parameters (theta, pi) to use are stored; e.g. via sys.argv (this script is called after the calculation of those parameters)
 for i in sys.argv:
     print(i)
 
-result_folder = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\smallTest3-False-APILinearSingleLeg-190624-1012'
+result_folder = os.getcwd() + '\\Results\\singleLegFlight-True-APILinearSingleLeg-190702-2200'
 
 
 #%%
-def determine_offer_tuple(pi, eps=0):
+#%%
+def determine_offer_tuple(pi, eps):
     """
     OLD Implementation
     Determines the offerset given the bid prices for each resource.
@@ -53,7 +62,6 @@ def determine_offer_tuple(pi, eps=0):
     and extend it for the epsilon greedy strategy
 
     :param pi:
-    :param eps: epsilon greedy strategy (will be set to 0 to have no influence)
     :return:
     """
 
@@ -65,16 +73,14 @@ def determine_offer_tuple(pi, eps=0):
     if eps_prob < eps/2:
         return tuple(offer_tuple)
 
-    # line 1
-    s_prime = revenues - np.apply_along_axis(sum, 1, A.T * pi) > 0
-    if all(np.invert(s_prime)):
-        return tuple(offer_tuple)
-
     # epsilon greedy strategy - offer all products
     if eps_prob < eps:
         return tuple(offer_tuple)
 
-    # epsilon greedy strategy - greedy heuristic
+    # line 1
+    s_prime = revenues - np.apply_along_axis(sum, 1, A.T * pi) > 0
+    if all(np.invert(s_prime)):
+        return tuple(offer_tuple)
 
     # line 2-3
     # offer_sets_to_test has in each row an offer set, we want to test
@@ -83,7 +89,7 @@ def determine_offer_tuple(pi, eps=0):
     offer_sets_to_test += offer_tuple
     offer_sets_to_test = (offer_sets_to_test > 0)
 
-    value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
+    value_marginal = np.apply_along_axis(calc_value_marginal, axis=1, arr=offer_sets_to_test)
 
     offer_tuple[np.argmax(value_marginal)] = 1
     s_prime = s_prime & offer_tuple == 0
@@ -99,7 +105,7 @@ def determine_offer_tuple(pi, eps=0):
         offer_sets_to_test = (offer_sets_to_test > 0)
 
         # 4b
-        value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
+        value_marginal = np.apply_along_axis(calc_value_marginal, axis=1, arr=offer_sets_to_test)
 
         if np.amax(value_marginal) > v_s:
             v_s = np.amax(value_marginal)
@@ -112,28 +118,29 @@ def determine_offer_tuple(pi, eps=0):
     return tuple(offer_tuple)
 
 
-def calc_value_marginal(indices_inner_sum, pi):
+def calc_value_marginal(indices_inner_sum):
     v_temp = 0
-    for l in np.arange(len(preference_weights)):
+    for l in np.arange(len(preference_weights)):  # sum over all customer segments
         v_temp += arrival_probabilities[l] * \
-                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) *
+                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pis)) *
                       preference_weights[l, :]) / \
                   (sum(indices_inner_sum * preference_weights[l, :]) + var_no_purchase_preferences[l])
     return v_temp
 
 
-def simulate_sales(offer_set):
-    customer = int(np.random.choice(np.arange(len(arrival_probabilities)+1),
-                                    size=1,
-                                    p=np.array([*arrival_probabilities, 1-sum(arrival_probabilities)])))
+def simulate_sales(offer_set, random_customer, random_sales):
+    customer = random_customer <= np.array([*np.cumsum(arrival_probabilities), 1.0])
+    customer = min(np.array(range(0, len(customer)))[customer])
+
     if customer == len(arrival_probabilities):
-        return len(products)  # no customer arrives => no product sold
+        return len(products)  # no customer arrives => no product sold (product out of range)
     else:
-        return int(np.random.choice(np.arange(len(products) + 1),
-                                    size=1,
-                                    p=customer_choice_individual(offer_set,
-                                                                 preference_weights[customer],
-                                                                 preferences_no_purchase[customer])))
+        product = random_sales <= np.cumsum(customer_choice_individual(offer_set,
+                                                             preference_weights[customer],
+                                                             preferences_no_purchase[customer]))
+        product = min(np.arange(len(products) + 1)[product])
+        return product
+
 
 # %%
 # Actual Code

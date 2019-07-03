@@ -90,7 +90,6 @@ for capacities in var_capacities:
     for preferences_no_purchase in var_no_purchase_preferences:
 
         for k in np.arange(online_K)+1:
-            print(k, "of", online_K, "starting.")
             customer_random_stream = test_customer[k-1]
             sales_random_stream = test_sales[k-1]
 
