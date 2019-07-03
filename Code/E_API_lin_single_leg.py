@@ -34,7 +34,7 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
     = setup_testing("APILinearSingleLeg")
 capacities = var_capacities[1]
 preferences_no_purchase = var_no_purchase_preferences[0]
-I = 100
+I = 800
 
 
 #%%
