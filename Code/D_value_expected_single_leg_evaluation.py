@@ -58,17 +58,6 @@ def get_offer_set(c, t):
     return tuple(offer_sets.iloc[dat_lookup[t].iloc[c, 1]])
 
 
-# needed results: for each time and capacity: value of coming revenues, optimal set to offer, list of other optimal sets
-# capacities max: run it just for one set of capacities, the rest follows)
-def return_raw_data_per_time(capacity):
-    rows = list(range(capacity + 1))
-    row_names = [str(i) for i in rows]
-    df = pd.DataFrame(index=row_names,
-                      columns=['value', 'offer_set_optimal', 'num_offer_set_optimal'])
-    df.value = pd.to_numeric(df.value)
-    return df
-
-
 def simulate_sales(offer_set, random_customer, random_sales):
     customer = random_customer <= np.array([*np.cumsum(arrival_probabilities), 1.0])
     customer = min(np.array(range(0, len(customer)))[customer])
@@ -87,7 +76,6 @@ def simulate_sales(offer_set, random_customer, random_sales):
 # online_K+1 policy iterations (starting with 0)
 v_results = np.array([np.zeros(len(times))]*online_K)
 c_results = np.array([np.zeros(shape=(len(times), len(capacities)))]*online_K)
-customers_visited = np.array([np.zeros(len(times))]*online_K)  # to test whether we have the same customers arriving
 
 with open(result_folder+"\\totalresults.data", "rb") as filehandle:
     dat_lookup = pickle.load(filehandle)
@@ -96,53 +84,54 @@ dat_lookup = dat_lookup[0]
 
 offer_sets = pd.DataFrame(get_offer_sets_all(products))
 
-for k in np.arange(online_K)+1:
-    print(k, "of", online_K, "starting.")
-    customer_random_stream = test_customer[k-1]
-    sales_random_stream = test_sales[k-1]
+value_final = pd.DataFrame(v_results[:,0])  # setup result storage empty
+value_final['' + str(capacities[0]) + '-' + str(preferences_no_purchase[0])] = pd.DataFrame(v_results[:, 0])
+#%%
+for capacities in var_capacities:
+    for preferences_no_purchase in var_no_purchase_preferences:
 
-    # line 3
-    r_result = np.zeros(len(times))  # will become v_result
-    c_result = np.zeros(shape=(len(times), len(capacities)), dtype=int)
+        for k in np.arange(online_K)+1:
+            print(k, "of", online_K, "starting.")
+            customer_random_stream = test_customer[k-1]
+            sales_random_stream = test_sales[k-1]
 
-    # line 5
-    c = copy.deepcopy(capacities)  # (starting capacity at time 0)
-    c = c[0]
+            # line 3
+            r_result = np.zeros(len(times))  # will become v_result
+            c_result = np.zeros(shape=(len(times), len(capacities)), dtype=int)
 
-    for t in times:
-        if c < 0:
-            raise ValueError
-        # line 7  (starting capacity at time t)
-        c_result[t] = c
+            # line 5
+            c = copy.deepcopy(capacities)  # (starting capacity at time 0)
+            c = c[0]
 
-        offer_set = get_offer_set(c, t)
+            for t in times:
+                if c < 0:
+                    raise ValueError
+                # line 7  (starting capacity at time t)
+                c_result[t] = c
 
-        # line 13  (simulate sales)
-        sold, customer = simulate_sales(offer_set, customer_random_stream[t], sales_random_stream[t])
-        customers_visited[k-1, t] = customer
+                offer_set = get_offer_set(c, t)
 
-        # line 14
-        try:
-            r_result[t] = revenues[sold]
-            c -= A[0, sold]  # IMPORTANT: have integer values here, no arrays
-        except IndexError:
-            # no product was sold
-            pass
+                # line 13  (simulate sales)
+                sold, customer = simulate_sales(offer_set, customer_random_stream[t], sales_random_stream[t])
 
-        # line 16-18
-    v_results[k - 1] = np.cumsum(r_result[::-1])[::-1]
-    c_results[k - 1] = c_result
+                # line 14
+                try:
+                    r_result[t] = revenues[sold]
+                    c -= A[0, sold]  # IMPORTANT: have integer values here, no arrays
+                except IndexError:
+                    # no product was sold
+                    pass
+
+                # line 16-18
+            v_results[k - 1] = np.cumsum(r_result[::-1])[::-1]
+            c_results[k - 1] = c_result
+
+        value_final['' + str(capacities[0]) + '-' + str(preferences_no_purchase[0])] = pd.DataFrame(v_results[:, 0])
 
 # %%
 # write result of calculations
-with open(newpath+"\\vAll.data", "wb") as filehandle:
-    pickle.dump(v_results, filehandle)
-
-with open(newpath+"\\cAll.data", "wb") as filehandle:
-    pickle.dump(c_results, filehandle)
-
-with open(newpath+"\\vResults.data", "wb") as filehandle:
-    pickle.dump(v_results[:, 0], filehandle)
+with open(newpath+"\\vResultsTable1.data", "wb") as filehandle:
+    pickle.dump(value_final, filehandle)
 
 # %%
 wrapup(logfile, time_start, newpath)

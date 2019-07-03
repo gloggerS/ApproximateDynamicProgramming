@@ -199,12 +199,14 @@ def simulate_sales(offer_set, random_customer, random_sales):
 
 # %%
 # Actual Code
-# random sample paths
+
+# generate the random sample paths
 np.random.seed(12)
 random.seed(12)
 customer_stream = [np.random.random(T) for _ in range(I)]
 sales_stream = [np.random.random(T) for _ in range(I)]
 
+# store parameters over all policy iterations
 # K+1 policy iterations (starting with 0)
 # T time steps
 theta_all = np.array([[np.zeros(1)]*T]*(K+1))
@@ -217,7 +219,7 @@ pis = np.zeros(len(resources))
 
 for k in np.arange(K)+1:
     print(k, "of", K, "starting.")
-    random.seed(13)  # to have the epsilon's also the same for each policy iteration k
+    random.seed(13)  # to have the epsilon's (exploration vs exploitation) also the same for each policy iteration k
 
     v_samples = np.array([np.zeros(len(times))]*I)
     c_samples = np.array([np.zeros(shape=(len(times), len(capacities)))]*I)

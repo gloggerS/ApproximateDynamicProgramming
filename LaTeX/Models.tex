@@ -99,11 +99,11 @@ In each policy iteration $k$, the current policy is evaluated first. To do so, w
 
 For each sample path $i$, a storage unit for revenue $\hat{r}_t$ and capacities $\mathbf{\hat{c}}$ is created for all times $t$ (\Cref{alg-API5}). Furthermore, the capacity is set to the initial capacity in \Cref{alg-API6}.
 
-For each point in time, the current capacity $\mathbf{\hat{c}}_t$ is stored in \Cref{alg-API8}, the current bid prices are calculated in \Cref{alg-API9} and used to determine the offerset $\mathbf{x}$ in \Cref{alg-API10}. With, this, a sales event $j'$ is simulated and in case a product has been sold, the revenue is stored and capacity adjusted (note: the revenue thus belongs to $t$ and capacity will affect $t+1$) (\Cref{alg-API11} to \Cref{alg-API13}).
+For each point in time, the current capacity $\mathbf{\hat{c}}_t$ is stored in \Cref{alg-API8}, the current bid prices are calculated in \Cref{alg-API9} and used to determine the offerset $\mathbf{x}$ in \Cref{alg-API10}. More details on the determination of the offerset can be found in \Cref{sec-determineOfferset}. With, this, a sales event $j'$ is simulated and in case a product has been sold, the revenue is stored and capacity adjusted (note: the revenue thus belongs to $t$ and capacity will affect $t+1$) (\Cref{alg-API11} to \Cref{alg-API13}).
 
-After simulating one sample path, the value function for this sample path $\hat{V}_t$ is updated for all times $t$ in \Cref{alg-API14}, as well as the capacities in line \Cref{alg-API15}.
+After simulating one sample path, the value function for this sample path $\hat{V}_t$ is updated for all times $t$ in \Cref{alg-API14}, and so are the capacities in line \Cref{alg-API15}.
 
-With all the information from the $I$ sample paths the parameters $\left(\theta_t, \pi_t \right)$ are updated. Note that the old parameters are used as starting values and the current number of policy iterations $k$ is also passed to potentially take care of exponential smoothing. Thus, we have $(1+h)*T$ parameters ($theta_t$ and $\pi_t$) and $2IT$ data points
+With all the information from the $I$ sample paths the parameters $\left(\theta_t, \pi_t \right)$ are updated. Note that the old parameters are used as starting values and the current number of policy iterations $k$ is also passed to potentially take care of exponential smoothing. Thus, we have $(1+h)*T$ parameters ($theta_t$ and $\pi_t$) and $2TI$ data points. More details on the update of the parameters can be found in \Cref{sec-updateParameter}.
 
 %TODO Visualisierung wann was stattfindet
 Actions possible in $t = 0, \dots, T-1$.
@@ -127,16 +127,15 @@ Actions possible in $t = 0, \dots, T-1$.
 		\State $\hat{r}_t = r_{j'}$ and $\mathbf{c} = \mathbf{c} - \mathbf{a}_{j'}$\label{alg-API13}
 		\EndIf
 		\EndFor
-		\State Compute $\hat{V}_t^i = \sum_{\tau = t}^{T}\hat{r}_t \quad \forall t = 1, \dots, T$\label{alg-API14}
-		\State Assign $\mathbf{\hat{C}}_t^i = \mathbf{\hat{c}}_t \quad \forall t = 1, \dots, T$\label{alg-API15} \label{alg-API-Peval2}
+		\State Compute $\hat{V}_t^i = \sum_{\tau = t}^{T}\hat{r}_t \quad \forall t = 0, \dots, T-1$\label{alg-API14}
+		\State Assign $\mathbf{\hat{C}}_t^i = \mathbf{\hat{c}}_t \quad \forall t = 0, \dots, T-1$\label{alg-API15} \label{alg-API-Peval2}
 		\EndFor
-		\State $\left(\theta_t, \pi_t \right) = \text{updateParameters}\left(\hat{V}_t, \mathbf{\hat{C}}_t, \theta_t, \pi_t, k\right) \quad \forall t = 1, \dots, T$ \label{alg-API-updateParam}\label{alg-API-Piter3}
+		\State $\left(\theta_t, \pi_t \right) = \text{updateParameters}\left(\hat{V}_t^i, \mathbf{\hat{C}}_t^i, \theta_t, \pi_t, k\right) \quad \forall t = 0, \dots, T-1, \forall i = 1, \dots, I$ \label{alg-API-updateParam}\label{alg-API-Piter3}
 		\EndFor
 		\Return {$\left(\theta_t, \pi_t \right)  \quad \forall t = 1, \dots, T$}
 	\end{algorithmic}
 \end{algorithm}
 
-\todoMinor{\Cref{alg-API-updateParam} umschreiben. Weil fuer den update werden alle Parameter auf einmal geupdatet und nicht fuer jeden Zeitschritt separat.}
 
 Overview of parameters:
 \begin{enumerate}
@@ -149,11 +148,10 @@ Overview of parameters:
 	\item $\mathbf{c}^0$	starting capacities
 	\item $\mathbf{x}$ offerset at current time
 	\item $\epsilon_t$ epsilon used at current time
-	
 \end{enumerate}
 
 
-\subsection{Greedy Heuristic to determine offerset}
+\subsection{Greedy Heuristic to determine offerset}\label{sec-determineOfferset}
 
 The following algorithm is based on the ideas of the greedy heuristic for the column generation subproblem outlined in \cite{Bront.2009}.
 
@@ -182,7 +180,7 @@ The function $\text{determineOfferset}(\mathbf{\pi}, \epsilon)$ calculates the s
 %todo Kommentiere den Algorithmus.
 Let $S'$ be the set of products with positive reduced costs, i. \Cref{alg-L1}
 
-\subsection{Update of parameters}
+\subsection{Update of parameters}\label{sec-updateParameter}
 %todo Schreibweise der Funktion anpassen, da alle Parameter auf eimal übergeben werden, und nicht separat je Zeitschritt
 The function $\left(\theta_t, \pi_t \right) = \text{updateParameters}\left(\hat{V}_t, \mathbf{\hat{C}}_t, \theta_t, \pi_t, k\right)$ really optimizes the following least squares optimization problem for all parameters ($t = 1, \dots, T$) at the same time.
 
