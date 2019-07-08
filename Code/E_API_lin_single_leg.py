@@ -74,7 +74,7 @@ def determine_offer_tuple(pi, eps):
     offer_sets_to_test += offer_tuple
     offer_sets_to_test = (offer_sets_to_test > 0)
 
-    value_marginal = np.apply_along_axis(calc_value_marginal, axis=1, arr=offer_sets_to_test)
+    value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
 
     offer_tuple[np.argmax(value_marginal)] = 1
     s_prime = s_prime & offer_tuple == 0
@@ -90,7 +90,7 @@ def determine_offer_tuple(pi, eps):
         offer_sets_to_test = (offer_sets_to_test > 0)
 
         # 4b
-        value_marginal = np.apply_along_axis(calc_value_marginal, axis=1, arr=offer_sets_to_test)
+        value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
 
         if np.amax(value_marginal) > v_s:
             v_s = np.amax(value_marginal)
@@ -103,13 +103,13 @@ def determine_offer_tuple(pi, eps):
     return tuple(offer_tuple)
 
 
-def calc_value_marginal(indices_inner_sum):
+def calc_value_marginal(indices_inner_sum, pi):
     v_temp = 0
     for l in np.arange(len(preference_weights)):  # sum over all customer segments
         v_temp += arrival_probabilities[l] * \
-                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pis)) *
+                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) *
                       preference_weights[l, :]) / \
-                  (sum(indices_inner_sum * preference_weights[l, :]) + var_no_purchase_preferences[l])
+                  (sum(indices_inner_sum * preference_weights[l, :]) + var_no_purchase_preferences[l][0])
     return v_temp
 
 
