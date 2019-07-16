@@ -27,6 +27,7 @@ import copy
 import random
 
 #%%
+# Setup of parameters
 logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
         epsilon, exponential_smoothing,\
@@ -38,81 +39,6 @@ I = 800
 
 
 #%%
-def determine_offer_tuple(pi, eps):
-    """
-    OLD Implementation
-    Determines the offerset given the bid prices for each resource.
-
-    Implement the Greedy Heuristic from Bront et al: A Column Generation Algorithm ... 4.2.2
-    and extend it for the epsilon greedy strategy
-
-    :param pi:
-    :return:
-    """
-
-    # setup
-    offer_tuple = np.zeros_like(revenues)
-
-    # epsilon greedy strategy - offer no products
-    eps_prob = random.random()
-    if eps_prob < eps/2:
-        return tuple(offer_tuple)
-
-    # epsilon greedy strategy - offer all products
-    if eps_prob < eps:
-        return tuple(offer_tuple)
-
-    # line 1
-    s_prime = revenues - np.apply_along_axis(sum, 1, A.T * pi) > 0
-    if all(np.invert(s_prime)):
-        return tuple(offer_tuple)
-
-    # line 2-3
-    # offer_sets_to_test has in each row an offer set, we want to test
-    offer_sets_to_test = np.zeros((sum(s_prime), len(revenues)))
-    offer_sets_to_test[np.arange(sum(s_prime)), np.where(s_prime)] = 1
-    offer_sets_to_test += offer_tuple
-    offer_sets_to_test = (offer_sets_to_test > 0)
-
-    value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
-
-    offer_tuple[np.argmax(value_marginal)] = 1
-    s_prime = s_prime & offer_tuple == 0
-    v_s = np.amax(value_marginal)
-
-    # line 4
-    while True:
-        # 4a
-        # offer_sets_to_test has in each row an offer set, we want to test
-        offer_sets_to_test = np.zeros((sum(s_prime), len(revenues)))
-        offer_sets_to_test[np.arange(sum(s_prime)), np.where(s_prime)] = 1
-        offer_sets_to_test += offer_tuple
-        offer_sets_to_test = (offer_sets_to_test > 0)
-
-        # 4b
-        value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
-
-        if np.amax(value_marginal) > v_s:
-            v_s = np.amax(value_marginal)
-            offer_tuple[np.argmax(value_marginal)] = 1
-            s_prime = s_prime & offer_tuple == 0
-            if all(offer_tuple == 1):
-                break
-        else:
-            break
-    return tuple(offer_tuple)
-
-
-def calc_value_marginal(indices_inner_sum, pi):
-    v_temp = 0
-    for l in np.arange(len(preference_weights)):  # sum over all customer segments
-        v_temp += arrival_probabilities[l] * \
-                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) *
-                      preference_weights[l, :]) / \
-                  (sum(indices_inner_sum * preference_weights[l, :]) + var_no_purchase_preferences[l][0])
-    return v_temp
-
-
 def update_parameters(v_samples, c_samples, thetas, pis, k):
     """
     Updates the parameter theta, pi given the sample path using least squares linear regression with constraints.
@@ -183,20 +109,6 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
         return 0, 0
 
 
-def simulate_sales(offer_set, random_customer, random_sales):
-    customer = random_customer <= np.array([*np.cumsum(arrival_probabilities), 1.0])
-    customer = min(np.array(range(0, len(customer)))[customer])
-
-    if customer == len(arrival_probabilities):
-        return len(products)  # no customer arrives => no product sold (product out of range)
-    else:
-        product = random_sales <= np.cumsum(customer_choice_individual(offer_set,
-                                                             preference_weights[customer],
-                                                             preferences_no_purchase[customer]))
-        product = min(np.arange(len(products) + 1)[product])
-        return product
-
-
 # %%
 # Actual Code
 
@@ -217,12 +129,15 @@ pi_all = np.array([[np.zeros(len(resources))]*T]*(K+1))
 thetas = 0
 pis = np.zeros(len(resources))
 
+v_samples = dict()
+c_samples = dict()
+
 for k in np.arange(K)+1:
     print(k, "of", K, "starting.")
     random.seed(13)  # to have the epsilon's (exploration vs exploitation) also the same for each policy iteration k
 
-    v_samples = np.array([np.zeros(len(times))]*I)
-    c_samples = np.array([np.zeros(shape=(len(times), len(capacities)))]*I)
+    v_samples[k] = np.array([np.zeros(len(times))]*I)
+    c_samples[k] = np.array([np.zeros(shape=(len(times), len(capacities)))]*I)
 
     for i in np.arange(I):
         # line 3
@@ -255,11 +170,11 @@ for k in np.arange(K)+1:
                 pass
 
         # line 16-18
-        v_samples[i] = np.cumsum(r_sample[::-1])[::-1]
-        c_samples[i] = c_sample
+        v_samples[k][i] = np.cumsum(r_sample[::-1])[::-1]
+        c_samples[k][i] = c_sample
 
     # line 20
-    theta_all[k], pi_all[k] = update_parameters(v_samples, c_samples, theta_all[k-1], pi_all[k-1], k)
+    theta_all[k], pi_all[k] = update_parameters(v_samples[k], c_samples[k], theta_all[k-1], pi_all[k-1], k)
 
 
 # %%

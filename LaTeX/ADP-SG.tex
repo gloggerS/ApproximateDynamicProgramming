@@ -1,8 +1,8 @@
 % based on scrbook
 % finaler Ablauf: übersetzen, Tools -> Benutzer -> MakeNomenclature, übersetzen
 \documentclass[
-fontsize=11pt, %font size
-%paper=a4, %paper format
+fontsize=12pt, %font size
+paper=a4, %paper format
 headsepline, %separating line for header
 chapterprefix, % produce "Chapter ..."
 numbers=noenddot, % no full-stop after last number
@@ -15,7 +15,6 @@ bibliography=totoc, %Entry in table of contents for bibliography
 %final,%
 ]%
 {scrbook}%
-
 
 \KOMAoptions{twoside=false}
 
@@ -36,19 +35,18 @@ bibliography=totoc, %Entry in table of contents for bibliography
 \tableofcontents
 
 \bigskip
-
-%\input{Aufzuschreiben.tex}
-%\input{Literatur.tex}
-%\input{Einleitung.tex}
+%%%\input{Format-testen.tex}
+\input{Aufzuschreiben.tex}
+\input{Literatur.tex}
 \input{Models.tex}
-%\input{Examples.tex}
-%\input{Hauptteil.tex}
+\input{Examples.tex}
+\input{Hauptteil.tex}
 \input{Comparison.tex}
-%\input{Implementation.tex}
+\input{Implementation.tex}
 
 
 
-\addcontentsline{toc}{chapter}{Bibliography}
+%\addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{bibliography}
 \printnomenclature
 

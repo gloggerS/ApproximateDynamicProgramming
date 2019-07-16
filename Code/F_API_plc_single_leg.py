@@ -68,6 +68,7 @@ def determine_offer_tuple(pi, eps):
 
     # epsilon greedy strategy - offer all products
     if eps_prob < eps:
+        offer_tuple = np.ones_like(revenues)
         return tuple(offer_tuple)
 
     # epsilon greedy strategy - greedy heuristic

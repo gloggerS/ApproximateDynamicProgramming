@@ -36,11 +36,10 @@ def append_row(name, folder):
 
 folder_results = 'C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\'
 results = pd.DataFrame(columns=["name", "folder"])
-# results = append_row("DP", folder_results + 'smallTest2-False-DP-evaluation-190616-1435')
-# results = append_row("API_lin", folder_results + 'smallTest2-False-API-lin-evaluation-190616-1211')
-# results = append_row("API_plc", folder_results + 'smallTest2-False-API-plc-evaluation-190616-1245')
 
-results = append_row("DP", folder_results + 'smallTest3-False-DPSingleLeg-Evaluation-190624-1007')
+results = append_row("DP", folder_results + 'singleLegFlight-True-DPSingleLeg-Evaluation-190703-1234')
+
+#%%
 results = append_row("API_lin", folder_results + 'smallTest3-False-APILinearSingleLeg-Evaluation-190624-1029')
 
 
@@ -49,12 +48,23 @@ for i in results.iterrows():
     print(i[1].iloc[1])
 
 #%%
-dat = pd.DataFrame()
-for i in results.iterrows():
-    with open(i[1].iloc[1] + "\\vResults.data", "rb") as filehandle:
-        values = pickle.load(filehandle)
-    dat[i[1].iloc[0]] = values
+# l = pd.DataFrame
+# for i in results.iterrows():
+#     with open(i[1].iloc[1] + "\\vResultsTable1.data", "rb") as filehandle:
+#         values = pickle.load(filehandle)
+#     l(i[1][0]) = values
 
+
+#%%
+# DP
+with open(folder_results + 'singleLegFlight-True-DPSingleLeg-Evaluation-190703-1234' + "\\vResultsTable1.data", "rb") as filehandle:
+    values_DP = pickle.load(filehandle)
+
+with open(folder_results + 'singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1726' + "\\vResultsTable1.data", "rb") as filehandle:
+    values_API = pickle.load(filehandle)
+
+values_DP.to_excel("DP.xlsx")
+values_API.to_excel("API.xlsx")
 #%%
 # https://pythonfordatascience.org/paired-samples-t-test-python/
 def analysis(name):

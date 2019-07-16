@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 # Calculation and Counting
-import itertools
+from itertools import product
 import math
 import copy
 
@@ -32,32 +32,26 @@ import os
 from shutil import copyfile, move
 
 # Time
-import datetime
-import time
+from datetime import datetime
+from time import strftime, time
 
 from A_data_read import *
 
+import random
 
-# %% HELPER-FUNCTIONS
-def memoize(func):
-    cache = func.cache = {}
+import pickle
+from copy import deepcopy
 
-    @functools.wraps(func)
-    def memoizer(*args, **kwargs):
-        key = str(args) + str(kwargs)
-        if key not in cache:
-            cache[key] = func(*args, **kwargs)
-        return cache[key]
 
-    return memoizer
-
+# %% small helpers
 
 def get_offer_sets_all(products):
     """
     Generates all possible offer sets, starting with offering nothing.
 
-    :param products:
-    :return:
+    :param products: array of all products that can be offered.
+    :return: two dimensional array with rows containing all possible offer sets, starting with offering no product.
+    In one row (offer set) a product to be offered is indicated by "1", if the product is not offered "0".
     """
     n = len(products)
     offer_sets_all = np.array(list(map(list, itertools.product([0, 1], repeat=n))))
@@ -65,7 +59,6 @@ def get_offer_sets_all(products):
     return offer_sets_all
 
 
-# %% FUNCTIONS
 # @memoize  # easy calculations, save memory
 def customer_choice_individual(offer_set_tuple, preference_weights, preference_no_purchase):
     """
@@ -91,7 +84,7 @@ def customer_choice_individual(offer_set_tuple, preference_weights, preference_n
     return ret
 
 
-@memoize
+# @memoize
 def customer_choice_vector(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities):
     """
     From perspective of retailer: With which probability can he expect to sell each product (respectively non-purchase)
@@ -100,7 +93,7 @@ def customer_choice_vector(offer_set_tuple, preference_weights, preference_no_pu
     :param preference_weights: preference weights of all customers
     :param preference_no_purchase: preference for no purchase for all customers
     :param arrival_probabilities: vector with arrival probabilities of all customer segments
-    :return: array with probabilities of purchase ending with no purchase
+    :return: array with probabilities of purchase for each product ending with no purchase
 
     NOTE: probabilities don't have to sum up to one? BEACHTE: Unterschied zu (1) in Bront et all
     """
@@ -112,6 +105,243 @@ def customer_choice_vector(offer_set_tuple, preference_weights, preference_no_pu
         probs += arrival_probabilities[l] * customer_choice_individual(offer_set_tuple, preference_weights[l, :],
                                                                        preference_no_purchase[l])
     return probs
+
+
+#%% general simulation
+def simulate_sales(offer_set, random_customer, random_sales, arrival_probabilities, preference_weights, preferences_no_purchase):
+    """
+    Simulates a sales event given two random numbers (customer, sale) and a offerset. Eventually, no customer arrives.
+    This would be the case if the random number random_customer > sum(arrival_probabilities).
+
+    :param offer_set: Products offered
+    :param random_customer: Determines the arriving customer (segment).
+    :param random_sales: Determines the product purchased by this customer.
+    :param arrival_probabilities: The arrival probabilities for each customer segment
+    :param preference_weights: The preference weights for each customer segment (for each product)
+    :param preferences_no_purchase: The no purchase preferences for each customer segment.
+    :return: The product that has been purchased. No purchase = len(products) = n   (products indexed from 0 to n-1)
+    """
+    customer = random_customer <= np.array([*np.cumsum(arrival_probabilities), 1.0])
+    customer = min(np.array(range(0, len(customer)))[customer])
+
+    if customer == len(arrival_probabilities):
+        return len(preference_weights[0])  # no customer arrives => no product sold (product out of range)
+    else:
+        product = random_sales <= np.cumsum(customer_choice_individual(offer_set,
+                                                             preference_weights[customer],
+                                                             preferences_no_purchase[customer]))
+        product = min(np.arange(len(preference_weights[0]) + 1)[product])
+        return product
+
+
+#%% API
+def determine_offer_tuple(pi, eps, revenues, A, arrival_probabilities, preference_weights, preferences_no_purchase):
+    """
+    Determines the offerset given the bid prices for each resource.
+
+    Implement the Greedy Heuristic from Bront et al: A Column Generation Algorithm ... 4.2.2
+    and extend it for the epsilon greedy strategy
+    :param pi: vector of dual prices for each resource (np.inf := no capacity)
+    :param eps: epsilon value for epsilon greedy strategy (eps = 0 := no greedy strategy to apply)
+    :param revenues: vector of revenue for each product
+    :param A: matrix with resource consumption of each product (one row = one resource)
+    :param arrival_probabilities: The arrival probabilities for each customer segment
+    :param preference_weights: The preference weights for each customer segment (for each product)
+    :param preferences_no_purchase: The no purchase preferences for each customer segment.
+    :return: the offer set to be offered
+    """
+
+    # no resources left => nothing to be sold
+    if all(pi == np.inf):
+        return tuple(np.zeros_like(revenues))
+
+    # epsilon greedy strategy - offer no products
+    eps_prob = random.random()
+    if eps_prob < eps/2:
+        return tuple(np.zeros_like(revenues))
+
+    # epsilon greedy strategy - offer all products
+    if eps_prob < eps:
+        offer_tuple = np.ones_like(revenues)
+        offer_tuple[np.sum(A[[pi == np.inf], :], axis=0) > 0] = 0  # one resource not available => don't offer product
+        return tuple(offer_tuple)
+
+    # setup
+    offer_tuple = np.zeros_like(revenues)
+
+    # line 1
+    s_prime = revenues - np.apply_along_axis(sum, 1, A.T * pi) > 0
+    if all(np.invert(s_prime)):
+        return tuple(offer_tuple)
+
+    # line 2-3
+    # offer_sets_to_test has in each row an offer set, we want to test
+    offer_sets_to_test = np.zeros((sum(s_prime), len(revenues)))
+    offer_sets_to_test[np.arange(sum(s_prime)), np.where(s_prime)] = 1
+    offer_sets_to_test += offer_tuple
+    offer_sets_to_test = (offer_sets_to_test > 0)
+
+    value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi, revenues,
+                                             preference_weights, arrival_probabilities, A, preferences_no_purchase)
+
+    offer_tuple[np.argmax(value_marginal)] = 1
+    s_prime = s_prime & offer_tuple == 0
+    v_s = np.amax(value_marginal)
+
+    # line 4
+    while True:
+        # 4a
+        # offer_sets_to_test has in each row an offer set, we want to test
+        offer_sets_to_test = np.zeros((sum(s_prime), len(revenues)))
+        offer_sets_to_test[np.arange(sum(s_prime)), np.where(s_prime)] = 1
+        offer_sets_to_test += offer_tuple
+        offer_sets_to_test = (offer_sets_to_test > 0)
+
+        # 4b
+        value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi, revenues,
+                                             preference_weights, arrival_probabilities, A, preferences_no_purchase)
+
+        if np.amax(value_marginal) > v_s:
+            v_s = np.amax(value_marginal)
+            offer_tuple[np.argmax(value_marginal)] = 1
+            s_prime = s_prime & offer_tuple == 0
+            if all(offer_tuple == 1):
+                break
+        else:
+            break
+    return tuple(offer_tuple)
+
+
+def calc_value_marginal(indices_inner_sum, pi, revenues, A, arrival_probabilities, preference_weights, preferences_no_purchase):
+    """
+    Calculates the marginal value as indicated at Bront et al, 4.2.2 Greedy Heuristic -> step 4a
+
+    :param indices_inner_sum: C_l intersected with (S union with {j})
+    :param pi: vector of dual prices for each resource (np.inf := no capacity)
+    :param revenues: vector of revenue for each product
+    :param A: matrix with resource consumption of each product (one row = one resource)
+    :param arrival_probabilities: The arrival probabilities for each customer segment
+    :param preference_weights: The preference weights for each customer segment (for each product)
+    :param preferences_no_purchase: The no purchase preferences for each customer segment.
+    :return: The value inside the argmax (expected marginal value given one set of products to offer)
+    """
+    v_temp = 0
+    for l in np.arange(len(preference_weights)):  # sum over all customer segments
+        v_temp += arrival_probabilities[l] * \
+                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) *
+                      preference_weights[l, :]) / \
+                  (sum(indices_inner_sum * preference_weights[l, :]) + preferences_no_purchase[l])
+    return v_temp
+
+# %% System Helpers
+def get_storage_path(storage_location):
+    return os.getcwd()+"\\Results\\"+storage_location
+
+
+def setup(scenario_name):
+    # Get settings, prepare data, create storage for results
+    print(scenario_name, "starting.\n\n")
+
+    # settings
+    settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
+    example = settings.iloc[0, 1]
+    use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
+    storage_folder = example + "-" + str(use_variations) + "-" + scenario_name + "-" + strftime("%y%m%d-%H%M")
+    epsilon = eval(str(settings.loc[settings[0] == "epsilon", 1].item()))
+    exponential_smoothing = settings.loc[settings[0] == "exponential_smoothing", 1].item()
+    exponential_smoothing = (exponential_smoothing == "True") | (exponential_smoothing == "true")
+
+    # data
+    dat = get_all(example)
+    print("\n Data used. \n")
+    for key in dat.keys():
+        print(key, ":\n", dat[key])
+    print("\n\n")
+    del dat
+
+    # prepare storage location
+    newpath = get_storage_path(storage_folder)
+    os.makedirs(newpath)
+
+    # copy settings to storage location
+    copyfile("0_settings.csv", newpath+"\\0_settings.csv")
+    logfile = open(newpath+"\\0_logging.txt", "w+")  # write and create (if not there)
+
+    # time
+    print("Time:", datetime.now())
+    print("Time (starting):", datetime.now(), file=logfile)
+    time_start = time()
+
+    # settings
+    for row in settings:
+        print(settings.loc[row, 0], ":\t", settings.loc[row, 1])
+        print(settings.loc[row, 0], ":\t", settings.loc[row, 1], file=logfile)
+
+    # variations (capacity and no purchase preference)
+    if use_variations:
+        var_capacities, var_no_purchase_preferences = get_variations(example)
+    else:
+        capacities, no_purchase_preferences = get_capacities_and_preferences_no_purchase(example)
+        var_capacities = np.array([capacities])
+        var_no_purchase_preferences = np.array([no_purchase_preferences])
+
+    # other data
+    resources, \
+        products, revenues, A, \
+        customer_segments, preference_weights, arrival_probabilities, \
+        times = get_data_without_variations(example)
+    T = len(times)
+
+    print("\nEverything set up.")
+
+    return logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
+        customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
+        epsilon, exponential_smoothing
+
+
+def setup_testing(scenario_name):
+    settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
+    K = int(settings.loc[settings[0] == "K", 1])
+    online_K = int(settings.loc[settings[0] == "online_K", 1].item())
+
+    logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
+        customer_segments, preference_weights, arrival_probabilities, times, T, time_start, \
+        epsilon, exponential_smoothing = setup(scenario_name)
+
+    return logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
+        customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
+        epsilon, exponential_smoothing,\
+        K, online_K
+
+
+def wrapup(logfile, time_start, newpath):
+    time_elapsed = time() - time_start
+    print("\n\nTotal time needed:\n", time_elapsed, "seconds = \n", time_elapsed / 60, "minutes", file=logfile)
+    logfile.close()
+    print("\n\n\n\nDone. Time elapsed:", time() - time_start, "seconds.")
+    print("Results stored in: " + newpath)
+
+
+
+#%% move stuff up, if used indeed
+
+# %% HELPER-FUNCTIONS
+def memoize(func):
+    cache = func.cache = {}
+
+    @functools.wraps(func)
+    def memoizer(*args, **kwargs):
+        key = str(args) + str(kwargs)
+        if key not in cache:
+            cache[key] = func(*args, **kwargs)
+        return cache[key]
+
+    return memoizer
+
+
+
+
+# %% FUNCTIONS
 
 
 @memoize
@@ -345,93 +575,3 @@ def DPD(capacities, preference_no_purchase, dualPrice, t=0):
     val = val/len(resources)
 
     return val
-
-
-# %% System Helpers
-def get_storage_path(storage_location):
-    return os.getcwd()+"\\Results\\"+storage_location
-
-
-# %% Guaranteed helpers (looked at after 13.06.2019), but careful with global parameters
-#%%
-def setup(scenario_name):
-    # Get settings, prepare data, create storage for results
-    print(scenario_name, "starting.\n\n")
-
-    # settings
-    settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
-    example = settings.iloc[0, 1]
-    use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
-    storage_folder = example + "-" + str(use_variations) + "-" + scenario_name + "-" + time.strftime("%y%m%d-%H%M")
-    epsilon = eval(str(settings.loc[settings[0] == "epsilon", 1].item()))
-    exponential_smoothing = settings.loc[settings[0] == "exponential_smoothing", 1].item()
-    exponential_smoothing = (exponential_smoothing == "True") | (exponential_smoothing == "true")
-
-    # data
-    dat = get_all(example)
-    print("\n Data used. \n")
-    for key in dat.keys():
-        print(key, ":\n", dat[key])
-    print("\n\n")
-    del dat
-
-    # prepare storage location
-    newpath = get_storage_path(storage_folder)
-    os.makedirs(newpath)
-
-    # copy settings to storage location
-    copyfile("0_settings.csv", newpath+"\\0_settings.csv")
-    logfile = open(newpath+"\\0_logging.txt", "w+")  # write and create (if not there)
-
-    # time
-    print("Time:", datetime.datetime.now())
-    print("Time (starting):", datetime.datetime.now(), file=logfile)
-    time_start = time.time()
-
-    # settings
-    for row in settings:
-        print(settings.loc[row, 0], ":\t", settings.loc[row, 1])
-        print(settings.loc[row, 0], ":\t", settings.loc[row, 1], file=logfile)
-
-    # variations (capacity and no purchase preference)
-    if use_variations:
-        var_capacities, var_no_purchase_preferences = get_variations(example)
-    else:
-        capacities, no_purchase_preferences = get_capacities_and_preferences_no_purchase(example)
-        var_capacities = np.array([capacities])
-        var_no_purchase_preferences = np.array([no_purchase_preferences])
-
-    # other data
-    resources, \
-        products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, \
-        times = get_data_without_variations(example)
-    T = len(times)
-
-    print("\nEverything set up.")
-
-    return logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
-        epsilon, exponential_smoothing
-
-
-def setup_testing(scenario_name):
-    settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
-    K = int(settings.loc[settings[0] == "K", 1])
-    online_K = int(settings.loc[settings[0] == "online_K", 1].item())
-
-    logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, times, T, time_start, \
-        epsilon, exponential_smoothing = setup(scenario_name)
-
-    return logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
-        customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
-        epsilon, exponential_smoothing,\
-        K, online_K
-
-def wrapup(logfile, time_start, newpath):
-    time_elapsed = time.time() - time_start
-    print("\n\nTotal time needed:\n", time_elapsed, "seconds = \n", time_elapsed / 60, "minutes", file=logfile)
-    logfile.close()
-    print("\n\n\n\nDone. Time elapsed:", time.time() - time_start, "seconds.")
-    print("Results stored in: " + newpath)

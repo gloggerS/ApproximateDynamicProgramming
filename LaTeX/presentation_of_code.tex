@@ -1,0 +1,989 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{presentation\_of\_code}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+\footnotesize
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{B\PYZus{}helper} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{inspect}
+\end{Verbatim}
+
+    \section{get\_offer\_sets\_all}\label{get_offer_sets_all}
+
+    \subsection{Documentation}\label{documentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getdoc}\PY{p}{(}\PY{n}{get\PYZus{}offer\PYZus{}sets\PYZus{}all}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Generates all possible offer sets, starting with offering nothing.
+
+:param products: array of all products that can be offered.
+:return: two dimensional array with rows containing all possible offer sets, starting with offering no product.
+
+    \end{Verbatim}
+
+    \subsection{Source Code}\label{source-code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getsource}\PY{p}{(}\PY{n}{get\PYZus{}offer\PYZus{}sets\PYZus{}all}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+def get\_offer\_sets\_all(products):
+    """
+    Generates all possible offer sets, starting with offering nothing.
+
+    :param products: array of all products that can be offered.
+    :return: two dimensional array with rows containing all possible offer sets, starting with offering no product.
+    """
+    n = len(products)
+    offer\_sets\_all = np.array(list(map(list, itertools.product([0, 1], repeat=n))))
+    offer\_sets\_all = np.vstack((offer\_sets\_all, offer\_sets\_all[0]))[1:]  \# move empty offer set to the end
+    return offer\_sets\_all
+
+
+    \end{Verbatim}
+
+    \subsection{Example}\label{example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{products} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Products: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{products}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Result of get\PYZus{}offer\PYZus{}sets\PYZus{}all: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{get\PYZus{}offer\PYZus{}sets\PYZus{}all}\PY{p}{(}\PY{n}{products}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Products: 	 [0 1 2]
+
+Result of get\_offer\_sets\_all: 
+ [[0 0 1]
+ [0 1 0]
+ [0 1 1]
+ [1 0 0]
+ [1 0 1]
+ [1 1 0]
+ [1 1 1]
+ [0 0 0]]
+
+    \end{Verbatim}
+
+    \section{customer\_choice\_individual}\label{customer_choice_individual}
+
+    \subsection{Documentation}\label{documentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getdoc}\PY{p}{(}\PY{n}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \subsection{Source Code}\label{source-code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getsource}\PY{p}{(}\PY{n}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \subsection{Example}\label{example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{offer\PYZus{}set\PYZus{}tuple} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}\PY{p}{)}
+        \PY{n}{preference\PYZus{}weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{preference\PYZus{}no\PYZus{}purchase} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Offer set tuple: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference Weights: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference no purchase: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Result of customer\PYZus{}choice\PYZus{}individual: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \section{customer\_choice\_vector}\label{customer_choice_vector}
+
+    \subsection{Documentation}\label{documentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getdoc}\PY{p}{(}\PY{n}{customer\PYZus{}choice\PYZus{}vector}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+From perspective of retailer: With which probability can he expect to sell each product (respectively non-purchase)
+
+:param offer\_set\_tuple: tuple with offered products indicated by 1=product offered
+:param preference\_weights: preference weights of all customers
+:param preference\_no\_purchase: preference for no purchase for all customers
+:param arrival\_probabilities: vector with arrival probabilities of all customer segments
+:return: array with probabilities of purchase ending with no purchase
+
+NOTE: probabilities don't have to sum up to one? BEACHTE: Unterschied zu (1) in Bront et all
+
+    \end{Verbatim}
+
+    \subsection{Source Code}\label{source-code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getsource}\PY{p}{(}\PY{n}{customer\PYZus{}choice\PYZus{}vector}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+def customer\_choice\_vector(offer\_set\_tuple, preference\_weights, preference\_no\_purchase, arrival\_probabilities):
+    """
+    From perspective of retailer: With which probability can he expect to sell each product (respectively non-purchase)
+
+    :param offer\_set\_tuple: tuple with offered products indicated by 1=product offered
+    :param preference\_weights: preference weights of all customers
+    :param preference\_no\_purchase: preference for no purchase for all customers
+    :param arrival\_probabilities: vector with arrival probabilities of all customer segments
+    :return: array with probabilities of purchase for each product ending with no purchase
+
+    NOTE: probabilities don't have to sum up to one? BEACHTE: Unterschied zu (1) in Bront et all
+    """
+    if sum(arrival\_probabilities) > 1:
+        raise ValueError("The sum of all arrival probabilities has to be <= 1.")
+
+    probs = np.zeros(len(offer\_set\_tuple) + 1)
+    for l in np.arange(len(preference\_weights)):
+        probs += arrival\_probabilities[l] * customer\_choice\_individual(offer\_set\_tuple, preference\_weights[l, :],
+                                                                       preference\_no\_purchase[l])
+    return probs
+
+
+    \end{Verbatim}
+
+    \subsection{Example}\label{example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{offer\PYZus{}set\PYZus{}tuple} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}\PY{p}{)}
+         \PY{n}{preference\PYZus{}weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{]}\PY{p}{,}
+                                       \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,}
+                                        \PY{p}{[}\PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{preference\PYZus{}no\PYZus{}purchase} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{arrival\PYZus{}probabilities} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Offer set tuple: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference Weights: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference no purchase: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arrival probabilities: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{customer\PYZus{}choice\PYZus{}vector}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Result of customer\PYZus{}choice\PYZus{}vector: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sum: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{erg}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Offer set tuple: 		 (1, 1, 1)
+Preference Weights: 
+ [[1. 1. 2.]
+ [1. 2. 1.]
+ [2. 1. 1.]]
+Preference no purchase: 	 [1. 1. 1.]
+Arrival probabilities: 		 [0.33333333 0.33333333 0.33333333]
+
+Result of customer\_choice\_vector: 
+ [0.26666667 0.26666667 0.26666667 0.2       ]
+Sum:  1.0
+
+    \end{Verbatim}
+
+    \section{simulate\_sales}\label{simulate_sales}
+
+    \subsection{Documentation}\label{documentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getdoc}\PY{p}{(}\PY{n}{simulate\PYZus{}sales}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simulates a sales event given two random numbers (customer, sale) and a offerset. Eventually, no customer arrives.
+This would be the case if the random number random\_customer > sum(arrival\_probabilities).
+
+:param offer\_set: Products offered
+:param random\_customer: Determines the arriving customer (segment).
+:param random\_sales: Determines the product purchased by this customer.
+:param arrival\_probabilities: The arrival probabilities for each customer segment
+:param preference\_weights: The preference weights for each customer segment (for each product)
+:param preferences\_no\_purchase: The no purchase preferences for each customer segment.
+:return: The product that has been purchased. No purchase = len(products) = n   (products indexed from 0 to n-1)
+
+    \end{Verbatim}
+
+    \subsection{Source Code}\label{source-code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getsource}\PY{p}{(}\PY{n}{simulate\PYZus{}sales}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+def simulate\_sales(offer\_set, random\_customer, random\_sales, arrival\_probabilities, preference\_weights, preferences\_no\_purchase):
+    """
+    Simulates a sales event given two random numbers (customer, sale) and a offerset. Eventually, no customer arrives.
+    This would be the case if the random number random\_customer > sum(arrival\_probabilities).
+
+    :param offer\_set: Products offered
+    :param random\_customer: Determines the arriving customer (segment).
+    :param random\_sales: Determines the product purchased by this customer.
+    :param arrival\_probabilities: The arrival probabilities for each customer segment
+    :param preference\_weights: The preference weights for each customer segment (for each product)
+    :param preferences\_no\_purchase: The no purchase preferences for each customer segment.
+    :return: The product that has been purchased. No purchase = len(products) = n   (products indexed from 0 to n-1)
+    """
+    customer = random\_customer <= np.array([*np.cumsum(arrival\_probabilities), 1.0])
+    customer = min(np.array(range(0, len(customer)))[customer])
+
+    if customer == len(arrival\_probabilities):
+        return len(preference\_weights[0])  \# no customer arrives => no product sold (product out of range)
+    else:
+        product = random\_sales <= np.cumsum(customer\_choice\_individual(offer\_set,
+                                                             preference\_weights[customer],
+                                                             preferences\_no\_purchase[customer]))
+        product = min(np.arange(len(preference\_weights[0]) + 1)[product])
+        return product
+
+
+    \end{Verbatim}
+
+    \subsection{Example}\label{example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{offer\PYZus{}set\PYZus{}tuple} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}\PY{p}{)}
+         \PY{n}{preference\PYZus{}weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{]}\PY{p}{,}
+                                       \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,}
+                                        \PY{p}{[}\PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{preference\PYZus{}no\PYZus{}purchase} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{arrival\PYZus{}probabilities} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{4}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Offer set tuple: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference Weights: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference no purchase: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arrival probabilities: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{   Customer preferences of customer 0: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{   Customer preferences of customer 1: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{customer\PYZus{}choice\PYZus{}individual}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.3}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.5}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.9}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.4}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.4}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.3}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.4}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.5}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.4}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.9}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.8}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.8}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.3}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.8}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.5}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{random\PYZus{}customer} \PY{o}{=} \PY{l+m+mf}{0.8}
+         \PY{n}{random\PYZus{}sales} \PY{o}{=} \PY{l+m+mf}{0.9}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Random customer: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random sales: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{simulate\PYZus{}sales}\PY{p}{(}\PY{n}{offer\PYZus{}set\PYZus{}tuple}\PY{p}{,} \PY{n}{random\PYZus{}customer}\PY{p}{,} \PY{n}{random\PYZus{}sales}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preference\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Offer set tuple: 		 (1, 1, 1)
+Preference Weights: 
+ [[1. 1. 2.]
+ [1. 2. 1.]
+ [2. 1. 1.]]
+Preference no purchase: 	 [1. 1. 1.]
+Arrival probabilities: 		 [0.25 0.25 0.25]
+
+   Customer preferences of customer 0: 	 [0.2 0.2 0.4 0.2]
+   Customer preferences of customer 1: 	 [0.2 0.4 0.2 0.2]
+
+
+\#\#\#\#\#\#\#\#\#
+Random customer: 	 0.1
+Random sales: 	 0.1
+Result of simulate\_sales: 
+ 0
+
+
+Random customer: 	 0.1
+Random sales: 	 0.3
+Result of simulate\_sales: 
+ 1
+
+
+Random customer: 	 0.1
+Random sales: 	 0.5
+Result of simulate\_sales: 
+ 2
+
+
+Random customer: 	 0.1
+Random sales: 	 0.9
+Result of simulate\_sales: 
+ 3
+
+
+\#\#\#\#\#\#\#\#\#
+Random customer: 	 0.4
+Random sales: 	 0.1
+Result of simulate\_sales: 
+ 0
+
+
+Random customer: 	 0.4
+Random sales: 	 0.3
+Result of simulate\_sales: 
+ 1
+
+
+Random customer: 	 0.4
+Random sales: 	 0.5
+Result of simulate\_sales: 
+ 1
+
+
+Random customer: 	 0.4
+Random sales: 	 0.9
+Result of simulate\_sales: 
+ 3
+
+
+\#\#\#\#\#\#\#\#\#
+Random customer: 	 0.8
+Random sales: 	 0.1
+Result of simulate\_sales: 
+ 3
+
+
+Random customer: 	 0.8
+Random sales: 	 0.3
+Result of simulate\_sales: 
+ 3
+
+
+Random customer: 	 0.8
+Random sales: 	 0.5
+Result of simulate\_sales: 
+ 3
+
+
+Random customer: 	 0.8
+Random sales: 	 0.9
+Result of simulate\_sales: 
+ 3
+
+    \end{Verbatim}
+
+    \section{calc\_value\_marginal}\label{calc_value_marginal}
+
+    \subsection{Documentation}\label{documentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getdoc}\PY{p}{(}\PY{n}{calc\PYZus{}value\PYZus{}marginal}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Calculates the marginal value as indicated at Bront et al, 4.2.2 Greedy Heuristic -> step 4a
+
+:param indices\_inner\_sum: C\_l intersected with (S union with \{j\})
+:param pi: vector of dual prices for each resource (np.inf := no capacity)
+:param revenues: vector of revenue for each product
+:param A: matrix with resource consumption of each product (one row = one resource)
+:param arrival\_probabilities: The arrival probabilities for each customer segment
+:param preference\_weights: The preference weights for each customer segment (for each product)
+:param preferences\_no\_purchase: The no purchase preferences for each customer segment.
+:return: The value inside the argmax (expected marginal value given one set of products to offer)
+
+    \end{Verbatim}
+
+    \subsection{Source Code}\label{source-code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getsource}\PY{p}{(}\PY{n}{calc\PYZus{}value\PYZus{}marginal}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+def calc\_value\_marginal(indices\_inner\_sum, pi, revenues, A, arrival\_probabilities, preference\_weights, preferences\_no\_purchase):
+    """
+    Calculates the marginal value as indicated at Bront et al, 4.2.2 Greedy Heuristic -> step 4a
+
+    :param indices\_inner\_sum: C\_l intersected with (S union with \{j\})
+    :param pi: vector of dual prices for each resource (np.inf := no capacity)
+    :param revenues: vector of revenue for each product
+    :param A: matrix with resource consumption of each product (one row = one resource)
+    :param arrival\_probabilities: The arrival probabilities for each customer segment
+    :param preference\_weights: The preference weights for each customer segment (for each product)
+    :param preferences\_no\_purchase: The no purchase preferences for each customer segment.
+    :return: The value inside the argmax (expected marginal value given one set of products to offer)
+    """
+    v\_temp = 0
+    for l in np.arange(len(preference\_weights)):  \# sum over all customer segments
+        v\_temp += arrival\_probabilities[l] * \textbackslash{}
+                  sum(indices\_inner\_sum * (revenues - np.apply\_along\_axis(sum, 1, A.T * pi)) *
+                      preference\_weights[l, :]) / \textbackslash{}
+                  (sum(indices\_inner\_sum * preference\_weights[l, :]) + preferences\_no\_purchase[l])
+    return v\_temp
+
+
+    \end{Verbatim}
+
+    \subsection{Example}\label{example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Example analogously to Bront et al}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{revenues} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{]}\PY{p}{)}
+         \PY{n}{pi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{arrival\PYZus{}probabilities} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{preference\PYZus{}weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                                        \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                                        \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{preferences\PYZus{}no\PYZus{}purchase} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Revenues: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{revenues}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pi: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pi}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{A}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference Weights: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference no purchase: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preferences\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arrival probabilities: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{)}
+         
+         \PY{n}{indices\PYZus{}inner\PYZus{}sum} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Indices inner sum: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{indices\PYZus{}inner\PYZus{}sum}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{calc\PYZus{}value\PYZus{}marginal}\PY{p}{(}\PY{n}{indices\PYZus{}inner\PYZus{}sum}\PY{p}{,} \PY{n}{pi}\PY{p}{,} \PY{n}{revenues}\PY{p}{,} \PY{n}{A}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preferences\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+         
+         \PY{n}{indices\PYZus{}inner\PYZus{}sum} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Indices inner sum: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{indices\PYZus{}inner\PYZus{}sum}\PY{p}{)}
+         \PY{n}{erg} \PY{o}{=} \PY{n}{calc\PYZus{}value\PYZus{}marginal}\PY{p}{(}\PY{n}{indices\PYZus{}inner\PYZus{}sum}\PY{p}{,} \PY{n}{pi}\PY{p}{,} \PY{n}{revenues}\PY{p}{,} \PY{n}{A}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preferences\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result of simulate\PYZus{}sales: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Example analogously to Bront et al
+
+
+Revenues: 			 [100  19  19]
+Pi: 				 [0]
+A:				 [[1 1 1]]
+Preference Weights: 
+ [[1 1 1]
+ [0 1 0]
+ [0 0 1]]
+Preference no purchase: 	 [1 1 1]
+Arrival probabilities: 		 [1 1 1]
+
+\#\#\#\#\#
+Indices inner sum: 	 [1 0 0]
+Result of simulate\_sales: 
+ 50.0
+
+\#\#\#\#\#
+Indices inner sum: 	 [1 1 1]
+Result of simulate\_sales: 
+ 53.5
+
+    \end{Verbatim}
+
+    \section{determine\_offer\_tuple}\label{determine_offer_tuple}
+
+    \subsection{Documentation}\label{documentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getdoc}\PY{p}{(}\PY{n}{determine\PYZus{}offer\PYZus{}tuple}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Determines the offerset given the bid prices for each resource.
+
+Implement the Greedy Heuristic from Bront et al: A Column Generation Algorithm {\ldots} 4.2.2
+and extend it for the epsilon greedy strategy
+:param pi: vector of dual prices for each resource (np.inf := no capacity)
+:param eps: epsilon value for epsilon greedy strategy (eps = 0 := no greedy strategy to apply)
+:param revenues: vector of revenue for each product
+:param A: matrix with resource consumption of each product (one row = one resource)
+:param arrival\_probabilities: The arrival probabilities for each customer segment
+:param preference\_weights: The preference weights for each customer segment (for each product)
+:param preferences\_no\_purchase: The no purchase preferences for each customer segment.
+:return: the offer set to be offered
+
+    \end{Verbatim}
+
+    \subsection{Source Code}\label{source-code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{inspect}\PY{o}{.}\PY{n}{getsource}\PY{p}{(}\PY{n}{determine\PYZus{}offer\PYZus{}tuple}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+def determine\_offer\_tuple(pi, eps, revenues, A, arrival\_probabilities, preference\_weights, preferences\_no\_purchase):
+    """
+    Determines the offerset given the bid prices for each resource.
+
+    Implement the Greedy Heuristic from Bront et al: A Column Generation Algorithm {\ldots} 4.2.2
+    and extend it for the epsilon greedy strategy
+    :param pi: vector of dual prices for each resource (np.inf := no capacity)
+    :param eps: epsilon value for epsilon greedy strategy (eps = 0 := no greedy strategy to apply)
+    :param revenues: vector of revenue for each product
+    :param A: matrix with resource consumption of each product (one row = one resource)
+    :param arrival\_probabilities: The arrival probabilities for each customer segment
+    :param preference\_weights: The preference weights for each customer segment (for each product)
+    :param preferences\_no\_purchase: The no purchase preferences for each customer segment.
+    :return: the offer set to be offered
+    """
+
+    \# no resources left => nothing to be sold
+    if all(pi == np.inf):
+        return tuple(np.zeros\_like(revenues))
+
+    \# epsilon greedy strategy - offer no products
+    eps\_prob = random.random()
+    if eps\_prob < eps/2:
+        return tuple(np.zeros\_like(revenues))
+
+    \# epsilon greedy strategy - offer all products
+    if eps\_prob < eps:
+        offer\_tuple = np.ones\_like(revenues)
+        offer\_tuple[np.sum(A[[pi == np.inf], :], axis=0) > 0] = 0  \# one resource not available => don't offer product
+        return tuple(offer\_tuple)
+
+    \# setup
+    offer\_tuple = np.zeros\_like(revenues)
+
+    \# line 1
+    s\_prime = revenues - np.apply\_along\_axis(sum, 1, A.T * pi) > 0
+    if all(np.invert(s\_prime)):
+        return tuple(offer\_tuple)
+
+    \# line 2-3
+    \# offer\_sets\_to\_test has in each row an offer set, we want to test
+    offer\_sets\_to\_test = np.zeros((sum(s\_prime), len(revenues)))
+    offer\_sets\_to\_test[np.arange(sum(s\_prime)), np.where(s\_prime)] = 1
+    offer\_sets\_to\_test += offer\_tuple
+    offer\_sets\_to\_test = (offer\_sets\_to\_test > 0)
+
+    value\_marginal = np.apply\_along\_axis(calc\_value\_marginal, 1, offer\_sets\_to\_test, pi, revenues,
+                                             preference\_weights, arrival\_probabilities, A, preferences\_no\_purchase)
+
+    offer\_tuple[np.argmax(value\_marginal)] = 1
+    s\_prime = s\_prime \& offer\_tuple == 0
+    v\_s = np.amax(value\_marginal)
+
+    \# line 4
+    while True:
+        \# 4a
+        \# offer\_sets\_to\_test has in each row an offer set, we want to test
+        offer\_sets\_to\_test = np.zeros((sum(s\_prime), len(revenues)))
+        offer\_sets\_to\_test[np.arange(sum(s\_prime)), np.where(s\_prime)] = 1
+        offer\_sets\_to\_test += offer\_tuple
+        offer\_sets\_to\_test = (offer\_sets\_to\_test > 0)
+
+        \# 4b
+        value\_marginal = np.apply\_along\_axis(calc\_value\_marginal, 1, offer\_sets\_to\_test, pi, revenues,
+                                             preference\_weights, arrival\_probabilities, A, preferences\_no\_purchase)
+
+        if np.amax(value\_marginal) > v\_s:
+            v\_s = np.amax(value\_marginal)
+            offer\_tuple[np.argmax(value\_marginal)] = 1
+            s\_prime = s\_prime \& offer\_tuple == 0
+            if all(offer\_tuple == 1):
+                break
+        else:
+            break
+    return tuple(offer\_tuple)
+
+
+    \end{Verbatim}
+
+    \subsection{Example}\label{example}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Example analogously to Bront et al}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{revenues} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{]}\PY{p}{)}
+         \PY{n}{pi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{arrival\PYZus{}probabilities} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{preference\PYZus{}weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                                        \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                                        \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{preferences\PYZus{}no\PYZus{}purchase} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{eps} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Revenues: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{revenues}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pi: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pi}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A:}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{A}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference Weights: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preference no purchase: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{preferences\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Arrival probabilities: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epsilon: }\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eps}\PY{p}{)}
+         
+         \PY{n}{erg} \PY{o}{=} \PY{n}{determine\PYZus{}offer\PYZus{}tuple}\PY{p}{(}\PY{n}{pi}\PY{p}{,} \PY{n}{eps}\PY{p}{,} \PY{n}{revenues}\PY{p}{,} \PY{n}{A}\PY{p}{,} \PY{n}{arrival\PYZus{}probabilities}\PY{p}{,} \PY{n}{preference\PYZus{}weights}\PY{p}{,} \PY{n}{preferences\PYZus{}no\PYZus{}purchase}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Result of determine\PYZus{}offer\PYZus{}tuple: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{erg}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Example analogously to Bront et al
+
+
+Revenues: 			 [100  19  19]
+Pi: 				 [0]
+A:				 [[1 1 1]]
+Preference Weights: 
+ [[1 1 1]
+ [0 1 0]
+ [0 0 1]]
+Preference no purchase: 	 [1 1 1]
+Arrival probabilities: 		 [1 1 1]
+Epsilon: 			 0
+
+Result of determine\_offer\_tuple: 
+ (1, 0, 0)
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
