@@ -32,12 +32,7 @@ import statsmodels.api as sm
 X = df["RM"]
 y = target["MEDV"]
 
-# Note the difference in argument order
-model = sm.OLS(y, X).fit()
-predictions = model.predict(X) # make the predictions by the model
 
-# Print out the statistics
-model.summary()
 
 #%%
 X = df

@@ -32,120 +32,27 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
 capacities = var_capacities[0]
 preferences_no_purchase = var_no_purchase_preferences[0]
 
-with open("0-test_customer.data", "rb") as filehandle:
-    test_customer = pickle.load(filehandle)
-with open("0-test_sales.data", "rb") as filehandle:
-    test_sales = pickle.load(filehandle)
+#%%
+np.random.seed(23)
+test_customer = [np.random.random(len(times)) for _ in range(online_K)]
+test_sales = [np.random.random(len(times)) for _ in range(online_K)]
 
-if online_K > len(test_sales) or online_K > len(test_customer):
-    raise ValueError("online_K as specified in 0_settings.csv has to be smaller then the test data given in test_sales and test_customer")
 
 #%%
 # todo get the folder in which the parameters (theta, pi) to use are stored; e.g. via sys.argv (this script is called after the calculation of those parameters)
 for i in sys.argv:
     print(i)
 
-result_folder = os.getcwd() + '\\Results\\singleLegFlight-True-APILinearSingleLeg-190702-2200'
-
-
-#%%
-def determine_offer_tuple(pi, eps):
-    """
-    OLD Implementation
-    Determines the offerset given the bid prices for each resource.
-
-    Implement the Greedy Heuristic from Bront et al: A Column Generation Algorithm ... 4.2.2
-    and extend it for the epsilon greedy strategy
-
-    :param pi:
-    :return:
-    """
-
-    # setup
-    offer_tuple = np.zeros_like(revenues)
-
-    # epsilon greedy strategy - offer no products
-    eps_prob = random.random()
-    if eps_prob < eps/2:
-        return tuple(offer_tuple)
-
-    # epsilon greedy strategy - offer all products
-    if eps_prob < eps:
-        return tuple(offer_tuple)
-
-    # line 1
-    s_prime = revenues - np.apply_along_axis(sum, 1, A.T * pi) > 0
-    if all(np.invert(s_prime)):
-        return tuple(offer_tuple)
-
-    # line 2-3
-    # offer_sets_to_test has in each row an offer set, we want to test
-    offer_sets_to_test = np.zeros((sum(s_prime), len(revenues)))
-    offer_sets_to_test[np.arange(sum(s_prime)), np.where(s_prime)] = 1
-    offer_sets_to_test += offer_tuple
-    offer_sets_to_test = (offer_sets_to_test > 0)
-
-    value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
-
-    offer_tuple[np.argmax(value_marginal)] = 1
-    s_prime = s_prime & offer_tuple == 0
-    v_s = np.amax(value_marginal)
-
-    # line 4
-    while True:
-        # 4a
-        # offer_sets_to_test has in each row an offer set, we want to test
-        offer_sets_to_test = np.zeros((sum(s_prime), len(revenues)))
-        offer_sets_to_test[np.arange(sum(s_prime)), np.where(s_prime)] = 1
-        offer_sets_to_test += offer_tuple
-        offer_sets_to_test = (offer_sets_to_test > 0)
-
-        # 4b
-        value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi)
-
-        if np.amax(value_marginal) > v_s:
-            v_s = np.amax(value_marginal)
-            offer_tuple[np.argmax(value_marginal)] = 1
-            s_prime = s_prime & offer_tuple == 0
-            if all(offer_tuple == 1):
-                break
-        else:
-            break
-    return tuple(offer_tuple)
-
-
-def calc_value_marginal(indices_inner_sum, pi):
-    v_temp = 0
-    for l in np.arange(len(preference_weights)):  # sum over all customer segments
-        v_temp += arrival_probabilities[l] * \
-                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) *
-                      preference_weights[l, :]) / \
-                  (sum(indices_inner_sum * preference_weights[l, :]) + var_no_purchase_preferences[l][0])
-    return v_temp
-
-
-def simulate_sales(offer_set, random_customer, random_sales):
-    customer = random_customer <= np.array([*np.cumsum(arrival_probabilities), 1.0])
-    customer = min(np.array(range(0, len(customer)))[customer])
-
-    if customer == len(arrival_probabilities):
-        return len(products)  # no customer arrives => no product sold (product out of range)
-    else:
-        product = random_sales <= np.cumsum(customer_choice_individual(offer_set,
-                                                             preference_weights[customer],
-                                                             preferences_no_purchase[customer]))
-        product = min(np.arange(len(products) + 1)[product])
-        return product
-
+result_folder = os.getcwd() + '\\Results\\singleLegFlight-True-APILinearSingleLeg-190719-1125'
 
 # %%
 # Actual Code
 
 # theta and pi as calculated
-with open(result_folder+"\\thetaResult.data", "rb") as filehandle:
-    thetas = pickle.load(filehandle)
-with open(result_folder+"\\piResult.data", "rb") as filehandle:
-    pis = pickle.load(filehandle)
+with open(result_folder+"\\thetaToUse.data", "rb") as filehandle:
+    thetas_to_use = pickle.load(filehandle)
+with open(result_folder+"\\piToUse.data", "rb") as filehandle:
+    pis_to_use = pickle.load(filehandle)
 
 #%%
 # online_K+1 policy iterations (starting with 0)
@@ -155,12 +62,16 @@ c_results = np.array([np.zeros(shape=(len(times), len(capacities)))]*online_K)
 # to use in single timestep (will be overwritten)
 pi = np.zeros(len(resources))
 
-value_final = pd.DataFrame(v_results[:,0])  # setup result storage empty
-value_final['' + str(capacities[0]) + '-' + str(preferences_no_purchase[0])] = pd.DataFrame(v_results[:, 0])
+# setup result storage empty
+value_final = pd.DataFrame(v_results[:, 0])
 #%%
 for capacities in var_capacities:
     for preferences_no_purchase in var_no_purchase_preferences:
         print(capacities, "of", str(var_capacities.tolist()), " - and - ", preferences_no_purchase, "of", str(var_no_purchase_preferences.tolist()), "starting.")
+
+        thetas = thetas_to_use[str(capacities)][str(preferences_no_purchase)]
+        pis = pis_to_use[str(capacities)][str(preferences_no_purchase)]
+
         for k in np.arange(online_K)+1:
             print(k, "of", online_K, "starting.")
             customer_random_stream = test_customer[k-1]
@@ -180,10 +91,14 @@ for capacities in var_capacities:
                 # line 12  (epsilon greedy strategy)
                 pi[c == 0] = np.inf
                 pi[c > 0] = pis[t][c > 0]
-                offer_set = determine_offer_tuple(pi, eps=0)
+                # eps set to 0
+                offer_set = determine_offer_tuple(pi, 0,
+                                                  revenues, A, arrival_probabilities,
+                                                  preference_weights, preferences_no_purchase)
 
                 # line 13  (simulate sales)
-                sold = simulate_sales(offer_set, customer_random_stream[t], sales_random_stream[t])
+                sold = simulate_sales(offer_set, customer_random_stream[t], sales_random_stream[t],
+                                      arrival_probabilities, preference_weights, preferences_no_purchase)
 
                 # line 14
                 try:
