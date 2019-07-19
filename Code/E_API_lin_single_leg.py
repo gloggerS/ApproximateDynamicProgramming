@@ -31,11 +31,10 @@ import random
 logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
         epsilon, exponential_smoothing,\
-        K, online_K \
+        K, online_K, I \
     = setup_testing("APILinearSingleLeg")
 capacities = var_capacities[1]
 preferences_no_purchase = var_no_purchase_preferences[0]
-I = 800
 
 
 #%%
@@ -112,84 +111,122 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
 # %%
 # Actual Code
 
+pi_result = {}
+theta_result = {}
+value_result = {}
+capacities_result = {}
+
 # generate the random sample paths
 np.random.seed(12)
 random.seed(12)
 customer_stream = [np.random.random(T) for _ in range(I)]
 sales_stream = [np.random.random(T) for _ in range(I)]
 
-# store parameters over all policy iterations
-# K+1 policy iterations (starting with 0)
-# T time steps
-theta_all = np.array([[np.zeros(1)]*T]*(K+1))
-pi_all = np.array([[np.zeros(len(resources))]*T]*(K+1))
+for capacities in var_capacities:
+    value_result[str(capacities)] = {}
+    capacities_result[str(capacities)] = {}
+    theta_result[str(capacities)] = {}
+    pi_result[str(capacities)] = {}
 
-# theta and pi for each time step
-# line 1
-thetas = 0
-pis = np.zeros(len(resources))
+    for preferences_no_purchase in var_no_purchase_preferences:
+        print(capacities, "of", str(var_capacities.tolist()), " - and - ", preferences_no_purchase, "of", str(var_no_purchase_preferences.tolist()), "starting.")
 
-v_samples = dict()
-c_samples = dict()
+        value_result[str(capacities)][str(preferences_no_purchase)] = {}
+        capacities_result[str(capacities)][str(preferences_no_purchase)] = {}
 
-for k in np.arange(K)+1:
-    print(k, "of", K, "starting.")
-    random.seed(13)  # to have the epsilon's (exploration vs exploitation) also the same for each policy iteration k
+        # store parameters over all policy iterations
+        # K+1 policy iterations (starting with 0)
+        # T time steps
+        theta_all = np.array([[np.zeros(1)] * T] * (K + 1))
+        pi_all = np.array([[np.zeros(len(resources))] * T] * (K + 1))
 
-    v_samples[k] = np.array([np.zeros(len(times))]*I)
-    c_samples[k] = np.array([np.zeros(shape=(len(times), len(capacities)))]*I)
+        # theta and pi for each time step
+        # line 1
+        thetas = 0
+        pis = np.zeros(len(resources))
 
-    for i in np.arange(I):
-        # line 3
-        r_sample = np.zeros(len(times))  # will become v_sample
-        c_sample = np.zeros(shape=(len(times), len(capacities)), dtype=int)
+        for k in np.arange(K)+1:
+            print(k, "of", K, "starting.")
+            random.seed(13)  # to have the epsilon's (exploration vs exploitation) also the same for each policy iteration k
 
-        # line 5
-        c = copy.deepcopy(capacities)  # (starting capacity at time 0)
+            v_samples = np.array([np.zeros(len(times))]*I)
+            c_samples = np.array([np.zeros(shape=(len(times), len(capacities)))]*I)
 
-        for t in times:
-            # line 7  (starting capacity at time t)
-            c_sample[t] = c
+            for i in np.arange(I):
+                # line 3
+                r_sample_i = np.zeros(len(times))  # will become v_sample
+                c_sample_i = np.zeros(shape=(len(times), len(capacities)), dtype=int)
 
-            # line 8-11  (adjust bid price)
-            pis[c_sample[t] == 0] = np.inf
-            pis[c_sample[t] > 0] = pi_all[k - 1][t][c_sample[t] > 0]
+                # line 5
+                c = copy.deepcopy(capacities)  # (starting capacity at time 0)
 
-            # line 12  (epsilon greedy strategy)
-            offer_set = determine_offer_tuple(pis, epsilon[k])
+                for t in times:
+                    # line 7  (starting capacity at time t)
+                    c_sample_i[t] = c
 
-            # line 13  (simulate sales)
-            sold = simulate_sales(offer_set, customer_stream[i][t], sales_stream[i][t])
+                    # line 8-11  (adjust bid price)
+                    pis[c_sample_i[t] == 0] = np.inf
+                    pis[c_sample_i[t] > 0] = pi_all[k - 1][t][c_sample_i[t] > 0]
 
-            # line 14
-            try:
-                r_sample[t] = revenues[sold]
-                c -= A[:, sold]
-            except IndexError:
-                # no product was sold
-                pass
+                    # line 12  (epsilon greedy strategy)
+                    offer_set = determine_offer_tuple(pis, epsilon[k], revenues, A,
+                                                      arrival_probabilities, preference_weights, preferences_no_purchase)
 
-        # line 16-18
-        v_samples[k][i] = np.cumsum(r_sample[::-1])[::-1]
-        c_samples[k][i] = c_sample
+                    # line 13  (simulate sales)
+                    sold = simulate_sales(offer_set, customer_stream[i][t], sales_stream[i][t],
+                                          arrival_probabilities, preference_weights, preferences_no_purchase)
 
-    # line 20
-    theta_all[k], pi_all[k] = update_parameters(v_samples[k], c_samples[k], theta_all[k-1], pi_all[k-1], k)
+                    # line 14
+                    try:
+                        r_sample_i[t] = revenues[sold]
+                        c -= A[:, sold]
+                    except IndexError:
+                        # no product was sold
+                        pass
+
+                # line 16-18
+                v_samples[i] = np.cumsum(r_sample_i[::-1])[::-1]
+                c_samples[i] = c_sample_i
+
+            # line 20
+            theta_all[k], pi_all[k] = update_parameters(v_samples, c_samples, theta_all[k-1], pi_all[k-1], k)
+            
+            value_result[str(capacities)][str(preferences_no_purchase)][k] = v_samples
+            capacities_result[str(capacities)][str(preferences_no_purchase)][k] = c_samples
+
+        theta_result[str(capacities)][str(preferences_no_purchase)] = theta_all
+        pi_result[str(capacities)][str(preferences_no_purchase)] = pi_all
 
 
 # %%
 # write result of calculations
 with open(newpath+"\\thetaAll.data", "wb") as filehandle:
-    pickle.dump(theta_all, filehandle)
+    pickle.dump(theta_result, filehandle)
 
 with open(newpath+"\\piAll.data", "wb") as filehandle:
-    pickle.dump(pi_all, filehandle)
+    pickle.dump(pi_result, filehandle)
 
-with open(newpath+"\\thetaResult.data", "wb") as filehandle:
-    pickle.dump(theta_all[K], filehandle)
+with open(newpath+"\\valueAll.data", "wb") as filehandle:
+    pickle.dump(value_result, filehandle)
+
+with open(newpath+"\\capacitiesAll.data", "wb") as filehandle:
+    pickle.dump(capacities_result, filehandle)
+
+with open(newpath+"\\thetaToUse.data", "wb") as filehandle:
+    tmp = {}
+    for capacities in var_capacities:
+        tmp[str(capacities)] = {}
+        for preferences_no_purchase in var_no_purchase_preferences:
+            tmp[str(preferences_no_purchase)] = theta_result[str(capacities)][str(preferences_no_purchase)][K]
+    pickle.dump(tmp, filehandle)
 
 with open(newpath+"\\piResult.data", "wb") as filehandle:
-    pickle.dump(pi_all[K], filehandle)
+    tmp = {}
+    for capacities in var_capacities:
+        tmp[str(capacities)] = {}
+        for preferences_no_purchase in var_no_purchase_preferences:
+            tmp[str(preferences_no_purchase)] = pi_result[str(capacities)][str(preferences_no_purchase)][K]
+    pickle.dump(tmp, filehandle)
 
 
 # %%

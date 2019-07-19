@@ -25,7 +25,7 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
     = setup_testing("MLPsingleLeg")
 capacities = var_capacities[1]
 preferences_no_purchase = var_no_purchase_preferences[0]
-I = 800
+I = 100
 
 
 #%%
@@ -154,7 +154,7 @@ for k in np.arange(K)+1:
 
             # line 12  (epsilon greedy strategy)
             offer_set = determine_offer_tuple(pis, epsilon[k], revenues, preference_weights,
-                                              arrival_probabilities, A, var_no_purchase_preferences)
+                                              arrival_probabilities, A, preferences_no_purchase)
 
             o[t] = offer_set
             p[t] = copy.copy(pis)
@@ -172,12 +172,48 @@ for k in np.arange(K)+1:
                 pass
 
         x = pd.DataFrame({"c": c_sample[:,0], "r":r_sample, "offer":[str(i) for i in o.values()], "p":[str(i) for i in p.values()]})
-
-
         # line 16-18
         v_samples[k][i] = np.cumsum(r_sample[::-1])[::-1]
         c_samples[k][i] = c_sample
 
+#%%
+        v = v_samples[k]
+        c = c_samples[k]
+
+        v_df = pd.DataFrame(v)
+        v_df = v_df.stack()
+        c_df = pd.DataFrame(c[0])
+        for i in np.arange(len(c)-1)+1:
+            c_df = c_df.append(pd.DataFrame(c[i]))
+        t_df = pd.DataFrame([times]*len(v))
+        t_df = t_df.stack()
+
+        # feature matrix X and true output y
+        X = pd.DataFrame(c_df)
+        X["t"] = pd.Series(np.array(t_df), index=X.index)
+        y = pd.DataFrame({"v": np.array(v_df)}, index=X.index)
+
+
+#%%
+    import statsmodels.api as sm
+
+    # Note the difference in argument order
+    model = sm.OLS(y, X).fit()
+    predictions = model.predict(X)  # make the predictions by the model
+
+    # Print out the statistics
+    model.summary()
+
+#%%
+    # Note the difference in argument order
+    X = sm.add_constant(X)
+    model = sm.OLS(y, X).fit()
+    predictions = model.predict(X)  # make the predictions by the model
+
+    # Print out the statistics
+    model.summary()
+
+    #%%
     # line 20
     theta_all[k], pi_all[k] = update_parameters(v_samples[k], c_samples[k], theta_all[k-1], pi_all[k-1], k)
 

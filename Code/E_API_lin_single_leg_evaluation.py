@@ -27,7 +27,7 @@ import random
 logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
     customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
     epsilon, exponential_smoothing,\
-    K, online_K\
+    K, online_K, I \
     = setup_testing("APILinearSingleLeg-Evaluation")
 capacities = var_capacities[0]
 preferences_no_purchase = var_no_purchase_preferences[0]

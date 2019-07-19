@@ -163,7 +163,7 @@ def determine_offer_tuple(pi, eps, revenues, A, arrival_probabilities, preferenc
     # epsilon greedy strategy - offer all products
     if eps_prob < eps:
         offer_tuple = np.ones_like(revenues)
-        offer_tuple[np.sum(A[[pi == np.inf], :], axis=0) > 0] = 0  # one resource not available => don't offer product
+        offer_tuple[np.sum(A[list(pi == np.inf), :], axis=0) > 0] = 0  # one resource not available => don't offer product
         return tuple(offer_tuple)
 
     # setup
@@ -303,6 +303,7 @@ def setup_testing(scenario_name):
     settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
     K = int(settings.loc[settings[0] == "K", 1])
     online_K = int(settings.loc[settings[0] == "online_K", 1].item())
+    I = int(settings.loc[settings[0] == "I", 1])
 
     logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, times, T, time_start, \
@@ -311,7 +312,7 @@ def setup_testing(scenario_name):
     return logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
         epsilon, exponential_smoothing,\
-        K, online_K
+        K, online_K, I
 
 
 def wrapup(logfile, time_start, newpath):
