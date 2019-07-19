@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change beforePath="$PROJECT_DIR$/E_API_lin_single_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_single_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E_API_lin_single_leg_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_single_leg_evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/G_NN_single_leg.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/thetaToUse.data" beforeDir="false" afterPath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/thetaToUse.data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/G_linReg_single_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/G_linReg_single_leg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/E_API_lin_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="439">
-              <caret line="98" lean-forward="true" selection-start-line="91" selection-start-column="4" selection-end-line="98" />
+              <caret line="98" selection-start-line="91" selection-start-column="4" selection-end-line="98" />
               <folding>
                 <element signature="e#162#181#0" expanded="true" />
               </folding>
@@ -39,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/G_linReg_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+            <state relative-caret-position="268">
+              <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
               <folding>
                 <element signature="e#332#357#0" expanded="true" />
               </folding>
@@ -862,7 +858,7 @@
     <entry file="file://$PROJECT_DIR$/E_API_lin_single_leg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="439">
-          <caret line="98" lean-forward="true" selection-start-line="91" selection-start-column="4" selection-end-line="98" />
+          <caret line="98" selection-start-line="91" selection-start-column="4" selection-end-line="98" />
           <folding>
             <element signature="e#162#181#0" expanded="true" />
           </folding>
@@ -871,8 +867,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/G_linReg_single_leg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="268">
+          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
           <folding>
             <element signature="e#332#357#0" expanded="true" />
           </folding>

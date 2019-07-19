@@ -15,6 +15,7 @@ from joblib import Parallel, delayed, dump, load
 import multiprocessing
 
 from sklearn.neural_network import MLPRegressor
+import statsmodels.api as sm
 
 #%%
 # Setup of parameters
@@ -26,10 +27,8 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
 capacities = var_capacities[1]
 preferences_no_purchase = var_no_purchase_preferences[0]
 
-import statsmodels.api as sm
 
 #%%
-
 def update_parameters(v_samples, c_samples, thetas, pis, k):
     """
     Updates the parameter theta, pi given the sample path using least squares linear regression with constraints.
@@ -48,31 +47,58 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
     c = c_samples
 
     v_df = pd.DataFrame(v)
+    v_df.columns = ["v"+str(i) for i in v_df.columns]
     v_df = v_df.stack()
-    c_df = pd.DataFrame(c[0])
-    for i in np.arange(len(c) - 1) + 1:
-        c_df = c_df.append(pd.DataFrame(c[i]))
-    t_df = pd.DataFrame([times] * len(v))
-    t_df = t_df.stack()
 
-    # feature matrix X and true output y
-    X = pd.DataFrame(c_df)
-    X["t"] = pd.Series(np.array(t_df), index=X.index)
-    y = pd.DataFrame({"v": np.array(v_df)}, index=X.index)
+    t_df = pd.DataFrame([times] * len(v))
+    t_df.columns = ["t"+str(i) for i in t_df.columns]
+    t_df = tidy_up(t_df)
+
+    c_df = pd.DataFrame(c[0]).T
+    for i in np.arange(len(c) - 1) + 1:
+        c_df = c_df.append(pd.DataFrame(c[i]).T)
+    c_df.columns = ["c"+str(i) for i in c_df.columns]
+    c_df = tidy_up(c_df)
+    c_df.index = t_df.index
+
+    X = pd.concat([t_df, c_df], axis=1)
+    y = v_df
+    y.index = X.index
 
 
     # Note the difference in argument order
     model = sm.OLS(y, X).fit()
+    model.params
+
+
     predictions = model.predict(X)  # make the predictions by the model
 
     # Print out the statistics
     model.summary()
 
-        # check exponential smoothing
-        if exponential_smoothing:
-            return (1 - 1 / k) * thetas + 1 / k * theta_new, (1 - 1 / k) * pis + 1 / k * pi_new
-        else:
-            return theta_new, pi_new
+    theta_new = np.array([[i] for i in model.params[0:len(times)]])
+    pi_new = np.array([[i] for i in model.params[len(times):]])
+
+    # check exponential smoothing
+    if exponential_smoothing:
+        return (1 - 1 / k) * thetas + 1 / k * theta_new, (1 - 1 / k) * pis + 1 / k * pi_new
+    else:
+        return theta_new, pi_new
+
+
+def tidy_up(t_df):
+    col = t_df.columns
+    ind = t_df.index
+    n_obs = t_df.shape[0]
+    n_time = t_df.shape[1]
+    t_numpy = np.zeros((n_obs * n_time, n_time))
+    for i in np.arange(n_time):
+        t_numpy[i * n_obs:(i + 1) * n_obs, i] = t_df[col[i]]
+    t_df = pd.DataFrame(t_numpy)
+    t_df.columns = col
+    t_df.index = np.tile(ind, n_time)
+    return t_df
+
 
 # %%
 # Actual Code
@@ -194,45 +220,6 @@ with open(newpath + "\\piResult.data", "wb") as filehandle:
         for preferences_no_purchase in var_no_purchase_preferences:
             tmp[str(preferences_no_purchase)] = pi_result[str(capacities)][str(preferences_no_purchase)][K]
     pickle.dump(tmp, filehandle)
-
-# %%
-wrapup(logfile, time_start, newpath)
-
-#%%
-
-
-
-#%%
-
-
-#%%
-    # Note the difference in argument order
-    X = sm.add_constant(X)
-    model = sm.OLS(y, X).fit()
-    predictions = model.predict(X)  # make the predictions by the model
-
-    # Print out the statistics
-    model.summary()
-
-    #%%
-    # line 20
-    theta_all[k], pi_all[k] = update_parameters(v_samples[k], c_samples[k], theta_all[k-1], pi_all[k-1], k)
-
-
-# %%
-# write result of calculations
-with open(newpath+"\\thetaAll.data", "wb") as filehandle:
-    pickle.dump(theta_all, filehandle)
-
-with open(newpath+"\\piAll.data", "wb") as filehandle:
-    pickle.dump(pi_all, filehandle)
-
-with open(newpath+"\\thetaResult.data", "wb") as filehandle:
-    pickle.dump(theta_all[K], filehandle)
-
-with open(newpath+"\\piResult.data", "wb") as filehandle:
-    pickle.dump(pi_all[K], filehandle)
-
 
 # %%
 wrapup(logfile, time_start, newpath)
