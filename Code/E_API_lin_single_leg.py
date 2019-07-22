@@ -129,7 +129,8 @@ for capacities in var_capacities:
     pi_result[str(capacities)] = {}
 
     for preferences_no_purchase in var_no_purchase_preferences:
-        print(capacities, "of", str(var_capacities.tolist()), " - and - ", preferences_no_purchase, "of", str(var_no_purchase_preferences.tolist()), "starting.")
+        print(capacities, "of", str(var_capacities.tolist()), " - and - ",
+              preferences_no_purchase, "of", str(var_no_purchase_preferences.tolist()), "starting.")
 
         value_result[str(capacities)][str(preferences_no_purchase)] = {}
         capacities_result[str(capacities)][str(preferences_no_purchase)] = {}

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change beforePath="$PROJECT_DIR$/G_linReg_single_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/G_linReg_single_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/G_linReg_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+            <state relative-caret-position="169">
+              <caret line="191" column="73" selection-start-line="121" selection-end-line="191" selection-end-column="73" />
               <folding>
                 <element signature="e#332#357#0" expanded="true" />
               </folding>
@@ -477,11 +476,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Code" />
-      <item itemvalue="Python.simulationBasic" />
       <item itemvalue="Python.A_data_entry" />
+      <item itemvalue="Python.Code" />
       <item itemvalue="Python.D_value_expected_single_leg" />
       <item itemvalue="Python.func_Koch" />
+      <item itemvalue="Python.simulationBasic" />
       <item itemvalue="Python.working" />
     </list>
     <recent_temporary>
@@ -495,11 +494,10 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
-    <editor active="true" />
+    <frame x="-13" y="-13" width="1381" height="925" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49875313" visible="true" weight="0.060234543" />
-      <window_info id="Structure" order="1" sideWeight="0.50124687" side_tool="true" visible="true" weight="0.060234543" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49915966" visible="true" weight="0.08528302" />
+      <window_info id="Structure" order="1" sideWeight="0.50084037" side_tool="true" visible="true" weight="0.08528302" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32779318" />
@@ -509,15 +507,15 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32788944" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.7963753" weight="0.18559557" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.7963753" visible="true" weight="0.25251257" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12793177" side_tool="true" weight="0.3271028" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.8720682" visible="true" weight="0.25946444" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.8720682" weight="0.25946444" />
       <window_info anchor="bottom" id="Jupyter" order="11" weight="0.32779318" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.57730675" side_tool="true" visible="true" weight="0.2260128" />
-      <window_info anchor="right" id="SciView" order="4" sideWeight="0.42269325" visible="true" weight="0.2260128" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.5781513" side_tool="true" visible="true" weight="0.32" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.42184874" visible="true" weight="0.32" />
       <window_info anchor="right" id="Key Promoter X" order="5" sideWeight="0.4992248" weight="0.32995737" />
     </layout>
     <layout-to-restore>
@@ -867,8 +865,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/G_linReg_single_leg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
+        <state relative-caret-position="169">
+          <caret line="191" column="73" selection-start-line="121" selection-end-line="191" selection-end-column="73" />
           <folding>
             <element signature="e#332#357#0" expanded="true" />
           </folding>
