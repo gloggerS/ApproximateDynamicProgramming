@@ -27,6 +27,11 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
 capacities = var_capacities[1]
 preferences_no_purchase = var_no_purchase_preferences[0]
 
+#%%
+times = np.arange(100)
+T = len(times)
+K = 20
+I = 50
 
 #%%
 def update_parameters(v_samples, c_samples, thetas, pis, k):
@@ -52,13 +57,13 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
 
     t_df = pd.DataFrame([times] * len(v))
     t_df.columns = ["t"+str(i) for i in t_df.columns]
-    t_df = tidy_up(t_df)
+    t_df = tidy_up_t(t_df)
 
     c_df = pd.DataFrame(c[0]).T
     for i in np.arange(len(c) - 1) + 1:
         c_df = c_df.append(pd.DataFrame(c[i]).T)
     c_df.columns = ["c"+str(i) for i in c_df.columns]
-    c_df = tidy_up(c_df)
+    c_df = tidy_up_c(c_df)
     c_df.index = t_df.index
 
     X = pd.concat([t_df, c_df], axis=1)
@@ -86,7 +91,7 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
         return theta_new, pi_new
 
 
-def tidy_up(t_df):
+def tidy_up_c(t_df):
     col = t_df.columns
     ind = t_df.index
     n_obs = t_df.shape[0]
@@ -94,6 +99,19 @@ def tidy_up(t_df):
     t_numpy = np.zeros((n_obs * n_time, n_time))
     for i in np.arange(n_time):
         t_numpy[i * n_obs:(i + 1) * n_obs, i] = t_df[col[i]]
+    t_df = pd.DataFrame(t_numpy)
+    t_df.columns = col
+    t_df.index = np.tile(ind, n_time)
+    return t_df
+
+def tidy_up_t(t_df):
+    col = t_df.columns
+    ind = t_df.index
+    n_obs = t_df.shape[0]
+    n_time = t_df.shape[1]
+    t_numpy = np.zeros((n_obs * n_time, n_time))
+    for i in np.arange(n_time):
+        t_numpy[i * n_obs:(i + 1) * n_obs, i] = 1
     t_df = pd.DataFrame(t_numpy)
     t_df.columns = col
     t_df.index = np.tile(ind, n_time)
@@ -114,13 +132,13 @@ random.seed(12)
 customer_stream = [np.random.random(T) for _ in range(I)]
 sales_stream = [np.random.random(T) for _ in range(I)]
 
-for capacities in var_capacities:
+# for capacities in var_capacities:
     value_result[str(capacities)] = {}
     capacities_result[str(capacities)] = {}
     theta_result[str(capacities)] = {}
     pi_result[str(capacities)] = {}
 
-    for preferences_no_purchase in var_no_purchase_preferences:
+    # for preferences_no_purchase in var_no_purchase_preferences:
         print(capacities, "of", str(var_capacities.tolist()), " - and - ", preferences_no_purchase, "of",
               str(var_no_purchase_preferences.tolist()), "starting.")
 
@@ -190,6 +208,14 @@ for capacities in var_capacities:
 
         theta_result[str(capacities)][str(preferences_no_purchase)] = theta_all
         pi_result[str(capacities)][str(preferences_no_purchase)] = pi_all
+
+
+#%%
+look_at_value = np.zeros([I, K])
+for k in np.arange(K)+1:
+    tmp = np.array(value_result[str(capacities)][str(preferences_no_purchase)][k])
+    look_at_value[:,k-1] = tmp[:,0]
+np.mean(look_at_value, 0)
 
 # %%
 # write result of calculations

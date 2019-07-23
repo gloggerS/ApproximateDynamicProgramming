@@ -29,16 +29,21 @@ import random
 logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
         customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
         epsilon, exponential_smoothing,\
-        K, online_K \
+        K, online_K, I \
     = setup_testing("DPSingleLeg-Evaluation")
 capacities = var_capacities[0]
 preferences_no_purchase = var_no_purchase_preferences[0]
 
-with open("0-test_customer.data", "rb") as filehandle:
-    test_customer = pickle.load(filehandle)
-with open("0-test_sales.data", "rb") as filehandle:
-    test_sales = pickle.load(filehandle)
+#%%
+np.random.seed(23)
+test_customer = [np.random.random(len(times)) for _ in range(online_K)]
+test_sales = [np.random.random(len(times)) for _ in range(online_K)]
 
+#%%
+test_sebastian = pd.read_csv("randomstreams-Sebastian.csv", header=None)
+test_sebastian = np.array(test_sebastian).T
+
+#%%
 if online_K > len(test_sales) or online_K > len(test_customer):
     raise ValueError("online_K as specified in 0_settings.csv has to be smaller then the test data given in test_sales and test_customer")
 
@@ -47,29 +52,35 @@ if online_K > len(test_sales) or online_K > len(test_customer):
 for i in sys.argv:
     print(i)
 
-result_folder = os.getcwd() + '\\Results\\singleLegFlight-True-DPSingleLeg-190701-1801'
+result_folder = os.getcwd() + '\\Results\\singleLegFlight-True-DPSingleLeg-190723-1135'
 
 
 # %%
 # Actual Code
-def get_offer_set(c, t):
+def get_offer_set(no_purchase_preference, c, t):
     # via index of optimal offer set
-    return tuple(offer_sets.iloc[dat_lookup[t].iloc[c, 1]])
+    return tuple(offer_sets.iloc[dat_lookup[str(no_purchase_preference)][t].iloc[c, 1]])
 
 
-def simulate_sales(offer_set, random_customer, random_sales):
-    customer = random_customer <= np.array([*np.cumsum(arrival_probabilities), 1.0])
-    customer = min(np.array(range(0, len(customer)))[customer])
+#%% just to reproduce Sebastian
+def simulate_sales_sebastian(offer_set, random_sebastian, arrival_probabilities, preference_weights, preferences_no_purchase):
+    """
+    Simulates a sales event given two random numbers (customer, sale) and a offerset. Eventually, no customer arrives.
+    This would be the case if the random number random_customer > sum(arrival_probabilities).
 
-    if customer == len(arrival_probabilities):
-        return len(products), customer  # no customer arrives => no product sold (product out of range)
-    else:
-        product = random_sales <= np.cumsum(customer_choice_individual(offer_set,
-                                                             preference_weights[customer],
-                                                             preferences_no_purchase[customer]))
-        product = min(np.arange(len(products) + 1)[product])
-        return product, customer
-
+    :param offer_set: Products offered
+    :param random_customer: Determines the arriving customer (segment).
+    :param random_sales: Determines the product purchased by this customer.
+    :param arrival_probabilities: The arrival probabilities for each customer segment
+    :param preference_weights: The preference weights for each customer segment (for each product)
+    :param preferences_no_purchase: The no purchase preferences for each customer segment.
+    :return: The product that has been purchased. No purchase = len(products) = n   (products indexed from 0 to n-1)
+    """
+    prob = customer_choice_vector(offer_set, preference_weights, preferences_no_purchase, arrival_probabilities)
+    prob = np.append(prob[:-1], 1)  # adjust for sum has to be one in Sebastian (and I did all with lambda)
+    product = random_sebastian <= np.cumsum(prob)
+    product = min(np.arange(len(preference_weights[0]) + 1)[product])
+    return product, 1
 
 #%%
 # online_K+1 policy iterations (starting with 0)
@@ -78,8 +89,6 @@ c_results = np.array([np.zeros(shape=(len(times), len(capacities)))]*online_K)
 
 with open(result_folder+"\\totalresults.data", "rb") as filehandle:
     dat_lookup = pickle.load(filehandle)
-
-dat_lookup = dat_lookup[0]
 
 offer_sets = pd.DataFrame(get_offer_sets_all(products))
 
@@ -90,8 +99,9 @@ for capacities in var_capacities:
     for preferences_no_purchase in var_no_purchase_preferences:
         print(capacities, "of", str(var_capacities), " - and - ", preferences_no_purchase, "of", str(var_no_purchase_preferences), "starting.")
         for k in np.arange(online_K)+1:
-            customer_random_stream = test_customer[k-1]
-            sales_random_stream = test_sales[k-1]
+            # customer_random_stream = test_customer[k-1]
+            # sales_random_stream = test_sales[k-1]
+            sales_sebastian = test_sebastian[k-1,:]
 
             # line 3
             r_result = np.zeros(len(times))  # will become v_result
@@ -101,16 +111,21 @@ for capacities in var_capacities:
             c = copy.deepcopy(capacities)  # (starting capacity at time 0)
             c = c[0]
 
+            os = np.zeros([len(times), 4])
             for t in times:
                 if c < 0:
                     raise ValueError
                 # line 7  (starting capacity at time t)
                 c_result[t] = c
 
-                offer_set = get_offer_set(c, t)
+                offer_set = get_offer_set(preferences_no_purchase, c, t)
+                os[t,:] = np.array(offer_set)
 
                 # line 13  (simulate sales)
-                sold, customer = simulate_sales(offer_set, customer_random_stream[t], sales_random_stream[t])
+                # sold, customer = simulate_sales(offer_set, customer_random_stream[t], sales_random_stream[t],
+                #                                 arrival_probabilities, preference_weights, preferences_no_purchase)
+                sold, customer = simulate_sales_sebastian(offer_set, sales_sebastian[t],
+                                                          arrival_probabilities, preference_weights, preferences_no_purchase)
 
                 # line 14
                 try:

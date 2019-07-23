@@ -52,14 +52,14 @@ def return_raw_data_per_time(capacity):
 
 
 # %%
+T = len(times)
 final_results = list(return_raw_data_per_time(capacity_max) for t in np.arange(T+1))
 final_results[T].value = 0.0
 final_results[T].offer_set_optimal = 0
 final_results[T].num_offer_set_optimal = 0
 
-total_results = list(object for u in var_no_purchase_preferences)
+total_results = {}
 
-index_total_results = 0
 for no_purchase_preference in var_no_purchase_preferences:
 
     offer_sets = pd.DataFrame(get_offer_sets_all(products))
@@ -109,8 +109,7 @@ for no_purchase_preference in var_no_purchase_preferences:
 
             final_results[t].value += final_results[t+1].value
 
-    total_results[index_total_results] = copy.deepcopy(final_results)
-    index_total_results += 1
+    total_results[str(no_purchase_preference)] = copy.deepcopy(final_results)
 
 # %%
 # write result of calculations
