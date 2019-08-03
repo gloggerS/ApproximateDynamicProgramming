@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
+      <change afterPath="$PROJECT_DIR$/G_helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/B_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/B_helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/G_NN2_single_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/G_NN2_single_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/Aufzuschreiben.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/Aufzuschreiben.tex" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -106,7 +105,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/G_linReg_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="-527">
               <caret line="17" column="28" lean-forward="true" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
               <folding>
                 <element signature="e#332#357#0" expanded="true" />
@@ -118,11 +117,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/G_NN2_single_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="79" column="51" selection-start-line="79" selection-start-column="51" selection-end-line="79" selection-end-column="51" />
+            <state relative-caret-position="511">
+              <caret line="134" column="4" selection-start-line="134" selection-start-column="4" selection-end-line="134" selection-end-column="4" />
               <folding>
                 <element signature="e#332#357#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/G_helper.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="61" lean-forward="true" selection-start-line="40" selection-start-column="2" selection-end-line="61" />
             </state>
           </provider>
         </entry>
@@ -132,15 +140,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>var_no_purchase_preferences</find>
-      <find>purchase_rate_vector</find>
       <find>revenue</find>
       <find>smallTest2</find>
       <find>cdlp</find>
@@ -169,6 +175,8 @@
       <find>value</find>
       <find>simulate</find>
       <find>literal_eval</find>
+      <find>means</find>
+      <find>model</find>
     </findStrings>
     <replaceStrings>
       <replace>dfHistory</replace>
@@ -191,6 +199,8 @@
       <replace>calc_value_marginal</replace>
       <replace>determine_offer_tuple</replace>
       <replace>capacities</replace>
+      <replace>numbers</replace>
+      <replace>model2</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -199,7 +209,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/simulationBasic-test.py" />
         <option value="$PROJECT_DIR$/simulationBasic_test_data.py" />
         <option value="$PROJECT_DIR$/simulationBasic_API.py" />
         <option value="$PROJECT_DIR$/simulationBasic.py" />
@@ -249,6 +258,7 @@
         <option value="$PROJECT_DIR$/D_value_expected_single_leg.py" />
         <option value="$PROJECT_DIR$/D_value_expected_single_leg_evaluation.py" />
         <option value="$PROJECT_DIR$/B_helper.py" />
+        <option value="$PROJECT_DIR$/G_helper.py" />
         <option value="$PROJECT_DIR$/G_NN2_single_leg.py" />
       </list>
     </option>
@@ -516,8 +526,8 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.64358974" side_tool="true" visible="true" weight="0.22654584" />
-      <window_info anchor="right" id="SciView" order="4" sideWeight="0.35641026" visible="true" weight="0.22654584" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.39615384" side_tool="true" visible="true" weight="0.34808102" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.60384613" visible="true" weight="0.34808102" />
       <window_info anchor="right" id="Key Promoter X" order="5" sideWeight="0.4992248" weight="0.32995737" />
     </layout>
     <layout-to-restore>
@@ -563,7 +573,6 @@
     <SUITE FILE_PATH="coverage/Code$func_Koch.coverage" NAME="func_Koch Coverage Results" MODIFIED="1557241292700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/E_API_single_leg.py" />
     <entry file="file://$PROJECT_DIR$/simulationBasic_test_data.py" />
     <entry file="file://$PROJECT_DIR$/simulationBasic-data.py" />
     <entry file="file://$PROJECT_DIR$/Results/1 E_API_lin_single_leg.py">
@@ -846,7 +855,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/G_linReg_single_leg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="-527">
           <caret line="17" column="28" lean-forward="true" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
           <folding>
             <element signature="e#332#357#0" expanded="true" />
@@ -854,10 +863,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/G_NN2_single_leg.py">
+    <entry file="file://$PROJECT_DIR$/G_helper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
-          <caret line="79" column="51" selection-start-line="79" selection-start-column="51" selection-end-line="79" selection-end-column="51" />
+          <caret line="61" lean-forward="true" selection-start-line="40" selection-start-column="2" selection-end-line="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/G_NN2_single_leg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="134" column="4" selection-start-line="134" selection-start-column="4" selection-end-line="134" selection-end-column="4" />
           <folding>
             <element signature="e#332#357#0" expanded="true" />
           </folding>

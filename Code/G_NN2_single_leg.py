@@ -11,13 +11,21 @@ from A_data_read import *
 from B_helper import *
 
 from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers import Input, Dense, Embedding
 from keras.utils import plot_model
+from keras import optimizers
+import keras.backend as K
+from keras.callbacks import EarlyStopping
+from keras.models import load_model
+
+from keras.models import Model
 
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 
 import warnings
+
+from mpl_toolkits import mplot3d
 
 #%%
 # Setup of parameters
@@ -40,6 +48,7 @@ print(capacities[0]*T)
 #%%
 K = 3
 I = 10
+
 
 #%%
 def update_parameters(v_samples, c_samples, thetas, pis, k):
@@ -67,36 +76,77 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
     y = v_np
 
 
-    #%% visualize
-    c_max = int(np.max(c_samples))
-
-    tab_means = np.zeros((c_max, T))
-    tab_numbers = np.zeros((c_max, T))
-
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", category=RuntimeWarning)
-        for c in np.arange(tab_means.shape[0]):
-            for t in np.arange(tab_means.shape[1]):
-                indices = np.logical_and(X[:, 0] == c, X[:, 1] == t)
-                tab_means[c_max - c - 1, t] = np.nanmean(v_np[indices])
-                tab_numbers[c_max - c - 1, t] = sum(indices)
-
-    tab_means
-    tab_numbers
+#%% tables to visualize means of value function
+    df_means, df_numbers, tab_means = value_analysis(c_samples, X, y)
+    plot_surface(tab_means, X, y)
+    plot_bar(tab_means, X, y)
 
 #%%
-    # NN
-    model = Sequential()
-    model.add(Dense(1, activation='linear', input_shape=(2,)))
-
-    # plot_model(model, to_file='model-NN2.png')
-
-    model.compile(optimizer='Adam', loss='mean_squared_error', metrics=['accuracy'])
-    model.fit(X, y, epochs=10)
-
+    model = load_model('20190803-1558-NN1.h5')
     model.predict(X)
 
+#%% NN1 Direct Output
+    model1 = Sequential()
+    model1.add(Dense(1, activation='linear', input_shape=(2,)))
+    model1.summary()
 
+    # plot_model1(model1, to_file='model1-NN2.png')
+
+    # simple early stopping
+    es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=3)
+
+    opt = optimizers.Adadelta(lr=100)
+
+    model1.compile(optimizer=opt, loss='mean_squared_error')
+    model1.fit(X, y, epochs=10000, callbacks=[es])
+
+    model1.predict(X)
+
+    K.eval(model1.optimizer.lr)
+
+    model1.save('NN1.h5')
+    # model1.get_weights()
+
+#%% NN2 with embedding
+    L = np.zeros((X.shape[0], (int(max(c_np))+1)*T))
+    for i in np.arange(L.shape[0]):
+        L[i, int(X[i, 0]*T + X[i, 1])] = 1
+
+    inputs = Input(shape=(L.shape[1],))
+    preds = Dense(1, activation='linear')(inputs)
+    model2 = Model(inputs, preds)
+    model2.summary()
+
+    # plot_model1(model1, to_file='model1-NN2.png')
+
+    # simple early stopping
+    es = EarlyStopping(patience=3)
+
+    opt = optimizers.Adadelta(lr=100)
+
+    model2.compile(optimizer=opt, loss='mean_squared_error')
+    model2.fit(L, y, epochs=10000, callbacks=[es])
+
+    y_pred = model2.predict(L)
+    np.around(y_pred)
+
+
+    model2.save('NN2.h5')
+    # model1.get_weights()
+
+#%% NN Direct Output
+    inputs = Input(shape=(2,))
+    preds = Dense(1, activation='linear')(inputs)
+    model2 = Model(inputs, preds)
+    model2.summary()
+    
+    model2.compile(optimizer='Adam', loss='mean_squared_error', metrics=['accuracy'])
+    model2.fit(X, y, batch_size=1, epochs=30)
+
+    model2.predict(X)
+
+    model2.get_weights()
+#%%
     # linear regression
     reg = LinearRegression()
     reg.fit(X, y)
@@ -105,7 +155,7 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
 
     mean_squared_error(y, reg.predict(X))
 
-
+# %%
     neural_net = MLPRegressor(alpha=0.1, hidden_layer_sizes = (10,), max_iter = 50000,
                  activation = 'logistic', verbose = 'True', learning_rate = 'adaptive')
     m = neural_net.fit(X, y)
@@ -113,6 +163,7 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
     y_true = y
     y_pred = m.predict(X)
     r2_score(y_true, y_pred)
+
 
     # Still the OLS for comparison
     model = sm.OLS(y, X).fit()
