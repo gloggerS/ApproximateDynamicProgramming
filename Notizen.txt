@@ -1,0 +1,3 @@
+Neuronale Netzwerke Kurs in DataCamp mit Keras
+https://www.datacamp.com/courses/deep-learning-in-python
+

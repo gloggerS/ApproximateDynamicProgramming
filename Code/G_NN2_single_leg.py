@@ -9,15 +9,15 @@ IDEE: Alles analog zu API single leg, aber jetzt theta und pi mit MLP Regressor 
 
 from A_data_read import *
 from B_helper import *
-from ast import literal_eval
 
-from joblib import Parallel, delayed, dump, load
-import multiprocessing
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.utils import plot_model
 
-from sklearn.neural_network import MLPRegressor
-import statsmodels.api as sm
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
-from sklearn.metrics import r2_score
+import warnings
 
 #%%
 # Setup of parameters
@@ -25,15 +25,21 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
         customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
         epsilon, exponential_smoothing,\
         K, online_K, I \
-    = setup_testing("linRegSingleLeg")
-capacities = var_capacities[1]
-preferences_no_purchase = var_no_purchase_preferences[0]
+    = setup_testing("NN2")
 
 #%%
-times = np.arange(100)
+capacities = np.array([3])
+preferences_no_purchase = var_no_purchase_preferences[0]
+
+times = np.arange(10)
 T = len(times)
-K = 20
-I = 50
+
+#%%
+print(capacities[0]*T)
+
+#%%
+K = 3
+I = 10
 
 #%%
 def update_parameters(v_samples, c_samples, thetas, pis, k):
@@ -50,29 +56,56 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
     # X: training data (capacity, time) in row
     # y: true outcomes (value) in row
 
-    v = v_samples
-    v_df = pd.DataFrame(v)
-    v_df.columns = ["v"+str(i) for i in v_df.columns]
-    v_df = v_df.stack()
-
-    t_df = pd.DataFrame([times] * len(v))
-    t_df.columns = ["t"+str(i) for i in t_df.columns]
-    t_df = t_df.stack()
-
-    c = c_samples
-    c_df = pd.DataFrame(c[0]).T
-    for i in np.arange(len(c) - 1) + 1:
-        c_df = c_df.append(pd.DataFrame(c[i]).T)
-    c_df.columns = ["c"+str(i) for i in c_df.columns]
-    c_df = c_df.stack()
-    c_df.index = t_df.index
-
-    X = pd.concat([t_df, c_df], axis=1)
-    y = v_df
-    y.index = X.index
 
 
-    # Note the difference in argument order
+    c_np = c_samples.reshape(-1, 1)
+    t_np = np.array([np.arange(T)] * I).reshape(-1,1)
+
+    v_np = v_samples.reshape(-1, 1)
+
+    X = np.concatenate((c_np, t_np), axis=1)
+    y = v_np
+
+
+    #%% visualize
+    c_max = int(np.max(c_samples))
+
+    tab_means = np.zeros((c_max, T))
+    tab_numbers = np.zeros((c_max, T))
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", category=RuntimeWarning)
+        for c in np.arange(tab_means.shape[0]):
+            for t in np.arange(tab_means.shape[1]):
+                indices = np.logical_and(X[:, 0] == c, X[:, 1] == t)
+                tab_means[c_max - c - 1, t] = np.nanmean(v_np[indices])
+                tab_numbers[c_max - c - 1, t] = sum(indices)
+
+    tab_means
+    tab_numbers
+
+#%%
+    # NN
+    model = Sequential()
+    model.add(Dense(1, activation='linear', input_shape=(2,)))
+
+    # plot_model(model, to_file='model-NN2.png')
+
+    model.compile(optimizer='Adam', loss='mean_squared_error', metrics=['accuracy'])
+    model.fit(X, y, epochs=10)
+
+    model.predict(X)
+
+
+    # linear regression
+    reg = LinearRegression()
+    reg.fit(X, y)
+
+    reg.predict(X)
+
+    mean_squared_error(y, reg.predict(X))
+
+
     neural_net = MLPRegressor(alpha=0.1, hidden_layer_sizes = (10,), max_iter = 50000,
                  activation = 'logistic', verbose = 'True', learning_rate = 'adaptive')
     m = neural_net.fit(X, y)

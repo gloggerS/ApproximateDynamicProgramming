@@ -201,10 +201,10 @@ def determine_offer_tuple(pi, eps, revenues, A, arrival_probabilities, preferenc
         value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi, revenues,
                                              preference_weights, arrival_probabilities, A, preferences_no_purchase)
 
-        if np.amax(value_marginal) > v_s:
+        if np.amax(value_marginal) >= v_s:
             v_s = np.amax(value_marginal)
-            offer_tuple[np.argmax(value_marginal)] = 1
-            s_prime = s_prime & offer_tuple == 0
+            offer_tuple = offer_sets_to_test[np.argmax(value_marginal)]*1  # to get 1 for product offered
+            s_prime = (s_prime - offer_tuple) == 1  # only those products remain, that are neither in the offer_tuple
             if all(offer_tuple == 1):
                 break
         else:
