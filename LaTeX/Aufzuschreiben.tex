@@ -1,13 +1,57 @@
-\chapter{Aufzuschreiben}
+\chapter{Organization}
 
-This is a quick overview of my results, that I want to incorporate in the thesis.
+\section{List of ToDos}
 
-\begin{enumerate}
-	\item Computing the Offer Set Dynamically as presented in Bront et Al 5.2 and reproduce example of Table 3 to proof correct implementation \texttt{C:\textbackslash  Users\textbackslash  Stefan\textbackslash  LRZ Sync+Share\textbackslash  Masterarbeit-Klein\textbackslash  Code\textbackslash  notebooks\textbackslash  0427 - Deep dive into DPD Offer Set Calculation.ipynb}
-	\item Most structure of all coding until May also in \texttt{C:\textbackslash  Users\textbackslash  Stefan\textbackslash  LRZ Sync+Share\textbackslash  Masterarbeit-Klein\textbackslash  Code\textbackslash  notebooks\textbackslash  doc\_Koch.ipynb}
-\item \end{enumerate}
+\todo{Layout: Zweiseitiges Layout (Druck)}
+\todo{Absprache: Schwarz Weiß Version zusätzlich zu farbiger Druckversion?}
+\listoftodos
+
 
 \newpage
+\section{Abzugeben}
+\begin{enumerate}[noitemsep]
+	\item Lehrstuhl Prof. Klein
+	\begin{enumerate}[noitemsep]
+		\item 2 ausgedruckte Versionen der Masterarbeit (je eine fuer Prof. Klein und Sebastian bei Melanie, und eine bei FIM)
+		\item 1 USB-Stick
+		\begin{enumerate}[noitemsep]
+			\item PDF-Version der Masterarbeit
+			\item LaTeX Code der Masterarbeit
+			\item Python Code der Implementierung
+			\item Grafiken und sonstige erzeugte Zwischenergebnisse
+		\end{enumerate}
+	\end{enumerate}
+	\item FIM
+	\begin{enumerate}[noitemsep]
+		\item 1 ausgedruckte Version der Masterarbeit
+		\item Bestaetigung zum Bestehen der Mastererabeit (ausgestellt von Prof. Klein)
+		\item restliches Paket fuer Bestehen des Masterstudiums
+	\end{enumerate}
+	\item Persönlich
+	\begin{enumerate}[noitemsep]
+		\item Code auch in öffentlichem GitHub
+		\item Zertifikat \enquote{Data Scientist with Python} vom DataCamp Career Track 
+	\end{enumerate}
+\end{enumerate}
+
+Was ich erreichen mag:
+\begin{enumerate}[noitemsep]
+	\item Saubere Masterarbeit (das Dokument), v.a. saubere Ausarbeitung des Inhaltes (Wirtschafts-Komponente von FIM), aber auch \LaTeX Fähigkeiten aufgebessert und tikz Fähigkeiten verbessert
+	\item Sauberer Code, der den aktuellen Programmierstandards entspricht (Informatik-Komponente von FIM)
+	\item Paar kleinere Beweise dazu und saubere Verwendung mathematischer Terminologie, um auch mathematische Komponente von FIM (bzw. meines Wissens) zu zeigen
+	\item Auch Fachliche Inhalte von FIM ab
+	\begin{enumerate}[noitemsep]
+		\item Optimierung: Modellierung, Lineares Programm (bzw. Programme) aufstellen, LP in Software implementieren, Ergebnisse visualisieren, Dualitätstheorie anwenden, Duales Programm aufstellen
+		\item Wirtschaft: Nutzenfunktion, Komplementäre Güter, Substitute
+		\item Wahrscheinlichkeitstheorie: Wahrscheinlichkeitsraum, Kolmogorov-Axiome, Zufallsvariable, Markov-Kette, 
+		\item Statistik: Test aufstellen, Test implementieren, Testergebnisse darstellen
+	\end{enumerate}
+	\item DataCamp Career Track \enquote{Data Scientist with Python} komplett durch (100 Stunden, 26 Kurse, enthält zahlreiche Kurse auch zu Neuronalen Netzen und Machine Learning in Python)
+\end{enumerate}
+
+\newpage
+
+\section{Abgesprochene Struktur}
 
 Code
 \begin{enumerate}
@@ -19,7 +63,7 @@ Inhaltlich
 \begin{enumerate}
 	\item Einleitung mit 
 	\begin{enumerate}
-		\item Literatur (erst später => ADP in revenue management, gibt's schon NN)
+		\item Literatur (erst später ausformulieren $\Rightarrow$ ADP in revenue management, gibt's schon NN)
 		\item Problembeschreibung
 		\item Notation
 		\item evtl. Kundenwahlverhalten
@@ -35,7 +79,7 @@ Inhaltlich
 		\item Grundlagen
 		\item Anwendung
 	\end{enumerate}
-	\item Theorie zum Vergleich verschiedener Methoden (Statistik) => wohl auch für Klein interessant
+	\item Theorie zum Vergleich verschiedener Methoden (Statistik) $\Rightarrow$ wohl auch für Prof. Klein interessant
 	\begin{enumerate}
 		\item jeweils zwei miteinander
 		\item alle gegen alle
@@ -50,5 +94,5 @@ Schmankerl
 \begin{enumerate}
 	\item Beweis zu exponential smoothing
 	\item Laufzeitüberblick der verschiedenen Algorithmen (jeweils offline und online)
-	\item Laufzeitanalyse verschiedene Implementierungen Dynamic Programming (Opt-Modell vs alles ausrechnen) => so nicht machen, da \enquote{unfairer} Vergleich, weil immer Speicher vs. Rechenzeit
+	\item Laufzeitanalyse verschiedene Implementierungen Dynamic Programming (Opt-Modell vs alles ausrechnen) $\Rightarrow$ so nicht machen, da \enquote{unfairer} Vergleich, weil immer Speicher vs. Rechenzeit
 \end{enumerate}

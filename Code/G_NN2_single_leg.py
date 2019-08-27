@@ -77,6 +77,7 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
 
 
 #%% tables to visualize means of value function
+    c_max = np.max(c_np)
     df_means, df_numbers, tab_means = value_analysis(c_samples, X, y)
     plot_surface(tab_means, X, y)
     plot_bar(tab_means, X, y)
@@ -103,6 +104,8 @@ def update_parameters(v_samples, c_samples, thetas, pis, k):
     model1.predict(X)
 
     K.eval(model1.optimizer.lr)
+
+    mean_squared_error(y, model1.predict(X))
 
     model1.save('NN1.h5')
     # model1.get_weights()

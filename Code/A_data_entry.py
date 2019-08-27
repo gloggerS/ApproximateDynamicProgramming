@@ -6,12 +6,7 @@ import numpy as np
 import pandas as pd
 import pickle
 
-# # example = "singleLegFlight"
-# example = "threeParallelFlights"
-# # example = "example0"
-# # example = "example for Greedy Heuristic"
-# # example = "example parallel flights"
-# # example = "efficient sets"
+# todo reduce implementation and get rid of "capacities" and "no_purchase_preference" => leave just the var's
 
 #%% quick on-/off
 # example for 4.2.2 Greedy Heuristic
@@ -51,6 +46,40 @@ pi = np.array([0, 0, 0])
 #%%
 
 data_by_name = {}
+
+#%% exampleStefan
+data_by_name["exampleStefan"] = {}
+
+data_by_name["exampleStefan"]["products"] = np.arange(6)  # n
+data_by_name["exampleStefan"]["revenues"] = np.array([5, 3, 5, 12, 10, 8])
+
+data_by_name["exampleStefan"]["times"] = np.arange(20)  # T
+
+data_by_name["exampleStefan"]["customer_segments"] = np.arange(4)  # L
+data_by_name["exampleStefan"]["arrival_probabilities"] = np.array([.3, .2, .2, .1])
+data_by_name["exampleStefan"]["preference_weights"] = np.array([[4, 8, 0, 0, 0, 0],
+                                                                [6, 5, 0, 0, 0, 0],
+                                                                [0, 0, 0, 8, 0, 4],
+                                                                [0, 0, 0, 0, 5, 0]])
+
+data_by_name["exampleStefan"]["var_no_purchase_preferences"] = np.array([[2, 2, 1, 2]])
+data_by_name["exampleStefan"]["preference_no_purchase"] = \
+    np.array(data_by_name["exampleStefan"]["var_no_purchase_preferences"][0])
+
+data_by_name["exampleStefan"]["resources"] = np.arange(4)  # m
+
+data_by_name["exampleStefan"]["var_capacities"] = np.array([[8, 4, 4, 8]])
+data_by_name["exampleStefan"]["capacities"] = data_by_name["exampleStefan"]["var_capacities"][0]
+
+# capacity demand matrix A (rows: resources, cols: products)
+# a_ij = 1 if resource i is used by product j
+data_by_name["exampleStefan"]["A"] = np.array([[1, 1, 0, 0, 0, 1],
+                                               [0, 0, 1, 0, 0, 1],
+                                               [0, 0, 0, 1, 0, 0],
+                                               [0, 0, 0, 0, 1, 0]])
+
+
+
 
 #%% singleLegFlight
 data_by_name["singleLegFlight"] = {}
