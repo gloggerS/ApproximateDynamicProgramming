@@ -155,14 +155,14 @@ Let us now explore what happens if product $j$ is purchased during time period $
 \end{figure}
 
 
-\clearpage
-\setcounter{page}{1}
-\noindent\fbox{\parbox{\textwidth}{\centering 26.8.}}
+%\clearpage
+%\setcounter{page}{1}
+%\noindent\fbox{\parbox{\textwidth}{\centering 26.8.}}
 
 To sum it up, the firm aims at increasing the value of the products sold and has flexibility in the sets offered. Thus, the decision variables for each time period $t \in [T]$ are given by $\boldsymbol{x}^t = (x^t_1, \dots, x^t_n)^T$ with $x^t_j = 1$ if product $j$ is offered during time period $t$ (i.e. chosen at time point $t-1$) and $x^t_j = 0$ otherwise. Thus, for each time period $t$ and the prevalent capacity $\boldsymbol{c}$, the offer set $\boldsymbol{x}$ has to be determined. Note that in machine learning terms, this mapping is defined as a policy $\boldsymbol{\psi} = (\psi^1, \dots, \psi^T)^T$.\todo{ML-Notation hier anfügen oder wo?}
 
 We can put the above in formulas after introducing the random variable $X^t$ as the product which is purchased at time point $t$, with the notation $X^t=\{0\}$ if no purchase is made at time point $t$. 
-So we use $\Omega \coloneqq {0, 1, \dots n}$ as the underlying set (no purchase plus purchasable products) and can use $\sigma(\Omega)$ as underlying sigma algebra (note that $\Omega$ is finite by assumption). 
+So we use $\Omega \coloneqq \{0, 1, \dots n\}$ as the underlying set (no purchase plus purchasable products) and can use $\sigma(\Omega)$ as underlying sigma algebra (note that $\Omega$ is finite by assumption). 
 Furthermore, we introduce a probability measure $p_{\boldsymbol{x}^t}(\cdot)$ 
 and use the shorthand $p_{\boldsymbol{x}^t}(j) = p_{\boldsymbol{x}^t}(\{j\}) = p_{\boldsymbol{x}^t}(X^t = \{j\})$ as the probability of product $j$ being purchased at time point $t$ when tuple $\boldsymbol{x}^t$ is offered. Note that, $p$ being a probability measure, it has to satisfy the corresponding Kolmogorov axioms 
 \todo{Zitation einfügen}
@@ -274,9 +274,13 @@ Korrektheit getestet mit \texttt{C:\textbackslash{}Users\textbackslash{}Stefan\t
 Ergebnisse in \texttt{ C:\textbackslash{}Users\textbackslash{}Stefan\textbackslash{}LRZ Sync+Share\textbackslash{}Masterarbeit-Klein\textbackslash{}Code\textbackslash{}Results\textbackslash{}example0-False-CDLPSingleLeg-190621-1808}
 
 
-\clearpage
-\setcounter{page}{1}
-\noindent\fbox{\parbox{\textwidth}{\centering 27.8.}}
+%\clearpage
+%\setcounter{page}{1}
+%\noindent\fbox{\parbox{\textwidth}{\centering 27.8.}}
+
+\section{DPD}
+
+DPD offer set calculation as in \cite{Bront.2009} and in Code Notebook-0427 Deep dive into DPD...
 
 \section{Approximate Dynamic Programming}
 

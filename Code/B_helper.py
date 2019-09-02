@@ -4,43 +4,44 @@ This file contains helper functions for all other methods. It is standalone and 
 
 
 #%%  PACKAGES
+from A_data_read import *
+
 # Data
 import numpy as np
 import pandas as pd
 
 # Calculation and Counting
-from itertools import product
 import math
-import copy
+from itertools import product
+from copy import copy, deepcopy
 
 # Memoization
 import functools
 
 # Gurobi
 from gurobipy import *
-import re
+# import re  # rausgenommen am 27.8. beim Überarbeiten von allem, da nicht auftaucht
 
 # Plot
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Some hacks
-import sys
+# import sys  # rausgenommen am 27.8. beim Überarbeiten von allem, da nicht auftaucht
 from contextlib import redirect_stdout
+# from ast import literal_eval  # rausgenommen am 27.8. beim Überarbeiten von allem, da nicht auftaucht
 
 # System
-import os
+from os import getcwd, makedirs
 from shutil import copyfile, move
 
 # Time
 from datetime import datetime
 from time import strftime, time
 
-from A_data_read import *
+from random import random
 
-import random
 
-import pickle
-from copy import deepcopy
 
 
 # %% small helpers
@@ -156,7 +157,7 @@ def determine_offer_tuple(pi, eps, revenues, A, arrival_probabilities, preferenc
         return tuple(np.zeros_like(revenues))
 
     # epsilon greedy strategy - offer no products
-    eps_prob = random.random()
+    eps_prob = random()
     if eps_prob < eps/2:
         return tuple(np.zeros_like(revenues))
 
@@ -235,7 +236,7 @@ def calc_value_marginal(indices_inner_sum, pi, revenues, A, arrival_probabilitie
 
 # %% System Helpers
 def get_storage_path(storage_location):
-    return os.getcwd()+"\\Results\\"+storage_location
+    return getcwd()+"\\Results\\"+storage_location
 
 
 def setup(scenario_name):
@@ -261,7 +262,7 @@ def setup(scenario_name):
 
     # prepare storage location
     newpath = get_storage_path(storage_folder)
-    os.makedirs(newpath)
+    makedirs(newpath)
 
     # copy settings to storage location
     copyfile("0_settings.csv", newpath+"\\0_settings.csv")
@@ -454,8 +455,8 @@ def value_leg_i_11(i, x_i, t, pi, preference_no_purchase):
         val_new = sum(purchase_rate_vector(tuple(offer_array), preference_weights,
                                            preference_no_purchase, arrival_probabilities)[:-1] * temp)
         if val_new > val_akt:
-            index_max = copy.copy(index)
-            val_akt = copy.deepcopy(val_new)
+            index_max = copy(index)
+            val_akt = deepcopy(val_new)
 
     return lam * val_akt + value_leg_i_11(i, x_i, t+1, pi, preference_no_purchase)[0], \
         index_max, tuple(offer_sets_all.iloc[index_max])
@@ -518,8 +519,8 @@ def calculate_offer_set(capacities_remaining, preference_no_purchase, t, pi, bet
         val_new = lam*val_new
 
         if val_new > val_akt:
-            index_max = copy.copy(index)
-            val_akt = copy.deepcopy(val_new)
+            index_max = copy(index)
+            val_akt = deepcopy(val_new)
 
     return index_max, products[np.array(offer_sets_all.iloc[[index_max]] == 1)[0]] + 1, offer_sets_all
 
