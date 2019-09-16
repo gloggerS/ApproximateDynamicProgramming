@@ -24,65 +24,112 @@ Furthermore, we want to visualize the value function and its approximations. We 
 
 \section{Multi-Leg Flight}
 
-\section{Old-Example0}
+\section{Example \cite{Bront.2009}}
 
-One interesting result is that for exact reproduction of the results of Bront et al for their example0, the empty offerset has to be excluded from the optimization problem. Otherwise (including empty set) results in the same optimal value but via another combination of the decision variables.
+Here, we want to present Example 0 as it was stated in \cite{Bront.2009} and use this to validate our implementation (of CDLP).
 
-\textit{Example 0} represents a small airline network. Three cities are interconnected by three flights (legs), with a capacity vector $\boldsymbol{c} = (10, 5, 5)^T$. The booking horizon consists of $T = 30$ periods and there are five customer segments with preferences as in \Cref{tb-Example0-Customers}
-
-\begin{table}
-	\caption{Segment definition for Example 0\label{tb-Example0-Customers}}
-	\begin{tabular}{lccccc}
-		\toprule
-		Segment & $\lambda_l$ & Consideration set & Preference vector & No purchase preference & Description\\
-		\midrule
-		1 & $0.15$ & $\{1, 5\}$ & $(5, 8)$ & $2$ & Price sensitive, nonstop (A$\rightarrow$C)\\
-		\bottomrule
-	\end{tabular}
-\end{table}
+\emph{Example 0} represents a small airline network as depicted by \Cref{fig-Example0}. Three cities are interconnected by three flights (legs), with capacities stated in \Cref{tb-Example0-Ressources}. The booking horizon consists of $T = 30$ periods and there are five customer segments with preferences as in \Cref{tb-Example0-Customers}.
 
 \begin{figure}
-	\caption{Airline network for example 0. \label{fig-Example0}}
-	\begin{tikzpicture}[
-	mycircle/.style={
-		circle,
-		draw=black,
-		fill=gray,
-		fill opacity = 0.3,
-		text opacity=1,
-		inner sep=0pt,
-		minimum size=20pt,
-		font=\small},
-	myarrow/.style={-Stealth},
-	node distance=0.6cm and 1.2cm
-	]
-	\node[mycircle] (cB) {$B$};
-	\node[mycircle,below left=of cB] (cA) {$A$};
-	\node[mycircle,below right=of cB] (cC) {$C$};
+	\caption{Example 0 of \cite{Bront.2009} with $T=30$ time periods.}
+	\begin{subfigure}[t]{.3\linewidth}
+		\centering
+		\caption{Airline network. \label{fig-Example0}}
+		\begin{tikzpicture}[
+		mycircle/.style={
+			circle,
+			draw=black,
+			fill=gray,
+			fill opacity = 0.3,
+			text opacity=1,
+			inner sep=0pt,
+			minimum size=20pt,
+			font=\small},
+		myarrow/.style={-Stealth},
+		node distance=0.6cm and 1.2cm
+		]
+		\node[mycircle] (cB) {$B$};
+		\node[mycircle,below left=of cB] (cA) {$A$};
+		\node[mycircle,below right=of cB] (cC) {$C$};
+		
+		\foreach \i/\j/\txt/\p in {% start node/end node/text/position
+			cA/cB/Leg 1/above,
+			cA/cC/Leg 2/below,
+			cB/cC/Leg 3/above}
+		\draw [myarrow] (\i) -- node[sloped,font=\small,\p] {\txt} (\j);
+		\end{tikzpicture}
+	\end{subfigure}%
+	\quad
+	\begin{subtable}[t]{.4\linewidth}
+		\caption{Products. \label{tb-Example0-Products}}
+		\small
+		\centering
+		\begin{tabular}{yxz}
+			\toprule
+			\text{Product} & \text{Origin-destination} & \text{Fare}\\
+			\midrule
+			1 & A \rightarrow C & 1,200\\
+			2 & A \rightarrow B \rightarrow C & 800\\
+			3 & A \rightarrow B & 500\\
+			4 & B \rightarrow C & 500\\
+			5 & A \rightarrow C & 800\\
+			6 & A \rightarrow B \rightarrow C & 500\\
+			7 & A \rightarrow B & 300\\
+			8 & B \rightarrow C & 300\\
+			\bottomrule
+		\end{tabular}
+	\end{subtable}%
+	\quad
+	\begin{subtable}[t]{.2\linewidth}
+		\caption{Resources. \label{tb-Example0-Ressources}}
+		\small
+		\centering
+		\begin{tabular}{yy}
+			\toprule
+			\text{Leg} & \text{Capacity}\\
+			\midrule
+			1 & 10\\
+			2 & 5\\
+			3 & 5\\
+			\bottomrule
+		\end{tabular}
+	\end{subtable}
 	
-	\foreach \i/\j/\txt/\p in {% start node/end node/text/position
-		cA/cB/Leg 1/above,
-		cA/cC/Leg 2/below,
-		cB/cC/Leg 3/above}
-	\draw [myarrow] (\i) -- node[sloped,font=\small,\p] {\txt} (\j);
-	
-	\end{tikzpicture}
+	\begin{subtable}{\linewidth}
+		\caption{Customers.\label{tb-Example0-Customers}}
+		\small
+		\centering
+		\begin{tabular}{lccccc}
+			\toprule
+			Seg. & $\lambda_l$ & \specialcell[b]{Consideration\\tuple\footnote{Note that in contrast to \cite{Bront.2009}, we use the mathematically correct terminology as \emph{tuple} does have an inherent order, while \emph{set} does not (and thus makes no mathematical sense to be combined with a preference vector referring to the order of products in the set).}} & \specialcell[b]{Preference \\vector} & \specialcell[b]{No purchase \\preference} & Description\\
+			\midrule
+			1 & $0.15$ & $(1, 5)$ & $(5, 8)$ & $2$ & Price sensitive, Nonstop (A$\rightarrow$C)\\
+			2 & $0.15$ & $(1, 2)$ & $(10, 6)$ & $5$ & Price insensitive, (A$\rightarrow$C)\\
+			3 & $0.20$ & $(5, 6)$ & $(8, 5)$ & $2$ & Price sensitive, (A$\rightarrow$C)\\
+			4 & $0.25$ & $(3, 7)$ & $(4, 8)$ & $2$ & Price sensitive, (A$\rightarrow$B)\\
+			5 & $0.25$ & $(4, 8)$ & $(6, 8)$ & $2$ & Price sensitive, (B$\rightarrow$C)\\
+			\bottomrule
+		\end{tabular}
+	\end{subtable}
 \end{figure}
 
-\begin{table}
-	\caption{Airline network for example 0 (products). \label{tb-Example0-Products}}
-	\begin{tabular}{yxz}
-		\toprule
-		\text{Product} & \text{Origin-destination} & \text{Fare}\\
-		\midrule
-		1 & A \rightarrow C & 1,200\\
-		2 & A \rightarrow B \rightarrow C & 800\\
-		3 & A \rightarrow B & 500\\
-		4 & B \rightarrow C & 500\\
-		5 & A \rightarrow C & 800\\
-		6 & A \rightarrow B \rightarrow C & 500\\
-		7 & A \rightarrow B & 300\\
-		8 & B \rightarrow C & 300\\
-		\bottomrule
-	\end{tabular}
-\end{table}
+\todo{Fehler: Consideration tuple ist hier nicht wichtig, weil Reihenfolge irrelevant.}
+
+\subsection{CDLP}
+
+Having eight products, there is a total of $2^8 = 256$ possible offer sets\footnote{Note that in contrast to \cite{Bront.2009}, we include the empty set as a valid offerset because the company shall offer nothing if there is not enough capacity left to offer a product (otherwise, it is forced to deny any purchase request of a customer, leading to dissatisfaction.)}. Four constraints in the linear program \Cref{eq:CDLP}, at most four distinct sets are offered over the time horizon. 
+
+In order to reproduce the solution as stated in \cite{Bront.2009} we run two very similar versions of the code, just differing in the offersets determining the variables. The optimal result given all possible offersets (i.e. also the empty set) is stated in \Cref{txt-CDLP-withNull} and excluding the empty set directly from the start leads to the results presented in \Cref{txt-CDLP-withoutNull}. Note that both optimization problems terminate at the same optimal objective value, which should be the case as offering the empty set leads to $0$ revenue and shouldn't be optimal. Also Gurobi becomes aware of this specific feature and presolves this column, i.e. the presolved problem consists purely of variables that are considerable. Astonishingly, even though both problems start with the same specification now (after presolving the empty set), they end up at distinct tuples that should be offered. This leads us to the insight, that Presolving in Gurobi is something different than just erasing the useless variables. 
+
+\todo{Schickere Gegenüberstellung der Ergebnisse. Notfalls auf Doppelseite.}
+\todo{FancyVerbatim zum Laufen bringen.
+	https://tex.stackexchange.com/questions/85200/include-data-from-a-txt-verbatim}
+\todo{Highlighte die Unterschiede farbig im .txt file}
+\begin{figure}
+	\caption{Optimal solution with the null set present at start.\label{txt-CDLP-withNull}}
+	\verbatiminput{"C:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/Code/Results/example0-True-CDLP-190902-1502/CDLP-with-NullSet.txt"}
+\end{figure}
+\begin{figure}
+	\caption{Optimal solution with excluding the null set before start.\label{txt-CDLP-withoutNull}}
+	\verbatiminput{"C:/Users/Stefan/LRZ Sync+Share/Masterarbeit-Klein/Code/Results/example0-True-CDLP-190902-1502/CDLP-without-NullSet.txt"}
+\end{figure}

@@ -1,0 +1,2 @@
+MIP results in: optimal value =  17.83  	 optimal tuple =  (1, 1, 1)
+GH results in:  optimal value =  16.66  	 optimal tuple =  (1, 0, 0)

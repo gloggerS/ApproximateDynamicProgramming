@@ -26,20 +26,44 @@ for i in np.array(range(len(data.index.names)-1))[::-1]:
 
 data = data["value"]
 
+
+#%%
+def plot_to_file(data, use, c, file_name):
+    df = data.loc[use]
+    df = df.reset_index()
+
+    fig = plt.figure()
+    ax = fig.gca(projection="3d")
+    ax.plot_trisurf(df.iloc[:, 0], df.iloc[:, 1], df.iloc[:, 2], cmap=plt.cm.viridis)
+    ax.set_xlabel("t")
+    ax.set_ylabel(c)
+    ax.set_zlabel("value")
+    ax.set_xticks(np.linspace(0, 20, 5, dtype=int))
+    ax.set_yticks(np.arange(max(df.iloc[:, 1])+1))
+    fig.savefig(result_folder + "\\" + file_name + ".pdf", bbox_inches="tight")
+
+
 #%%
 idx = pd.IndexSlice
-df = data.loc[idx[:, :, capacity_max[1], capacity_max[2], capacity_max[3]]]
-df = df.reset_index()
+use = idx[:, :, capacity_max[1], capacity_max[2], capacity_max[3]]
+file_name = "ES-Value-c1"
+c = "c on leg 1"
+plot_to_file(data, use, c, file_name)
 
+idx = pd.IndexSlice
+use = idx[:, capacity_max[0], :, capacity_max[2], capacity_max[3]]
+file_name = "ES-Value-c2"
+c = "c on leg 2"
+plot_to_file(data, use, c, file_name)
 
+idx = pd.IndexSlice
+use = idx[:, capacity_max[0], capacity_max[1], :, capacity_max[3]]
+file_name = "ES-Value-c3"
+c = "c on leg 3"
+plot_to_file(data, use, c, file_name)
 
-#%%
-df = data.loc[(slice(None), slice(None), capacity_max[1], capacity_max[2], capacity_max[3]), "value"]
-df = df.reset_index()
-df = df.loc[:, ["t", "c0", "value"]]
-
-#%%
-fig = plt.figure()
-ax = fig.gca(projection="3d")
-ax.plot_trisurf(df["t"], df["c0"], df["value"], cmap=plt.cm.viridis)
-plt.show()
+idx = pd.IndexSlice
+use = idx[:, capacity_max[0], capacity_max[1], capacity_max[2], :]
+file_name = "ES-Value-c4"
+c = "c on leg 4"
+plot_to_file(data, use, c, file_name)

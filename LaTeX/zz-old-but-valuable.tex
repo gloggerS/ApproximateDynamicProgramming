@@ -1,0 +1,30 @@
+\section{API algorithm with time points}
+
+Actions are possible in time points  $t$ with $t\in \{0, \dots, T-1\}$.
+
+\begin{algorithm}
+	\caption{Approximate policy iteration}\label{alg-API}
+	\begin{algorithmic}[1]
+		\State Set $\theta_t = 0$ and $\boldsymbol{\pi}_t = \boldsymbol{0}$ $\forall t = 0, \dots, T-1$ \label{alg-API1}
+		\For{\texttt{k = 1 to K}} \label{alg-API-Piter1}
+		\State Set $\hat{V}_t^i = 0$ and $\boldsymbol{\hat{C}}_t^i = 0$ $\forall t = 0, \dots, T-1, \forall i = 1, \dots, I$\label{alg-API-Piter2}\label{alg-API3}
+		\For{\texttt{i = 1 to I}}\label{alg-API-Peval1}
+		\State Set $\hat{r}_t = 0$ and $\boldsymbol{\hat{c}}_t = 0$ $\forall t = 0, \dots, T-1$\label{alg-API5}
+		\State Initialize $\boldsymbol{c} = \boldsymbol{c}^0$\label{alg-API6}
+		\For{\texttt{t = 0 to T-1}}
+		\State $\boldsymbol{\hat{c}}_t \coloneqq \boldsymbol{c}$\label{alg-API8}
+		\State Compute $\boldsymbol{\pi}(t, \boldsymbol{c})$ \label{alg-API-calcPi}\label{alg-API9}
+		\State Compute $\boldsymbol{x} = \text{determineOfferset}(\boldsymbol{\pi}(t, \boldsymbol{c}), \epsilon_t)$\label{alg-API10}
+		\State Simulate a sales event $j' \in \{0, 1, \dots, n\}$\label{alg-API11}
+		\If{$j' \in \{ 1, \dots, n\}$}
+		\State $\hat{r}_t = r_{j'}$ and $\boldsymbol{c} = \boldsymbol{c} - \boldsymbol{a}_{j'}$\label{alg-API13}
+		\EndIf
+		\EndFor
+		\State Compute $\hat{V}_t^i = \sum_{\tau = t}^{T}\hat{r}_t \quad \forall t = 0, \dots, T-1$\label{alg-API14}
+		\State Assign $\boldsymbol{\hat{C}}_t^i = \boldsymbol{\hat{c}}_t \quad \forall t = 0, \dots, T-1$\label{alg-API15} \label{alg-API-Peval2}
+		\EndFor
+		\State $\left(\theta_t, \pi_t \right) = \text{updateParameters}\left(\hat{V}_t^i, \boldsymbol{\hat{C}}_t^i, \theta_t, \pi_t, k\right) \quad \forall t = 0, \dots, T-1, \forall i = 1, \dots, I$ \label{alg-API-updateParam}\label{alg-API-Piter3}
+		\EndFor
+		\Return {$\left(\theta_t, \pi_t \right)  \quad \forall t = 1, \dots, T$}
+	\end{algorithmic}
+\end{algorithm}

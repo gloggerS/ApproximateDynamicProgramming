@@ -2,43 +2,73 @@
 This script will calculate the CDLP (choice based deterministic linear programme).
 """
 
+import pandas as pd
+import numpy as np
+
+import datetime
+import time
+
+import os
+from shutil import copyfile
+
+from A_data_read import *
 from B_helper import *
 
-# from joblib import Parallel, delayed, dump, load
-# import multiprocessing
+#%%
+# Get settings, prepare data, create storage for results
+print("CDLP starting.\n\n")
+
+# settings
+settings = pd.read_csv("0_settings.csv", delimiter="\t", header=None)
+example = settings.iloc[0, 1]
+use_variations = (settings.iloc[1, 1] == "True") | (settings.iloc[1, 1] == "true")  # if var. capacities should be used
+
+# prepare storage location
+newpath = os.getcwd()+"\\Results\\CDLP-"+example+"-"+str(datetime.datetime.now()).replace(":", "-").replace(".", "-")
+os.makedirs(newpath)
+
+# copy settings to storage location
+copyfile("0_settings.csv", newpath+"\\0_settings.csv")
+logfile = open(newpath+"\\0_logging.txt", "w+")  # write and create (if not there)
+
+# time
+print("Time:", datetime.datetime.now())
+print("Time (starting):", datetime.datetime.now(), file=logfile)
+time_start = time.time()
+
+# data
+dat = get_all(example)
+print("\n Data used. \n")
+for key in dat.keys():
+    print(key, ":\n", dat[key])
+print("\n\n")
+del dat
+
+# settings
+for row in settings:
+    print(settings.loc[row, 0], ":\t", settings.loc[row, 1])
+    print(settings.loc[row, 0], ":\t", settings.loc[row, 1], file=logfile)
+
+# variations (capacity and no purchase preference)
+if use_variations:
+    var_capacities, var_no_purchase_preferences = get_variations(example)
+else:
+    capacities, no_purchase_preferences = get_capacities_and_preferences_no_purchase(example)
+    var_capacities = np.array([capacities])
+    var_no_purchase_preferences = np.array([no_purchase_preferences])
+
+# other data
+resources, \
+    products, revenues, A, \
+    customer_segments, preference_weights, arrival_probabilities, \
+    times = get_data_without_variations(example)
+T = len(times)
+
+print("\nEverything set up.")
 
 #%%
-logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
-    customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
-    epsilon, exponential_smoothing \
-    = setup("CDLP")
-
-#%%
-def revenue(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities, revenues):
-    """
-    R(S)
-
-    :param offer_set_tuple: S
-    :return: R(S)
-    """
-    return sum(revenues * customer_choice_vector(offer_set_tuple, preference_weights, preference_no_purchase,
-                                               arrival_probabilities)[:-1])
-
-
-def quantity_i(offer_set_tuple, preference_weights, preference_no_purchase, arrival_probabilities, i, A):
-    """
-    Q_i(S)
-
-    :param offer_set_tuple: S
-    :param i: resource i
-    :return: Q_i(S)
-    """
-    return sum(A[i, :] * customer_choice_vector(offer_set_tuple, preference_weights, preference_no_purchase,
-                                              arrival_probabilities)[:-1])
-
-
 # Actual Code
-def CDLP(capacities, preference_no_purchase, offer_sets: np.ndarray, filename_result=""):
+def CDLP(capacities, preference_no_purchase, offer_sets: np.ndarray):
     """
     Implements (4) of Bront et al. Needs the offer-sets to look at (N) as input.
 
@@ -46,6 +76,7 @@ def CDLP(capacities, preference_no_purchase, offer_sets: np.ndarray, filename_re
     :return: dictionary of (offer set, time offered), optimal value, dual prices of resources, dual price of time
     """
     offer_sets = pd.DataFrame(offer_sets)
+    lam = sum(arrival_probabilities)
     T = len(times)
 
     S = {}
@@ -68,53 +99,26 @@ def CDLP(capacities, preference_no_purchase, offer_sets: np.ndarray, filename_re
         mt = m.addVars(offer_sets.index.values, name="t", lb=0.0)  # last constraint
 
         # Objective Function
-        m.setObjective(quicksum(R[s] * mt[s] for s in offer_sets.index.values), GRB.MAXIMIZE)
+        m.setObjective(lam * quicksum(R[s] * mt[s] for s in offer_sets.index.values), GRB.MAXIMIZE)
 
         mc = {}
         # Constraints
         for i in resources:
-            mc[i] = m.addConstr(quicksum(Q[s][i] * mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL,
+            mc[i] = m.addConstr(lam * quicksum(Q[s][i] * mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL,
                                 capacities[i],
                                 name="constraintOnResource")
         msigma = m.addConstr(quicksum(mt[s] for s in offer_sets.index.values), GRB.LESS_EQUAL, T)
 
-        if filename_result != "":
-            # change stdout to write output to file
-            temp = sys.stdout
-            file = open(newpath+"\\"+filename_result, "wt")
-            sys.stdout = file
-
         m.optimize()
 
-        print("\n\n-----------------------------------------------------------\n\n")
-
         ret = {}
-        # have to get to index to reproduce the original offerset
         pat = r".*?\[(.*)\].*"
         for v in m.getVars():
             if v.X > 0:
                 match = re.search(pat, v.VarName)
                 erg_index = match.group(1)
-
                 ret[int(erg_index)] = (tuple(offer_sets.loc[int(erg_index)]), v.X)
-
-        print("Optimal objective value: \n", m.objVal, "\n")
-        print("Optimal solution:")
-        for erg in ret.keys():
-            print("Tuple", ret[erg][0], " is offered for a total time of ", np.round(ret[erg][1], 4))
-
-        print("\n")
-        t = np.zeros(len(products))
-        for erg in ret.keys():
-            for i in products:
-                t[i] += 1.0*ret[erg][0][i]*ret[erg][1]
-        for i in products:
-            print("Product ", i+1, "is offered during ", ("%.4f" % np.round(t[i], 4)).rjust(7), " time periods.")
-
-        if filename_result != "":
-            # change stdout back
-            sys.stdout = temp
-            file.close()
+                print(offer_sets.loc[int(erg_index)], ": ", v.X)
 
         dualPi = np.zeros_like(resources, dtype=float)
         for i in resources:
@@ -137,8 +141,7 @@ def column_MIP(preference_no_purchase, pi, w=0):  # pass w to test example for g
     :param w:
     :return: optimal tuple of products to offer
     """
-    # TODO: warum +1 zum Schluss?
-    M = 1/preference_no_purchase.min()+1
+    K = 1/min(preference_no_purchase.min(), np.min(preference_weights[np.nonzero(preference_weights)]))+1
 
     if isinstance(w, int) and w == 0:  # 'and' is lazy version of &
         w = np.zeros_like(revenues, dtype=float)
@@ -170,10 +173,10 @@ def column_MIP(preference_no_purchase, pi, w=0):  # pass w to test example for g
         mc1 = m.addConstrs((mx[l]*preference_no_purchase[l] +
                             quicksum(preference_weights[l, j]*mz[l][j] for j in products) == 1
                             for l in customer_segments), name="mc1")
-        mc2 = m.addConstrs((mx[l] - mz[l][j] <= M - M*my[j] for l in customer_segments for j in products),
+        mc2 = m.addConstrs((mx[l] - mz[l][j] <= K - K*my[j] for l in customer_segments for j in products),
                            name="mc2")
         mc3 = m.addConstrs((mz[l][j] <= mx[l] for l in customer_segments for j in products), name="mc3")
-        mc4 = m.addConstrs((mz[l][j] <= M*my[j] for l in customer_segments for j in products), name="mc4")
+        mc4 = m.addConstrs((mz[l][j] <= K*my[j] for l in customer_segments for j in products), name="mc4")
 
         m.optimize()
 
@@ -210,7 +213,7 @@ def column_greedy(preference_no_purchase, pi, w=0):  # pass w to test example fo
     value_marginal = np.zeros_like(w, dtype=float)
     for j in Sprime:
         for l in customer_segments:
-            value_marginal[j] += arrival_probabilities[l] * preference_weights[l, j]/(preference_weights[l, j] + preference_no_purchase[l])
+            value_marginal[j] += preference_weights[l, j]/(preference_weights[l, j] + preference_no_purchase[l])
         value_marginal[j] *= w[j]
 
     jstar = np.argmax(value_marginal)
@@ -221,7 +224,7 @@ def column_greedy(preference_no_purchase, pi, w=0):  # pass w to test example fo
 
     # Step 4
     while True:
-        v_akt = deepcopy(v_new)  # deepcopy to be on the safe side
+        v_akt = copy.deepcopy(v_new)  # deepcopy to be on the safe side
         v_temp = np.zeros_like(revenues, dtype=float)  # uses more space then necessary, but simplifies indices below
         for j in Sprime:
             for l in customer_segments:
@@ -246,7 +249,7 @@ def column_greedy(preference_no_purchase, pi, w=0):  # pass w to test example fo
 
 
 # CDLP by column generation
-def CDLP_by_column_generation(capacities, preference_no_purchase, filename_result):
+def CDLP_by_column_generation(capacities, preference_no_purchase):
     """
     Implements Bront et als approach for CDLP by column generation as pointed out on p. 775 just above "5. Decomp..."
 
@@ -267,11 +270,9 @@ def CDLP_by_column_generation(capacities, preference_no_purchase, filename_resul
     data_result = pd.DataFrame([{"val": val_new_CDLP, "optimal sets": ret,
                                  "dual pi": dual_pi, "dual sigma": dual_sigma}])
 
-    count = 1  # counts how often the while loop runs
     while val_new_CDLP > val_akt_CDLP:
-        count += 1
         print("Actual value of CDLP: \t", val_new_CDLP)
-        val_akt_CDLP = deepcopy(val_new_CDLP)  # deepcopy and new name to be on the safe side
+        val_akt_CDLP = copy.deepcopy(val_new_CDLP)  # deepcopy and new name to be on the safe side
 
         col_offerset, col_val = column_greedy(preference_no_purchase, dual_pi)
         if not offer_sets[(offer_sets == np.array(col_offerset)).all(axis=1)].index.empty:
@@ -284,99 +285,21 @@ def CDLP_by_column_generation(capacities, preference_no_purchase, filename_resul
         data_result = data_result.append(pd.DataFrame([{"val": val_new_CDLP, "optimal sets": ret,
                                           "dual pi": dual_pi, "dual sigma": dual_sigma}]))
 
-    if filename_result != "":
-        # change stdout to write output to file
-        temp = sys.stdout
-        file = open(newpath + "\\" + filename_result, "wt")
-        sys.stdout = file
-
-    print("Optimal objective value: \n", val_new_CDLP, "\n")
-    print("Found by using ", count, " columns.\n")
-    print("Optimal solution:")
-    for erg in ret.keys():
-        print("Tuple", ret[erg][0], " is offered for a total time of ", np.round(ret[erg][1], 4))
-
-    print("\n")
-    t = np.zeros(len(products))
-    for erg in ret.keys():
-        for i in products:
-            t[i] += 1.0 * ret[erg][0][i] * ret[erg][1]
-    for i in products:
-        print("Product ", i + 1, "is offered during ", ("%.4f" % np.round(t[i], 4)).rjust(7), " time periods.")
-
-    if filename_result != "":
-        # change stdout back
-        sys.stdout = temp
-        file.close()
-
     data_result.to_csv(newpath+"\\CDLP_by_column_generation-"+str(capacities)+"-"+str(preference_no_purchase)+".csv",
                        sep=";")
     return ret, val_new_CDLP, dual_pi, dual_sigma
 
 
 # %%
-# # reproduce CDLP solution:
-# # Example	example0
-# capacities = var_capacities[0]
-# preference_no_purchase = var_no_purchase_preferences[0]
-# offer_sets = get_offer_sets_all(products)
-#
-# CDLP(capacities, preference_no_purchase, offer_sets, "CDLP-with-NullSet.txt")
-#
-# offer_sets = offer_sets[:-1]
-# CDLP(capacities, preference_no_purchase, offer_sets, "CDLP-without-NullSet.txt")
-
-
-# %%
-# reproduce Greedy Example
-# pi = np.array([0, 0, 0])
-# filename = "CDLP-exampleGreedy.txt"
-#
-# preference_no_purchase = var_no_purchase_preferences[0]
-#
-# tuple_GH, val_GH = column_greedy(preference_no_purchase, pi)
-# tuple_mip, val_mip = column_MIP(preference_no_purchase, pi)
-#
-# # change stdout to write output to file
-# temp = sys.stdout
-# file = open(newpath + "\\" + filename, "wt")
-# sys.stdout = file
-#
-# print("MIP results in: optimal value = ", np.round(val_mip, 2), " \t optimal tuple = ", tuple_mip)
-# print("GH results in:  optimal value = ", np.round(val_GH, 2), " \t optimal tuple = ", tuple_GH)
-#
-# # change stdout back
-# sys.stdout = temp
-# file.close()
-
-
-# %%
-# work with exampleStefan
-# Example	exampleStefan
-capacities = var_capacities[0]
-preference_no_purchase = var_no_purchase_preferences[0]
-offer_sets = get_offer_sets_all(products)
-
-CDLP(capacities, preference_no_purchase, offer_sets, "CDLP-with-NullSet.txt")
-
-offer_sets = offer_sets[:-1]
-CDLP(capacities, preference_no_purchase, offer_sets, "CDLP-without-NullSet.txt")
-
-CDLP_by_column_generation(capacities, preference_no_purchase, "CDLP-columnGeneration.txt")
-
-
-# %%
-# input for comparison table
 # Run CDLP as in Bront et al (CDLP by column generation, first greedy heuristig to identify entering column to the base,
 # no entering column found => exact MIP procedure
 num_rows = len(var_capacities)*len(var_no_purchase_preferences)
 df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP'])
 indexi = 0
-
 for capacity in var_capacities:
     for preference_no_purchase in var_no_purchase_preferences:
         print(capacity, "-", preference_no_purchase)
-        print(str(datetime.now()), ":", capacity, "-", preference_no_purchase, file=logfile)
+        print(str(datetime.datetime.now()), ":", capacity, "-", preference_no_purchase, file=logfile)
 
         df.loc[indexi] = [capacity, preference_no_purchase,
                           CDLP_by_column_generation(capacities=capacity, preference_no_purchase=preference_no_purchase)]

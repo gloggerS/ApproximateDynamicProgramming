@@ -1,0 +1,64 @@
+
+
+
+\clearpage
+\setcounter{page}{1}
+\noindent\fbox{\parbox{\textwidth}{\centering Rest}}
+
+\section{DPD}
+
+DPD offer set calculation as in \cite{Bront.2009} and in Code Notebook-0427 Deep dive into DPD...
+
+
+\section{Old-Already written}
+
+\subsection{Dynamic Programming - Theory}
+
+As this whole thesis is based on the ideas of Dynamic Programming, we want to give a short overview of the underlying mathematical theory and directly combine it to our setting.
+
+Dynamic Programming (DP\nomenclature{DP}{dynamic programming}) refers to a broad collection of algorithms used to compute optimal policies given a perfect model of the environment as a Markov Decision Process (MDP\nomenclature{MDP}{markov decision process}), as stated in \cite{Sutton.2018}. A MDP is characterized by a state set $\mathcal{S}$ (the varying capacities $\mathbf{c}$ together with the current point in time $t$), an action set $\mathcal{A}$ (the offer sets $\mathbf{x}$) and reward sets $\mathcal{R}$ (the revenue $r$ if a product is sold). A MDP evolves over time, but for the evolution from time $t$ to $t+1$ only the current state $s_t$ is relevant and the history of previous states $s_h, h<t$ can be ignored. The dynamic is given by a set of probabilities $p(s', r | s, a)$ (capacities reduce according to which random product the random customer has bought according to his preferences). 
+
+The goal of DP is to determine the optimal policy, i.e. which action to choose at each given state. Key to the solution is the usage of value functions as seen above. These fulfil the Bellman optimality equations as stated in \Cref{eq-Bellman}. 
+
+%TODO elaborate on curse of dimensionality
+In our setting, uniqueness of the optimal value function is ensured, as the MDP is guaranteed to terminate under any policy because time is moving forward no matter which action we choose, compare \cite{Sutton.2018}. Thus, while the problem can be solved, due to large scale decision problems and the curse of dimensionality, we are lacking computing power to solve it exactly and have to come up with approximate solution methods.
+
+One approximate solution method is the usage of Approximate Policy Iteration (API\nomenclature{API}{approximate policy iteration}), which consists of two steps. The policy evaluation step (inner loop \Cref{alg-API-Peval1} to \Cref{alg-API-Peval2}) evaluates a fixed policy over a set of sample paths $\omega_i, i = 1, \dots, I$. The policy improvement step (outer loop \Cref{alg-API-Piter1}, \Cref{alg-API-Piter2}, \Cref{alg-API-Piter3}) improves the policy over the iterations $k = 1, \dots, K$.
+
+
+
+
+\noindent\rule{\textwidth}{1pt}
+\subsection{More stuff}
+Calculations:
+$\mathbf{\pi}(t, \mathbf{c}) = \pi_h(t, c_h) \text{ for } h \in [m]$
+
+\begin{numcases}{\pi_h(t, c_h) = }
+\infty & if $c_h = 0$ \\
+\sum_{s=1}^{S_h} \pi_{ths}\mathbbm{1}_{\left(b_h^{s-1}, b_h^s\right]}(c_h) &  otherwise.
+\end{numcases}
+
+\todoRed{Fuer \Cref{alg-API-calcPi} verwende Zeit \textbf{t} statt \textbf{t+1}. Grund: Kenne Informationen zur Zukunft nicht.}
+
+
+
+\noindent\rule{\textwidth}{1pt}
+A sales event is simulated by first having one or zero customer arrive at random. In case a customer arrives, its preference function given the offer set determines the probability according to which one product is sold ($j' \in \{1, \dots, n\}$) or no product is sold ($j' = 0$).
+
+
+
+\subsection{Thoughts on implementation}
+
+This shall be a short overview of my thoughts regarding the implementation:
+
+\begin{enumerate}
+	\item I wanted to produce reproducible results, i.e. my code shall be usable on a larger scope. Logic and Settings shall be separated. Completed code shall be script based and after run, create a folder with its running configuration.
+	\item Be careful, when storing list or dataframes, as a deepcopy might have to be used.
+	\item 
+\end{enumerate}
+
+
+
+\section{Neural Networks}
+
+https://www.gurobi.com/resource/machine-learning-webinar-i/

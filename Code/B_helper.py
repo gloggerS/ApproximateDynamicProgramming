@@ -39,7 +39,7 @@ from shutil import copyfile, move
 from datetime import datetime
 from time import strftime, time
 
-from random import random
+from random import random, seed
 
 
 
@@ -136,7 +136,7 @@ def simulate_sales(offer_set, random_customer, random_sales, arrival_probabiliti
 
 
 #%% API
-def determine_offer_tuple(pi, eps, revenues, A, arrival_probabilities, preference_weights, preferences_no_purchase):
+def determine_offer_tuple(pi, eps, eps_ran, revenues, A, arrival_probabilities, preference_weights, preferences_no_purchase):
     """
     Determines the offerset given the bid prices for each resource.
 
@@ -157,12 +157,11 @@ def determine_offer_tuple(pi, eps, revenues, A, arrival_probabilities, preferenc
         return tuple(np.zeros_like(revenues))
 
     # epsilon greedy strategy - offer no products
-    eps_prob = random()
-    if eps_prob < eps/2:
+    if eps_ran < eps/2:
         return tuple(np.zeros_like(revenues))
 
     # epsilon greedy strategy - offer all products
-    if eps_prob < eps:
+    if eps_ran < eps:
         offer_tuple = np.ones_like(revenues)
         offer_tuple[np.sum(A[list(pi == np.inf), :], axis=0) > 0] = 0  # one resource not available => don't offer product
         return tuple(offer_tuple)
@@ -550,6 +549,7 @@ def efficient_sets(data_sets):
         for i in tocheck:
             marg_revenues.loc[i] = (sets_revenues[i] - r_max) / (sets_quantities[i] - q_max)
         ES.append(max(marg_revenues.idxmax()))
+
 
 
 #%%

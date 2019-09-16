@@ -10,12 +10,14 @@ import pickle
 
 #%% quick on-/off
 # example for 4.2.2 Greedy Heuristic
+
+
 n = 3
 products = np.arange(n)
 
-A = np.array([[1, 0, 0],
-              [0, 1, 0],
-              [0, 0, 1]])
+A = np.array([[1],
+              [1],
+              [1]])
 L = 3
 customer_segments = np.arange(L)
 preference_weights = np.array([[1, 1, 1],
@@ -79,6 +81,34 @@ data_by_name["exampleStefan"]["A"] = np.array([[1, 1, 0, 0, 0, 1],
                                                [0, 0, 0, 0, 1, 0]])
 
 
+#%% greedy heuristic
+data_by_name["exampleGreedy"] = {}
+
+data_by_name["exampleGreedy"]["products"] = np.arange(3)  # n
+data_by_name["exampleGreedy"]["revenues"] = np.array([100, 19, 19])
+
+data_by_name["exampleGreedy"]["times"] = np.arange(1)  # T
+
+data_by_name["exampleGreedy"]["customer_segments"] = np.arange(3)  # L
+data_by_name["exampleGreedy"]["arrival_probabilities"] = np.array([.3333, .3333, .3333])
+data_by_name["exampleGreedy"]["preference_weights"] = np.array([[1, 1, 1],
+                                                                [0, 1, 0],
+                                                                [0, 0, 1]])
+
+data_by_name["exampleGreedy"]["var_no_purchase_preferences"] = np.array([[1, 1, 1]])
+data_by_name["exampleGreedy"]["preference_no_purchase"] = \
+    np.array(data_by_name["exampleGreedy"]["var_no_purchase_preferences"][0])
+
+data_by_name["exampleGreedy"]["resources"] = np.arange(1)  # m
+
+data_by_name["exampleGreedy"]["var_capacities"] = np.array([[np.inf]])
+data_by_name["exampleGreedy"]["capacities"] = data_by_name["exampleGreedy"]["var_capacities"][0]
+
+# capacity demand matrix A (rows: resources, cols: products)
+# a_ij = 1 if resource i is used by product j
+data_by_name["exampleGreedy"]["A"] = np.array([[1, 1, 1]])
+
+pi = np.array([0, 0, 0])
 
 
 #%% singleLegFlight
@@ -231,6 +261,7 @@ data_by_name["example0"]["revenues"] = np.array([1200, 800, 500, 500, 800, 500, 
 
 data_by_name["example0"]["resources"] = np.arange(3)  # m
 data_by_name["example0"]["capacities"] = np.array([10, 5, 5])
+data_by_name["example0"]["var_capacities"] = np.array([[10, 5, 5]])
 
 # capacity demand matrix A (rows: resources, cols: products)
 # a_ij = 1 if resource i is used by product j
@@ -248,6 +279,7 @@ data_by_name["example0"]["preference_weights"] = np.array([[5, 0, 0, 0, 8, 0, 0,
                                   [0, 0, 4, 0, 0, 0, 8, 0],
                                   [0, 0, 0, 6, 0, 0, 0, 8]])
 data_by_name["example0"]["preference_no_purchase"] = np.array([2, 5, 2, 2, 2])
+data_by_name["example0"]["var_no_purchase_preferences"] = np.array([[2, 5, 2, 2, 2]])
 
 
 #%% check data
@@ -285,4 +317,6 @@ for i in data_by_name.keys():
 f = open("0-data_by_name", "wb")
 pickle.dump(data_by_name, f)
 f.close()
+
+
 

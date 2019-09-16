@@ -1,7 +1,4 @@
 
-
-
-
 \usepackage{geometry}
 \geometry{
 a4paper,
@@ -36,6 +33,12 @@ right=50mm,
 %\usepackage[]{mcode}
 \usepackage{bbm}
 
+% ------------------------------------------------------------------------------
+% To store values for the title page
+% renewcommand falls Befehl schon existiert (von scrbook) - werde ich aber nicht in der bereits definierten Weise verwenden -> Überschreiben ok
+\renewcommand{\title}[1]{\newcommand{\Title}{#1}}
+% ------------------------------------------------------------------------------
+
 % spacing of items: noitemsep 
 \usepackage{enumitem}
 
@@ -52,6 +55,23 @@ right=50mm,
 \usepackage{amssymb,amsfonts}
 \setcounter{MaxMatrixCols}{10} % leftover from Marcos
 \usepackage{cases}
+
+% absolute value and norm
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+
 
 % Pseudo Code
 \usepackage{algorithm}
@@ -93,7 +113,12 @@ right=50mm,
 \newcolumntype{x}{>{$}l<{$}} % math-mode version of "l" column type
 \newcolumntype{y}{>{$}c<{$}} % math-mode version of "c" column type
 \newcolumntype{z}{>{$}r<{$}} % math-mode version of "r" column type
-
+%%% for linebreak in cell (https://tex.stackexchange.com/questions/2441/how-to-add-a-forced-line-break-inside-a-table-cell#19678)
+%Foo bar & \specialcell{Foo\\bar} & Foo bar \\    % vertically centered
+%Foo bar & \specialcell[t]{Foo\\bar} & Foo bar \\ % aligned with top rule
+%Foo bar & \specialcell[b]{Foo\\bar} & Foo bar \\ % aligned with bottom rule
+\newcommand{\specialcell}[2][c]{%
+	\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 \usepackage{multicol}
 
 
@@ -114,13 +139,28 @@ right=50mm,
 
 
 % quotes
-\usepackage{csquotes}
+% ------------------------------------------------------------------------------
+% hyperref settings for PDF files
 \usepackage[%
 %	allbordercolors=black,
 urlcolor=blue,
 linkcolor=blue,
 citecolor=.
-]{hyperref}
+%%% von Bachelorarbeit Mathe
+%allbordercolors=black,%
+%allcolors=black,%
+%breaklinks=true,% allow links to break across lines
+%colorlinks=false,%switch off colouring
+%pdfpagelabels=true,% set PDF page labels (i.e. for Acrobat Reader), cf http://www.tex.ac.uk/cgi-bin/texfaq2html?label=pdfpagelabels (needed for index to work)
+%plainpages=false,% Make page anchors use formatted form of page number, cf http://www.tex.ac.uk/cgi-bin/texfaq2html?label=pdfpagelabels (needed for index to work)
+%hypertexnames=true,% use guessable names for links (needed for index to work)
+%bookmarksopen=false,%
+%bookmarksnumbered=false,%
+%hyperfootnotes=false% incompatible with package footmisc
+]%
+{hyperref}%
+% ------------------------------------------------------------------------------
+\usepackage{csquotes}
 \usepackage{cleveref}
 
 
@@ -142,10 +182,34 @@ draft,%
 %bold math symbols
 \usepackage{bm}
 
-% multiple figures
+% multiple figures - subfigure and subcaption are not compatible
+%\usepackage{subfigure} 
 \usepackage{subcaption}
+\usepackage{framed} % um Box um subfigures zu malen
+
+\usepackage{fancyvrb}
+
+% redefine \VerbatimInput
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\small,
+	%
+	frame=lines,  % top and bottom rule only
+	framesep=2em, % separation between frame and text
+	rulecolor=\color{Gray},
+	%
+	commandchars=\|, % escape character and argument delimiters for commands within the verbatim
+	commentchar=*        % comment character
+}
+
 
 
 \usepackage[onehalfspacing]{setspace}
 
 \usepackage{pdfpages}
+
+% beautiful drawings
+\usepackage{tikz}
+\usetikzlibrary{snakes}
+
+% brings the floating barrier \FloatBarrier
+\usepackage{placeins}

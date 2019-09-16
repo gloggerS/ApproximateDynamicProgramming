@@ -16,15 +16,29 @@ bibliography=totoc, %Entry in table of contents for bibliography
 ]%
 {scrbook}%
 
-\KOMAoptions{twoside=false}
+\KOMAoptions{twoside=true}
+\input{z-packages.tex}
+\input{z-style.tex}
 
 %% adjust spacing of chapters (start on top for working)
 %\renewcommand*{\chapterheadstartvskip}{\vspace*{0cm}}
 %\renewcommand*{\chapterheadendvskip}{\vspace{0cm}}
 
+\title{Reinforcement Learning and Artificial Intelligence\\
+	in the context of revenue management}
 
-\input{z-packages.tex}
-\input{z-style.tex}
+% ------------------------------------------------------------------------------
+% PDF-Metadaten
+\hypersetup{
+	pdfauthor={Stefan Glogger},
+	pdftitle={\Title},
+	pdfsubject={},
+	pdfkeywords={Master's Thesis, Revenue Management, Approximate Dynamic Programming, Neural Networks, Machine Learning},
+	%todo adopt this for print version
+	colorlinks=true, %coloured links (for the PDF version)
+	% colorlinks=false, % no coloured links (for the print version)
+}
+% ------------------------------------------------------------------------------
 
 
 
@@ -44,8 +58,10 @@ bibliography=totoc, %Entry in table of contents for bibliography
 \input{Conclusion.tex}
 
 \input{TODOInterestingFindings.tex}
+%
 
-\addcontentsline{toc}{chapter}{Bibliography}
+\todo{Bibliographie-Einträge checken}
+%\addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{bibliography}
 \printnomenclature
 
