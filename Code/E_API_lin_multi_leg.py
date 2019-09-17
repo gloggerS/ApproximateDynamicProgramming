@@ -240,32 +240,45 @@ for key in dir():
 my_shelf.close()
 
 # %% restore
-my_shelf = shelve.open(filename)
-for key in my_shelf:
-    globals()[key] = my_shelf[key]
-my_shelf.close()
+# my_shelf = shelve.open(filename)
+# for key in my_shelf:
+#     globals()[key] = my_shelf[key]
+# my_shelf.close()
 
 
 # %% analysis
 # products sold
 p = pd.DataFrame(products_sold, columns=range(len(products)+1))
 p = p.iloc[1:, :]
-
+with open(newpath+"\\plotProducts.data", "wb") as filehandle:
+    pickle.dump(p, filehandle)
+    
+#%%
 fig, ax = plt.subplots()
 for i in products:
     ax.plot(np.arange(K)+1, p[i], label="Product "+str(i+1))
 ax.plot(np.arange(K)+1, p[i+1], label="No Purchase")
-ax.legend()
-plt.xticks(np.arange(K)+1)
+ax.legend(bbox_to_anchor=(0, -.35, 1, .102), loc="lower left",
+          ncol=3, mode="expand")
+plt.xticks(np.append([1], np.arange(5, K+1, 5)))
+fig.savefig(newpath+"\\plotProducts.pdf", bbox_inches="tight")
 plt.show()
 
+    
 #%%
 v = pd.DataFrame(value_result[str(capacities)][str(preferences_no_purchase)][:, :, 0])
 v = v.iloc[1:, :]
+with open(newpath+"\\plotValues.data", "wb") as filehandle:
+    pickle.dump(v, filehandle)
+    
+#%%
 v.apply(sum, axis=1)
 
 np.mean(v, axis=1)
 
 plt.plot(np.arange(K)+1, np.mean(v, axis=1), label="Average value at start")
-plt.xticks(np.arange(K)+1)
+plt.legend(loc="lower right")
+plt.xticks(np.append([1], np.arange(5, K+1, 5)))
+plt.savefig(newpath+"\\plotValue.pdf", bbox_inches="tight")
 plt.show()
+
