@@ -108,11 +108,11 @@ eps_random = np.random.random((I, T+1))
 sales_stream = np.random.random((I, T+1))
 
 # summary statistics
-offer_sets_all = {str(tuple(obj)):count for count, obj in enumerate(get_offer_sets_all(products))}
-offersets_offered = np.zeros((K+1, len(offer_sets_all)))
-products_sold = np.zeros((K+1, len(products)+1))
-sold_out = np.zeros((K+1, I))
-obj_vals = np.zeros(K+1)
+offer_sets_all = {str(tuple(obj)): count for count, obj in enumerate(get_offer_sets_all(products))}
+offersets_offered_dic = {}
+products_sold_dic = {}
+sold_out_dic = {}
+obj_vals_dic = {}
 
 for capacities in var_capacities:
     value_result[str(capacities)] = {}
@@ -120,9 +120,20 @@ for capacities in var_capacities:
     theta_result[str(capacities)] = {}
     pi_result[str(capacities)] = {}
 
+    offersets_offered_dic[str(capacities)] = {}
+    products_sold_dic[str(capacities)] = {}
+    sold_out_dic[str(capacities)] = {}
+    obj_vals_dic[str(capacities)] = {}
+
     for preferences_no_purchase in var_no_purchase_preferences:
         print(capacities, "of", str(var_capacities.tolist()), " - and - ",
               preferences_no_purchase, "of", str(var_no_purchase_preferences.tolist()), "starting.")
+
+        # summary statistics
+        offersets_offered = np.zeros((K + 1, len(offer_sets_all)))
+        products_sold = np.zeros((K + 1, len(products) + 1))
+        sold_out = np.zeros((K + 1, I))
+        obj_vals = np.zeros(K + 1)
 
         value_result[str(capacities)][str(preferences_no_purchase)] = np.zeros((K+1, I, T+1))
         capacities_result[str(capacities)][str(preferences_no_purchase)] = np.zeros((K+1, I, T+1, len(resources)))
@@ -181,6 +192,9 @@ for capacities in var_capacities:
                     if all(c==0):
                         sold_out[k, i] = t
 
+                # also adjust last sell
+                c_sample_i[t] = c
+
                 # line 16-18
                 v_samples[i] = np.cumsum(r_sample_i[::-1])[::-1]
                 c_samples[i] = c_sample_i
@@ -193,6 +207,11 @@ for capacities in var_capacities:
 
         theta_result[str(capacities)][str(preferences_no_purchase)] = theta_all
         pi_result[str(capacities)][str(preferences_no_purchase)] = pi_all
+
+        offersets_offered_dic[str(capacities)][str(preferences_no_purchase)] = offersets_offered
+        products_sold_dic[str(capacities)][str(preferences_no_purchase)] = products_sold[1:, :]
+        sold_out_dic[str(capacities)][str(preferences_no_purchase)] = sold_out
+        obj_vals_dic[str(capacities)][str(preferences_no_purchase)] = obj_vals_dic
 
 
 # %%
@@ -226,21 +245,16 @@ with open(newpath+"\\piToUse.data", "wb") as filehandle:
     pickle.dump(tmp, filehandle)
 
 with open(newpath+"\\offersetsOffered.data", "wb") as filehandle:
-    pickle.dump(offersets_offered, filehandle)
+    pickle.dump(offersets_offered_dic, filehandle)
     
 with open(newpath+"\\soldOut.data", "wb") as filehandle:
-    pickle.dump(sold_out, filehandle)
+    pickle.dump(sold_out_dic, filehandle)
 
 # products sold
-p = pd.DataFrame(products_sold, columns=range(len(products)+1))
-p = p.iloc[1:, :]
+p = pd.DataFrame(products_sold_dic, columns=range(len(products)+1))
 with open(newpath+"\\plotProducts.data", "wb") as filehandle:
     pickle.dump(p, filehandle)
 
-v = pd.DataFrame(value_result[str(capacities)][str(preferences_no_purchase)][:, :, 0])
-v = v.iloc[1:, :]
-with open(newpath+"\\plotValues.data", "wb") as filehandle:
-    pickle.dump(v, filehandle)
 
 # %%
 wrapup(logfile, time_start, newpath)
