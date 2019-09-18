@@ -83,13 +83,13 @@ def update_parameters(v_samples, c_samples, thetas, pis, k, exponential_smoothin
 
         # check exponential smoothing
         if exponential_smoothing:
-            return (1 - 1 / k) * thetas + 1 / k * theta_new, (1 - 1 / k) * pis + 1 / k * pi_new
+            return (1 - 1 / k) * thetas + 1 / k * theta_new, (1 - 1 / k) * pis + 1 / k * pi_new, m.ObjVal
         else:
-            return theta_new, pi_new
+            return theta_new, pi_new, m.ObjVal
     except GurobiError:
         print('Error reported')
 
-        return 0, 0
+        return 0, 0, 0
 
 
 # %%
@@ -111,6 +111,8 @@ sales_stream = np.random.random((I, T+1))
 offer_sets_all = {str(tuple(obj)):count for count, obj in enumerate(get_offer_sets_all(products))}
 offersets_offered = np.zeros((K+1, len(offer_sets_all)))
 products_sold = np.zeros((K+1, len(products)+1))
+sold_out = np.zeros((K+1, I))
+obj_vals = np.zeros(K+1)
 
 for capacities in var_capacities:
     value_result[str(capacities)] = {}
@@ -138,7 +140,6 @@ for capacities in var_capacities:
 
         for k in np.arange(K)+1:
             print(k, "of", K, "starting.")
-            seed(13)  # to have the epsilon's (exploration vs exploitation) also the same for each policy iteration k
 
             v_samples = np.zeros((I, T+1))
             c_samples = np.zeros((I, T+1, len(capacities)))
@@ -176,13 +177,16 @@ for capacities in var_capacities:
                     except IndexError:
                         # no product was sold
                         pass
+                    
+                    if all(c==0):
+                        sold_out[k, i] = t
 
                 # line 16-18
                 v_samples[i] = np.cumsum(r_sample_i[::-1])[::-1]
                 c_samples[i] = c_sample_i
 
             # line 20
-            theta_all[k], pi_all[k] = update_parameters(v_samples, c_samples, theta_all[k-1], pi_all[k-1], k, exponential_smoothing)
+            theta_all[k], pi_all[k], obj_vals[k] = update_parameters(v_samples, c_samples, theta_all[k-1], pi_all[k-1], k, exponential_smoothing)
             
             value_result[str(capacities)][str(preferences_no_purchase)][k, :, :] = v_samples
             capacities_result[str(capacities)][str(preferences_no_purchase)][k, :, :] = c_samples
@@ -221,9 +225,16 @@ with open(newpath+"\\piToUse.data", "wb") as filehandle:
             tmp[str(capacities)][str(preferences_no_purchase)] = pi_result[str(capacities)][str(preferences_no_purchase)][K]
     pickle.dump(tmp, filehandle)
 
+with open(newpath+"\\offersetsOffered.data", "wb") as filehandle:
+    pickle.dump(offersets_offered, filehandle)
+    
+with open(newpath+"\\soldOut.data", "wb") as filehandle:
+    pickle.dump(sold_out, filehandle)
+
 
 # %%
 wrapup(logfile, time_start, newpath)
+
 
 # %%
 my_shelf = shelve.open(filename, "n")  # "n" for new
@@ -244,41 +255,3 @@ my_shelf.close()
 # for key in my_shelf:
 #     globals()[key] = my_shelf[key]
 # my_shelf.close()
-
-
-# %% analysis
-# products sold
-p = pd.DataFrame(products_sold, columns=range(len(products)+1))
-p = p.iloc[1:, :]
-with open(newpath+"\\plotProducts.data", "wb") as filehandle:
-    pickle.dump(p, filehandle)
-    
-#%%
-fig, ax = plt.subplots()
-for i in products:
-    ax.plot(np.arange(K)+1, p[i], label="Product "+str(i+1))
-ax.plot(np.arange(K)+1, p[i+1], label="No Purchase")
-ax.legend(bbox_to_anchor=(0, -.35, 1, .102), loc="lower left",
-          ncol=3, mode="expand")
-plt.xticks(np.append([1], np.arange(5, K+1, 5)))
-fig.savefig(newpath+"\\plotProducts.pdf", bbox_inches="tight")
-plt.show()
-
-    
-#%%
-v = pd.DataFrame(value_result[str(capacities)][str(preferences_no_purchase)][:, :, 0])
-v = v.iloc[1:, :]
-with open(newpath+"\\plotValues.data", "wb") as filehandle:
-    pickle.dump(v, filehandle)
-    
-#%%
-v.apply(sum, axis=1)
-
-np.mean(v, axis=1)
-
-plt.plot(np.arange(K)+1, np.mean(v, axis=1), label="Average value at start")
-plt.legend(loc="lower right")
-plt.xticks(np.append([1], np.arange(5, K+1, 5)))
-plt.savefig(newpath+"\\plotValue.pdf", bbox_inches="tight")
-plt.show()
-

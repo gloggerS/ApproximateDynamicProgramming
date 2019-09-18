@@ -2,8 +2,84 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1032/0_logging.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1032/0_settings.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/0_logging.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/0_settings.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/capacitiesAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/piAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/piToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/shelve.out.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/shelve.out.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/shelve.out.dir" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/thetaAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/thetaToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/valueAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/0_logging.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/0_settings.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/capacitiesAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/offersetsOffered.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/piAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/piToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/plotProducts.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/plotProducts.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/plotValue.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/plotValues.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/shelve.out.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/shelve.out.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/shelve.out.dir" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/thetaAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/thetaToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/valueAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/0_logging.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/0_settings.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/capacitiesAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/offersetsOffered.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/piAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/piToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/shelve.out.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/shelve.out.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/shelve.out.dir" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/soldOut.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/thetaAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/thetaToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/valueAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/0_logging.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/0_settings.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/capacitiesAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/offersetsOffered.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/piAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/piToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/plotProducts.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/plotProducts.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/plotValue.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/plotValues.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/shelve.out.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/shelve.out.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/shelve.out.dir" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/soldOut.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/thetaAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/thetaToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/valueAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1036/0_logging.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1036/0_settings.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1037/0_logging.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1037/0_settings.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/0_logging.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/0_settings.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/capacitiesAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/offersetsOffered.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/piAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/piToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/shelve.out.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/shelve.out.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/shelve.out.dir" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/soldOut.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/thetaAll.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/thetaToUse.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/valueAll.data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E_API_lin_multi_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_multi_leg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gurobi.log" beforeDir="false" afterPath="$PROJECT_DIR$/gurobi.log" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,20 +126,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg_visualization.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="53" column="14" selection-start-line="53" selection-start-column="14" selection-end-line="53" selection-end-column="14" />
+            <state relative-caret-position="212">
+              <caret line="40" column="65" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" selection-start-line="16" selection-end-line="17" selection-end-column="56" />
+            <state relative-caret-position="551">
+              <caret line="257" selection-start-line="257" selection-end-line="257" />
             </state>
           </provider>
         </entry>
@@ -252,8 +328,8 @@
         <option value="$PROJECT_DIR$/0_settings.csv" />
         <option value="$PROJECT_DIR$/C_CDLP.py" />
         <option value="$PROJECT_DIR$/B_helper.py" />
-        <option value="$PROJECT_DIR$/E_API_lin_multi_leg.py" />
         <option value="$PROJECT_DIR$/E_API_lin_multi_leg_visualization.py" />
+        <option value="$PROJECT_DIR$/E_API_lin_multi_leg.py" />
       </list>
     </option>
   </component>
@@ -500,6 +576,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.63356644" visible="true" weight="0.1433902" />
       <window_info id="Structure" order="1" sideWeight="0.36643356" side_tool="true" visible="true" weight="0.1433902" />
@@ -895,17 +972,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg.py">
+    <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg_visualization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="17" selection-end-column="56" />
+        <state relative-caret-position="212">
+          <caret line="40" column="65" selection-start-line="40" selection-start-column="65" selection-end-line="40" selection-end-column="65" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg_visualization.py">
+    <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="53" column="14" selection-start-line="53" selection-start-column="14" selection-end-line="53" selection-end-column="14" />
+        <state relative-caret-position="551">
+          <caret line="257" selection-start-line="257" selection-end-line="257" />
         </state>
       </provider>
     </entry>
