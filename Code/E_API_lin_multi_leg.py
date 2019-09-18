@@ -231,6 +231,16 @@ with open(newpath+"\\offersetsOffered.data", "wb") as filehandle:
 with open(newpath+"\\soldOut.data", "wb") as filehandle:
     pickle.dump(sold_out, filehandle)
 
+# products sold
+p = pd.DataFrame(products_sold, columns=range(len(products)+1))
+p = p.iloc[1:, :]
+with open(newpath+"\\plotProducts.data", "wb") as filehandle:
+    pickle.dump(p, filehandle)
+
+v = pd.DataFrame(value_result[str(capacities)][str(preferences_no_purchase)][:, :, 0])
+v = v.iloc[1:, :]
+with open(newpath+"\\plotValues.data", "wb") as filehandle:
+    pickle.dump(v, filehandle)
 
 # %%
 wrapup(logfile, time_start, newpath)
