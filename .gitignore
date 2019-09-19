@@ -14,6 +14,8 @@ Literatur/
 # Further Files
 *.org
 *.org*
+*.log
+Code/.idea/*
 MasterarbeitADP*
 
 # Private Files
