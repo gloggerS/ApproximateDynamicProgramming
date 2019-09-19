@@ -22,7 +22,7 @@ import shelve
 filename = newpath+"\\shelve.out"
 
 #%%
-def update_parameters(v_samples, c_samples, thetas, pis, k, exponential_smoothing):
+def update_parameters(v_samples, c_samples, thetas, pis, k, exponential_smoothing, silent=True):
     """
     Updates the parameter theta, pi given the sample path using least squares linear regression with constraints.
     Using gurobipy
@@ -71,6 +71,9 @@ def update_parameters(v_samples, c_samples, thetas, pis, k, exponential_smoothin
             for h in set_h:
                 m.addConstr(m_pi[t, h], GRB.GREATER_EQUAL, m_pi[t+1, h], name="C16")  # Constraint 16
 
+        if silent:
+            m.setParam("OutputFlag", 0)
+
         m.optimize()
 
         theta_new = deepcopy(thetas)
@@ -91,14 +94,27 @@ def update_parameters(v_samples, c_samples, thetas, pis, k, exponential_smoothin
 
         return 0, 0, 0
 
+#%%
+def save_files(storagepath, theta_all, pi_all, *args):
+    makedirs(storagepath)
+
+    with open(storagepath + "\\thetaToUse.data", "wb") as filehandle:
+        pickle.dump(theta_all[-1], filehandle)
+
+    with open(storagepath + "\\piToUse.data", "wb") as filehandle:
+        pickle.dump(pi_all[-1], filehandle)
+
+    for o in [theta_all, pi_all, *args]:
+        o_name = re.sub("[\[\]']", "", str(varnameis(o)))
+        # print(o_name)
+        with open(storagepath + "\\" + o_name + ".data", "wb") as filehandle:
+            pickle.dump(o, filehandle)
+
+def varnameis(v): d = globals(); return [k for k in d if d[k] is v]
+
 
 # %%
 # Actual Code
-
-pi_result = {}
-theta_result = {}
-value_result = {}
-capacities_result = {}
 
 # generate the random sample paths (T+1 => have real life indexing starting at t=1)
 np.random.seed(12)
@@ -109,23 +125,9 @@ sales_stream = np.random.random((I, T+1))
 
 # summary statistics
 offer_sets_all = {str(tuple(obj)): count for count, obj in enumerate(get_offer_sets_all(products))}
-offersets_offered_dic = {}
-products_sold_dic = {}
-sold_out_dic = {}
-obj_vals_dic = {}
 
 for capacities in var_capacities:
-    value_result[str(capacities)] = {}
-    capacities_result[str(capacities)] = {}
-    theta_result[str(capacities)] = {}
-    pi_result[str(capacities)] = {}
-
-    offersets_offered_dic[str(capacities)] = {}
-    products_sold_dic[str(capacities)] = {}
-    sold_out_dic[str(capacities)] = {}
-    obj_vals_dic[str(capacities)] = {}
-
-    for preferences_no_purchase in var_no_purchase_preferences:
+     for preferences_no_purchase in var_no_purchase_preferences:
         print(capacities, "of", str(var_capacities.tolist()), " - and - ",
               preferences_no_purchase, "of", str(var_no_purchase_preferences.tolist()), "starting.")
 
@@ -134,9 +136,10 @@ for capacities in var_capacities:
         products_sold = np.zeros((K + 1, len(products) + 1))
         sold_out = np.zeros((K + 1, I))
         obj_vals = np.zeros(K + 1)
+        time_measured = np.zeros(K + 1)
 
-        value_result[str(capacities)][str(preferences_no_purchase)] = np.zeros((K+1, I, T+1))
-        capacities_result[str(capacities)][str(preferences_no_purchase)] = np.zeros((K+1, I, T+1, len(resources)))
+        value_result = np.zeros((K+1, I, T+1))
+        capacities_result = np.zeros((K+1, I, T+1, len(resources)))
 
         # store parameters over all policy iterations
         # K+1 policy iterations (starting with 0)
@@ -151,6 +154,7 @@ for capacities in var_capacities:
 
         for k in np.arange(K)+1:
             print(k, "of", K, "starting.")
+            t_in_k_start = time()
 
             v_samples = np.zeros((I, T+1))
             c_samples = np.zeros((I, T+1, len(capacities)))
@@ -191,6 +195,7 @@ for capacities in var_capacities:
                     
                     if all(c==0):
                         sold_out[k, i] = t
+                        break
 
                 # also adjust last sell
                 c_sample_i[t] = c
@@ -200,79 +205,36 @@ for capacities in var_capacities:
                 c_samples[i] = c_sample_i
 
             # line 20
-            theta_all[k], pi_all[k], obj_vals[k] = update_parameters(v_samples, c_samples, theta_all[k-1], pi_all[k-1], k, exponential_smoothing)
+            theta_all[k], pi_all[k], obj_vals[k] = update_parameters(v_samples, c_samples, theta_all[k-1], pi_all[k-1],
+                                                                     k, exponential_smoothing)
             
-            value_result[str(capacities)][str(preferences_no_purchase)][k, :, :] = v_samples
-            capacities_result[str(capacities)][str(preferences_no_purchase)][k, :, :] = c_samples
+            value_result[k, :, :] = v_samples
+            capacities_result[k, :, :] = c_samples
 
-        theta_result[str(capacities)][str(preferences_no_purchase)] = theta_all
-        pi_result[str(capacities)][str(preferences_no_purchase)] = pi_all
+            time_measured[k] = time() - t_in_k_start
 
-        offersets_offered_dic[str(capacities)][str(preferences_no_purchase)] = offersets_offered
-        products_sold_dic[str(capacities)][str(preferences_no_purchase)] = products_sold[1:, :]
-        sold_out_dic[str(capacities)][str(preferences_no_purchase)] = sold_out
-        obj_vals_dic[str(capacities)][str(preferences_no_purchase)] = obj_vals_dic
+        storagepath = newpath + "\\cap" + str(capacities) + " - pref" + str(preferences_no_purchase)
 
-
-# %%
-# write result of calculations
-with open(newpath+"\\thetaAll.data", "wb") as filehandle:
-    pickle.dump(theta_result, filehandle)
-
-with open(newpath+"\\piAll.data", "wb") as filehandle:
-    pickle.dump(pi_result, filehandle)
-
-with open(newpath+"\\valueAll.data", "wb") as filehandle:
-    pickle.dump(value_result, filehandle)
-
-with open(newpath+"\\capacitiesAll.data", "wb") as filehandle:
-    pickle.dump(capacities_result, filehandle)
-
-with open(newpath+"\\thetaToUse.data", "wb") as filehandle:
-    tmp = {}
-    for capacities in var_capacities:
-        tmp[str(capacities)] = {}
-        for preferences_no_purchase in var_no_purchase_preferences:
-            tmp[str(capacities)][str(preferences_no_purchase)] = theta_result[str(capacities)][str(preferences_no_purchase)][K]
-    pickle.dump(tmp, filehandle)
-
-with open(newpath+"\\piToUse.data", "wb") as filehandle:
-    tmp = {}
-    for capacities in var_capacities:
-        tmp[str(capacities)] = {}
-        for preferences_no_purchase in var_no_purchase_preferences:
-            tmp[str(capacities)][str(preferences_no_purchase)] = pi_result[str(capacities)][str(preferences_no_purchase)][K]
-    pickle.dump(tmp, filehandle)
-
-with open(newpath+"\\offersetsOffered.data", "wb") as filehandle:
-    pickle.dump(offersets_offered_dic, filehandle)
-    
-with open(newpath+"\\soldOut.data", "wb") as filehandle:
-    pickle.dump(sold_out_dic, filehandle)
-
-# products sold
-p = pd.DataFrame(products_sold_dic, columns=range(len(products)+1))
-with open(newpath+"\\plotProducts.data", "wb") as filehandle:
-    pickle.dump(p, filehandle)
-
+        save_files(storagepath, theta_all, pi_all, value_result, capacities_result, offersets_offered,
+                   products_sold, sold_out, obj_vals, time_measured)
 
 # %%
 wrapup(logfile, time_start, newpath)
 
 
 # %%
-my_shelf = shelve.open(filename, "n")  # "n" for new
-for key in dir():
-    try:
-        my_shelf[key] = globals()[key]
-    except TypeError:
-        #
-        # __builtins__, my_shelf, and imported modules can not be shelved.
-        #
-        print('ERROR shelving: {0}'.format(key))
-    except Exception as e:
-        print("Error {0}".format(e))
-my_shelf.close()
+# my_shelf = shelve.open(filename, "n")  # "n" for new
+# for key in dir():
+#     try:
+#         my_shelf[key] = globals()[key]
+#     except TypeError:
+#         #
+#         # __builtins__, my_shelf, and imported modules can not be shelved.
+#         #
+#         print('ERROR shelving: {0}'.format(key))
+#     except Exception as e:
+#         print("Error {0}".format(e))
+# my_shelf.close()
 
 # %% restore
 # my_shelf = shelve.open(filename)
