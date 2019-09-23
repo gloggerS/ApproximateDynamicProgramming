@@ -53,6 +53,7 @@ right=50mm,
 % math
 \usepackage{mathtools} % successor of \usepackage{amsmath}
 \usepackage{amssymb,amsfonts}
+\usepackage[hyperref, amsmath, thmmarks]{ntheorem}
 \setcounter{MaxMatrixCols}{10} % leftover from Marcos
 \usepackage{cases}
 
@@ -143,8 +144,8 @@ right=50mm,
 % hyperref settings for PDF files
 \usepackage[%
 %	allbordercolors=black,
-urlcolor=blue,
-linkcolor=blue,
+urlcolor=NavyBlue,
+linkcolor=NavyBlue,
 citecolor=.
 %%% von Bachelorarbeit Mathe
 %allbordercolors=black,%
@@ -171,8 +172,8 @@ citecolor=.
 % todo
 \usepackage%
 [textwidth=40mm,
-draft,%
-%disable%
+%draft,%
+disable%
 ]%
 {todonotes}
 
@@ -213,3 +214,12 @@ draft,%
 
 % brings the floating barrier \FloatBarrier
 \usepackage{placeins}
+
+% brings \xspace to correctly space abbreviations 
+\usepackage{xspace}
+
+% ==============================================================================
+% eigens definierte Kommandos
+% ==============================================================================
+
+% in z-style.tex

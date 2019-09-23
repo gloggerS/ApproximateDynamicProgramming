@@ -1,0 +1,8 @@
+\begin{tabular}{lllll}
+\toprule
+{} &      capacity & no-purchase preference & DP-value & DP-optimal offer set at start \\
+\midrule
+0 &  (8, 4, 4, 8) &           (2, 2, 1, 2) &     86.7 &            (1, 0, 0, 1, 1, 0) \\
+\bottomrule
+\end{tabular}
+

@@ -5,6 +5,7 @@ import pickle
 
 pickle_off = open("0-data_by_name", "rb")
 data = pickle.load(pickle_off)
+pickle_off.close()
 
 
 # %% Export functionality

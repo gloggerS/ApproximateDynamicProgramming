@@ -1,0 +1,8 @@
+Time (starting): 2019-09-18 10:29:16.368579
+Example :	 exampleStefan
+use_var_capacities :	 True
+
+
+Total time needed:
+ 13254.860978603363 seconds = 
+ 220.9143496433894 minutes

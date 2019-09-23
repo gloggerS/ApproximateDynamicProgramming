@@ -1,3 +1,0 @@
-Time (starting): 2019-06-21 15:57:47.509948
-Example :	 smallTest3
-use_var_capacities :	 False

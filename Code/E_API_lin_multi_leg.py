@@ -120,8 +120,8 @@ def varnameis(v): d = globals(); return [k for k in d if d[k] is v]
 np.random.seed(12)
 seed(12)
 customer_stream = np.random.random((I, T+1))
-eps_random = np.random.random((I, T+1))
 sales_stream = np.random.random((I, T+1))
+eps_random = np.random.random((I, T+1))
 
 # summary statistics
 offer_sets_all = {str(tuple(obj)): count for count, obj in enumerate(get_offer_sets_all(products))}

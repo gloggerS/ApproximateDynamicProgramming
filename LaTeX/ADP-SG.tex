@@ -12,7 +12,7 @@ bibliography=totoc, %Entry in table of contents for bibliography
 %BCOR=5mm,%Binding correction, ensures sufficient space for binding
 %todo change this to final to switch off for expamle the showlabels
 %todo manually put 'disable' in front of usepackage{todonotes}
-%final,%
+final,%
 ]%
 {scrbook}%
 
@@ -44,14 +44,20 @@ bibliography=totoc, %Entry in table of contents for bibliography
 
 
 \begin{document}
+
+\frontmatter
 \input{Titelseite.tex}
 
 \tableofcontents
 
-\bigskip
-\input{Aufzuschreiben.tex}
+\listoffigures
+\listoftables
+
+\clearpage
+\mainmatter
+
 \input{Introduction.tex}
-\input{Literature.tex}
+%\input{Literature.tex}
 \input{ProblemDescriptionModels.tex}
 \input{Comparison.tex}
 \input{Examples.tex}
@@ -60,6 +66,7 @@ bibliography=totoc, %Entry in table of contents for bibliography
 \input{TODOInterestingFindings.tex}
 %
 
+%\backmatter %TODO das vll rausnehmen
 \todo{Bibliographie-Einträge checken}
 %\addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{bibliography}
@@ -67,8 +74,12 @@ bibliography=totoc, %Entry in table of contents for bibliography
 
 \appendix
 \input{NotesOnCode.tex}
-\addcontentsline{toc}{chapter}{Code Implementation}\label{ch:code}
+\addtocounter{chapter}{1}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Code Implementation}\label{ch:code}
 \includepdf[pages=-]{presentation_of_code.pdf}
 
+\input{Appendix.tex}
+
+\input{SchriftlicheVersicherung.tex}
 
 \end{document}

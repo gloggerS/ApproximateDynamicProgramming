@@ -1,8 +1,0 @@
-Time (starting): 2019-07-01 09:01:28.733720
-Example :	 singleLegFlight
-use_var_capacities :	 False
-
-
-Total time needed:
- 26.423972606658936 seconds = 
- 0.4403995434443156 minutes

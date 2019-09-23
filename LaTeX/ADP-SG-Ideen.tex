@@ -1,0 +1,53 @@
+% based on scrbook
+% finaler Ablauf: übersetzen, Tools -> Benutzer -> MakeNomenclature, übersetzen
+\documentclass[
+fontsize=12pt, %font size
+paper=a4, %paper format
+headsepline, %separating line for header
+chapterprefix, % produce "Chapter ..."
+numbers=noenddot, % no full-stop after last number
+listof=totoc, %Entry in table of contents for list of figures/tables
+index=totoc, %Entry in table of contents for index
+bibliography=totoc, %Entry in table of contents for bibliography
+%BCOR=5mm,%Binding correction, ensures sufficient space for binding
+%todo change this to final to switch off for expamle the showlabels
+%todo manually put 'disable' in front of usepackage{todonotes}
+%final,%
+]%
+{scrbook}%
+
+\KOMAoptions{twoside=false}
+\input{z-packages.tex}
+\input{z-style.tex}
+
+
+\begin{document}
+
+\input{Aufzuschreiben.tex}
+
+\section{Introduction}
+\begin{enumerate}[noitemsep]
+	\item Entstehung Revenue Management
+	\item klassische Annahme des independent demand greift zu kurz
+	\item stattdessen Modellierung von Customer Behaviour
+	\item Problem des Customer Control Based Revenue Managements
+	\item Relevanz von Revenue Management
+	\item Weitere Fragen, mit denen sich RM beschäftigt
+	\item Ziel der Arbeit
+	\item Kurzüberblick der Kapitel
+\end{enumerate}
+
+\section{Problem Description}
+\begin{boxStefan}
+	\begin{enumerate}
+		\item time index always at the top
+		\item index for products always at bottom
+	\end{enumerate}
+	
+	Anständiges Symbolverzeichnis, z.B. mit glossaries \url{https://ctan.org/pkg/glossaries}
+	
+	Wertebereich der Variablen
+\end{boxStefan}
+
+
+\end{document}

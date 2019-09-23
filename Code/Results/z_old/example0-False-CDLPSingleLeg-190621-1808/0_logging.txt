@@ -1,0 +1,14 @@
+Time (starting): 2019-06-21 18:08:18.217846
+Example :	 example0
+use_var_capacities :	 False
+Decision variable: 	 ((0, 1, 1, 0, 0, 0, 0, 0), 1.9999999999999947)
+Decision variable: 	 ((1, 1, 1, 0, 0, 0, 0, 0), 16.992628992628998)
+Decision variable: 	 ((1, 1, 1, 1, 0, 1, 0, 0), 11.007371007371008)
+Optimal value: 	 11409.090909090908
+Dual pi's: 	 [   0 1134  500]
+Dual sigma: 	 107.87878787878785
+
+
+Total time needed:
+ 0.46774721145629883 seconds = 
+ 0.007795786857604981 minutes

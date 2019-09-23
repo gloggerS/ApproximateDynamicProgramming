@@ -1,8 +1,0 @@
-Time (starting): 2019-06-24 10:29:53.359356
-Example :	 smallTest3
-use_var_capacities :	 False
-
-
-Total time needed:
- 17.04440689086914 seconds = 
- 0.2840734481811523 minutes

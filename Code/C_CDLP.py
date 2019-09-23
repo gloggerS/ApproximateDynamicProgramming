@@ -367,7 +367,7 @@ CDLP_by_column_generation(capacities, preference_no_purchase, "CDLP-columnGenera
 
 # %%
 # input for comparison table
-# Run CDLP as in Bront et al (CDLP by column generation, first greedy heuristig to identify entering column to the base,
+# Run CDLP as in Bront et al (CDLP by column generation, first greedy heuristic to identify entering column to the base,
 # no entering column found => exact MIP procedure
 num_rows = len(var_capacities)*len(var_no_purchase_preferences)
 df = pd.DataFrame(index=np.arange(num_rows), columns=['c', 'u', 'CDLP'])
@@ -379,7 +379,7 @@ for capacity in var_capacities:
         print(str(datetime.now()), ":", capacity, "-", preference_no_purchase, file=logfile)
 
         df.loc[indexi] = [capacity, preference_no_purchase,
-                          CDLP_by_column_generation(capacities=capacity, preference_no_purchase=preference_no_purchase)]
+                          CDLP_by_column_generation(capacities=capacity, preference_no_purchase=preference_no_purchase, filename_result="CDLP-zLastBlock")]
         indexi += 1
 
 df.to_csv(newpath+"\\CDLP-"+example+"-"+str(use_variations)+".csv", sep=";")

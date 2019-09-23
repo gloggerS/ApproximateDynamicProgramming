@@ -5,6 +5,30 @@
 \setcounter{page}{1}
 \noindent\fbox{\parbox{\textwidth}{\centering Rest}}
 
+\section{piecewise linear}
+
+\begin{align}
+V_t(\theta_t, \boldsymbol{\pi}_t, \boldsymbol{c}_t) & \coloneqq \theta_t + \sum_{h=1}^{m}\sum_{s=1}^{S_h} \pi_{ths} f_{hs}(c_h) \\
+f_{hs}(c_h) &\coloneqq 
+\begin{cases}\label{def-f}
+0 & \text{ if } c_h \leq b_h^{s-1}\\
+c_h - b_h^{s-1} & \text{ if } b_h^{s-1} < c_h \leq b_h^s \\
+b_h^s - b_h^{s-1} & \text{ if } b_h^s < c_h
+\end{cases}
+\end{align}
+
+\Cref{def-f} describes the occupied amount of capacity of interval $\left(b_h^{s-1}, b_h^s\right]$.
+
+\begin{alignat}{2}
+& \text{min} \sum_{i=1}^{I}\sum_{t=1}^{T} \left( \hat{V}_t^i - V_t(\theta_t, \boldsymbol{\pi}_t, \boldsymbol{c}_t^i) \right)^2 && \\
+& \text{s.t.} && \\
+& ~~\theta_t \geq 0 && \forall t\\
+& \max_{j=1, \dots, n} r_j \geq \pi_{ths} \geq 0 && \forall t, h, s\\
+& ~~\pi_{ths} \geq \pi_{th,s+1} && \forall t, h, s = 1, \dots, S_h-1\\
+& ~~\theta_t \geq \theta_{t+1} && \forall t = 1, \dots, T-1\\
+& ~~\pi_{ths} \geq \pi_{t+1,hs} && \forall t = 1, \dots, T-1
+\end{alignat}
+
 \section{DPD}
 
 DPD offer set calculation as in \cite{Bront.2009} and in Code Notebook-0427 Deep dive into DPD...
@@ -16,7 +40,7 @@ DPD offer set calculation as in \cite{Bront.2009} and in Code Notebook-0427 Deep
 
 As this whole thesis is based on the ideas of Dynamic Programming, we want to give a short overview of the underlying mathematical theory and directly combine it to our setting.
 
-Dynamic Programming (DP\nomenclature{DP}{dynamic programming}) refers to a broad collection of algorithms used to compute optimal policies given a perfect model of the environment as a Markov Decision Process (MDP\nomenclature{MDP}{markov decision process}), as stated in \cite{Sutton.2018}. A MDP is characterized by a state set $\mathcal{S}$ (the varying capacities $\mathbf{c}$ together with the current point in time $t$), an action set $\mathcal{A}$ (the offer sets $\mathbf{x}$) and reward sets $\mathcal{R}$ (the revenue $r$ if a product is sold). A MDP evolves over time, but for the evolution from time $t$ to $t+1$ only the current state $s_t$ is relevant and the history of previous states $s_h, h<t$ can be ignored. The dynamic is given by a set of probabilities $p(s', r | s, a)$ (capacities reduce according to which random product the random customer has bought according to his preferences). 
+Dynamic Programming (DP\nomenclature{DP}{dynamic programming}) refers to a broad collection of algorithms used to compute optimal policies given a perfect model of the environment as a Markov Decision Process (MDP\nomenclature{MDP}{markov decision process}), as stated in \cite{Sutton.2018}. A MDP is characterized by a state set $\mathcal{S}$ (the varying capacities $\boldsymbol{c}$ together with the current point in time $t$), an action set $\mathcal{A}$ (the offer sets $\boldsymbol{x}$) and reward sets $\mathcal{R}$ (the revenue $r$ if a product is sold). A MDP evolves over time, but for the evolution from time $t$ to $t+1$ only the current state $s_t$ is relevant and the history of previous states $s_h, h<t$ can be ignored. The dynamic is given by a set of probabilities $p(s', r | s, a)$ (capacities reduce according to which random product the random customer has bought according to his preferences). 
 
 The goal of DP is to determine the optimal policy, i.e. which action to choose at each given state. Key to the solution is the usage of value functions as seen above. These fulfil the Bellman optimality equations as stated in \Cref{eq-Bellman}. 
 
@@ -31,7 +55,7 @@ One approximate solution method is the usage of Approximate Policy Iteration (AP
 \noindent\rule{\textwidth}{1pt}
 \subsection{More stuff}
 Calculations:
-$\mathbf{\pi}(t, \mathbf{c}) = \pi_h(t, c_h) \text{ for } h \in [m]$
+$\boldsymbol{\pi}(t, \boldsymbol{c}) = \pi_h(t, c_h) \text{ for } h \in [m]$
 
 \begin{numcases}{\pi_h(t, c_h) = }
 \infty & if $c_h = 0$ \\

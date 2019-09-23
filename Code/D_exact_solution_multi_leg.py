@@ -5,8 +5,6 @@ as specified in 0_settings.csv.
 
 from B_helper import *
 
-# from joblib import Parallel, delayed, dump, load
-# import multiprocessing
 
 #%%
 logfile, newpath, var_capacities, var_no_purchase_preferences, resources, products, revenues, A, \
@@ -30,11 +28,21 @@ def return_raw_data_per_time(capacity):
     df.value = pd.to_numeric(df.value)
     return df
 
+def save_files(storagepath, *args):
+    makedirs(storagepath)
+
+    for o in [*args]:
+        o_name = re.sub("[\[\]']", "", str(varnameis(o)))
+        # print(o_name)
+        with open(storagepath + "\\" + o_name + ".data", "wb") as filehandle:
+            pickle.dump(o, filehandle)
+
+def varnameis(v): d = globals(); return [k for k in d if d[k] is v]
 
 # %%
 # agglomerating the ultimate results
 total_results = {}
-capacity_empty = tuple(np.repeat(0, len(capacity_max)))
+capacity_empty = tuple(np.zeros_like(capacity_max))
 capacity_product = np.array(list(product(*[range(i+1) for i in capacity_max])))
 
 for no_purchase_preference in var_no_purchase_preferences:
@@ -61,7 +69,7 @@ for no_purchase_preference in var_no_purchase_preferences:
 
         # c > 0
         for c in capacity_product[1:]:
-            print(c)
+            # print(c)
             tmp_value = .0
             tmp_offer_set_optimal = 0
             tmp_num_offer_set_optimal = 0
@@ -85,6 +93,9 @@ for no_purchase_preference in var_no_purchase_preferences:
 
             final_results[t].loc[tuple(c), :] = (tmp_value, tmp_offer_set_optimal, tmp_num_offer_set_optimal)
 
+    storagepath = newpath + "\\cap" + str(capacity_max) + " - pref" + str(no_purchase_preference)
+
+    save_files(storagepath, final_results)
     total_results[str(no_purchase_preference)] = deepcopy(final_results)
 
 # %%

@@ -1,3 +1,0 @@
-Time (starting): 2019-06-24 10:01:54.818632
-Example :	 example0
-use_var_capacities :	 False

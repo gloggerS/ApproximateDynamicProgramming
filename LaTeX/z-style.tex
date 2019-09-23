@@ -15,38 +15,6 @@
 \RequirePackage{xstring} % for if statements
 
 
-% math
-\newtheorem{theorem}{Theorem}
-\newtheorem{acknowledgement}[theorem]{Acknowledgement}
-%\newtheorem{algorithm}[theorem]{Algorithm}  % conflict with other package
-\newtheorem{axiom}[theorem]{Axiom}
-\newtheorem{case}[theorem]{Case}
-\newtheorem{claim}[theorem]{Claim}
-\newtheorem{conclusion}[theorem]{Conclusion}
-\newtheorem{condition}[theorem]{Condition}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{criterion}[theorem]{Criterion}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{exercise}[theorem]{Exercise}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{notation}[theorem]{Notation}
-\newtheorem{problem}[theorem]{Problem}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{solution}[theorem]{Solution}
-\newtheorem{summary}[theorem]{Summary}
-\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
-%\textwidth =170mm
-%\textheight=205mm
-%\oddsidemargin=-8mm
-%\evensidemargin=-8mm
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
-
-
-
 %todoNotes
 \newcommand{\todoBib}[1]{\todo[color=green!40]{#1}}
 %\newcommand{\todoRed}[2][noinline]{\todo[color=red!40, #1]{#2}}
@@ -68,3 +36,52 @@
 \newtcolorbox{boxIdea}{colback=colIdea!5!white,colframe=colIdea!90}
 
 
+% some often used typography
+\newcommand{\eg}{\mbox{e.\,g.}\xspace}
+\newcommand{\ie}{\mbox{i.\,e.}\xspace}
+\newcommand{\wlogMath}{\mbox{w.\,l.\,o.\,g.}\xspace}
+
+% ------------------------------------------------------------------------------
+% Theorem-Umgebungen
+\theoremnumbering{arabic}%
+
+% first block
+
+\theoremheaderfont{\bfseries}%
+%\theorembodyfont{\upshape}%
+%\theoremseparator{}%
+\theorembodyfont{\normalfont}%
+\theoremseparator{.}
+
+\newtheorem{theorem}{Theorem}%
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\newtheorem{lemma}[theorem]{Lemma}%
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\newtheorem{definition}[theorem]{Definition}%
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+\newtheorem{remark}[theorem]{Remark}%
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+% second block
+
+\theoremstyle{nonumberplain}%
+\theoremheaderfont{\bfseries}%
+\theorembodyfont{\normalfont}%
+\theoremseparator{.}
+\theoremsymbol{\ensuremath{\Box}}% ensuremath -> sowohl im Text- als auch im Mathemodus wird das gewünschte Zeichen gesetzt
+
+\newtheorem{proof}{Proof}%
+\crefname{proof}{Proof}{Proofs}
+\Crefname{proof}{Proof}{Proofs}
+% ------------------------------------------------------------------------------
+%\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+%\textwidth =170mm
+%\textheight=205mm
+%\oddsidemargin=-8mm
+%\evensidemargin=-8mm
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
