@@ -2,497 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0083379-4ecd-4597-a847-a433e55a9cf1" name="Explore Bront Table 3 long flights" comment="Explore Bront Table 3 long flights">
-      <change afterPath="$PROJECT_DIR$/S_StatisticalAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0_settings.csv" beforeDir="false" afterPath="$PROJECT_DIR$/0_settings.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A_data_read.py" beforeDir="false" afterPath="$PROJECT_DIR$/A_data_read.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/C_CDLP.py" beforeDir="false" afterPath="$PROJECT_DIR$/C_CDLP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/D_exact_solution_multi_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/D_exact_solution_multi_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E_API_lin_multi_leg.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_multi_leg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E_API_lin_multi_leg_visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_multi_leg_visualization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/.ipynb_checkpoints/1 Exploring exponential smoothing-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/.ipynb_checkpoints/2 E_API_lin_single_leg with epsilon greedy-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-exponential-smoothing--smallTest-False-API-lin-190612-1055/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-exponential-smoothing--smallTest-False-API-lin-190612-1055/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-exponential-smoothing--smallTest-False-API-lin-190612-1055/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-exponential-smoothing--smallTest-False-API-lin-190612-1055/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-no-exponential-smoothing--smallTest-False-API-lin-190612-1049/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-no-exponential-smoothing--smallTest-False-API-lin-190612-1049/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-no-exponential-smoothing--smallTest-False-API-lin-190612-1049/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-no-exponential-smoothing--smallTest-False-API-lin-190612-1049/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-no-exponential-smoothing--smallTest-False-API-lin-190612-1114/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-no-exponential-smoothing--smallTest-False-API-lin-190612-1114/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-no-exponential-smoothing--smallTest-False-API-lin-190612-1114/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/1-no-exponential-smoothing--smallTest-False-API-lin-190612-1114/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/2-exponential-smoothing--smallTest-False-API-lin-190613-0947/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/2-exponential-smoothing--smallTest-False-API-lin-190613-0947/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/2-exponential-smoothing--smallTest-False-API-lin-190613-0947/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/2-exponential-smoothing--smallTest-False-API-lin-190613-0947/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/2-no-exponential-smoothing--smallTest-False-API-lin-190613-0949/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/2-no-exponential-smoothing--smallTest-False-API-lin-190613-0949/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/2-no-exponential-smoothing--smallTest-False-API-lin-190613-0949/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/2-no-exponential-smoothing--smallTest-False-API-lin-190613-0949/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP-threeParallelFlights-True.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[12 20 16]-[ 1 10  5  1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[12 20 16]-[ 5 20 10  5].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[12 20 16]-[1 5 5 1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[18 30 24]-[ 1 10  5  1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[18 30 24]-[ 5 20 10  5].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[18 30 24]-[1 5 5 1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[24 40 32]-[ 1 10  5  1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[24 40 32]-[ 5 20 10  5].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[24 40 32]-[1 5 5 1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[30 50 40]-[ 1 10  5  1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[30 50 40]-[ 5 20 10  5].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[30 50 40]-[1 5 5 1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[36 60 48]-[ 1 10  5  1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[36 60 48]-[ 5 20 10  5].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/CDLP-threeParallelFlights-2019-05-08 16-14-53-249241/CDLP_by_column_generation-[36 60 48]-[1 5 5 1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-CDLPSingleLeg-190621-1611/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-CDLPSingleLeg-190621-1611/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-CDLPSingleLeg-190621-1645/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-CDLPSingleLeg-190621-1645/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-CDLPSingleLeg-190621-1719/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-CDLPSingleLeg-190621-1719/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-CDLPSingleLeg-190621-1808/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-CDLPSingleLeg-190621-1808/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-DPSingleLeg-190624-1001/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-DPSingleLeg-190624-1001/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-DPSingleLeg-190624-1002/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-False-DPSingleLeg-190624-1002/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-True-CDLP-190902-1427/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-True-CDLP-190902-1427/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-True-CDLP-190902-1431/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-True-CDLP-190902-1431/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-True-CDLP-190902-1501/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/example0-True-CDLP-190902-1501/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1458/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1458/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1459/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1459/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1636/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1636/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1704/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1704/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/capacitiesAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/piToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/shelve.out.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/shelve.out.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/shelve.out.dir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/thetaToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190916-1712/valueAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1032/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1032/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/capacitiesAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/piToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/shelve.out.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/shelve.out.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/shelve.out.dir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/thetaToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1036/valueAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/capacitiesAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/offersetsOffered.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/piToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/plotProducts.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/plotProducts.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/plotValue.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/plotValues.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/shelve.out.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/shelve.out.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/shelve.out.dir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/thetaToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190917-1341/valueAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/capacitiesAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/offersetsOffered.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/piToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/shelve.out.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/shelve.out.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/shelve.out.dir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/soldOut.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/thetaToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-0936/valueAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/capacitiesAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/offersetsOffered.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/piToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/plotProducts.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/plotProducts.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/plotValue.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/plotValues.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/shelve.out.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/shelve.out.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/shelve.out.dir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/soldOut.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/thetaToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1029/valueAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1036/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1036/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1037/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1037/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/offersetsOffered.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/offersetsOffered.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/plotProducts1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/plotProducts1.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/plotProducts2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-190918-1053/plotProducts2.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-Visualization-190918-1439/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-Visualization-190918-1439/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-Visualization-190918-1448/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-APILinearMultiLeg-Visualization-190918-1448/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-CDLP-190904-1347/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-CDLP-190904-1347/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-ES-MultiLeg-190827-1106/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-ES-MultiLeg-190827-1106/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-ES-MultiLeg-190827-1107/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-ES-MultiLeg-190827-1107/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-ES-MultiLeg-190827-1109/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-ES-MultiLeg-190827-1109/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-APILinearSingleLeg-190701-0912/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-APILinearSingleLeg-190701-0912/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-APILinearSingleLeg-190701-0912/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-APILinearSingleLeg-190701-0912/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-APILinearSingleLeg-190701-0912/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-APILinearSingleLeg-190701-0912/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-DPSingleLeg-190701-0901/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-DPSingleLeg-190701-0901/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-DPSingleLeg-190701-0901/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-DPSingleLeg-190701-0901/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-DPSingleLeg-190701-0911/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-DPSingleLeg-190701-0911/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-DPSingleLeg-190701-0911/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-False-DPSingleLeg-190701-0911/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-API-plc-190701-1415/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-API-plc-190701-1415/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1059/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1059/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1100/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1100/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1105/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1105/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1105/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1105/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1105/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190701-1105/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-0952/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-0952/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-2049/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-2049/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-2200/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-2200/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-2200/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-2200/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-2200/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190702-2200/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190709-1410/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190709-1410/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190709-1528/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190709-1528/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190718-1722/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190718-1722/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/capacitiesAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/piToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/thetaToUse.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190719-1125/valueAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190722-1014/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-190722-1014/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1542/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1542/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1544/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1544/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1607/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1607/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1657/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1657/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1726/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1726/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190703-1726/vResultsTable1.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190719-1422/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-190719-1422/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-parallelized-190703-1736/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APILinearSingleLeg-Evaluation-parallelized-190703-1736/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1422/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1422/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1432/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1432/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1442/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1442/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1445/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1445/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1445/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1445/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1445/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190701-1445/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190702-2049/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-APIPLCSingleLeg-190702-2049/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190605-1023/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190605-1023/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190605-1404/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190605-1404/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190607-1031/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190607-1031/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190607-1426/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190607-1426/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190607-1426/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190611-0909/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DP-190611-0909/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-0932/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-0932/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-0932/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-0932/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-0953/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-0953/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-0953/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-0953/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-1801/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-1801/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-1801/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190701-1801/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190723-1135/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190723-1135/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-190723-1135/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190701-0932/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190701-0932/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190701-1230/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190701-1230/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190701-1445/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190701-1445/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1150/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1150/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1150/cAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1150/vAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1150/vResults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1150/vResultsTable1.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1234/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1234/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190703-1234/vResultsTable1.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190722-2022/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190722-2022/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190722-2023/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190722-2023/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190722-2106/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-DPSingleLeg-Evaluation-190722-2106/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1131/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1131/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1153/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1153/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1200/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1200/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1210/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1210/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1414/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1414/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1415/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1415/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1417/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1417/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1418/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1418/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1420/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1420/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1422/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190716-1422/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190718-1646/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190718-1646/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190718-1700/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-MLPsingleLeg-190718-1700/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-NN2-190803-1031/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-NN2-190803-1031/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-NN2-190804-2101/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-NN2-190804-2101/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-NN2-190806-1742/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-NN2-190806-1742/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190719-1504/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190719-1504/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190719-1726/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190719-1726/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190719-1735/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190719-1735/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190723-0807/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190723-0807/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190723-0810/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190723-0810/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190723-0933/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/singleLegFlight-True-linRegSingleLeg-190723-0933/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190612-0919/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190612-0919/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-0926/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-0926/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-0926/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-0926/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-0935/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-0935/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-0935/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-0935/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-1037/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-False-API-lin-190613-1037/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-True-API-190611-1005/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-True-API-190611-1005/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-True-API-lin-190612-0901/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest-True-API-lin-190612-0901/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190613-1920/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190613-1920/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190613-2349/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190613-2349/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190613-2351/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190613-2351/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190613-2353/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190613-2353/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190614-0919/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190614-0919/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190614-0920/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190614-0920/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190614-0920/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190614-0920/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1023/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1023/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1023/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1023/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1023/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1023/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1125/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1125/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1125/cAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1125/vAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1125/vResults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1156/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1156/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1206/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1206/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1210/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-190616-1210/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-evaluation-190616-1211/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-evaluation-190616-1211/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-evaluation-190616-1211/cAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-evaluation-190616-1211/vAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-lin-evaluation-190616-1211/vResults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1214/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1214/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1214/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1214/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1230/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1230/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1230/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1230/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1230/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-190616-1230/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation-190616-1228/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation-190616-1228/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation-190616-1245/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation-190616-1245/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation-190616-1245/cAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation-190616-1245/vAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation-190616-1245/vResults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation190616-1223/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-API-plc-evaluation190616-1223/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190616-1406/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190616-1406/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190616-1406/cAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190616-1406/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190616-1406/vAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190616-1406/vResults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1231/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1231/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1251/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1251/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1252/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1252/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1332/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1332/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1332/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1333/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1333/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1333/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1333/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190619-1333/value_function.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190621-0831/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190621-0831/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190621-0831/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-190621-0831/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-evaluation-190616-1435/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-evaluation-190616-1435/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-evaluation-190616-1435/cAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-evaluation-190616-1435/vAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-DP-evaluation-190616-1435/vResults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-MLP-190616-1737/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-MLP-190616-1737/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-MLP-190616-1745/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest2-False-MLP-190616-1745/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-API-lin-190621-0947/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-API-lin-190621-0947/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-API-lin-190621-0947/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-API-lin-190621-0947/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-API-lin-190621-0947/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-API-lin-190621-0947/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-API-lin-evaluation-190621-1055/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-API-lin-evaluation-190621-1055/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-190624-1012/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-190624-1012/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-190624-1012/piAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-190624-1012/piResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-190624-1012/thetaAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-190624-1012/thetaResult.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-Evaluation-190624-1029/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-Evaluation-190624-1029/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-Evaluation-190624-1029/cAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-Evaluation-190624-1029/vAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-APILinearSingleLeg-Evaluation-190624-1029/vResults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-CDLPSingleLeg-190621-1557/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-CDLPSingleLeg-190621-1557/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DP-190621-0838/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DP-190621-0838/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DP-190621-0838/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DP-190621-0838/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-190624-1003/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-190624-1003/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-190624-1003/erg_paper.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-190624-1003/totalresults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190621-0855/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190621-0855/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190621-0857/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190621-0857/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190621-0922/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190621-0922/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190621-0923/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190621-0923/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190624-1007/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190624-1007/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190624-1007/cAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190624-1007/vAll.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-DPSingleLeg-Evaluation-190624-1007/vResults.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-TestingAll-190621-0859/0_logging.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/smallTest3-False-TestingAll-190621-0859/0_settings.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/ADP-SG-Tester.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/ADP-SG-Tester.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/ADP-SG.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/ADP-SG.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/Introduction.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/Introduction.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/ProblemDescriptionModels-Part-9-5.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/ProblemDescriptionModels.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/ProblemDescriptionModels.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/Titelseite.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/Titelseite.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/rest.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/rest.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/z-packages.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/z-packages.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LaTeX/z-style.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../LaTeX/z-style.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E_API_lin_multi_leg_evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_API_lin_multi_leg_evaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/exampleStefan-True-ALL-comparison-190923-1426/0_logging.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Results/exampleStefan-True-ALL-comparison-190923-1426/0_logging.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/S_StatisticalAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/S_StatisticalAnalysis.py" afterDir="false" />
     </list>
     <list id="9ef8f1e4-ea0d-47a3-94f2-a306a87cd573" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -524,8 +36,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="178" column="45" selection-start-line="178" selection-start-column="32" selection-end-line="178" selection-end-column="45" />
+            <state relative-caret-position="358">
+              <caret line="211" column="50" selection-start-line="211" selection-start-column="50" selection-end-line="211" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -533,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg_evaluation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="709">
-              <caret line="159" selection-start-line="159" selection-end-line="159" />
+            <state relative-caret-position="573">
+              <caret line="168" selection-start-line="168" selection-end-line="168" />
             </state>
           </provider>
         </entry>
@@ -542,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg_visualization.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="139" column="17" selection-start-line="137" selection-end-line="139" selection-end-column="17" />
+            <state relative-caret-position="218">
+              <caret line="135" column="97" selection-start-line="135" selection-start-column="47" selection-end-line="135" selection-end-column="97" />
               <folding>
                 <element signature="e#162#184#0" expanded="true" />
               </folding>
@@ -554,8 +66,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/C_CDLP_evaluation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3400">
-              <caret line="413" column="28" selection-start-line="413" selection-start-column="28" selection-end-line="413" selection-end-column="28" />
+            <state relative-caret-position="252">
+              <caret line="305" column="73" selection-start-line="305" selection-end-line="305" selection-end-column="73" />
             </state>
           </provider>
         </entry>
@@ -563,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/D_exact_solution_multi_leg_evaluation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="141" column="24" selection-start-line="141" selection-start-column="24" selection-end-line="141" selection-end-column="83" />
+            <state relative-caret-position="156">
+              <caret line="73" column="59" selection-start-line="73" selection-start-column="57" selection-end-line="73" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -572,8 +84,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/S_StatisticalAnalysis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="610">
-              <caret line="137" column="2" selection-start-line="137" selection-start-column="2" selection-end-line="137" selection-end-column="2" />
+            <state relative-caret-position="415">
+              <caret line="202" column="43" selection-start-line="202" selection-start-column="43" selection-end-line="202" selection-end-column="43" />
               <folding>
                 <element signature="e#42#64#0" expanded="true" />
               </folding>
@@ -593,9 +105,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>revenue(</find>
-      <find>bront</find>
-      <find>heuristic</find>
       <find>exampleStefan</find>
       <find>sys.std</find>
       <find>customer_stream</find>
@@ -615,14 +124,17 @@
       <find>plotProd</find>
       <find>m.optim</find>
       <find>determine</find>
-      <find>determine_off</find>
       <find>determine_offer_tuple</find>
-      <find>offerset</find>
       <find>offer_sets_dict</find>
       <find>os_dict</find>
-      <find>preferences_no_purchase</find>
       <find>latex</find>
+      <find>determine_off</find>
+      <find>os_dic</find>
+      <find>offerset</find>
+      <find>preferences_no_purchase</find>
       <find>get_all_data</find>
+      <find>Boxplot</find>
+      <find>boxplot</find>
     </findStrings>
     <replaceStrings>
       <replace>dfHistory</replace>
@@ -709,17 +221,17 @@
         <option value="$PROJECT_DIR$/D_exact_solution_multi_leg_testing.py" />
         <option value="$PROJECT_DIR$/C_CDLP_evaluation.py" />
         <option value="$PROJECT_DIR$/D_exact_solution_multi_leg.py" />
-        <option value="$PROJECT_DIR$/E_API_lin_multi_leg_evaluation.py" />
         <option value="$PROJECT_DIR$/D_exact_solution_multi_leg_evaluation.py" />
+        <option value="$PROJECT_DIR$/E_API_lin_multi_leg_evaluation.py" />
         <option value="$PROJECT_DIR$/S_StatisticalAnalysis.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="3057" />
-    <option name="y" value="-20" />
-    <option name="width" value="680" />
-    <option name="height" value="305" />
+    <option name="x" value="2799" />
+    <option name="y" value="-24" />
+    <option name="width" value="340" />
+    <option name="height" value="153" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -957,7 +469,7 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2728" y="-8" width="1936" height="1216" extended-state="6" />
+    <frame x="2728" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6263473" visible="true" weight="0.07462686" />
@@ -973,13 +485,13 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32788944" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.7963753" weight="0.23638043" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.12793177" side_tool="true" weight="0.3271028" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.8720682" visible="true" weight="0.22899354" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.8720682" visible="true" weight="0.25752854" />
       <window_info anchor="bottom" id="Jupyter" order="11" weight="0.32779318" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.39041916" side_tool="true" visible="true" weight="0.34434968" />
-      <window_info active="true" anchor="right" id="SciView" order="4" sideWeight="0.6095808" visible="true" weight="0.34434968" />
+      <window_info anchor="right" x="0" y="0" width="434" height="896" id="Documentation" order="3" sideWeight="0.3902098" side_tool="true" visible="true" weight="0.23294243" />
+      <window_info active="true" anchor="right" id="SciView" order="4" sideWeight="0.6097902" visible="true" weight="0.23294243" />
       <window_info anchor="right" id="Key Promoter X" order="5" sideWeight="0.4992248" weight="0.32995737" />
     </layout>
   </component>
@@ -1319,13 +831,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="178" column="45" selection-start-line="178" selection-start-column="32" selection-end-line="178" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/B_helper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -1336,41 +841,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/C_CDLP_evaluation.py">
+    <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3400">
-          <caret line="413" column="28" selection-start-line="413" selection-start-column="28" selection-end-line="413" selection-end-column="28" />
+        <state relative-caret-position="358">
+          <caret line="211" column="50" selection-start-line="211" selection-start-column="50" selection-end-line="211" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg_evaluation.py">
+    <entry file="file://$PROJECT_DIR$/C_CDLP_evaluation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="709">
-          <caret line="159" selection-start-line="159" selection-end-line="159" />
+        <state relative-caret-position="252">
+          <caret line="305" column="73" selection-start-line="305" selection-end-line="305" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg_visualization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="139" column="17" selection-start-line="137" selection-end-line="139" selection-end-column="17" />
+        <state relative-caret-position="218">
+          <caret line="135" column="97" selection-start-line="135" selection-start-column="47" selection-end-line="135" selection-end-column="97" />
           <folding>
             <element signature="e#162#184#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/E_API_lin_multi_leg_evaluation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="168" selection-start-line="168" selection-end-line="168" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/D_exact_solution_multi_leg_evaluation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="141" column="24" selection-start-line="141" selection-start-column="24" selection-end-line="141" selection-end-column="83" />
+        <state relative-caret-position="156">
+          <caret line="73" column="59" selection-start-line="73" selection-start-column="57" selection-end-line="73" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/S_StatisticalAnalysis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="137" column="2" selection-start-line="137" selection-start-column="2" selection-end-line="137" selection-end-column="2" />
+        <state relative-caret-position="415">
+          <caret line="202" column="43" selection-start-line="202" selection-start-column="43" selection-end-line="202" selection-end-column="43" />
           <folding>
             <element signature="e#42#64#0" expanded="true" />
           </folding>

@@ -19,7 +19,8 @@ logfile, newpath, var_capacities, var_no_purchase_preferences, resources, produc
         customer_segments, preference_weights, arrival_probabilities, times, T, time_start,\
         epsilon, exponential_smoothing,\
         K, online_K, I \
-    = setup_testing("APILinearMultiLeg-evaluation")
+    = setup_testing("APILinearMultiLeg-2-evaluation")
+which_policy_iteration_to_use = -2
 
 capacities = var_capacities[0]
 no_purchase_preference = var_no_purchase_preferences[0]
@@ -37,6 +38,16 @@ with open(result_folder+"\\thetaToUse.data", "rb") as filehandle:
 
 with open(result_folder+"\\piToUse.data", "rb") as filehandle:
     pi_to_use = pickle.load(filehandle)
+
+#%%
+p = pi_to_use
+p = p[str(capacities)][str(no_purchase_preference)]
+
+p2 = pi_result
+p2 = p2[str(capacities)][str(no_purchase_preference)]
+
+if np.sum(p != p2[-which_policy_iteration_to_use, :, :]) > 0:
+    raise Warning("You currently don't use the most recent policy iteration. Variable to adjust: which_policy_iteration_to_use")
 
 #%%
 # generate the random sample paths (T+1 => have real life indexing starting at t=1)
@@ -78,7 +89,7 @@ for capacities in var_capacities:
     for no_purchase_preference in var_no_purchase_preferences:
         print(capacities, "of", str(var_capacities), " - and - ", no_purchase_preference, "of", str(var_no_purchase_preferences), "starting.")
 
-        pis_for_setting = pi_to_use[str(capacities)][str(no_purchase_preference)]
+        pis_for_setting = pi_result[str(capacities)][str(no_purchase_preference)][which_policy_iteration_to_use, :, :]
 
         # reset the data
         v_results = np.zeros_like(v_results)

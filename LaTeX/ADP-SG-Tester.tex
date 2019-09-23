@@ -20,14 +20,34 @@ bibliography=totoc, %Entry in table of contents for bibliography
 \input{z-packages.tex}
 \input{z-style.tex}
 
+\title{Reinforcement Learning and Artificial Intelligence\\
+	in the context of revenue management}
+
+% ------------------------------------------------------------------------------
+% PDF-Metadaten
+\hypersetup{
+	pdfauthor={Stefan Glogger},
+	pdftitle={\Title},
+	pdfsubject={},
+	pdfkeywords={Master's Thesis, Revenue Management, Approximate Dynamic Programming, Neural Networks, Machine Learning},
+	%todo adopt this for print version
+	colorlinks=true, %coloured links (for the PDF version)
+	% colorlinks=false, % no coloured links (for the print version)
+}
+% ------------------------------------------------------------------------------
+
+\usepackage{adjustbox}
 
 \begin{document}
-	
+
+\listoffigures
+\listoftables
+
 %\input{Introduction.tex}
 
 
-\input{ProblemDescriptionModels.tex}
-
+%\input{ProblemDescriptionModels.tex}
+\input{Comparison.tex}
 
 
 \bibliography{bibliography}

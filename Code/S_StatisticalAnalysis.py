@@ -8,10 +8,11 @@ import seaborn as sns
 #%%
 res_folder_ES = "C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\exampleStefan-True-ES-evaluation-190923-1012"
 res_folder_CDLP = "C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\exampleStefan-True-CDLP-evaluation-190923-1210"
-res_folder_API = "C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\exampleStefan-True-APILinearMultiLeg-evaluation-190923-1415"
+res_folder_API_last = "C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\exampleStefan-True-APILinearMultiLeg-evaluation-190923-1415"
+res_folder_API_secondlast = "C:\\Users\\Stefan\\LRZ Sync+Share\\Masterarbeit-Klein\\Code\\Results\\exampleStefan-True-APILinearMultiLeg-2-evaluation-190923-1712"
 
-res_folders = [res_folder_ES, res_folder_CDLP, res_folder_API]
-labels = ["ES", "CDLP", "API"]
+res_folders = [res_folder_ES, res_folder_CDLP, res_folder_API_last, res_folder_API_secondlast]
+labels = ["ES", "CDLP", "API60", "API59"]
 
 #%%
 # ensure that all setting files are the same and we have the setting parameters at hand
@@ -55,6 +56,7 @@ def get_all_dict(dat_name, capacities, no_purchase_preference):
         ret[labels[i]] = df
 
     return ret
+
 
 
 # %% Create graphs
@@ -113,7 +115,7 @@ order = [len(products), *products]
 fig, ax = plt.subplots()
 sns.barplot(x="Product", y="Purchases", hue="Policy", data=p_plot, order=order)
 ax.set_xticklabels(label_product)
-plt.savefig(newpath + "\\" + "products-Boxplot" +".pdf", bbox_inches="tight")
+plt.savefig(newpath + "\\" + "products-Barplot" +".pdf", bbox_inches="tight")
 plt.show()
 
 
@@ -135,4 +137,73 @@ plt.show()
 # plt.show()
 
 #%% offersets
-o = get_all_dict("products_all", capacities, no_purchase_preference)
+o = get_all_dict("offersets_all", capacities, no_purchase_preference)
+
+o_all = []
+for i in np.arange(len(labels)):
+    a = o[labels[i]]
+    dat = pd.DataFrame(labels[i], index=np.arange(len(a)), columns=["Policy"])
+    for j in np.arange(len(get_offer_sets_all(products)) + 1):
+        dat[j] = np.sum(a == j, axis=1)
+    o_all.append(dat)
+o_plot = pd.concat(o_all)
+
+#%%
+o_plot = o_plot.set_index("Policy")
+offer_sets_relevant = o_plot.columns[np.sum(o_plot, axis=0) > 0]
+o_plot = o_plot.loc[:, offer_sets_relevant]
+o_plot["Policy"] = o_plot.index
+
+o_plot = o_plot.melt(id_vars="Policy", var_name="Offerset", value_name="Number of times offered")
+
+# fig, ax = plt.subplots()
+sns.barplot(x="Offerset", y="Number of times offered", hue="Policy", data=o_plot)
+# ax.set_xticklabels(label_product)
+plt.savefig(newpath + "\\" + "offersets-Barplot" +".pdf", bbox_inches="tight")
+plt.show()
+
+#%%
+os_dict_reverse = {k:tuple(v) for k,v in enumerate(get_offer_sets_all(products))}
+
+o_table = pd.DataFrame(offer_sets_relevant, columns=["Offerset Index"])
+o_table["Offerset Tuple"] = ""
+o_table["Offerset Items"] = ""
+for i in o_table.index:
+    tup = os_dict_reverse[o_table.loc[i, "Offerset Index"]]
+    o_table.loc[i, "Offerset Tuple"] = tup
+    o_table.loc[i, "Offerset Items"] = re.sub("\]", "}", re.sub("\[", "{", re.sub(" ", ",", str(products[np.array(tup)==1]+1))))
+
+
+erg_latex = open(newpath+"\\offersets-Overview.txt", "w+")  # write and create (if not there)
+print(o_table.to_latex(index=False), file=erg_latex)
+erg_latex.close()
+o_table
+
+#%% remaining capacity left over
+r = get_all_dict("capacities_final", capacities, no_purchase_preference)
+
+r_all = []
+for i in np.arange(len(labels)):
+    a = r[labels[i]]
+    dat = pd.DataFrame(labels[i], index=np.arange(len(a)), columns=["Policy"])
+    for i in a.columns:
+        dat[i] = a[i]
+    r_all.append(dat)
+r_plot = pd.concat(r_all)
+
+r_plot = r_plot.melt(id_vars="Policy", var_name="Resource", value_name="Capacity left over")
+
+#%%
+label_resources = resources+1
+
+
+fig, ax = plt.subplots()
+sns.barplot(x="Resource", y="Capacity left over", hue="Policy", data=r_plot)
+ax.set_xticklabels(label_resources)
+plt.savefig(newpath + "\\" + "resources-Barplot" +".pdf", bbox_inches="tight")
+plt.show()
+
+#%%
+wrapup(logfile, time_start, newpath)
+
+
