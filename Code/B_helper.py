@@ -170,7 +170,7 @@ def determine_offer_tuple(pi, eps, eps_ran, revenues, A, arrival_probabilities, 
     offer_tuple = np.zeros_like(revenues)
 
     # line 1
-    s_prime = revenues - np.apply_along_axis(sum, 1, A.T * pi) > 0
+    s_prime = revenues - np.nansum(A.T * pi, 1) > 0
     if all(np.invert(s_prime)):
         return tuple(offer_tuple)
 
@@ -182,7 +182,7 @@ def determine_offer_tuple(pi, eps, eps_ran, revenues, A, arrival_probabilities, 
     offer_sets_to_test = (offer_sets_to_test > 0)
 
     value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi, revenues,
-                                             preference_weights, arrival_probabilities, A, preferences_no_purchase)
+                                             A, arrival_probabilities, preference_weights, preferences_no_purchase)
 
     offer_tuple[np.argmax(value_marginal)] = 1
     s_prime = s_prime & offer_tuple == 0
@@ -199,7 +199,7 @@ def determine_offer_tuple(pi, eps, eps_ran, revenues, A, arrival_probabilities, 
 
         # 4b
         value_marginal = np.apply_along_axis(calc_value_marginal, 1, offer_sets_to_test, pi, revenues,
-                                             preference_weights, arrival_probabilities, A, preferences_no_purchase)
+                                             A, arrival_probabilities, preference_weights, preferences_no_purchase)
 
         if np.amax(value_marginal) >= v_s:
             v_s = np.amax(value_marginal)
@@ -228,8 +228,7 @@ def calc_value_marginal(indices_inner_sum, pi, revenues, A, arrival_probabilitie
     v_temp = 0
     for l in np.arange(len(preference_weights)):  # sum over all customer segments
         v_temp += arrival_probabilities[l] * \
-                  sum(indices_inner_sum * (revenues - np.apply_along_axis(sum, 1, A.T * pi)) *
-                      preference_weights[l, :]) / \
+                  sum(indices_inner_sum * (revenues - np.nansum(A.T * pi, 1)) * preference_weights[l, :]) / \
                   (sum(indices_inner_sum * preference_weights[l, :]) + preferences_no_purchase[l])
     return v_temp
 

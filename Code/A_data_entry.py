@@ -222,7 +222,7 @@ data_by_name["threeParallelFlights"] = {}
 data_by_name["threeParallelFlights"]["products"] = np.arange(6)  # n
 data_by_name["threeParallelFlights"]["revenues"] = np.array([400, 800, 500, 1000, 300, 600])
 
-data_by_name["threeParallelFlights"]["times"] = np.arange(3)  # T = 300
+data_by_name["threeParallelFlights"]["times"] = np.arange(300)  # T = 300
 
 data_by_name["threeParallelFlights"]["customer_segments"] = np.arange(4)  # L = 4
 data_by_name["threeParallelFlights"]["arrival_probabilities"] = np.array([0.1, 0.15, 0.2, 0.05])

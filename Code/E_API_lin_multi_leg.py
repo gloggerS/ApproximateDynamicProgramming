@@ -126,6 +126,7 @@ eps_random = np.random.random((I, T+1))
 # summary statistics
 offer_sets_all = {str(tuple(obj)): count for count, obj in enumerate(get_offer_sets_all(products))}
 
+#%%
 for capacities in var_capacities:
      for preferences_no_purchase in var_no_purchase_preferences:
         print(capacities, "of", str(var_capacities.tolist()), " - and - ",
