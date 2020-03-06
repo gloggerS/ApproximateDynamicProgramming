@@ -1,2 +1,0 @@
-Pfad zur PyCharm Installation
-C:\Program Files\JetBrains\PyCharm 2018.3.5\bin
