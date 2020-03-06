@@ -1,0 +1,37 @@
+Optimize a model with 4 rows, \fbox{256 columns} and 928 nonzeros
+Coefficient statistics:
+  Matrix range     [4e-02, 1e+00]
+  Objective range  [6e+01, 5e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e+00, 3e+01]
+\fbox{Presolve removed 0 rows and 1 columns}
+Presolve time: 0.00s
+Presolved: 4 rows, 255 columns, 927 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.8638899e+05   5.936988e+02   0.000000e+00      0s
+      10    1.1409091e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  1.140909091e+04
+
+-----------------------------------------------------------
+
+
+Optimal objective value: 
+ \fbox{11409.090909090908}
+
+Optimal solution:
+Tuple (0, 1, 1, 0, 0, 0, 0, 0)  is offered for a total time of  2.0
+Tuple \fbox{(1, 1, 1, 0, 0, 0, 0, 0)}  is offered for a total time of  \fbox{2.5455}
+Tuple \fbox{(1, 1, 1, 0, 0, 1, 0, 0)}  is offered for a total time of  \fbox{25.4545}
+
+
+Product  1 is offered during  28.0000  time periods.
+Product  2 is offered during  30.0000  time periods.
+Product  3 is offered during  30.0000  time periods.
+Product  4 is offered during   \fbox{0.0000}  time periods.
+Product  5 is offered during   0.0000  time periods.
+Product  6 is offered during  \fbox{25.4545}  time periods.
+Product  7 is offered during   0.0000  time periods.
+Product  8 is offered during   0.0000  time periods.

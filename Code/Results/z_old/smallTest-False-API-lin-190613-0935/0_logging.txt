@@ -1,9 +1,0 @@
-Time (starting): 2019-06-13 09:35:07.228747
-Example :	 smallTest
-use_var_capacities :	 False
-correct epsilon for epsilon-greedy strategy:  True
-
-
-Total time needed:
- 67.8452718257904 seconds = 
- 1.13075453042984 minutes

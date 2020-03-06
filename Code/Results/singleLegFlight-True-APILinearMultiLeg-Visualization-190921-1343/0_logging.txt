@@ -1,3 +1,0 @@
-Time (starting): 2019-09-21 13:43:00.467871
-Example :	 singleLegFlight
-use_var_capacities :	 True

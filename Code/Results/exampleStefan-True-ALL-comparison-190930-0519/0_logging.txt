@@ -1,0 +1,20 @@
+Time (starting): 2019-09-30 05:19:37.415135
+Example :	 exampleStefan
+use_var_capacities :	 True
+
+
+Data used:
+
+ES C:\Users\Stefan\LRZ Sync+Share\Masterarbeit-Klein\Code\Results\exampleStefan-True-ES-evaluation-190925-1341
+CDLP C:\Users\Stefan\LRZ Sync+Share\Masterarbeit-Klein\Code\Results\exampleStefan-True-CDLP-evaluation-190925-1329
+API-lc C:\Users\Stefan\LRZ Sync+Share\Masterarbeit-Klein\Code\Results\exampleStefan-True-APILinearMultiLeg-1-evaluation-190925-1342
+API-plc C:\Users\Stefan\LRZ Sync+Share\Masterarbeit-Klein\Code\Results\exampleStefan-True-APIplcMultiLeg-1-evaluation-190926-1320
+API-pl C:\Users\Stefan\LRZ Sync+Share\Masterarbeit-Klein\Code\Results\exampleStefan-True-APIplcMultiLeg-1-evaluation-190929-2035
+linReg C:\Users\Stefan\LRZ Sync+Share\Masterarbeit-Klein\Code\Results\exampleStefan-True-linReg-evaluation-190929-2049
+NN-hyper C:\Users\Stefan\LRZ Sync+Share\Masterarbeit-Klein\Code\Results\exampleStefan-True-NN3-evaluation-190928-1928
+NN-given C:\Users\Stefan\LRZ Sync+Share\Masterarbeit-Klein\Code\Results\exampleStefan-True-NN3-evaluation-190929-2250
+
+
+Total time needed:
+ 273.87009930610657 seconds = 
+ 4.564501655101776 minutes

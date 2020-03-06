@@ -1,0 +1,10 @@
+\begin{tabular}{lrrrr}
+\toprule
+{} &  Resource 1 &  Resource 2 &  Resource 3 &  Resource 4 \\
+\midrule
+1-10  &        1.48 &        3.96 &        1.02 &        6.84 \\
+11-20 &        1.43 &        4.00 &        0.97 &        6.85 \\
+21-60 &        1.41 &        4.00 &        0.96 &        6.84 \\
+\bottomrule
+\end{tabular}
+
